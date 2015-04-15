@@ -1,0 +1,91 @@
+//apply plugin: 'java'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
+}
+
+def commonProject = project(':common')
+def serverProject = project(':server')
+def serviceProject = project(':service')
+def tomcatPath = 'tomcat'
+def tomcatWebApp = tomcatPath + '/webapps'
+def warFileName = 'template'
+// VERSIONS
+def spring_version = '4.1.1.RELEASE'
+def hibernate_version = '3.6.9.Final'
+
+//println 'Common project dir: ' + commonProject.projectDir
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    sourceCompatibility = 1.7
+    version = '1.0'
+    jar {
+        manifest {
+            attributes 'Implementation-Title': 'Nikolay Product',
+                    'Implementation-Version': version
+        }
+    }
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testCompile 'junit:junit:4.11'
+        compile 'javax:javaee-api:6.0'
+        compile 'log4j:log4j:1.2.17'
+    }
+
+}
+
+configure([commonProject]) {
+//    apply plugin: 'war'
+    dependencies {
+        compile 'org.springframework:spring-web:' + spring_version
+        compile 'org.springframework:spring-tx:' + spring_version
+        compile 'org.springframework:spring-orm:' + spring_version
+        compile 'org.hibernate:hibernate-entitymanager:' + hibernate_version
+        compile 'org.hibernate:hibernate-core:' + hibernate_version
+        compile 'mysql:mysql-connector-java:5.1.9'
+        compile 'commons-dbcp:commons-dbcp:1.4'
+    }
+}
+
+
+configure([serverProject]) {
+    dependencies {
+        compile commonProject
+    }
+}
+
+configure([serviceProject]) {
+    apply plugin: 'war'
+    dependencies {
+        compile commonProject
+        compile serverProject
+        providedCompile "javax.servlet:servlet-api:2.5"
+        providedCompile 'log4j:log4j:1.2.17'
+        compile 'org.springframework:spring-webmvc:' + spring_version
+        compile 'javax.inject:javax.inject:1'
+//        compile 'org.springframework:spring-core:4.1.1.RELEASE'
+//        compile 'org.springframework:spring-context:4.1.1.RELEASE'
+//        compile 'org.springframework:spring-beans:4.1.1.RELEASE'
+    }
+    war {
+        archiveName = warFileName + ".war"
+    }
+}
+
+task cleanTomcatDeployDir(type: org.gradle.api.tasks.Delete) {
+    delete tomcatWebApp + '/' + warFileName
+}
+
+task createAndCopyWar(type: Copy, dependsOn: [serviceProject.build, cleanTomcatDeployDir]) {
+    from 'src/service/build/libs/' + warFileName + '.war'
+    into tomcatWebApp
+}
+
+
+
+

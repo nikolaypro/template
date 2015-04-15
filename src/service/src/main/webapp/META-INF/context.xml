@@ -1,0 +1,13 @@
+<Context>
+    <!-- Database connection -->
+    <Resource driverClassName="com.mysql.jdbc.Driver"
+              maxActive="20"
+              maxIdle="2"
+              maxWait="5000"
+              name="jdbc/MascotDS"
+              username="root"
+              password="root"
+              type="javax.sql.DataSource"
+              url="jdbc:mysql://localhost:3306/template_db"
+              />
+</Context>
