@@ -1,6 +1,7 @@
 rootProject.name = 'Template'
-include ':common', ':server', ':service'
+include ':common', ':server', ':service', ':web'
 //include "common", "server"
 project(':common').projectDir = new File(settingsDir, 'src/common')
 project(':server').projectDir = new File(settingsDir, 'src/server')
 project(':service').projectDir = new File(settingsDir, 'src/service')
+project(':web').projectDir = new File(settingsDir, 'src/web')
