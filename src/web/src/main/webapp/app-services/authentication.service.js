@@ -5,8 +5,8 @@
         .module('app')
         .factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService'];
-    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService) {
+    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService', 'UrlService'];
+    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService, UrlService) {
         var service = {};
 
         service.Login = Login;
@@ -19,6 +19,7 @@
 
             /* Dummy authentication for testing, uses $timeout to simulate api call
              ----------------------------------------------*/
+/*
             $timeout(function () {
                 var response;
                 UserService.GetByUsername(username)
@@ -31,13 +32,24 @@
                         callback(response);
                     });
             }, 1000);
+*/
 
             /* Use this for real authentication
              ----------------------------------------------*/
-            //$http.post('/api/authenticate', { username: username, password: password })
-            //    .success(function (response) {
-            //        callback(response);
-            //    });
+            var url = UrlService.url('api/authenticate');
+            $http.post(url, { name: username, password: password })
+                .success(function (response) {
+                    response.success = true;
+                    callback(response);
+                })
+                .error(function (data, status, headers, config) {
+                    var message = 'Username or password is incorrect';
+                    if (status = 404) {
+                        message = 'Server not found';
+                    }
+                    var response = { success: false, message: message };
+                    callback(response);
+                });
 
         }
 

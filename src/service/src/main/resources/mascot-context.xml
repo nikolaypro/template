@@ -23,7 +23,7 @@
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
-        <property name="persistenceUnitName" value="personPersistenceUnit" />
+        <property name="persistenceUnitName" value="templatePersistenceUnit" />
         <property name="dataSource" ref="dataSource" />
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
         <property name="jpaDialect" ref="jpaDialect" />
@@ -44,11 +44,18 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
-
+    <!--For use proxy--><!--<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>-->
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="jdbc/MascotDS"/>
         <property name="resourceRef" value="true"/>
     </bean>
+
+<!--
+    <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="prefixJson" value="false"/>
+        <property name="supportedMediaTypes" value="application/json"/>
+    </bean>
+-->
 
 <!--
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">

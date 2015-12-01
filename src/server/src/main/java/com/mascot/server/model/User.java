@@ -3,13 +3,16 @@ package com.mascot.server.model;
 import javax.persistence.*;
 
 /**
- * Created by Nikolay on 15.12.2014.
+ * Created by Nikolay on 01.12.2015.
  */
 @Entity
-@Table(name = "template_table")
-public class TemplateEntity extends Identified {
+@Table(name = "users")
+public class User extends Identified {
     @Column
     private String name;
+
+    @Column
+    private String password;
 
     public String getName() {
         return name;
@@ -17,5 +20,9 @@ public class TemplateEntity extends Identified {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
