@@ -9,20 +9,40 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User extends Identified {
     @Column
-    private String name;
+    private String login;
+
+    @Column
+    private String fullName;
 
     @Column
     private String password;
 
-    public String getName() {
-        return name;
+    public String getLogin() {
+        return login;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return login;
     }
 }

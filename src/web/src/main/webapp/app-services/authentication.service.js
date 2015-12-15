@@ -37,7 +37,7 @@
             /* Use this for real authentication
              ----------------------------------------------*/
             var url = UrlService.url('api/authenticate');
-            $http.post(url, { name: username, password: password })
+            $http.post(url, { login: username, password: password })
                 .success(function (response) {
                     response.success = true;
                     callback(response);

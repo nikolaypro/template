@@ -39,20 +39,20 @@ public class MascotController {
     @RequestMapping(value = "/test/user", method = RequestMethod.POST)
     @ResponseBody
     public User test2(@RequestBody User user) {
-        System.out.println("call Test 2. user name = " + (user != null ? user.getName() : "NULL"));
+        System.out.println("call Test 2. user name = " + (user != null ? user.getFullName() : "NULL"));
 //        System.out.println("Bean2 " + bean2.getValue2());
         final User user1 = new User();
-        user1.setName((user != null ? user.getName() : "NULL") + ": modified");
+        user1.setFullName((user != null ? user.getFullName() : "NULL") + ": modified");
         return user1;
     }
 
     @RequestMapping(value = "/test/user1", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<User> test3(@RequestBody User user) {
-        System.out.println("call Test 2. user name = " + (user != null ? user.getName() : "NULL"));
+        System.out.println("call Test 2. user name = " + (user != null ? user.getFullName() : "NULL"));
 //        System.out.println("Bean2 " + bean2.getValue2());
         final User user1 = new User();
-        user1.setName((user != null ? user.getName() : "NULL") + ": modified");
+        user1.setFullName((user != null ? user.getFullName() : "NULL") + ": modified");
         return new ResponseEntity<User>(user1, HttpStatus.OK);
     }
 
