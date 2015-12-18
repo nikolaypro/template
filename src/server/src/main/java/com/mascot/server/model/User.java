@@ -11,7 +11,7 @@ public class User extends Identified {
     @Column
     private String login;
 
-    @Column
+    @Column(name = "full_name")
     private String fullName;
 
     @Column
