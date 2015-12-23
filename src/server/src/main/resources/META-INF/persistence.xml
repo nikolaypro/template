@@ -4,5 +4,6 @@
     <persistence-unit name="templatePersistenceUnit" transaction-type="RESOURCE_LOCAL" >
         <class>com.mascot.server.model.TemplateEntity</class>
         <class>com.mascot.server.model.User</class>
+        <class>com.mascot.server.model.Role</class>
     </persistence-unit>
 </persistence>

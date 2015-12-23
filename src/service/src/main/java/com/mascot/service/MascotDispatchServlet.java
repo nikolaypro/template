@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MascotDispatchServlet extends DispatcherServlet {
 
+
     @Override
     protected void doService(HttpServletRequest request, HttpServletResponse response) throws Exception {
 //        Logger.getLogger(MascotDispatchServlet.class).info(RequestContextUtils.getWebApplicationContext(request));

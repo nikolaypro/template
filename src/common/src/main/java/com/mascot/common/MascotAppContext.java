@@ -16,4 +16,12 @@ public class MascotAppContext {
     public static ApplicationContext getApplicationContext() {
         return applicationContext;
     }
+
+    public static <A> A getBean(String beanName, Class<A> aClass) {
+        return applicationContext.getBean(beanName, aClass);
+    }
+
+    public static <A> A getBean(Class<A> aClass) {
+        return applicationContext.getBean(aClass.getSimpleName(), aClass);
+    }
 }

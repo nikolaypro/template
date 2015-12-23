@@ -43,9 +43,12 @@
                     callback(response);
                 })
                 .error(function (data, status, headers, config) {
-                    var message = 'Username or password is incorrect';
-                    if (status = 404) {
+                    var message = 'Unknown error';
+                    if (status == 404) {
                         message = 'Server not found';
+                    }
+                    if (status == 401 && data.error) {
+                        message = 'Username or password is incorrect';
                     }
                     var response = { success: false, message: message };
                     callback(response);
