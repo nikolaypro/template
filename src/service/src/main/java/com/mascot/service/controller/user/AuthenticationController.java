@@ -47,7 +47,6 @@ public class AuthenticationController extends AbstractController {
         }
         logger.info("Successfully login: username = " + user.getLogin());
         return user;
-//        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
     private void throwInvalidUserName(User user) {
@@ -67,70 +66,23 @@ public class AuthenticationController extends AbstractController {
     public User[] getUsers() {
         final Collection<User> users = userService.getUsers();
         return users.toArray(new User[users.size()]);
-/*
-        final User user1 = new User();
-        user1.setLogin("login 1");
-        user1.setFullName("Full name 1");
-        user1.setId(1L);
-        final User user2 = new User();
-        user2.setLogin("login 2");
-        user2.setFullName("Full name 2");
-        user2.setId(2L);
-        return new User[]{user1, user2};
-*/
-//        return Arrays.asList(user1, user2);
     }
 
     @RequestMapping(value = "/users/{userName}", method = RequestMethod.GET)
 //    @Secured({"REGULAR", "ADMIN"})
-//    @PreAuthorize("hasRole('ROLE_REGULAR') or hasRole('ROLE_ADMIN')")
     @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     @ResponseBody
     public User getUser(@PathVariable("userName") String userName) {
         logger.info("User: '" + userService.getCurrentUser().getFullName() + "'");
         logger.info("User id: '" + userService.getCurrentUserId()+ "'");
         return userService.loadUserByLogin(userName);
-/*
-        final User user1 = new User();
-        user1.setLogin("userName");
-        user1.setFullName("Full name 1");
-        user1.setId(1L);
-        return user1;
-*/
-//        return Arrays.asList(user1, user2);
     }
-
-/*
-    @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
-    public ModelAndView handleAuthenticationCredentialsNotFoundException(AuthenticationCredentialsNotFoundException ex) {
-        ModelAndView model = new ModelAndView("error/generic_error");
-        model.addObject("exception", ex);
-        return model;
-    }
-*/
 
     @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
     public ResponseEntity handleAuthenticationCredentialsNotFoundException(AuthenticationCredentialsNotFoundException ex) {
         return new ResponseEntity<WebError>(new WebError(ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
-/*
-    @RequestMapping(path = "/pets", method = RequestMethod.POST, consumes="application/json")
-    public void addPet(@RequestBody Pet pet, Model model) {
-        // implementation omitted
-    }
-
-    @RequestMapping(path = "/pets/{petId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public Pet getPet(@PathVariable String petId, Model model) {
-        // implementation omitted
-    }
-*/
-
-    public static void main(String[] args) {
-        final byte[] encode = Base64.encode("1".getBytes());
-        System.out.println("'" + new String(encode) + "'");
-    }
 }
 
 
