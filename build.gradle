@@ -23,7 +23,8 @@ def fasterxml_jackson_version = '2.6.3'
 allprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
-    sourceCompatibility = 1.8
+//    sourceCompatibility = 1.8
+//    targetCompatibility = 1.8
     version = '1.0'
     jar {
         manifest {
@@ -72,16 +73,12 @@ configure([serviceProject]) {
         providedCompile 'log4j:log4j:1.2.17'
         compile 'org.springframework:spring-webmvc:' + spring_version
         compile 'org.springframework:spring-web:' + spring_version
-//        compile 'org.springframework.security:spring-security-core:' + spring_security_version
         compile 'org.springframework.security:spring-security-web:' + spring_security_version
         compile 'org.springframework.security:spring-security-config:' + spring_security_version
         compile 'org.codehaus.jackson:jackson-mapper-asl:' + jackson_version
         compile 'com.fasterxml.jackson.core:jackson-core:' + fasterxml_jackson_version
         compile 'com.fasterxml.jackson.core:jackson-databind:' + fasterxml_jackson_version
         compile 'javax.inject:javax.inject:1'
-//        compile 'org.springframework:spring-core:4.1.1.RELEASE'
-//        compile 'org.springframework:spring-context:4.1.1.RELEASE'
-//        compile 'org.springframework:spring-beans:4.1.1.RELEASE'
     }
     war {
         archiveName = warFileName + ".war"

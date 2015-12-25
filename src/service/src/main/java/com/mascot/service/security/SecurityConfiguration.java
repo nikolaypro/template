@@ -76,10 +76,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                    .antMatchers(HttpMethod.GET, "/api/users").permitAll()
 //                    .antMatchers(HttpMethod.GET, "/api/users/*").permitAll()
                 .and()
-                .csrf().disable()
-                .authorizeRequests()
-//                    .anyRequest().authenticated()
-                    .and()
+/** -- CSRF -- **/
+//                .csrf().disable()
+                .csrf().ignoringAntMatchers("/api/authenticate").and()
+                .csrf().csrfTokenRepository(csrfTokenRepository())
+                .and()
+                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+/** ---- **/
                 .httpBasic();
 
 /*
