@@ -10,6 +10,7 @@
         var service = {};
 
         service.Login = Login;
+        service.Logout = Logout;
         service.SetCredentials = SetCredentials;
         service.ClearCredentials = ClearCredentials;
 
@@ -68,6 +69,16 @@
 
             $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
             $cookieStore.put('globals', $rootScope.globals);
+        }
+
+        function Logout(callback) {
+            $http.post(UrlService.url('/logout'), {})
+                .success(function (response) {
+                    callback(true)
+                })
+                .error(function (data, status, headers, config) {
+                    callback(false)
+                });
         }
 
         function ClearCredentials() {

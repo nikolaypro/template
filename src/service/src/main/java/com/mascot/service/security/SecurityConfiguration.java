@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -20,10 +21,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.codec.Base64;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,14 +80,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                    .antMatchers(HttpMethod.GET, "/api/users").permitAll()
 //                    .antMatchers(HttpMethod.GET, "/api/users/*").permitAll()
                 .and()
-/** -- CSRF -- **/
+// -- CSRF configuration
 //                .csrf().disable()
-                .csrf().ignoringAntMatchers("/api/authenticate").and()
+                .csrf().ignoringAntMatchers("/api/authenticate", "/logout").and()
                 .csrf().csrfTokenRepository(csrfTokenRepository())
                 .and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
-/** ---- **/
-                .httpBasic();
+// -- end CSRF configuration
+                .httpBasic()
+                .and()
+// -- Logout configuration
+                .logout().
+                logoutUrl("/logout").
+                logoutSuccessUrl("/").
+                addLogoutHandler(createLogoutHandler());
+// -- End logout configuration
 
 /*
         http
@@ -100,5 +111,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
         repository.setHeaderName("X-XSRF-TOKEN");
         return repository;
+    }
+
+    private LogoutHandler createLogoutHandler() {
+        return new LogoutHandler() {
+
+            @Override
+            public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+                final User principal = (User) authentication.getPrincipal();
+                logger.info("Success Logout: " + principal.getUsername());
+            }
+        };
     }
 }
