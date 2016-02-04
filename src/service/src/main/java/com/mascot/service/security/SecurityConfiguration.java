@@ -61,8 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     authorities.add(new SimpleGrantedAuthority(role.getName()));
                 }
                 final byte[] encode = Base64.decode(appUser.getPassword().getBytes());
-//                authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-                return new User(username, /*"1"*/new String(encode), authorities);
+                return new User(username, new String(encode), authorities);
             }
         });
 
