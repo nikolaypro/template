@@ -2,31 +2,34 @@
 <html ng-app="app">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template project</title>
-    <link href="bootstrap-3.3.5-dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="ext/bootstrap-3.3.5-dist/css/bootstrap.css" rel="stylesheet" />
     <link href="app-content/app.css" rel="stylesheet" />
 </head>
 <body>
 
     <div class="jumbotron">
-        <div class="container">
-            <div class="col-sm-8 col-sm-offset-2">
-                <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
-                <div ng-view></div>
-            </div>
-        </div>
+        <!--<div class="container">-->
+            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }"
+                 ng-if="flash" ng-bind="flash.message"></div>
+            <div ng-view></div>
+        <!--</div>-->
     </div>
     <div class="credits text-center">
         <p>
             Template project
         </p>
+            <img ng-if="dataLoading"
+                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
     </div>
 
-    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="ext/bower_components/jquery/jquery.min.js"></script>
+    <script src="ext/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
     <!--<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>-->
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="ext/bower_components/angular/angular.js"></script>
+    <script src="ext/bower_components/angular-route/angular-route.js"></script>
+    <script src="ext/bower_components/angular-cookies/angular-cookies.js"></script>
     <!--<script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>-->
     <!--<script src="//code.angularjs.org/1.2.20/angular.js"></script>-->
     <!--<script src="//code.angularjs.org/1.2.20/angular-route.js"></script>-->
@@ -46,5 +49,7 @@
     <script src="home/home.controller.js"></script>
     <script src="login/login.controller.js"></script>
     <script src="register/register.controller.js"></script>
+    <script src="main/main.controller.js"></script>
+    <script src="template/maintopmenu/mainTopMenu.js"></script>
 </body>
 </html>

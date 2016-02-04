@@ -46,7 +46,7 @@ public class AuthenticationController extends AbstractController {
             throwInvalidPassword(user);
         }
         logger.info("Successfully login: username = " + user.getLogin());
-        return user;
+        return entityUser;
     }
 
     private void throwInvalidUserName(User user) {

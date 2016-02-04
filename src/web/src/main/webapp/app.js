@@ -10,8 +10,9 @@
     function config($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
-                controller: 'HomeController',
-                templateUrl: 'home/home.view.html',
+                controller: 'MainController',
+//                templateUrl: 'home/home.view.html',
+                templateUrl: 'main/main.view.html',
                 controllerAs: 'vm'
             })
 
@@ -37,7 +38,11 @@
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
         }
-
+        $rootScope.userPerm = {
+            users: function () {
+                return ($rootScope.globals.roles.contains('ROLE_ADMIN'));
+            }
+        }
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             // redirect to login page if not logged in and trying to access a restricted page
             var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;

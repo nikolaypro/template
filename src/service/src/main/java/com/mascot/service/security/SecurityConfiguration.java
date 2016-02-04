@@ -48,6 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 //                final byte[] encode = Base64.encode("2:1".getBytes());
 //                final String password = new String(encode);
+                // todo find in cache and if not found find in database;
                 final UserService userService = MascotAppContext.getBean(UserService.class);
                 final com.mascot.server.model.User appUser = userService.loadUserByLogin(username);
                 if (appUser == null) {
@@ -118,6 +119,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             @Override
             public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+                try {
+                    Thread.currentThread().sleep(1000);
+                } catch (InterruptedException e) {
+
+                }
+
                 final User principal = (User) authentication.getPrincipal();
                 logger.info("Success Logout: " + principal.getUsername());
             }

@@ -1,1 +1,13 @@
-﻿
+﻿.app-navbar-bottom-margin {
+    margin-bottom: 10px;
+}
+
+.app-navbar-right {
+    margin-right: 10px;
+}
+.top_menu_user_detail {
+    color: #749aa8;
+    position: relative;
+    display: block;
+    padding-top: 15px;
+}
