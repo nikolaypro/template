@@ -5,9 +5,9 @@
         .module('app')
         .directive('mainTopMenu', MainTopMenu);
 
-    MainTopMenu.$inject = ['$rootScope'];
+    MainTopMenu.$inject = ['$rootScope', '$location'];
 
-    function MainTopMenu($rootScope) {
+    function MainTopMenu($rootScope, $location) {
         var getRoleMenu = function(role) {
             switch (role.name) {
                 case 'ROLE_ADMIN':
@@ -31,6 +31,18 @@
             });
             return result;
         };
+
+        var getSelectedMenu = function($location) {
+            var patch = $location.$$path;
+            if (patch) {
+                var index = patch.indexOf('/', 1);
+                if (index === -1) {
+                    return patch.substring(1);
+                }
+                return patch.substring(1, index);
+            }
+            return '';
+        };
         return {
             restrict: 'E',
             templateUrl: 'template/maintopmenu/mainTopMenu.html',
@@ -45,9 +57,11 @@
                     AuthenticationService.Logout(function(success) {
                         AuthenticationService.ClearCredentials();
                         vm.dataLoading = false;
-                        $location.path('#/login');
+                        $location.path('/login');
                     });
-
+                };
+                $scope.isActive = function(menuItem) {
+                    return menuItem == getSelectedMenu($location);
                 }
             }]
 

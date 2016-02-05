@@ -22,19 +22,38 @@
             </a>
         </li>
 -->
-            <li class="active" ng-show="$.inArray('home', enabledMenu) > -1"><a href="#">Home</a></li>
-            <li ng-show="$.inArray('about', enabledMenu) != -1"><a href="#">About</a></li>
-            <li ng-show="$.inArray('contact', enabledMenu) != -1"><a href="#">Contact</a></li>
-            <li ng-show="$.inArray('dropdown', enabledMenu) != -1" class="dropdown">
-                <a ng-show="$.inArray('dropdown', enabledMenu) != -1" href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+            <li ng-class="isActive('home') ? 'active' : ''" ng-show="$.inArray('home', enabledMenu) > -1">
+                <a href="#">Home</a>
+            </li>
+            <li ng-class="isActive('about') ? 'active' : ''" ng-show="$.inArray('about', enabledMenu) != -1">
+                <a href="#">About</a>
+            </li>
+            <li ng-class="isActive('contact') ? 'active' : ''" ng-show="$.inArray('contact', enabledMenu) != -1">
+                <a ng-href="#/contact">Contact</a>
+            </li>
+            <li ng-class="isActive('dropdown') ? 'active' : ''" ng-show="$.inArray('dropdown', enabledMenu) != -1" class="dropdown">
+                <a ng-show="$.inArray('dropdown', enabledMenu) != -1" href="" class="dropdown-toggle"
+                    data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Dropdown <span class="caret"></span>
+                </a>
                 <ul ng-show="$.inArray('dropdown', enabledMenu) != -1" class="dropdown-menu">
-                    <li ng-show="$.inArray('action', enabledMenu) != -1"><a href="#">Action</a></li>
-                    <li ng-show="$.inArray('anotherAction', enabledMenu) != -1"><a href="#">Another action</a></li>
-                    <li ng-show="$.inArray('somethingElseHere', enabledMenu) != -1"><a href="#">Something else here</a></li>
+                    <li ng-class="isActive('action') ? 'active' : ''" ng-show="$.inArray('action', enabledMenu) != -1">
+                        <a href="#">Action</a>
+                    </li>
+                    <li ng-class="isActive('anotherAction') ? 'active' : ''" ng-show="$.inArray('anotherAction', enabledMenu) != -1">
+                        <a href="#">Another action</a>
+                    </li>
+                    <li ng-class="isActive('somethingElseHere') ? 'active' : ''" ng-show="$.inArray('somethingElseHere', enabledMenu) != -1">
+                        <a href="#">Something else here</a>
+                    </li>
                     <li role="separator" class="divider"></li>
                     <li class="dropdown-header">Nav header</li>
-                    <li ng-show="$.inArray('separatedLink', enabledMenu) != -1"><a href="#">Separated link</a></li>
-                    <li ng-show="$.inArray('oneMoreSeparatedLink', enabledMenu) != -1"><a href="#">One more separated link</a></li>
+                    <li ng-class="isActive('separatedLink') ? 'active' : ''" ng-show="$.inArray('separatedLink', enabledMenu) != -1">
+                        <a href="#">Separated link</a>
+                    </li>
+                    <li ng-class="isActive('oneMoreSeparatedLink') ? 'active' : ''" ng-show="$.inArray('oneMoreSeparatedLink', enabledMenu) != -1">
+                        <a href="#">One more separated link</a>
+                    </li>
                 </ul>
             </li>
         </ul>

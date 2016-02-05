@@ -16,6 +16,12 @@
                 controllerAs: 'vm'
             })
 
+            .when('/contact', {
+                controller: 'ContactController',
+                templateUrl: 'contact/contact.view.html',
+                controllerAs: 'vm'
+            })
+
             .when('/login', {
                 controller: 'LoginController',
                 templateUrl: 'login/login.view.html',
