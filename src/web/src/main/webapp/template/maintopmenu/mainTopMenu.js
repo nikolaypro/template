@@ -11,7 +11,7 @@
         var getRoleMenu = function(role) {
             switch (role.name) {
                 case 'ROLE_ADMIN':
-                        return ['home', 'about'];
+                        return ['users', 'reports'];
                 case 'ROLE_REGULAR':
                     return ['contact', 'dropdown', 'action', 'separated_link'];
                 default:

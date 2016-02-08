@@ -22,6 +22,18 @@
                 controllerAs: 'vm'
             })
 
+            .when('/users', {
+                controller: 'UsersController',
+                templateUrl: 'users/users.view.html',
+                controllerAs: 'vm'
+            })
+
+            .when('/reports', {
+                controller: 'ReportsController',
+                templateUrl: 'reports/reports.view.html',
+                controllerAs: 'vm'
+            })
+
             .when('/login', {
                 controller: 'LoginController',
                 templateUrl: 'login/login.view.html',
