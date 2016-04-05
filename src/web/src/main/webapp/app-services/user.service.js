@@ -18,7 +18,7 @@
 
         return service;
 
-        function GetAll() {
+        function GetAll(handleSuccess) {
             return $http.get(UrlService.url('api/users')).then(handleSuccess, handleError('Error getting all users'));
         }
 

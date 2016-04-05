@@ -65,6 +65,12 @@ public class AuthenticationController extends AbstractController {
     @ResponseBody
     public User[] getUsers() {
         final Collection<User> users = userService.getUsers();
+        for (int i = 1; i <= 20; i++) {
+            final User e = new User();
+            e.setFullName("Fake Name " + i);
+            e.setLogin("Fake login " + i);
+            users.add(e);
+        }
         return users.toArray(new User[users.size()]);
     }
 
