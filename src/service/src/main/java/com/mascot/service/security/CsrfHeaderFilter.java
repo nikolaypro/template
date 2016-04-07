@@ -24,7 +24,8 @@ public class CsrfHeaderFilter extends OncePerRequestFilter {
             final String token = csrf.getToken();
             if (cookie == null || token != null && !token.equals(cookie.getValue())) {
                 cookie = new Cookie("XSRF-TOKEN", token);
-                cookie.setPath("/template");
+                cookie.setPath("/");
+//                cookie.setPath("/template-web");
                 response.addCookie(cookie);
             }
         }
