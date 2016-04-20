@@ -4,10 +4,11 @@
     {{vm.tmpValue}}
     USERS
 -->
+    <!--<button ng-click="vm.doPost()">POST</button>-->
     <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped">
         <tr ng-repeat="row in $data">
-            <td data-title="'Name'" filter="{fullName: 'text'}" sortable="'fullName'">{{row.fullName}}</td>
-            <td data-title="'Login'" filter="{login: 'text'}" sortable="'login'">{{row.login}}</td>
+            <td data-title="'Name'" sortable="'fullName'">{{row.fullName}}</td>
+            <td data-title="'Login'" sortable="'login'">{{row.login}}</td>
             <!--<td data-title="'Roles'" filter="{roles: 'number'}" >{{row.roles}}</td>-->
         </tr>
     </table>

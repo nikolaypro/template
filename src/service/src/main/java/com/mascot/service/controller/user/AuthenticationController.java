@@ -6,6 +6,8 @@ import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 import com.mascot.service.controller.AbstractController;
 import com.mascot.service.controller.WebError;
+import com.mascot.service.controller.common.TableParams;
+import com.mascot.service.controller.common.TableResult;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.codec.Base64;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -45,7 +48,8 @@ public class AuthenticationController extends AbstractController {
         if (!new String(encode).equals(entityUser.getPassword())) {
             throwInvalidPassword(user);
         }
-        logger.info("Successfully login: username = " + user.getLogin());
+        logger.info("Successfully login: username = " + user.getLogin() +
+                ", roles: [" + StringUtils.collectionToCommaDelimitedString(entityUser.getRoles()) + "]");
         return entityUser;
     }
 
@@ -61,9 +65,13 @@ public class AuthenticationController extends AbstractController {
         throw new AuthenticationCredentialsNotFoundException(msg);
     }
 
+/*
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     @ResponseBody
-    public User[] getUsers() {
+//    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    public User[] getUsers(*/
+/*@RequestBody TableParams params*//*
+) {
         final Collection<User> users = userService.getUsers();
         for (int i = 1; i <= 20; i++) {
             final User e = new User();
@@ -71,7 +79,28 @@ public class AuthenticationController extends AbstractController {
             e.setLogin("Fake login " + i);
             users.add(e);
         }
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return users.toArray(new User[users.size()]);
+    }
+*/
+
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    @ResponseBody
+//    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    public TableResult<User> getUsersPost(@RequestBody TableParams params) {
+        final Collection<User> users = userService.getUsers();
+
+        for (int i = (params.page - 1) * params.count; i <= Math.min(params.page * params.count, 533); i++) {
+            final User e = new User();
+            e.setFullName("Fake Name " + i);
+            e.setLogin("Fake login " + i);
+            users.add(e);
+        }
+        return TableResult.create(users.toArray(new User[users.size()]), 533);
     }
 
     @RequestMapping(value = "/users/{userName}", method = RequestMethod.GET)

@@ -18,8 +18,16 @@
 
         return service;
 
-        function GetAll(handleSuccess) {
-            return $http.get(UrlService.url('api/users')).then(handleSuccess, handleError('Error getting all users'));
+        function GetAll(params, handleSuccess) {
+            var requestParam = {
+                page: params.page(),
+                count: params.count(),
+                orderBy: params.sorting(),
+                isOrderAsc: true
+        };
+
+            return $http.post(UrlService.url('api/users'), requestParam).then(handleSuccess, handleError('Error getting all users'));
+//            return $http.get(UrlService.url('api/users')).then(handleSuccess, handleError('Error getting all users'));
         }
 
         function GetById(id) {

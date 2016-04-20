@@ -77,7 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests()
                     .antMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
-//                    .antMatchers(HttpMethod.GET, "/api/users").permitAll()
+//                    .antMatchers(HttpMethod.POST, "/api/users").permitAll()
 //                    .antMatchers(HttpMethod.GET, "/api/users/*").permitAll()
                 .and()
 // -- CSRF configuration
@@ -118,14 +118,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             @Override
             public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+/*
                 try {
                     Thread.currentThread().sleep(1000);
                 } catch (InterruptedException e) {
 
                 }
+*/
+                if (authentication != null) {
+                    final User principal = (User) authentication.getPrincipal();
+                    logger.info("Success Logout: " + principal.getUsername());
+                } else {
+                    logger.info("Success logout but authentication is null");
+                }
 
-                final User principal = (User) authentication.getPrincipal();
-                logger.info("Success Logout: " + principal.getUsername());
+
             }
         };
     }

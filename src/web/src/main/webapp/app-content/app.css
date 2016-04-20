@@ -11,3 +11,7 @@
     display: block;
     padding-top: 15px;
 }
+
+.pagination {
+    margin: 0px 0;
+}
