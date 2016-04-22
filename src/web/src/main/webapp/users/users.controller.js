@@ -5,22 +5,19 @@
         .module('app')
         .controller('UsersController', UsersController);
 
-    UsersController.$inject = ['UrlService', '$http', 'UserService', 'NgTableParams'];
-    function UsersController(UrlService, $http, UserService, NgTableParams) {
+    UsersController.$inject = ['UrlService', '$http', 'UserService', 'NgTableParams', '$scope', '$timeout'];
+    function UsersController(UrlService, $http, UserService, NgTableParams, $scope, $timeout) {
         var vm = this;
-/*
-        vm.doPost = function() {
-            var requestParam = {
-                page: 1,
-                count: 10,
-                orderBy: {name: 'asc'},
-                isOrderAsc: true
-            };
-            return $http.post(UrlService.url('api/users'), requestParam).then(function(data) {
+        vm.showNew = false;
+        vm.doNew = function() {
+            vm.showNew = false;/*!vm.showNew;*/
+            $timeout(function() {
+                vm.showNew = true;
+                $scope.$digest();
+            }, 0);
 
-            });
+
         };
-*/
         vm.tmpValue = 'USERS_TMP VALUE';
         vm.TEMPLATE_VALUE = 'USERS_TEMPLATE_VALUE_DELETE_ME';
         vm.tableParams = new NgTableParams(

@@ -15,3 +15,33 @@
 .pagination {
     margin: 0px 0;
 }
+
+.edit-buttons {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.submit-button {
+    margin-top: 15px;
+}
+
+.modal-header {
+/*
+    background-image: -webkit-linear-gradient(top, #337ab7 0%, #265a88 100%);
+*/
+    background-image: -webkit-linear-gradient(top, #3495d5 0%, #337ab7 100%);
+    background-image:      -o-linear-gradient(top, #3495d5 0%, #337ab7 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#3495d5), to(#337ab7));
+    background-image:         linear-gradient(to bottom, #3495d5 0%, #337ab7 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3495d5', endColorstr='#ff337ab7', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    background-repeat: repeat-x;
+    border-color: #245580;
+    /*background-color: #337AB7*/
+}
+
+.modal-title {
+    line-height: 0.7;
+}
+

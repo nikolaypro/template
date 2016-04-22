@@ -4,8 +4,12 @@
     {{vm.tmpValue}}
     USERS
 -->
-    <!--<button ng-click="vm.doPost()">POST</button>-->
-    <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped">
+    <div class="edit-buttons">
+        <button class="btn btn-primary btn-sm" ng-click="vm.doNew()">New</button>
+        <button class="btn btn-primary btn-sm" ng-disabled="true" ng-click="vm.doPost()">Edit</button>
+        <button class="btn btn-primary btn-sm" ng-disabled="true" ng-click="vm.doPost()">Remove</button>
+    </div>
+    <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-hover">
         <tr ng-repeat="row in $data">
             <td data-title="'Name'" sortable="'fullName'">{{row.fullName}}</td>
             <td data-title="'Login'" sortable="'login'">{{row.login}}</td>
@@ -13,32 +17,30 @@
         </tr>
     </table>
 
+    <modal title="New user" visible="vm.showNew">
+        <form role="form">
+            <div class="form-group">
+                <label for="fullName">Full name</label>
+                <input type="email" class="form-control" id="fullName" placeholder="Enter full name" />
+            </div>
+            <div class="form-group">
+                <label for="login">Login</label>
+                <input type="text" class="form-control" id="login" placeholder="Enter login" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter password" />
+            </div>
+            <div class="form-group">
+                <label for="repeatPassword">Repeat password</label>
+                <input type="password" class="form-control" id="repeatPassword" placeholder="Enter password" />
+            </div>
 <!--
-    <table class="table table-hover table-condensed">
-        <thead>
-        <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-        </tr>
-        <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-        </tr>
-        <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-        </tr>
-        </tbody>
-    </table>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-primary" on-cl>Cancel</button>
+            </div>
 -->
+        </form>
+    </modal>
 </div>
