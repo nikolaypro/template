@@ -13,7 +13,7 @@
         <tr ng-repeat="row in $data">
             <td data-title="'Name'" sortable="'fullName'">{{row.fullName}}</td>
             <td data-title="'Login'" sortable="'login'">{{row.login}}</td>
-            <!--<td data-title="'Roles'" filter="{roles: 'number'}" >{{row.roles}}</td>-->
+            <td data-title="'Roles'">{{vm.formatRoles(row.roles)}}</td>
         </tr>
     </table>
 

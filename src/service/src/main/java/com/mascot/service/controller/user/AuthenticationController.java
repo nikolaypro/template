@@ -91,7 +91,7 @@ public class AuthenticationController extends AbstractController {
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     @ResponseBody
 //    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
-    public TableResult<User> getUsersPost(@RequestBody TableParams params) {
+    public TableResult<User> getUsers(@RequestBody TableParams params) {
         final Collection<User> users = userService.getUsers();
 
         for (int i = (params.page - 1) * params.count; i <= Math.min(params.page * params.count, 533); i++) {
