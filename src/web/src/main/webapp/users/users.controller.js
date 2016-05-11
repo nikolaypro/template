@@ -5,8 +5,8 @@
         .module('app')
         .controller('UsersController', UsersController);
 
-    UsersController.$inject = ['UrlService', '$http', 'UserService', 'NgTableParams', '$scope', '$timeout'];
-    function UsersController(UrlService, $http, UserService, NgTableParams, $scope, $timeout) {
+    UsersController.$inject = ['UserService', 'NgTableParams', '$scope', '$timeout'];
+    function UsersController(UserService, NgTableParams, $scope, $timeout) {
         var vm = this;
 // Modal dialog logic
         vm.showNew = false;

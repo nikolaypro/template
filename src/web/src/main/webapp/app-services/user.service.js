@@ -5,8 +5,8 @@
         .module('app')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$http', 'UrlService'];
-    function UserService($http, UrlService) {
+    UserService.$inject = ['$http', 'UrlService', 'FlashService'];
+    function UserService($http, UrlService, FlashService) {
         var service = {};
 
         service.GetAll = GetAll;
@@ -24,30 +24,30 @@
                 count: params.count(),
                 orderBy: params.sorting(),
                 isOrderAsc: true
-        };
+            };
 
-            return $http.post(UrlService.url('api/users'), requestParam).then(handleSuccess, handleError('Error getting all users'));
+            return $http.post(UrlService.url('api/users'), requestParam).then(handleSuccess, handleError);
 //            return $http.get(UrlService.url('api/users')).then(handleSuccess, handleError('Error getting all users'));
         }
 
         function GetById(id) {
-            return $http.get('/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
+            return $http.get('/api/users/' + id).then(handleSuccess, handleError);
         }
 
         function GetByUsername(username) {
-            return $http.get(UrlService.url('api/users/' + username)).then(handleSuccess, handleError('Error getting user by username'));
+            return $http.get(UrlService.url('api/users/' + username)).then(handleSuccess, handleError);
         }
 
         function Create(user) {
-            return $http.post('/api/users', user).then(handleSuccess, handleError('Error creating user'));
+            return $http.post('/api/users', user).then(handleSuccess, handleError);
         }
 
         function Update(user) {
-            return $http.put('/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+            return $http.put('/api/users/' + user.id, user).then(handleSuccess, handleError);
         }
 
         function Delete(id) {
-            return $http.delete('/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
+            return $http.delete('/api/users/' + id).then(handleSuccess, handleError);
         }
 
         // private functions
@@ -56,9 +56,10 @@
             return data.data;
         }
 
-        function handleError(error) {
+        function handleError(response) {
+//            FlashService.Error(response.data.error);
             return function () {
-                return { success: false, message: error };
+                return { success: false, message: response.data.error};
             };
         }
     }

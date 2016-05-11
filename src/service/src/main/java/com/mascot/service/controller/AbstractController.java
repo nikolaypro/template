@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class AbstractController {
     @ExceptionHandler(Exception.class)
     public ResponseEntity handleException(Exception ex) {
-        return new ResponseEntity<WebError>(new WebError(ex.getMessage()), HttpStatus.UNAUTHORIZED);
+        if (ex instanceof ArrayStoreException) { // for example
+            return new ResponseEntity<WebError>(new WebError(ex.getMessage()), HttpStatus.CONFLICT);
+        }
+//        return new ResponseEntity<WebError>(new WebError(ex.getMessage()), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<WebError>(new WebError(ex.getMessage()), HttpStatus.CONFLICT);
     }
 
 }

@@ -3,11 +3,42 @@
 
     angular
         .module('app', ['ngRoute', 'ngCookies', 'ngTable'])
+        .factory('httpInterceptor', ['$log', 'FlashService', '$q', 'LongRunService', 'UrlService', function($log, FlashService, $q, LongRunService, UrlService) {
+            $log.debug('$log is here to show you that this is a regular factory with injection');
+
+            var httpInterceptor = {
+                request: function(config) {
+//                    $log.debug('!!!!!!!! - request - !!!!!!!!');
+                    if (UrlService.isApiUrl(config.url)) {
+                        LongRunService.startLong();
+                    }
+                    return config;
+                },
+                response: function(response) {
+//                    $log.debug('!!!!!!!! - response - !!!!!!!!');
+                    if (UrlService.isApiUrl(response.config.url)) {
+                        LongRunService.endLong();
+                    }
+                    return response;
+                },
+                responseError: function(rejection) {
+                    // do something on error
+//                    $log.debug('!!!!!!!! - response error - !!!!!!!!');
+                    if (UrlService.isApiUrl(rejection.config.url)) {
+                        LongRunService.endLong();
+                    }
+                    FlashService.Error(rejection.data.error);
+                    return $q.reject(rejection);
+                }
+            };
+
+            return httpInterceptor;
+        }])
         .config(config)
         .run(run);
 
-    config.$inject = ['$routeProvider', '$locationProvider'];
-    function config($routeProvider, $locationProvider) {
+    config.$inject = ['$routeProvider', '$httpProvider'];
+    function config($routeProvider, $httpProvider) {
         $routeProvider
             .when('/', {
                 controller: 'MainController',
@@ -47,6 +78,20 @@
             })
 
             .otherwise({ redirectTo: '/login' });
+
+        $httpProvider.interceptors.push('httpInterceptor');
+/*
+        $httpProvider.interceptors.push(function($q, dependency1, dependency2) {
+            return {
+                'responseError': function(rejection) {
+                    FlashService.Error(rejection);
+                    // do something on error
+                    return $q.reject(rejection);
+                }
+            };
+        });
+*/
+
     }
 
     run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];

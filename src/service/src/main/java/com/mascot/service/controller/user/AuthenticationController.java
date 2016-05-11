@@ -106,6 +106,16 @@ public class AuthenticationController extends AbstractController {
             e.login = "Fake login " + i;
             result.add(e);
         }
+/*
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+*/
+//        if (true) {
+//            throw new NullPointerException("test exception");
+//        }
         return TableResult.create(result.toArray(new UserRecord[result.size()]), 533);
     }
 
