@@ -20,7 +20,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * Created by Nikolay on 25.11.2015.
@@ -35,7 +37,7 @@ public class AuthenticationController extends AbstractController {
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     @ResponseBody
-    public User authenticate(@RequestBody User user) {
+    public UserRecord authenticate(@RequestBody User user) {
         if (MascotUtils.isEmpty(user.getPassword())) {
             throwInvalidPassword(user);
         }
@@ -50,7 +52,7 @@ public class AuthenticationController extends AbstractController {
         }
         logger.info("Successfully login: username = " + user.getLogin() +
                 ", roles: [" + StringUtils.collectionToCommaDelimitedString(entityUser.getRoles()) + "]");
-        return entityUser;
+        return UserRecord.build(entityUser);
     }
 
     private void throwInvalidUserName(User user) {
@@ -91,26 +93,30 @@ public class AuthenticationController extends AbstractController {
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     @ResponseBody
 //    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
-    public TableResult<User> getUsers(@RequestBody TableParams params) {
+    public TableResult<UserRecord> getUsers(@RequestBody TableParams params) {
         final Collection<User> users = userService.getUsers();
+        final Collection<UserRecord> result = new ArrayList<>();
+        for (User user : users) {
+            result.add(UserRecord.build(user));
+        }
 
         for (int i = (params.page - 1) * params.count; i <= Math.min(params.page * params.count, 533); i++) {
-            final User e = new User();
-            e.setFullName("Fake Name " + i);
-            e.setLogin("Fake login " + i);
-            users.add(e);
+            final UserRecord e = new UserRecord();
+            e.fullName = "Fake Name " + i;
+            e.login = "Fake login " + i;
+            result.add(e);
         }
-        return TableResult.create(users.toArray(new User[users.size()]), 533);
+        return TableResult.create(result.toArray(new UserRecord[result.size()]), 533);
     }
 
     @RequestMapping(value = "/users/{userName}", method = RequestMethod.GET)
 //    @Secured({"REGULAR", "ADMIN"})
     @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     @ResponseBody
-    public User getUser(@PathVariable("userName") String userName) {
+    public UserRecord getUser(@PathVariable("userName") String userName) {
         logger.info("User: '" + userService.getCurrentUser().getFullName() + "'");
         logger.info("User id: '" + userService.getCurrentUserId()+ "'");
-        return userService.loadUserByLogin(userName);
+        return UserRecord.build(userService.loadUserByLogin(userName));
     }
 
     @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)

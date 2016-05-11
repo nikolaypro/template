@@ -25,7 +25,7 @@
                 if (result.length > 0) {
                     result += ", "
                 }
-                result += role.name;
+                result += role;
             });
             return result;
         };

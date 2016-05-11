@@ -9,13 +9,13 @@
 
     function MainTopMenu($rootScope, $location) {
         var getRoleMenu = function(role) {
-            switch (role.name) {
+            switch (role) {
                 case 'ROLE_ADMIN':
                         return ['users', 'reports'];
                 case 'ROLE_REGULAR':
                     return ['contact', 'dropdown', 'action', 'separated_link'];
                 default:
-                    alert('Unknown role: "' + role.name + '"');
+                    alert('Unknown role: "' + role + '"');
                     return [];
             }
         };
