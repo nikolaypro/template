@@ -3,7 +3,7 @@
 
     angular
         .module('app', ['ngRoute', 'ngCookies', 'ngTable'])
-        .factory('httpInterceptor', ['$log', 'FlashService', '$q', 'LongRunService', 'UrlService', function($log, FlashService, $q, LongRunService, UrlService) {
+        .factory('httpInterceptor', ['$log', 'FlashService', '$q', 'LongRunService', 'UrlService', '$location', function($log, FlashService, $q, LongRunService, UrlService, $location) {
             $log.debug('$log is here to show you that this is a regular factory with injection');
 
             var httpInterceptor = {
@@ -27,7 +27,12 @@
                     if (UrlService.isApiUrl(rejection.config.url)) {
                         LongRunService.endLong();
                     }
-                    FlashService.Error(rejection.data.error);
+                    if (rejection.status = 403) {
+                        $location.path('/login');
+                    } else {
+                        FlashService.Error(rejection.data.error);
+                    }
+
                     return $q.reject(rejection);
                 }
             };
