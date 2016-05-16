@@ -52,6 +52,19 @@
                     <span ng-show="vm.errorPasswordNotEqueals" class="help-block">Repeat password must be equals password</span>
                 </div>
             </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Roles</div>
+                <div class="panel-body">
+                    <div class="form-group checkbox">
+                        <label><input type="checkbox" checklist-model="vm.user.roles" checklist-value="vm.roles.admin">{{vm.roles.admin}}</label>
+                    </div>
+                    <div class="form-group checkbox">
+                        <label><input type="checkbox" checklist-model="vm.user.roles" checklist-value="vm.roles.regular">{{vm.roles.regular}}</label>
+                    </div>
+                </div>
+            </div>
+
         </modal>
     </form>
 </div>

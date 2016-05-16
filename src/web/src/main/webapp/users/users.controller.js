@@ -5,9 +5,10 @@
         .module('app')
         .controller('UsersController', UsersController);
 
-    UsersController.$inject = ['UserService', 'NgTableParams', '$scope', '$timeout', '$log'];
-    function UsersController(UserService, NgTableParams, $scope, $timeout, $log) {
+    UsersController.$inject = ['UserService', 'NgTableParams', '$scope', '$timeout', '$log', 'allAppRoles'];
+    function UsersController(UserService, NgTableParams, $scope, $timeout, $log, allAppRoles) {
         var vm = this;
+        vm.roles = allAppRoles;
 // Modal dialog logic
         vm.showNew = false;
         vm.showUserDialog = function(isNew) {
@@ -26,6 +27,7 @@
             $log.info('login: ' + vm.user.login);
             $log.info('psw: ' + vm.user.password);
             $log.info('repeat psw: ' + vm.user.repeatPassword);
+            $log.info('roles: ' + vm.user.roles);
             vm.errorPasswordNotEqueals = vm.showEditPassword && vm.user.password != vm.user.repeatPassword;
             if (!vm.errorPasswordNotEqueals) {
 

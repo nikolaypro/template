@@ -5,14 +5,14 @@
         .module('app')
         .directive('mainTopMenu', MainTopMenu);
 
-    MainTopMenu.$inject = ['$rootScope', '$location'];
+    MainTopMenu.$inject = ['$rootScope', '$location', 'allAppRoles'];
 
-    function MainTopMenu($rootScope, $location) {
+    function MainTopMenu($rootScope, $location, allAppRoles) {
         var getRoleMenu = function(role) {
             switch (role) {
-                case 'ROLE_ADMIN':
+                case allAppRoles.admin:
                         return ['users', 'reports'];
-                case 'ROLE_REGULAR':
+                case allAppRoles.regular:
                     return ['contact', 'dropdown', 'action', 'separated_link'];
                 default:
                     alert('Unknown role: "' + role + '"');

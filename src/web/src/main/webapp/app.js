@@ -3,6 +3,10 @@
 
     angular
         .module('app', ['ngRoute', 'ngCookies', 'ngTable'])
+        .constant('allAppRoles', {
+            admin: 'ROLE_ADMIN',
+            regular: 'ROLE_REGULAR'
+        })
         .factory('httpInterceptor', ['$log', 'FlashService', '$q', 'LongRunService', 'UrlService', '$location', function($log, FlashService, $q, LongRunService, UrlService, $location) {
             $log.debug('$log is here to show you that this is a regular factory with injection');
 
@@ -99,8 +103,8 @@
 
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
-    function run($rootScope, $location, $cookieStore, $http) {
+    run.$inject = ['$rootScope', '$location', '$cookieStore', '$http', 'allAppRoles'];
+    function run($rootScope, $location, $cookieStore, $http, allAppRoles) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
@@ -108,7 +112,7 @@
         }
         $rootScope.userPerm = {
             users: function () {
-                return ($rootScope.globals.roles.contains('ROLE_ADMIN'));
+                return ($rootScope.globals.roles.contains(allAppRoles.admin));
             }
         }
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
