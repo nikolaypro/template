@@ -14,6 +14,8 @@ public class UserRecord {
 
     public String login;
 
+    public String password;
+
     public Set<String> roles = new HashSet<String>();
 
     public static UserRecord build(User user) {

@@ -1,9 +1,9 @@
 <main-top-menu></main-top-menu>
 <div class="container">
     <div class="edit-buttons">
-        <button class="btn btn-primary btn-sm" ng-click="vm.doNew()">New</button>
-        <button class="btn btn-primary btn-sm" ng-disabled="true" ng-click="vm.doPost()">Edit</button>
-        <button class="btn btn-primary btn-sm" ng-disabled="true" ng-click="vm.doPost()">Remove</button>
+        <button class="btn btn-primary btn-sm" ng-click="vm.showUserDialog(true)">New</button>
+        <button class="btn btn-primary btn-sm" ng-disabled="true" ng-click="vm.showUserDialog(false)">Edit</button>
+        <button class="btn btn-primary btn-sm" ng-disabled="true" ng-click="vm.doRemove()">Remove</button>
     </div>
     <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-hover">
         <tr ng-repeat="row in $data">
@@ -13,11 +13,12 @@
         </tr>
     </table>
 
-    <modal title="New user" visible="vm.showNew">
-        <form role="form" name="vm.userEditForm" ng-submit="vm.submitUser()">
+    <form role="form" name="vm.userEditForm" ng-submit="vm.submitUser()">
+        <modal title="New user" visible="vm.showNew">
             <div class="form-group" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.fullName) }">
                 <label for="fullName">Full name</label>
-                <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter full name" required="" ng-model="vm.user.fullName"/>
+                <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter full name"
+                       required="" ng-model="vm.user.fullName"/>
                 <span ng-show="$.isShowRequired(vm.userEditForm.fullName)" class="help-block">Username is required</span>
 <!--
                 <tt>userEditForm.fullName = {{userEditForm.fullName.$modelValue}}</tt><br/>
@@ -28,23 +29,29 @@
             </div>
             <div class="form-group" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.login) }">
                 <label for="login">Login</label>
-                <input type="text" class="form-control" id="login" name="login" placeholder="Enter login" required="" ng-model="vm.user.login"/>
+                <input type="text" class="form-control" id="login" name="login" placeholder="Enter login"
+                       required="" ng-model="vm.user.login"/>
                 <span ng-show="$.isShowRequired(vm.userEditForm.login)" class="help-block">Login is required</span>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password" />
-            </div>
-            <div class="form-group">
-                <label for="repeatPassword">Repeat password</label>
-                <input type="password" class="form-control" id="repeatPassword" placeholder="Enter password" />
-            </div>
 
+            <button type="button" class="btn btn-primary btn-sm" ng-show="!vm.showEditPassword"
+                    ng-click="vm.showEditPassword = true; vm.userEditForm.$setPristine()">Edit password</button>
 
-
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Submit 2</button>
+            <div ng-show="vm.showEditPassword">
+                <div class="form-group" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.password) }">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                           placeholder="Enter password" ng-model="vm.user.password" ng-required="vm.showEditPassword"/>
+                    <span ng-show="$.isShowRequired(vm.userEditForm.password)" class="help-block">Password is required</span>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.repeatPassword) || vm.errorPasswordNotEqueals}">
+                    <label for="repeatPassword">Repeat password</label>
+                    <input type="password" class="form-control" id="repeatPassword" name="repeatPassword"
+                           placeholder="Enter password" ng-model="vm.user.repeatPassword" ng-required="vm.showEditPassword"/>
+                    <span ng-show="$.isShowRequired(vm.userEditForm.repeatPassword)" class="help-block">Password is required</span>
+                    <span ng-show="vm.errorPasswordNotEqueals" class="help-block">Repeat password must be equals password</span>
+                </div>
             </div>
-        </form>
-    </modal>
+        </modal>
+    </form>
 </div>
