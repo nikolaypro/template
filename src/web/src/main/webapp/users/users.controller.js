@@ -11,11 +11,16 @@
 // Modal dialog logic
         vm.showNew = false;
         vm.doNew = function() {
-            vm.showNew = false;/*!vm.showNew;*/
+            vm.showNew = false;
             $timeout(function() {
+                vm.userEditForm.$setPristine();
+                vm.userEditForm.$setUntouched();
                 vm.showNew = true;
                 $scope.$digest();
             }, 0);
+        };
+        vm.submitUser = function() {
+
         };
 // End Modal dialog logic
 
@@ -29,8 +34,6 @@
             });
             return result;
         };
-        vm.tmpValue = 'USERS_TMP VALUE';
-        vm.TEMPLATE_VALUE = 'USERS_TEMPLATE_VALUE_DELETE_ME';
         vm.tableParams = new NgTableParams(
             {
                 page: 1,
@@ -40,10 +43,7 @@
             {
                 total: 0,
                 getData: function ($defer, params) {
-                    /* code to fetch data that matches the params values EG: */
                     UserService.GetAll(params, function (data) {
-
-//                        params.total(data.inlineCount);
                         params.total(data.data.total);
                         $defer.resolve(data.data.list)
                     });

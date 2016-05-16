@@ -1,9 +1,5 @@
 <main-top-menu></main-top-menu>
 <div class="container">
-<!--
-    {{vm.tmpValue}}
-    USERS
--->
     <div class="edit-buttons">
         <button class="btn btn-primary btn-sm" ng-click="vm.doNew()">New</button>
         <button class="btn btn-primary btn-sm" ng-disabled="true" ng-click="vm.doPost()">Edit</button>
@@ -18,14 +14,22 @@
     </table>
 
     <modal title="New user" visible="vm.showNew">
-        <form role="form">
-            <div class="form-group">
+        <form role="form" name="vm.userEditForm" ng-submit="vm.submitUser()">
+            <div class="form-group" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.fullName) }">
                 <label for="fullName">Full name</label>
-                <input type="email" class="form-control" id="fullName" placeholder="Enter full name" />
+                <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter full name" required="" ng-model="vm.user.fullName"/>
+                <span ng-show="$.isShowRequired(vm.userEditForm.fullName)" class="help-block">Username is required</span>
+<!--
+                <tt>userEditForm.fullName = {{userEditForm.fullName.$modelValue}}</tt><br/>
+                <tt>userEditForm.fullName.$valid = {{userEditForm.fullName.$valid}}</tt><br/>
+                <tt>userEditForm.fullName.$error = {{userEditForm.fullName.$error}}</tt><br/>
+                <tt>userEditForm.fullName.$dirty = {{userEditForm.fullName.$dirty}}</tt><br/>
+-->
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.login) }">
                 <label for="login">Login</label>
-                <input type="text" class="form-control" id="login" placeholder="Enter login" />
+                <input type="text" class="form-control" id="login" name="login" placeholder="Enter login" required="" ng-model="vm.user.login"/>
+                <span ng-show="$.isShowRequired(vm.userEditForm.login)" class="help-block">Login is required</span>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
@@ -35,12 +39,12 @@
                 <label for="repeatPassword">Repeat password</label>
                 <input type="password" class="form-control" id="repeatPassword" placeholder="Enter password" />
             </div>
-<!--
+
+
+
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="reset" class="btn btn-primary" on-cl>Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit 2</button>
             </div>
--->
         </form>
     </modal>
 </div>
