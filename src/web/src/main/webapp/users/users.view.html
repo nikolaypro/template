@@ -2,7 +2,7 @@
 <div class="container">
     <div class="edit-buttons">
         <button class="btn btn-primary btn-sm" ng-click="vm.showUserDialog(true)">New</button>
-        <button class="btn btn-primary btn-sm" ng-disabled="true" ng-click="vm.showUserDialog(false)">Edit</button>
+        <button class="btn btn-primary btn-sm" ng-disabled="false" ng-click="vm.showUserDialog(false)">Edit</button>
         <button class="btn btn-primary btn-sm" ng-disabled="true" ng-click="vm.doRemove()">Remove</button>
     </div>
     <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-hover">
@@ -34,8 +34,10 @@
                 <span ng-show="$.isShowRequired(vm.userEditForm.login)" class="help-block">Login is required</span>
             </div>
 
-            <button type="button" class="btn btn-primary btn-sm" ng-show="!vm.showEditPassword"
-                    ng-click="vm.showEditPassword = true; vm.userEditForm.$setPristine()">Edit password</button>
+            <div class="form-group" ng-show="!vm.showEditPassword">
+                <button type="button" class="btn btn-primary btn-sm"
+                        ng-click="vm.showEditPassword = true; vm.userEditForm.$setPristine()">Edit password</button>
+            </div>
 
             <div ng-show="vm.showEditPassword">
                 <div class="form-group" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.password) }">
@@ -57,11 +59,14 @@
                 <div class="panel-heading">Roles</div>
                 <div class="panel-body">
                     <div class="form-group checkbox">
-                        <label><input type="checkbox" checklist-model="vm.user.roles" checklist-value="vm.roles.admin">{{vm.roles.admin}}</label>
+                        <label><input type="checkbox" checklist-model="vm.user.roles" checklist-value="vm.roles.admin" ng-change="vm.onRolesChange()">{{vm.roles.admin}}</label>
                     </div>
                     <div class="form-group checkbox">
-                        <label><input type="checkbox" checklist-model="vm.user.roles" checklist-value="vm.roles.regular">{{vm.roles.regular}}</label>
+                        <label><input type="checkbox" checklist-model="vm.user.roles" checklist-value="vm.roles.regular" ng-change="vm.onRolesChange()">{{vm.roles.regular}}</label>
                     </div>
+                </div>
+                <div ng-class="{ 'has-error': vm.errorNotSelectedRole }">
+                    <span ng-show="vm.errorNotSelectedRole" class="help-block">Not defined any role</span>
                 </div>
             </div>
 

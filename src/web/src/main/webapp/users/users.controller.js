@@ -18,6 +18,7 @@
                 vm.userEditForm.$setUntouched();
                 vm.showEditPassword = isNew;
                 vm.errorPasswordNotEqueals = false;
+                vm.errorNotSelectedRole = false;
                 vm.showNew = true;
                 $scope.$digest();
             }, 0);
@@ -29,10 +30,18 @@
             $log.info('repeat psw: ' + vm.user.repeatPassword);
             $log.info('roles: ' + vm.user.roles);
             vm.errorPasswordNotEqueals = vm.showEditPassword && vm.user.password != vm.user.repeatPassword;
-            if (!vm.errorPasswordNotEqueals) {
+            vm.onRolesChange();
+            if (!vm.errorPasswordNotEqueals && !vm.errorNotSelectedRole) {
 
                 //POST
             }
+        };
+
+        vm.onRolesChange = function() {
+            $timeout(function() {
+                $scope.$digest();
+                 vm.errorNotSelectedRole = !(vm.user.roles && vm.user.roles.length > 0);
+            }, 0);
         };
 
         vm.doRemove = function() {
