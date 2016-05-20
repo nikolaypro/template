@@ -45,3 +45,8 @@
     line-height: 0.7;
 }
 
+
+.app-disabled-form {
+    background-color: #35d824;
+}
+

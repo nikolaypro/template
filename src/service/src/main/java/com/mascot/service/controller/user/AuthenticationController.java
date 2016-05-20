@@ -119,13 +119,11 @@ public class AuthenticationController extends AbstractController {
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     public ResultRecord createUser(@RequestBody UserRecord record) {
         logger.info("User: name = " + record.fullName + ", login = " + record.login + ", roles = " + record.roles + ", psw = " + record.password);
-/*
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-*/
         final User existsUser = userService.loadUserByLogin(record.login);
         if (existsUser != null) {
             return ResultRecord.fail("User with login '" + record.login + "' already exists");

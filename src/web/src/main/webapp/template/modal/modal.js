@@ -7,7 +7,7 @@
 
     Modal.$inject = ['$rootScope'];
 
-    function Modal($rootScope, $log) {
+    function Modal($rootScope) {
         return {
             templateUrl: 'template/modal/modal.html',
             restrict: 'E',
@@ -18,7 +18,6 @@
                 scope.title = attrs.title;
                 scope.onClose = function() {
                     $(element).modal('hide');
-//                    $log.log('Entered');
                 };
 
                 scope.$watch(attrs.visible, function(value){

@@ -3,7 +3,7 @@
 
     angular
         .module('app', ['ngRoute', 'ngCookies', 'ngTable'])
-        .constant('allAppRoles', {
+        .constant('ALL_APP_ROLES', {
             admin: 'ROLE_ADMIN',
             regular: 'ROLE_REGULAR'
         })
@@ -103,8 +103,8 @@
 
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookieStore', '$http', 'allAppRoles'];
-    function run($rootScope, $location, $cookieStore, $http, allAppRoles) {
+    run.$inject = ['$rootScope', '$location', '$cookieStore', '$http', 'ALL_APP_ROLES'];
+    function run($rootScope, $location, $cookieStore, $http, ALL_APP_ROLES) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
@@ -112,7 +112,7 @@
         }
         $rootScope.userPerm = {
             users: function () {
-                return ($rootScope.globals.roles.contains(allAppRoles.admin));
+                return ($rootScope.globals.roles.contains(ALL_APP_ROLES.admin));
             }
         }
         $rootScope.$on('$locationChangeStart', function (event, next, current) {

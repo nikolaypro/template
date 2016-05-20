@@ -5,20 +5,24 @@
         .module('app')
         .controller('UsersController', UsersController);
 
-    UsersController.$inject = ['UserService', 'NgTableParams', '$scope', '$timeout', '$log', 'allAppRoles'];
-    function UsersController(UserService, NgTableParams, $scope, $timeout, $log, allAppRoles) {
+    UsersController.$inject = ['UserService', 'NgTableParams', '$scope', '$timeout', '$log', 'ALL_APP_ROLES'];
+    function UsersController(UserService, NgTableParams, $scope, $timeout, $log, ALL_APP_ROLES) {
         var vm = this;
-        vm.roles = allAppRoles;
+        vm.roles = ALL_APP_ROLES;
 // Modal dialog logic
         vm.showUserDialogFlag = false;
         vm.showUserDialog = function(isNew) {
-            vm.showUserDialogFlag = false;
             vm.userEditForm.$setPristine();
             vm.userEditForm.$setUntouched();
             vm.showEditPassword = isNew;
             vm.errorPasswordNotEqueals = false;
             vm.errorNotSelectedRole = false;
             vm.errorMessage = "";
+            vm.showUserDialogFlag = false;
+            vm.disableUserForm = false;
+            if (isNew) {
+                vm.user = null;
+            }
             $timeout(function() {
                 vm.showUserDialogFlag = true;
                 $scope.$digest();
@@ -33,6 +37,7 @@
             if (vm.checkInputFields()) {
                 var userCopy = angular.copy(vm.user);
                 userCopy.password = UserService.Base64.encode(userCopy.password);
+                vm.disableUserForm = true;
                 UserService.Create(userCopy, function (data) {
                     if (data.data.success) {
                         $log.info("Success");
@@ -42,6 +47,7 @@
                         $log.info("Failed");
                         vm.errorMessage = data.data.message;
                     }
+                    vm.disableUserForm = false;
                 });
             }
         };
