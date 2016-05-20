@@ -1,5 +1,6 @@
 package com.mascot.server.beans;
 
+import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 
 import java.util.Collection;
@@ -17,4 +18,8 @@ public interface UserService {
     User getCurrentUser();
 
     Long getCurrentUserId();
+
+    Role getRole(String roleName);
+
+    void saveUser(User user);
 }

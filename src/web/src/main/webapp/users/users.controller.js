@@ -10,16 +10,17 @@
         var vm = this;
         vm.roles = allAppRoles;
 // Modal dialog logic
-        vm.showNew = false;
+        vm.showUserDialogFlag = false;
         vm.showUserDialog = function(isNew) {
-            vm.showNew = false;
+            vm.showUserDialogFlag = false;
+            vm.userEditForm.$setPristine();
+            vm.userEditForm.$setUntouched();
+            vm.showEditPassword = isNew;
+            vm.errorPasswordNotEqueals = false;
+            vm.errorNotSelectedRole = false;
+            vm.errorMessage = "";
             $timeout(function() {
-                vm.userEditForm.$setPristine();
-                vm.userEditForm.$setUntouched();
-                vm.showEditPassword = isNew;
-                vm.errorPasswordNotEqueals = false;
-                vm.errorNotSelectedRole = false;
-                vm.showNew = true;
+                vm.showUserDialogFlag = true;
                 $scope.$digest();
             }, 0);
         };
@@ -29,14 +30,26 @@
             $log.info('psw: ' + vm.user.password);
             $log.info('repeat psw: ' + vm.user.repeatPassword);
             $log.info('roles: ' + vm.user.roles);
-            vm.errorPasswordNotEqueals = vm.showEditPassword && vm.user.password != vm.user.repeatPassword;
-            vm.onRolesChange();
-            if (!vm.errorPasswordNotEqueals && !vm.errorNotSelectedRole) {
-
-                //POST
+            if (vm.checkInputFields()) {
+                var userCopy = angular.copy(vm.user);
+                userCopy.password = UserService.Base64.encode(userCopy.password);
+                UserService.Create(userCopy, function (data) {
+                    if (data.data.success) {
+                        $log.info("Success");
+                        vm.showUserDialogFlag = false;
+                        vm.tableParams.reload()
+                    } else {
+                        $log.info("Failed");
+                        vm.errorMessage = data.data.message;
+                    }
+                });
             }
         };
-
+        vm.checkInputFields = function() {
+            vm.errorPasswordNotEqueals = vm.showEditPassword && vm.user.password != vm.user.repeatPassword;
+            vm.onRolesChange();
+            return !vm.errorPasswordNotEqueals && !vm.errorNotSelectedRole
+        };
         vm.onRolesChange = function() {
             $timeout(function() {
                 $scope.$digest();

@@ -14,7 +14,7 @@
     </table>
 
     <form role="form" name="vm.userEditForm" ng-submit="vm.submitUser()">
-        <modal title="New user" visible="vm.showNew">
+        <modal title="New user" visible="vm.showUserDialogFlag">
             <div class="form-group" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.fullName) }">
                 <label for="fullName">Full name</label>
                 <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter full name"
@@ -69,7 +69,6 @@
                     <span ng-show="vm.errorNotSelectedRole" class="help-block">Not defined any role</span>
                 </div>
             </div>
-
         </modal>
     </form>
 </div>
