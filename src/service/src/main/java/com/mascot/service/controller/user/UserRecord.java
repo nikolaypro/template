@@ -10,6 +10,8 @@ import java.util.Set;
  * Created by Nikolay on 06.05.2016.
  */
 public class UserRecord {
+    public Long id;
+
     public String fullName;
 
     public String login;
@@ -23,6 +25,7 @@ public class UserRecord {
             return null;
         }
         final UserRecord result = new UserRecord();
+        result.id = user.getId();
         result.fullName = user.getFullName();
         result.login = user.getLogin();
         if (user.getRoles() != null) {

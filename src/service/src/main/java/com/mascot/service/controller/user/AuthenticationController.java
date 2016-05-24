@@ -114,24 +114,32 @@ public class AuthenticationController extends AbstractController {
         return TableResult.create(result.toArray(new UserRecord[result.size()]), 533);
     }
 
-    @RequestMapping(value = "/users/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/users/update", method = RequestMethod.POST)
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
-    public ResultRecord createUser(@RequestBody UserRecord record) {
-        logger.info("User: name = " + record.fullName + ", login = " + record.login + ", roles = " + record.roles + ", psw = " + record.password);
+    public ResultRecord updateUser(@RequestBody UserRecord record) {
+        logger.info("User: name = " + record.fullName + ", login = " + record.login + ", roles = " + record.roles + ", psw = " + record.password + ", id = " + record.id);
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         final User existsUser = userService.loadUserByLogin(record.login);
-        if (existsUser != null) {
-            return ResultRecord.fail("User with login '" + record.login + "' already exists");
+        final User user;
+        if (record.id == null) {
+            user = new User();
+            if (existsUser != null) {
+                return ResultRecord.fail("User with login '" + record.login + "' already exists");
+            }
+        } else {
+            user = existsUser;
+            if (existsUser == null) {
+                return ResultRecord.fail("Unable find user with id = " + record.id);
+            }
         }
-        final User user = new User();
         user.setLogin(record.login);
         user.setFullName(record.fullName);
-        user.setPassword(record.password);
+        user.getRoles().clear();
         for (String roleName : record.roles) {
             final Role role = userService.getRole(roleName);
             if (role == null) {
@@ -139,6 +147,13 @@ public class AuthenticationController extends AbstractController {
             }
             user.getRoles().add(role);
         }
+
+        if (!MascotUtils.isEmpty(record.password)) {
+            user.setPassword(record.password);
+        } else if (record.id == null) {
+            return ResultRecord.fail("For new user not defined password");
+        }
+
         userService.saveUser(user);
 
         return ResultRecord.success();

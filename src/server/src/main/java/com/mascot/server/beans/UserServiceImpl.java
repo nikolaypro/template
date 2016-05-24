@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Collection<User> getUsers() {
-        return em.createQuery("select e from User e left join fetch e.roles").getResultList();
+        return em.createQuery("select distinct e from User e left join fetch e.roles").getResultList();
     }
 
     @Override

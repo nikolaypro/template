@@ -5,10 +5,11 @@
         .module('app')
         .controller('UsersController', UsersController);
 
-    UsersController.$inject = ['UserService', 'NgTableParams', '$scope', '$timeout', '$log', 'ALL_APP_ROLES'];
-    function UsersController(UserService, NgTableParams, $scope, $timeout, $log, ALL_APP_ROLES) {
+    UsersController.$inject = ['UserService', 'NgTableParams', '$scope', '$timeout', '$log', 'ALL_APP_ROLES', 'Utils'];
+    function UsersController(UserService, NgTableParams, $scope, $timeout, $log, ALL_APP_ROLES, Utils) {
         var vm = this;
         vm.roles = ALL_APP_ROLES;
+        Utils.refreshEditRemoveButtonEnabled(vm);
 // Modal dialog logic
         vm.showUserDialogFlag = false;
         vm.showUserDialog = function(isNew) {
@@ -22,6 +23,8 @@
             vm.disableUserForm = false;
             if (isNew) {
                 vm.user = null;
+            } else {
+                vm.user = angular.copy(Utils.getCheckedTableRow(vm.tableParams));
             }
             $timeout(function() {
                 vm.showUserDialogFlag = true;
@@ -36,9 +39,11 @@
             $log.info('roles: ' + vm.user.roles);
             if (vm.checkInputFields()) {
                 var userCopy = angular.copy(vm.user);
-                userCopy.password = UserService.Base64.encode(userCopy.password);
+                if (userCopy.password) {
+                    userCopy.password = UserService.Base64.encode(userCopy.password);
+                }
                 vm.disableUserForm = true;
-                UserService.Create(userCopy, function (data) {
+                UserService.Update(userCopy, function (data) {
                     if (data.data.success) {
                         $log.info("Success");
                         vm.showUserDialogFlag = false;
@@ -56,11 +61,16 @@
             vm.onRolesChange();
             return !vm.errorPasswordNotEqueals && !vm.errorNotSelectedRole
         };
+
         vm.onRolesChange = function() {
             $timeout(function() {
                 $scope.$digest();
                  vm.errorNotSelectedRole = !(vm.user.roles && vm.user.roles.length > 0);
             }, 0);
+        };
+
+        vm.onRowChecked = function() {
+            Utils.refreshEditRemoveButtonEnabled(vm, vm.tableParams);
         };
 
         vm.doRemove = function() {

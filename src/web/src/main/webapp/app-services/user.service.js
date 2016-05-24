@@ -12,7 +12,6 @@
         service.GetAll = GetAll;
         service.GetById = GetById;
         service.GetByUsername = GetByUsername;
-        service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
         service.Base64 = Base64;
@@ -39,12 +38,8 @@
             return $http.get(UrlService.url('api/users/' + username)).then(handleSuccess, handleError);
         }
 
-        function Create(user, handleSuccess) {
-            return $http.post(UrlService.url('/api/users/create'), user).then(handleSuccess, handleError);
-        }
-
-        function Update(user) {
-            return $http.put('/api/users/' + user.id, user).then(handleSuccess, handleError);
+        function Update(user, handleSuccess) {
+            return $http.post(UrlService.url('/api/users/update'), user).then(handleSuccess, handleError);
         }
 
         function Delete(id) {
