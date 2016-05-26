@@ -45,7 +45,7 @@
         };
         return {
             restrict: 'E',
-            templateUrl: 'template/maintopmenu/mainTopMenu.html',
+            templateUrl: 'app/template/maintopmenu/mainTopMenu.html',
             controller: ["$scope", "AuthenticationService", "$location", function ($scope, AuthenticationService, $location) {
                 $scope.$ = $;
 //                $scope.enabledMenu = ['home', 'about', 'contact', 'dropdown', 'action', 'anotherAction', 'somethingElseHere', 'separatedLink', 'oneMoreSeparatedLink']

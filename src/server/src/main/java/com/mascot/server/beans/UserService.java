@@ -24,4 +24,6 @@ public interface UserService {
     void saveUser(User user);
 
     boolean removeUser(Long userId);
+
+    User findUser(Long userId);
 }

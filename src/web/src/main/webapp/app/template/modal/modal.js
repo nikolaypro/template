@@ -9,7 +9,7 @@
 
     function Modal($rootScope) {
         return {
-            templateUrl: 'template/modal/modal.html',
+            templateUrl: 'app/template/modal/modal.html',
             restrict: 'E',
             transclude: true,
             replace: true,

@@ -123,18 +123,23 @@ public class AuthenticationController extends AbstractController {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        final User existsUser = userService.loadUserByLogin(record.login);
         final User user;
         if (record.id == null) {
-            user = new User();
-            if (existsUser != null) {
+            final User existsLoginUser = userService.loadUserByLogin(record.login);
+            if (existsLoginUser != null) {
                 return ResultRecord.fail("User with login '" + record.login + "' already exists");
             }
+            user = new User();
         } else {
-            user = existsUser;
+            final User existsUser = userService.findUser(record.id);
             if (existsUser == null) {
                 return ResultRecord.fail("Unable find user with id = " + record.id);
             }
+            final User existsLoginUser = userService.loadUserByLogin(record.login);
+            if (existsLoginUser != null && !existsLoginUser.getId().equals(existsUser.getId())) {
+                return ResultRecord.fail("User with login '" + record.login + "' already exists");
+            }
+            user = existsUser;
         }
         user.setLogin(record.login);
         user.setFullName(record.fullName);

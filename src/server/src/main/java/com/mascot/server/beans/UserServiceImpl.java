@@ -73,6 +73,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUser(Long userId) {
+        try {
+            return (User) em.createQuery("select e from User e left join fetch e.roles where e.id = :id")
+                    .setParameter("id", userId)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+
+        } catch (NonUniqueResultException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    @Override
     public User getCurrentUser() {
         final org.springframework.security.core.userdetails.User principal = getPrincipal();
         if (principal == null) return null;

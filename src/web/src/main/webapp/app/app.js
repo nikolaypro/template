@@ -52,37 +52,37 @@
             .when('/', {
                 controller: 'MainController',
 //                templateUrl: 'home/home.view.html',
-                templateUrl: 'main/main.view.html',
+                templateUrl: 'app/main/main.view.html',
                 controllerAs: 'vm'
             })
 
             .when('/contact', {
                 controller: 'ContactController',
-                templateUrl: 'contact/contact.view.html',
+                templateUrl: 'app/contact/contact.view.html',
                 controllerAs: 'vm'
             })
 
             .when('/users', {
                 controller: 'UsersController',
-                templateUrl: 'users/users.view.html',
+                templateUrl: 'app/users/users.view.html',
                 controllerAs: 'vm'
             })
 
             .when('/reports', {
                 controller: 'ReportsController',
-                templateUrl: 'reports/reports.view.html',
+                templateUrl: 'app/reports/reports.view.html',
                 controllerAs: 'vm'
             })
 
             .when('/login', {
                 controller: 'LoginController',
-                templateUrl: 'login/login.view.html',
+                templateUrl: 'app/login/login.view.html',
                 controllerAs: 'vm'
             })
 
             .when('/register', {
                 controller: 'RegisterController',
-                templateUrl: 'register/register.view.html',
+                templateUrl: 'app/register/register.view.html',
                 controllerAs: 'vm'
             })
 

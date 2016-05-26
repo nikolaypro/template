@@ -19,3 +19,9 @@ Content Type: application/json
 { "id": 1 , "name" : "poster name" }
 
 -------------------------------------------------------------------------------
+
+https://github.com: 
+login: pro.nikolay@gmail.com
+psw: prokopov200713
+
+-------------------------------------------------------------------------------
