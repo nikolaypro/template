@@ -28,7 +28,6 @@ import java.util.Collection;
 //@Controller
 @RequestMapping(name = "/api")
 public class AuthenticationController extends AbstractController {
-    private final Logger logger = Logger.getLogger(getClass());
     @Inject
     private UserService userService;
 
@@ -156,6 +155,27 @@ public class AuthenticationController extends AbstractController {
 
         userService.saveUser(user);
 
+        return ResultRecord.success();
+    }
+
+    @RequestMapping(value = "/users/delete", method = RequestMethod.POST)
+    @ResponseBody
+    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    public ResultRecord deleteUser(@RequestBody Long[] ids) {
+        if (ids == null) {
+            return ResultRecord.success();
+        }
+        logger.info("Delete users size: " + ids.length);
+        for (Long id : ids) {
+            logger.info("Delete user: " + id);
+            try {
+                if (!userService.removeUser(id)) {
+                    logger.warn("Unable delete user: " + id);
+                }
+            } catch (Exception e) {
+                logger.error("Unable delete user: " + id, e);
+            }
+        }
         return ResultRecord.success();
     }
 

@@ -66,6 +66,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean removeUser(Long userId) {
+        final User reference = em.getReference(User.class, userId);
+        em.remove(reference);
+        return true;
+    }
+
+    @Override
     public User getCurrentUser() {
         final org.springframework.security.core.userdetails.User principal = getPrincipal();
         if (principal == null) return null;

@@ -42,8 +42,8 @@
             return $http.post(UrlService.url('/api/users/update'), user).then(handleSuccess, handleError);
         }
 
-        function Delete(id) {
-            return $http.delete('/api/users/' + id).then(handleSuccess, handleError);
+        function Delete(ids, handleSuccess) {
+            return $http.post(UrlService.url('/api/users/delete'), ids).then(handleSuccess, handleError);
         }
 
         // private functions

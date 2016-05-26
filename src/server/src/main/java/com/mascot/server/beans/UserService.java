@@ -22,4 +22,6 @@ public interface UserService {
     Role getRole(String roleName);
 
     void saveUser(User user);
+
+    boolean removeUser(Long userId);
 }
