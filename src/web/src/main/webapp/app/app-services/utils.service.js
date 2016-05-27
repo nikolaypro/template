@@ -12,6 +12,8 @@
         service.getCheckedTableRow = getCheckedTableRow;
         service.getCheckedTableRows = getCheckedTableRows;
         service.getIds = getIds;
+        service.showConfirm = showConfirm;
+        service.showWarning = showWarning;
         return service;
 
         function refreshEditRemoveButtonEnabled(vm, tableParams) {
@@ -59,6 +61,55 @@
                 });
             }
             return result;
+        }
+
+        function showConfirm(title, message, okHandler) {
+            return BootstrapDialog.show({
+                title: title,
+                type: BootstrapDialog.DEFAULTS,
+                message: message,
+                closable: true,
+                closeByBackdrop: false,
+                closeByKeyboard: true,
+                draggable: true,
+                buttons: [{
+                    label: 'Ok',
+                    cssClass: 'btn-primary',
+                    icon: 'glyphicon glyphicon-send',
+                    autospin: true,
+                    action: function(dialogRef){
+                        $log.info("toggled Ok");
+                        dialogRef.enableButtons(false);
+                        dialogRef.setClosable(false);
+
+//                        dialogRef.close();
+                        okHandler(dialogRef);
+                    }
+                }, {
+                    label: 'Cancel',
+                    cssClass: 'btn-primary',
+                    action: function(dialogRef){
+                        $log.info("toggled Cancel");
+                        dialogRef.close();
+                    }
+                }
+                ]
+            });
+        }
+
+        function showWarning(message) {
+            return BootstrapDialog.show({
+                type: BootstrapDialog.TYPE_WARNING,
+                message: message,
+                closable: true,
+                closeByBackdrop: true,
+                closeByKeyboard: true,
+                draggable: true,
+                buttons: [{
+                    label: 'Close',
+                    cssClass: 'btn-primary'
+                }]
+            });
         }
     }
 

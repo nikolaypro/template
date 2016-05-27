@@ -3,10 +3,11 @@
 
     angular
         .module('app')
-        .controller('UsersController', UsersController);
+        .controller('UsersController', UsersController)
+        .controller('tt', tt);
 
-    UsersController.$inject = ['UserService', 'NgTableParams', '$scope', '$timeout', '$log', 'ALL_APP_ROLES', 'Utils', $window];
-    function UsersController(UserService, NgTableParams, $scope, $timeout, $log, ALL_APP_ROLES, Utils, $window) {
+    UsersController.$inject = ['UserService', 'NgTableParams', '$scope', '$timeout', '$log', 'ALL_APP_ROLES', 'Utils', '$window', 'ngDialog'];
+    function UsersController(UserService, NgTableParams, $scope, $timeout, $log, ALL_APP_ROLES, Utils, $window, ngDialog) {
         var vm = this;
         vm.roles = ALL_APP_ROLES;
         Utils.refreshEditRemoveButtonEnabled(vm);
@@ -72,33 +73,41 @@
         vm.onRowChecked = function() {
             Utils.refreshEditRemoveButtonEnabled(vm, vm.tableParams);
         };
+// End Modal dialog logic
 
         vm.doRemove = function() {
             $log.info('do remove');
             var rows = Utils.getCheckedTableRows(vm.tableParams);
             if (rows.length == 0) {
-                $window.alert("Select user to delete please");
+                BootstrapDialog.warning("Select user to delete please");
                 return;
             }
             var confMsg = rows.length > 1 ?
                 "Do you want to delete " + rows.length + " users?" :
                 "Do you want to delete user?";
-            if ($window.confirm(confMsg)) {
+
+/*
+            Another way to open modal confirmation dialog
+            ngDialog.openConfirm({ template: 'app/template/dialogs/yes-no-dialog.template.html', className: 'ngdialog-theme-default'}).then(function(value) {
+                $log.info("selected OK: " + value);
+            });
+*/
+            Utils.showConfirm("Info", confMsg, function(dialogRef) {
                 var ids = Utils.getIds(rows);
                 UserService.Delete(ids, function (data) {
+                    dialogRef.close();
+                    Utils.refreshEditRemoveButtonEnabled(vm);
                     if (data.data.success) {
                         $log.info("Success");
                         vm.tableParams.reload()
                     } else {
                         $log.info("Failed");
-                        $window.alert("Unable delete: Error message: '" + data.data.message + "'");
+//                        BootstrapDialog.warning("Unable delete: Error message: '" + data.data.message + "'");
+                        Utils.showWarning("Unable delete: Error message: '" + data.data.message + "'");
                     }
-                    vm.disableUserForm = false;
                 });
-            }
-
+            });
         };
-// End Modal dialog logic
 
         vm.formatRoles = function(roles) {
             var result = '';
@@ -125,5 +134,13 @@
                     });
                 }});
     }
+    function tt($scope)
+    {
+        $scope.test = function()
+        {
+            console.log("AaA");
+        }
+    }
 
 })();
+

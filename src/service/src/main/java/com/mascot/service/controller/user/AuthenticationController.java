@@ -167,6 +167,11 @@ public class AuthenticationController extends AbstractController {
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     public ResultRecord deleteUser(@RequestBody Long[] ids) {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (ids == null) {
             return ResultRecord.success();
         }
