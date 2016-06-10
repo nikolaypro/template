@@ -42,9 +42,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Collection<User> getUsers() {
-        return em.createQuery("select distinct e from User e left join fetch e.roles").getResultList();
+    public Collection<User> getUsers(int start, int count) {
+        return em.createQuery("select distinct e from User e left join fetch e.roles").
+                setMaxResults(count).
+                setFirstResult(start).
+                getResultList();
     }
+
 
     @Override
     public Role getRole(String roleName) {
@@ -84,6 +88,12 @@ public class UserServiceImpl implements UserService {
         } catch (NonUniqueResultException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    @Override
+    public int getUsersCount() {
+        return ((Long) em.createQuery("select count(e) from User e ")
+                .getSingleResult()).intValue();
     }
 
     @Override

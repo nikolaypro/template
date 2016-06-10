@@ -10,4 +10,8 @@ public class TableParams {
     public int count;
     public Map<String, String> orderBy;
     public boolean isOrderAsc;
+
+    public int getStartIndex() {
+        return (page - 1) * count;
+    }
 }

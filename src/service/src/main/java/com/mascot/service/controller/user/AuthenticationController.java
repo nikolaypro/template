@@ -61,45 +61,25 @@ public class AuthenticationController extends AbstractController {
         return new AuthenticationCredentialsNotFoundException(msg);
     }
 
-/*
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    @ResponseBody
-//    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
-    public User[] getUsers(*/
-/*@RequestBody TableParams params*//*
-) {
-        final Collection<User> users = userService.getUsers();
-        for (int i = 1; i <= 20; i++) {
-            final User e = new User();
-            e.setFullName("Fake Name " + i);
-            e.setLogin("Fake login " + i);
-            users.add(e);
-        }
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return users.toArray(new User[users.size()]);
-    }
-*/
-
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     public TableResult<UserRecord> getUsers(@RequestBody TableParams params) {
-        final Collection<User> users = userService.getUsers();
+        final Collection<User> users = userService.getUsers(params.getStartIndex(), params.count);
+        int usersCount = userService.getUsersCount();
         final Collection<UserRecord> result = new ArrayList<>();
         for (User user : users) {
             result.add(UserRecord.build(user));
         }
 
+/*
         for (int i = (params.page - 1) * params.count; i <= Math.min(params.page * params.count, 533); i++) {
             final UserRecord e = new UserRecord();
             e.fullName = "Fake Name " + i;
             e.login = "Fake login " + i;
             result.add(e);
         }
+*/
 /*
         try {
             Thread.sleep(5000);
@@ -110,7 +90,7 @@ public class AuthenticationController extends AbstractController {
 //        if (true) {
 //            throw new NullPointerException("test exception");
 //        }
-        return TableResult.create(result.toArray(new UserRecord[result.size()]), 533);
+        return TableResult.create(result.toArray(new UserRecord[result.size()]), usersCount);
     }
 
     @RequestMapping(value = "/users/update", method = RequestMethod.POST)

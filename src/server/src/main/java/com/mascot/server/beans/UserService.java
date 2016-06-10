@@ -13,7 +13,7 @@ public interface UserService {
 
     public User loadUserByLogin(String login);
 
-    Collection<User> getUsers();
+    Collection<User> getUsers(int start, int count);
 
     User getCurrentUser();
 
@@ -26,4 +26,6 @@ public interface UserService {
     boolean removeUser(Long userId);
 
     User findUser(Long userId);
+
+    int getUsersCount();
 }
