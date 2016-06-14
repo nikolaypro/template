@@ -1,0 +1,54 @@
+<fieldset ng-disabled="vm.disableUserForm">
+    <form role="form" name="vm.userEditForm" ng-submit="vm.submitUser()">
+        <modal title="New user" visible="vm.showUserDialogFlag">
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.fullName) }">
+                <label for="fullName">Full name</label>
+                <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter full name"
+                       required="" ng-model="vm.user.fullName"/>
+                <span ng-show="$.isShowRequired(vm.userEditForm.fullName)" class="help-block">Username is required</span>
+            </div>
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.login) }">
+                <label for="login">Login</label>
+                <input type="text" class="form-control" id="login" name="login" placeholder="Enter login"
+                       required="" ng-model="vm.user.login"/>
+                <span ng-show="$.isShowRequired(vm.userEditForm.login)" class="help-block">Login is required</span>
+            </div>
+
+            <div class="form-group glyphicon-asterisk" ng-show="!vm.showEditPassword">
+                <button type="button" class="btn btn-primary btn-sm"
+                        ng-click="vm.showEditPassword = true; vm.userEditForm.$setPristine()">Edit password</button>
+            </div>
+
+            <div ng-show="vm.showEditPassword">
+                <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.password) }">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                           placeholder="Enter password" ng-model="vm.user.password" ng-required="vm.showEditPassword"/>
+                    <span ng-show="$.isShowRequired(vm.userEditForm.password)" class="help-block">Password is required</span>
+                </div>
+                <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.repeatPassword) || vm.errorPasswordNotEqueals}">
+                    <label for="repeatPassword">Repeat password</label>
+                    <input type="password" class="form-control" id="repeatPassword" name="repeatPassword"
+                           placeholder="Enter password" ng-model="vm.user.repeatPassword" ng-required="vm.showEditPassword"/>
+                    <span ng-show="$.isShowRequired(vm.userEditForm.repeatPassword)" class="help-block">Password is required</span>
+                    <span ng-show="vm.errorPasswordNotEqueals" class="help-block">Repeat password must be equals password</span>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading"><label class="glyphicon-asterisk"></label>&nbsp;<label>Roles</label></div>
+                <div class="panel-body">
+                    <div class="form-group checkbox">
+                        <label><input type="checkbox" id="admin-checkbox" checklist-model="vm.user.roles" checklist-value="vm.roles.admin" ng-change="vm.onRolesChange()"/>{{vm.roles.admin}}</label>
+                    </div>
+                    <div class="form-group checkbox">
+                        <label><input type="checkbox" id="regular-checkbox" checklist-model="vm.user.roles" checklist-value="vm.roles.regular" ng-change="vm.onRolesChange()"/>{{vm.roles.regular}}</label>
+                    </div>
+                </div>
+                <div ng-class="{ 'has-error': vm.errorNotSelectedRole }">
+                    <span ng-show="vm.errorNotSelectedRole" class="help-block">Not defined any role</span>
+                </div>
+            </div>
+        </modal>
+    </form>
+</fieldset>

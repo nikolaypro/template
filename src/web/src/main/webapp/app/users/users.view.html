@@ -13,13 +13,10 @@
             <td data-title="'Roles'">{{vm.formatRoles(row.roles)}}</td>
         </tr>
     </table>
-    <script type="text/ng-template" id="templateId">
 
-        <div id="target" ng-click="test()" ng-controller="tt">
-            Click here
-        </div>
-    </script>
 
+    <user-edit-dialog/>
+<!--
     <fieldset ng-disabled="vm.disableUserForm">
         <form role="form" name="vm.userEditForm" ng-submit="vm.submitUser()">
             <modal title="New user" visible="vm.showUserDialogFlag">
@@ -28,12 +25,6 @@
                     <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter full name"
                            required="" ng-model="vm.user.fullName"/>
                     <span ng-show="$.isShowRequired(vm.userEditForm.fullName)" class="help-block">Username is required</span>
-    <!--
-                    <tt>userEditForm.fullName = {{userEditForm.fullName.$modelValue}}</tt><br/>
-                    <tt>userEditForm.fullName.$valid = {{userEditForm.fullName.$valid}}</tt><br/>
-                    <tt>userEditForm.fullName.$error = {{userEditForm.fullName.$error}}</tt><br/>
-                    <tt>userEditForm.fullName.$dirty = {{userEditForm.fullName.$dirty}}</tt><br/>
-    -->
                 </div>
                 <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.login) }">
                     <label for="login">Login</label>
@@ -80,4 +71,5 @@
             </modal>
         </form>
     </fieldset>
+-->
 </div>
