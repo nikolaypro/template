@@ -69,7 +69,29 @@
             <li><a href="../navbar-static-top/">Static top</a></li>
             <li class=""><a href="../navbar-fixed-top/">Fixed top</a></li>
 -->
-            <li class="top_menu_user_detail">{{userName}}</li>
+
+            <li class="top_menu_user_detail titip-primary titip-bottom titip-wrapped-large">
+                {{userName}}
+                <span class="titip-content">
+                    <div class="row">
+                        <div class="col-md-4">User name:</div> <div class="col-xs-8"><b>{{userName}}</b></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">Roles:</div> <div class="col-xs-8"><b>{{userRoles}}</b></div>
+                    </div>
+                </span>
+            </li>
+
+<!--
+            Example for simple bootsrap tooltip
+            <li class="top_menu_user_detail"
+                data-placement="bottom"
+                data-toggle="tooltip"
+                title="sdsds"
+                ng-attr-title="{{userTooltip}}">
+                {{userName}}
+            </li>
+-->
             <li><a href="" ng-click="logout()">Logout</a></li>
             <img ng-if="dataLoading"
                  src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>

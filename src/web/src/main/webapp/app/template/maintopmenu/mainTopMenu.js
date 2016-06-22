@@ -43,6 +43,17 @@
             }
             return '';
         };
+        var formatRoles = function(roles) {
+            var result = '';
+            angular.forEach(roles, function(role) {
+                if (result.length > 0) {
+                    result += ", "
+                }
+                result += role;
+            });
+            return result;
+        };
+
         return {
             restrict: 'E',
             templateUrl: 'app/template/maintopmenu/mainTopMenu.html',
@@ -51,7 +62,9 @@
 //                $scope.enabledMenu = ['home', 'about', 'contact', 'dropdown', 'action', 'anotherAction', 'somethingElseHere', 'separatedLink', 'oneMoreSeparatedLink']
                 $scope.enabledMenu = getEnabledMenu();
                 $scope.userName = $rootScope.globals.currentUser.username;
+                $scope.userRoles = formatRoles($rootScope.globals.currentUser.roles);
                 var vm = $scope;
+//                $('[data-toggle="tooltip"]').tooltip(); Use for Bootstrap simple tooltip
                 $scope.logout = function() {
                     vm.dataLoading = true;
                     AuthenticationService.Logout(function(success) {
@@ -62,7 +75,7 @@
                 };
                 $scope.isActive = function(menuItem) {
                     return menuItem == getSelectedMenu($location);
-                }
+                };
             }]
 
         }
