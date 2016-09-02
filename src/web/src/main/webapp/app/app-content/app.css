@@ -49,3 +49,21 @@
     width: 10px;
 }
 
+hr {
+    border: none; /* Убираем границу */
+    background-color: rgba(0, 0, 0, 0.29); /* Цвет линии */
+    color: rgba(0, 0, 0, 0.29); /* Цвет линии для IE6-7 */
+    height: 2px; /* Толщина линии */
+}
+
+#copyright {
+    /*background: #f6810f;*/
+    height: 20px;
+    width: 100%;
+    position: absolute;
+    bottom: 50px;
+}
+
+body {
+    background-color: #eee;
+}
