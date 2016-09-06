@@ -75,8 +75,8 @@
                 buttons: [{
                     label: 'Ok',
                     cssClass: 'btn-primary',
-                    icon: 'glyphicon glyphicon-send',
-                    autospin: true,
+//                    icon: 'glyphicon glyphicon-send',
+                    autospin: false,
                     action: function(dialogRef){
                         $log.info("toggled Ok");
                         dialogRef.enableButtons(false);

@@ -10,17 +10,20 @@
         .factory('httpInterceptor', ['$log', 'FlashService', '$q', 'LongRunService', 'UrlService', '$location', function($log, FlashService, $q, LongRunService, UrlService, $location) {
             $log.debug('$log is here to show you that this is a regular factory with injection');
 
+            var isLong = function(url) {
+                return UrlService.isApiUrl(url) && UrlService.isShowLongRequest(url);
+            };
             var httpInterceptor = {
                 request: function(config) {
 //                    $log.debug('!!!!!!!! - request - !!!!!!!!');
-                    if (UrlService.isApiUrl(config.url)) {
+                    if (isLong(config.url)) {
                         LongRunService.startLong();
                     }
                     return config;
                 },
                 response: function(response) {
 //                    $log.debug('!!!!!!!! - response - !!!!!!!!');
-                    if (UrlService.isApiUrl(response.config.url)) {
+                    if (isLong(response.config.url)) {
                         LongRunService.endLong();
                     }
                     return response;
@@ -28,7 +31,7 @@
                 responseError: function(rejection) {
                     // do something on error
 //                    $log.debug('!!!!!!!! - response error - !!!!!!!!');
-                    if (UrlService.isApiUrl(rejection.config.url)) {
+                    if (isLong(rejection.config.url)) {
                         LongRunService.endLong();
                     }
                     if (rejection.status == 403) {
@@ -114,7 +117,7 @@
             users: function () {
                 return ($rootScope.globals.roles.contains(ALL_APP_ROLES.admin));
             }
-        }
+        };
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             // redirect to login page if not logged in and trying to access a restricted page
             var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;

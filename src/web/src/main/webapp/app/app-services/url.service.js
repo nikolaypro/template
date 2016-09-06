@@ -9,6 +9,7 @@
         var service = {};
         service.url = getApiUrl;
         service.isApiUrl = isApiUrl;
+        service.isShowLongRequest = isShowLongRequest;
         return service;
 
         function getApiUrl(url) {
@@ -16,6 +17,9 @@
         }
         function isApiUrl(url) {
             return typeof url != 'undefined' &&  url.indexOf('/template/') > -1;
+        }
+        function isShowLongRequest(url) {
+            return url.indexOf('/logout') > -1;
         }
     }
 })();
