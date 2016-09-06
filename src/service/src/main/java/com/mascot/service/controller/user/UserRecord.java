@@ -5,6 +5,7 @@ import com.mascot.server.model.User;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by Nikolay on 06.05.2016.
@@ -29,10 +30,7 @@ public class UserRecord {
         result.fullName = user.getFullName();
         result.login = user.getLogin();
         if (user.getRoles() != null) {
-            result.roles = new HashSet<>();
-            for (Role role : user.getRoles()) {
-                result.roles.add(role.getName());
-            }
+            result.roles = user.getRoles().stream().map(Role::getName).collect(Collectors.toSet());
         }
         return result;
     }

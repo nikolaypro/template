@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by Nikolay on 25.11.2015.
@@ -67,29 +70,11 @@ public class AuthenticationController extends AbstractController {
     public TableResult<UserRecord> getUsers(@RequestBody TableParams params) {
         final Collection<User> users = userService.getUsers(params.getStartIndex(), params.count);
         int usersCount = userService.getUsersCount();
-        final Collection<UserRecord> result = new ArrayList<>();
-        for (User user : users) {
-            result.add(UserRecord.build(user));
-        }
 
-/*
-        for (int i = (params.page - 1) * params.count; i <= Math.min(params.page * params.count, 533); i++) {
-            final UserRecord e = new UserRecord();
-            e.fullName = "Fake Name " + i;
-            e.login = "Fake login " + i;
-            result.add(e);
-        }
-*/
-/*
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-*/
-//        if (true) {
-//            throw new NullPointerException("test exception");
-//        }
+        final List<UserRecord> result = users.stream().
+                map(UserRecord::build).
+                collect(Collectors.toList());
+
         return TableResult.create(result.toArray(new UserRecord[result.size()]), usersCount);
     }
 
@@ -98,11 +83,13 @@ public class AuthenticationController extends AbstractController {
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     public ResultRecord updateUser(@RequestBody UserRecord record) {
         logger.info("User: name = " + record.fullName + ", login = " + record.login + ", roles = " + record.roles + ", psw = " + record.password + ", id = " + record.id);
+/*
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+*/
         final User user;
         if (record.id == null) {
             final User existsLoginUser = userService.loadUserByLogin(record.login);
@@ -124,12 +111,18 @@ public class AuthenticationController extends AbstractController {
         user.setLogin(record.login);
         user.setFullName(record.fullName);
         user.getRoles().clear();
-        for (String roleName : record.roles) {
-            final Role role = userService.getRole(roleName);
-            if (role == null) {
-                return ResultRecord.fail("Not found role: '" + roleName + "'");
-            }
-            user.getRoles().add(role);
+        try {
+            user.setRoles(record.roles.stream().
+                    map(roleName -> {
+                        final Role role = userService.getRole(roleName);
+                        if (role == null) {
+                            throw new IllegalStateException("Not found role: '" + roleName + "'");
+                        }
+                        return role;
+                    }).
+                    collect(Collectors.toSet()));
+        } catch (IllegalStateException e) {
+            return ResultRecord.fail(e.getMessage());
         }
 
         if (!MascotUtils.isEmpty(record.password)) {
@@ -147,25 +140,28 @@ public class AuthenticationController extends AbstractController {
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     public ResultRecord deleteUser(@RequestBody Long[] ids) {
+/*
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+*/
         if (ids == null) {
             return ResultRecord.success();
         }
         logger.info("Delete users size: " + ids.length);
-        for (Long id : ids) {
-            logger.info("Delete user: " + id);
-            try {
-                if (!userService.removeUser(id)) {
-                    logger.warn("Unable delete user: " + id);
+        Stream.of(ids).forEach(id -> {
+                    logger.info("Delete user: " + id);
+                    try {
+                        if (!userService.removeUser(id)) {
+                            logger.warn("Unable delete user: " + id);
+                        }
+                    } catch (Exception e) {
+                        logger.error("Unable delete user: " + id, e);
+                    }
                 }
-            } catch (Exception e) {
-                logger.error("Unable delete user: " + id, e);
-            }
-        }
+        );
         return ResultRecord.success();
     }
 

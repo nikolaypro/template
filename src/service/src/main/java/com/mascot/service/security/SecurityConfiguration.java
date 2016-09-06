@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Nikolay on 08.12.2015.
@@ -56,10 +57,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     logger.info(msg);
                     throw new UsernameNotFoundException(msg);
                 }
-                final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-                for (Role role : appUser.getRoles()) {
-                    authorities.add(new SimpleGrantedAuthority(role.getName()));
-                }
+                final List<GrantedAuthority> authorities = appUser.getRoles().stream().
+                        map(role -> new SimpleGrantedAuthority(role.getName())).
+                        collect(Collectors.toList());
                 final byte[] encode = Base64.decode(appUser.getPassword().getBytes());
                 return new User(username, new String(encode), authorities);
             }
