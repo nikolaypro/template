@@ -4,16 +4,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">{{title}}</h4>
+                <h4 class="modal-title">{{vm.title}}</h4>
             </div>
             <div class="modal-body" ng-transclude>
             </div>
             <div class="modal-footer">
                 <div class="alert alert-danger text-left" ng-show="vm.errorMessage">
-                    <strong>Danger!</strong> {{vm.errorMessage}}
+                    <strong>{{'common.error' | i18n}}:</strong> {{vm.errorMessage}}
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="reset" class="btn btn-primary" ng-click="onClose()">Cancel</button>
+                <button type="submit" class="btn btn-primary">{{'common.save' | i18n}}</button>
+                <button type="reset" class="btn btn-primary" ng-click="onClose()">{{'common.cancel' | i18n}}</button>
             </div>
         </div>
     </div>

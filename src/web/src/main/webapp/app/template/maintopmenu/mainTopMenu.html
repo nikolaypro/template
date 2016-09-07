@@ -10,7 +10,7 @@
         </button>
 -->
         <a class="navbar-brand" href="#/"><img src="app/pic/brand-logo.png"></a>
-        <a class="navbar-brand" href="#">Template</a>
+        <a class="navbar-brand" href="#">{{'top.menu.app.name' | i18n}}</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -23,10 +23,10 @@
         </li>
 -->
             <li ng-class="isActive('users') ? 'active' : ''" ng-show="$.inArray('users', enabledMenu) > -1">
-                <a href="#/users">Users</a>
+                <a href="#/users">{{'top.menu.users' | i18n}}</a>
             </li>
             <li ng-class="isActive('reports') ? 'active' : ''" ng-show="$.inArray('reports', enabledMenu) > -1">
-                <a href="#/reports">Reports</a>
+                <a href="#/reports">{{'top.menu.reports' | i18n}}</a>
             </li>
             <li ng-class="isActive('home') ? 'active' : ''" ng-show="$.inArray('home', enabledMenu) > -1">
                 <a href="#">Home</a>
@@ -74,10 +74,10 @@
                 {{userName}}
                 <span class="titip-content">
                     <div class="row">
-                        <div class="col-md-4">User name:</div> <div class="col-xs-8"><b>{{userName}}</b></div>
+                        <div class="col-md-4">{{'top.menu.user.details.name' | i18n}}:</div> <div class="col-xs-8"><b>{{userName}}</b></div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">Roles:</div> <div class="col-xs-8"><b>{{userRoles}}</b></div>
+                        <div class="col-md-4">{{'top.menu.user.details.roles' | i18n}}:</div> <div class="col-xs-8"><b>{{userRoles}}</b></div>
                     </div>
                 </span>
             </li>
@@ -92,9 +92,11 @@
                 {{userName}}
             </li>
 -->
-            <li><a href="" ng-click="logout()">Logout</a></li>
+            <li><a href="" ng-click="logout()">{{'top.menu.logout' | i18n}}</a></li>
+<!--
             <img ng-if="dataLoading"
                  src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+-->
         </ul>
     </div> <!--/.nav-collapse -->
 </div>

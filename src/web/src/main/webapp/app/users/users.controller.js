@@ -6,8 +6,8 @@
         .controller('UsersController', UsersController)
         .controller('tt', tt);
 
-    UsersController.$inject = ['UserService', 'NgTableParams', '$scope', '$timeout', '$log', 'ALL_APP_ROLES', 'Utils', '$window', 'ngDialog'];
-    function UsersController(UserService, NgTableParams, $scope, $timeout, $log, ALL_APP_ROLES, Utils, $window, ngDialog) {
+    UsersController.$inject = ['UserService', 'NgTableParams', '$scope', '$timeout', '$log', 'ALL_APP_ROLES', 'Utils', '$window', 'ngDialog', 'LocMsg'];
+    function UsersController(UserService, NgTableParams, $scope, $timeout, $log, ALL_APP_ROLES, Utils, $window, ngDialog, LocMsg) {
         var vm = this;
         vm.roles = ALL_APP_ROLES;
         Utils.refreshEditRemoveButtonEnabled(vm);
@@ -24,13 +24,19 @@
             vm.disableUserForm = false;
             if (isNew) {
                 vm.user = null;
+                vm.title = LocMsg.get('user.table.edit.title.new');
             } else {
                 vm.user = angular.copy(Utils.getCheckedTableRow(vm.tableParams));
+                vm.title = LocMsg.get('user.table.edit.title.edit');
             }
+            $log.info('Title: ' + vm.title);
             $timeout(function() {
                 vm.showUserDialogFlag = true;
                 $scope.$digest();
             }, 0);
+        };
+        vm.getTitle = function() {
+            return "A";
         };
         vm.submitUser = function() {
             $log.info('full name: ' + vm.user.fullName);
@@ -83,8 +89,8 @@
                 return;
             }
             var confMsg = rows.length > 1 ?
-                "Do you want to delete " + rows.length + " users?" :
-                "Do you want to delete user?";
+                LocMsg.get('user.table.delete.confirm.many').f(rows.length):
+                LocMsg.get('user.table.delete.confirm');
 
 /*
             Another way to open modal confirmation dialog

@@ -13,7 +13,9 @@
             restrict: 'E',
             transclude: true,
             replace: true,
-            scope: true,
+            scope: {
+                vm: '=info'
+            },
             link: function postLink(scope, element, attrs) {
                 scope.title = attrs.title;
                 scope.onClose = function() {

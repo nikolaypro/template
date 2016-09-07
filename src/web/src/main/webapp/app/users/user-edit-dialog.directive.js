@@ -13,7 +13,9 @@
             restrict: 'E',
             transclude: true,
             replace: true,
-            scope: true
+            scope: {
+                vm: '=info'
+            }
         }
     }
 })();

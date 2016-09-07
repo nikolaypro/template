@@ -1,0 +1,62 @@
+(function () {
+    'use strict';
+
+    angular.module('localization')
+        .value('localizedTexts', {
+            '+ Category': '+ Категория',
+            'edit Carte': 'Карта',
+
+            /*common*/
+            'common.new' : 'Создать',
+            'common.edit' : 'Редактировать',
+            'common.remove' : 'Удалить',
+            'common.save' : 'Сохранить',
+            'common.cancel' : 'Отмена',
+            'common.error' : 'Ошибка',
+
+            /*top.menu*/
+            'top.menu.users' : 'Пользователи',
+            'top.menu.reports' : 'Отчеты',
+            'top.menu.logout' : 'Выход',
+            'top.menu.app.name' : 'Шаблон',
+
+            /*top.menu.user.details*/
+            'top.menu.user.details.name' : 'Пользователь',
+            'top.menu.user.details.roles' : 'Роли',
+
+
+            /*user.table.column*/
+            'user.table.column.name' : 'Имя',
+            'user.table.column.login' : 'Логин',
+            'user.table.column.roles' : 'Роли',
+
+            /*user.table.edit.name*/
+            'user.table.edit.title.new' : 'Новый пользователь',
+            'user.table.edit.title.edit' : 'Редактирование пользователя',
+
+            'user.table.edit.name' : 'Имя пользователя',
+            'user.table.edit.name.hint' : 'Введите имя пользователя',
+            'user.table.edit.name.required' : 'Имя пользователя не задано',
+
+            'user.table.edit.login' : 'Логин',
+            'user.table.edit.login.hint' : 'Введите логин',
+            'user.table.edit.login.required' : 'Логин не задан',
+
+            'user.table.edit.edit.password.btn' : 'Редактировать пароль',
+
+            'user.table.edit.password' : 'Пароль',
+            'user.table.edit.password.hint' : 'Введите пароль',
+            'user.table.edit.password.required' : 'Пароль не задан',
+            'user.table.edit.password.repeat' : 'Повторите пароль',
+            'user.table.edit.password.not.equals' : 'Пароли не совпадают',
+
+            'user.table.edit.roles' : 'Роли',
+            'user.table.edit.roles.not.defined' : 'Не задана ни одна роль',
+
+            /*user.table.edit.messages*/
+            'user.table.delete.confirm' : 'Удалить пользователя?',
+            'user.table.delete.confirm.many' : 'Удалить пользователей (количество: {0})?',
+
+        });
+
+})();

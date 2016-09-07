@@ -1,21 +1,21 @@
 <main-top-menu xmlns="http://java.sun.com/jsf/html"></main-top-menu>
 <div class="container">
     <div class="edit-buttons">
-        <button class="btn btn-primary btn-sm" ng-click="vm.showUserDialog(true)">New</button>
-        <button class="btn btn-primary btn-sm" ng-disabled="vm.editDisabled" ng-click="vm.showUserDialog(false)">Edit</button>
-        <button class="btn btn-primary btn-sm" ng-disabled="vm.removeDisabled" ng-click="vm.doRemove()">Remove</button>
+        <button class="btn btn-primary btn-sm" ng-click="vm.showUserDialog(true)">{{'common.new' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-disabled="vm.editDisabled" ng-click="vm.showUserDialog(false)">{{'common.edit' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-disabled="vm.removeDisabled" ng-click="vm.doRemove()">{{'common.remove' | i18n}}</button>
     </div>
     <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-hover">
         <tr ng-repeat="row in $data">
             <td class="table-row-check"><input type="checkbox" ng-change="vm.onRowChecked()" ng-model="row.row_checked"/></td>
-            <td data-title="'Name'" sortable="'fullName'">{{row.fullName}}</td>
-            <td data-title="'Login'" sortable="'login'">{{row.login}}</td>
-            <td data-title="'Roles'">{{vm.formatRoles(row.roles)}}</td>
+            <td data-title="'user.table.column.name' | i18n" sortable="'fullName'">{{row.fullName}}</td>
+            <td data-title="'user.table.column.login' | i18n" sortable="'login'">{{row.login}}</td>
+            <td data-title="'user.table.column.roles' | i18n">{{vm.formatRoles(row.roles)}}</td>
         </tr>
     </table>
 
 
-    <user-edit-dialog/>
+    <user-edit-dialog info="vm"/>
 <!--
     <fieldset ng-disabled="vm.disableUserForm">
         <form role="form" name="vm.userEditForm" ng-submit="vm.submitUser()">
