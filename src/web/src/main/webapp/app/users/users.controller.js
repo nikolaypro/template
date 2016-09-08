@@ -89,7 +89,7 @@
                 return;
             }
             var confMsg = rows.length > 1 ?
-                LocMsg.get('user.table.delete.confirm.many').f(rows.length):
+                LocMsg.get('user.table.delete.confirm.many', rows.length):
                 LocMsg.get('user.table.delete.confirm');
 
 /*
