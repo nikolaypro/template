@@ -53,6 +53,10 @@
             'user.table.edit.roles' : 'Роли',
             'user.table.edit.roles.not.defined' : 'Не задана ни одна роль',
 
+            'user.table.edit.locale' : 'Язык',
+            'language.ru_RU' : 'Русский',
+            'language.en_UK' : 'Английский',
+
             /*user.table.edit.messages*/
             'user.table.delete.confirm' : 'Удалить пользователя?',
             'user.table.delete.confirm.many' : 'Удалить пользователей (количество: {0})?',

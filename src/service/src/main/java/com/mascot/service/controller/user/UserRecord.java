@@ -4,6 +4,7 @@ import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,8 @@ public class UserRecord {
 
     public String password;
 
+    public LocaleRecord locale;
+
     public Set<String> roles = new HashSet<String>();
 
     public static UserRecord build(User user) {
@@ -32,6 +35,7 @@ public class UserRecord {
         if (user.getRoles() != null) {
             result.roles = user.getRoles().stream().map(Role::getName).collect(Collectors.toSet());
         }
+        result.locale = new LocaleRecord(user.getLocale() != null ? user.getLocale().toString() : Locale.getDefault().toString());
         return result;
     }
 }

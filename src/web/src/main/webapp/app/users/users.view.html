@@ -1,8 +1,8 @@
 <main-top-menu xmlns="http://java.sun.com/jsf/html"></main-top-menu>
 <div class="container">
     <div class="edit-buttons">
-        <button class="btn btn-primary btn-sm" ng-click="vm.showUserDialog(true)">{{'common.new' | i18n}}</button>
-        <button class="btn btn-primary btn-sm" ng-disabled="vm.editDisabled" ng-click="vm.showUserDialog(false)">{{'common.edit' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-click="vm.doShowUserDialog()">{{'common.new' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-disabled="vm.editDisabled" ng-click="vm.doShowUserDialog()">{{'common.edit' | i18n}}</button>
         <button class="btn btn-primary btn-sm" ng-disabled="vm.removeDisabled" ng-click="vm.doRemove()">{{'common.remove' | i18n}}</button>
     </div>
     <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-hover">

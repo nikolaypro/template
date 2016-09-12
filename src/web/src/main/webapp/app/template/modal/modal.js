@@ -20,6 +20,9 @@
                 scope.title = attrs.title;
                 scope.onClose = function() {
                     $(element).modal('hide');
+                    if (scope.vm.onModalClose) {
+                        scope.vm.onModalClose();
+                    }
                 };
 
                 scope.$watch(attrs.visible, function(value){

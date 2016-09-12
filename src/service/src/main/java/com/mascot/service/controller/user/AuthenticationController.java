@@ -19,9 +19,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -83,7 +81,8 @@ public class AuthenticationController extends AbstractController {
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     public ResultRecord updateUser(@RequestBody UserRecord record) {
-        logger.info("User: name = " + record.fullName + ", login = " + record.login + ", roles = " + record.roles + ", psw = " + record.password + ", id = " + record.id);
+        logger.info("User: name = " + record.fullName + ", login = " + record.login + ", roles = " + record.roles +
+                ", psw = " + record.password + ", id = " + record.id + ", locale: " + record.locale);
 /*
         try {
             Thread.sleep(5000);
@@ -132,6 +131,10 @@ public class AuthenticationController extends AbstractController {
             return ResultRecord.fail("For new user not defined password");
         }
 
+        if (!MascotUtils.isEmpty(record.locale)) {
+            user.setLocale(record.locale.asLocale());
+        }
+
         userService.saveUser(user);
 
         return ResultRecord.success();
@@ -173,6 +176,27 @@ public class AuthenticationController extends AbstractController {
         logger.info("User: '" + userService.getCurrentUser().getFullName() + "'");
         logger.info("User id: '" + userService.getCurrentUserId()+ "'");
         return UserRecord.build(userService.loadUserByLogin(userName));
+    }
+
+    @RequestMapping(value = "/users/locales", method = RequestMethod.POST)
+    @ResponseBody
+    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    public LocaleRecord[] getLocales() {
+        logger.info("Get locales");
+        final List<LocaleRecord> result = Stream.of(new Locale("ru", "RU"), new Locale("en", "UK")).
+                map(locale -> new LocaleRecord(locale.toString())).
+                collect(Collectors.toList());
+        return result.toArray(new LocaleRecord[result.size()]);
+
+/*
+        final List<String> locales = Stream.of(Locale.getAvailableLocales()).
+                filter(locale -> Arrays.binarySearch(allowed, locale.getLanguage()) >= 0).
+                map(locale -> locale.toString()).
+                collect(Collectors.toList());
+        final List<Locale> locales2 = Stream.of(Locale.getAvailableLocales()).
+                filter(locale -> Arrays.binarySearch(allowed, locale.getLanguage()) >= 0).
+                collect(Collectors.toList());
+*/
     }
 
     @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)

@@ -15,7 +15,7 @@
         service.Update = Update;
         service.Delete = Delete;
         service.Base64 = Base64;
-
+        service.loadLocales = loadLocales;
         return service;
 
         function GetAll(params, handleSuccess) {
@@ -44,6 +44,10 @@
 
         function Delete(ids, handleSuccess) {
             return $http.post(UrlService.url('/api/users/delete'), ids).then(handleSuccess, handleError);
+        }
+
+        function loadLocales(handleSuccess) {
+            return $http.post(UrlService.url('/api/users/locales')).then(handleSuccess, handleError);
         }
 
         // private functions

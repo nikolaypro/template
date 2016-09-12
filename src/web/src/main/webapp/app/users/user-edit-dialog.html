@@ -1,6 +1,6 @@
 <fieldset ng-disabled="vm.disableUserForm">
     <form role="form" name="vm.userEditForm" ng-submit="vm.submitUser()">
-        <modal title="{{vm.getTitle()}}" visible="vm.showUserDialogFlag" info="vm">
+        <modal title="{{vm.title}}" visible="vm.showUserDialogFlag" info="vm">
             <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.fullName) }">
                 <label for="fullName">{{'user.table.edit.name' | i18n}}</label>
                 <input type="text" class="form-control" id="fullName" name="fullName" placeholder="{{'user.table.edit.name.hint' | i18n}}"
@@ -48,6 +48,12 @@
                 <div ng-class="{ 'has-error': vm.errorNotSelectedRole }">
                     <span ng-show="vm.errorNotSelectedRole" class="help-block">{{'user.table.edit.roles.not.defined' | i18n}}</span>
                 </div>
+            </div>
+            <div class="form-group glyphicon-asterisk">
+                <label for="locale">{{'user.table.edit.locale' | i18n}}</label>
+                <select class="form-control" id="locale" ng-disabled="!vm.localeDataLoaded" ng-model="vm.user.locale.id">
+                    <option ng-repeat="row in vm.localeData" value="{{row.id}}">{{'language.' + row.id | i18n}}</option>
+                </select>
             </div>
         </modal>
     </form>
