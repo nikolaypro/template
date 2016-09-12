@@ -6,7 +6,6 @@
 @rem ##########################################################################
 
 @rem Set local scope for the variables with windows NT shell
-set JAVA_HOME=C:\Program Files\Java\jdk1.8.0_51
 if "%OS%"=="Windows_NT" setlocal
 
 @rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.

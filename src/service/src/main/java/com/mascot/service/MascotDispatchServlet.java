@@ -2,6 +2,8 @@ package com.mascot.service;
 
 import com.mascot.common.AppConfConstants;
 import org.apache.log4j.Logger;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -24,6 +26,8 @@ public class MascotDispatchServlet extends DispatcherServlet {
     @Override
     protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
 //        Logger.getLogger(MascotDispatchServlet.class).info(RequestContextUtils.getWebApplicationContext(request));
+//        final String login = ((MascotSession) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+
         super.doDispatch(request, response);
     }
 

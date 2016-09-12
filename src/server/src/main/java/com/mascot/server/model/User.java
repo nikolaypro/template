@@ -1,7 +1,11 @@
 package com.mascot.server.model;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.type.LocaleType;
+
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -26,6 +30,10 @@ public class User extends Identified {
             uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role_id"})
     )
     private Set<Role> roles = new HashSet<Role>();
+
+    @Column()
+    @Type(type = "org.hibernate.type.LocaleType" )
+    private Locale locale;
 
     public String getLogin() {
         return login;
@@ -62,5 +70,9 @@ public class User extends Identified {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Locale getLocale() {
+        return locale;
     }
 }

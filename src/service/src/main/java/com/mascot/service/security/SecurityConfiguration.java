@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -61,7 +62,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         map(role -> new SimpleGrantedAuthority(role.getName())).
                         collect(Collectors.toList());
                 final byte[] encode = Base64.decode(appUser.getPassword().getBytes());
-                return new User(username, new String(encode), authorities);
+                final Locale locale = appUser.getLocale() != null ? appUser.getLocale() : Locale.getDefault();
+                return new MascotSession(username, new String(encode), authorities, appUser.getId(), locale);
             }
         });
 

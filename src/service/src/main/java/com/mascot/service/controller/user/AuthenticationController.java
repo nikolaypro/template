@@ -6,6 +6,7 @@ import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 import com.mascot.service.controller.AbstractController;
 import com.mascot.service.controller.WebError;
+import com.mascot.service.controller.common.Localization;
 import com.mascot.service.controller.common.ResultRecord;
 import com.mascot.service.controller.common.TableParams;
 import com.mascot.service.controller.common.TableResult;
@@ -94,7 +95,7 @@ public class AuthenticationController extends AbstractController {
         if (record.id == null) {
             final User existsLoginUser = userService.loadUserByLogin(record.login);
             if (existsLoginUser != null) {
-                return ResultRecord.fail("User with login '" + record.login + "' already exists");
+                return ResultRecord.failLocalized("user.login.already.exists", record.login, "AAA");
             }
             user = new User();
         } else {
