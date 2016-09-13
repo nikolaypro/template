@@ -15,7 +15,7 @@
             return text;
         };
 */
-    }]).factory('LocMsg', ['localizedTexts', function(localizedTexts) {
+    }]).factory('LocMsg', ['localizedTextsRU', 'localizedTextsEN', '$rootScope', function(localizedTextsRU, localizedTextsEN, $rootScope) {
             var result = {
                 /** first argument is key of message.
                  * Other arguments for replace {0}, {1} ... **/
@@ -31,6 +31,19 @@
                 });
             };
             var findMessage = function(text) {
+                var localizedTexts = localizedTextsEN;
+                if ($rootScope.globals && $rootScope.globals.currentUser && $rootScope.globals.currentUser.locale) {
+                    switch ($rootScope.globals.currentUser.locale.id) {
+                        case "ru_RU":
+                            localizedTexts = localizedTextsRU;
+                            break;
+                        case "en_UK":
+                            localizedTexts = localizedTextsEN;
+                            break;
+                        default:
+                            localizedTexts = localizedTextsEN;
+                    }
+                }
                 if (localizedTexts.hasOwnProperty(text)) {
                     return localizedTexts[text];
                 }

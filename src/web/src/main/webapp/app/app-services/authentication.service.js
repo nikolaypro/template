@@ -58,14 +58,15 @@
 
         }
 
-        function SetCredentials(username, password, roles) {
+        function SetCredentials(username, password, roles, locale) {
             var authdata = UserService.Base64.encode(username + ':' + password);
 
             $rootScope.globals = {
                 currentUser: {
                     username: username,
                     authdata: authdata,
-                    roles: roles
+                    roles: roles,
+                    locale: locale
                 }
             };
 

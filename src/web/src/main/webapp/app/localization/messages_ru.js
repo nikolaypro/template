@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('localization')
-        .value('localizedTexts', {
+        .value('localizedTextsRU', {
             '+ Category': '+ Категория',
             'edit Carte': 'Карта',
 
