@@ -27,7 +27,7 @@
 
                 scope.onSubmit = function() {
                     scope.vm.submit();
-                    $(element).modal('hide');
+//                    $(element).modal('hide');
                 };
 
                 scope.$watch(attrs.visible, function(value){
