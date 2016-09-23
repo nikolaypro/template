@@ -5,8 +5,8 @@
         .module('app')
         .factory('Utils', Utils);
 
-    Utils.$inject = ['$log'];
-    function Utils($log) {
+    Utils.$inject = ['$log', 'ALL_APP_ROLES', $rootScope];
+    function Utils($log, ALL_APP_ROLES, $rootScope) {
         var service = {};
         service.refreshEditRemoveButtonEnabled = refreshEditRemoveButtonEnabled;
         service.getCheckedTableRow = getCheckedTableRow;
@@ -14,6 +14,7 @@
         service.getIds = getIds;
         service.showConfirm = showConfirm;
         service.showWarning = showWarning;
+        service.getEnabledMenu = getEnabledMenu;
         return service;
 
         function refreshEditRemoveButtonEnabled(vm, tableParams) {
@@ -111,6 +112,30 @@
                 }]
             });
         }
+
+        function getRoleMenu (role) {
+            switch (role) {
+                case ALL_APP_ROLES.admin:
+                    return ['users', 'reports'];
+                case ALL_APP_ROLES.regular:
+                    return ['contact', 'dropdown', 'action', 'separated_link'];
+                default:
+                    alert('Unknown role: "' + role + '"');
+                    return [];
+            }
+        }
+        function getEnabledMenu () {
+            var roles = [];
+            $.each($rootScope.globals.currentUser.roles, function(i, el) {
+                Array.prototype.push.apply(roles, getRoleMenu(el));
+            });
+            var result = [];
+            $.each(roles, function(i, el) {
+                if($.inArray(el, result) === -1) result.push(el);
+            });
+            return result;
+        }
+
     }
 
 })();
