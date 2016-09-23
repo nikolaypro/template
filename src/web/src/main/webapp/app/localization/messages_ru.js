@@ -61,6 +61,10 @@
             'user.table.delete.confirm' : 'Удалить пользователя?',
             'user.table.delete.confirm.many' : 'Удалить пользователей (количество: {0})?',
 
+            /* ROLES */
+            'ROLE_ADMIN': 'Администратор',
+            'ROLE_REGULAR': 'Сотрудник',
+
         });
 
 })();

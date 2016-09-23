@@ -60,6 +60,10 @@
             'user.table.delete.confirm' : 'Do you want to delete user?',
             'user.table.delete.confirm.many' : 'Do you want to delete {0} users?',
 
+            /* ROLES */
+            'ROLE_ADMIN': 'Administrator',
+            'ROLE_REGULAR': 'Regular',
+
 
         });
 

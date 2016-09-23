@@ -6,8 +6,10 @@
         .controller('UsersController', UsersController)
         .controller('tt', tt);
 
-    UsersController.$inject = ['UserService', 'NgTableParams', '$scope', '$timeout', '$log', 'ALL_APP_ROLES', 'Utils', '$window', 'ngDialog', 'LocMsg', "ngTableEventsChannel"];
-    function UsersController(UserService, NgTableParams, $scope, $timeout, $log, ALL_APP_ROLES, Utils, $window, ngDialog, LocMsg, ngTableEventsChannel) {
+    UsersController.$inject = ['UserService', 'NgTableParams', '$scope', '$timeout', '$log', 'ALL_APP_ROLES', 'Utils',
+        '$window', 'ngDialog', 'LocMsg', "ngTableEventsChannel"];
+    function UsersController(UserService, NgTableParams, $scope, $timeout, $log, ALL_APP_ROLES,
+                             Utils, $window, ngDialog, LocMsg, ngTableEventsChannel) {
         var vm = this;
         vm.roles = ALL_APP_ROLES;
         Utils.refreshEditRemoveButtonEnabled(vm);
@@ -68,7 +70,7 @@
                 if (result.length > 0) {
                     result += ", "
                 }
-                result += role;
+                result += LocMsg.get(role);
             });
             return result;
         };
