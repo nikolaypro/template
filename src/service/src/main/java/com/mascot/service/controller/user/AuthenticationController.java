@@ -184,7 +184,7 @@ public class AuthenticationController extends AbstractController {
     public LocaleRecord[] getLocales() {
         logger.info("Get locales");
         final List<LocaleRecord> result = Stream.of(new Locale("ru", "RU"), new Locale("en", "UK")).
-                map(locale -> new LocaleRecord(locale.toString())).
+                map(LocaleRecord::new).
                 collect(Collectors.toList());
         return result.toArray(new LocaleRecord[result.size()]);
 

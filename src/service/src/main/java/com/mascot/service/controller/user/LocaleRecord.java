@@ -9,11 +9,17 @@ import java.util.Locale;
 public class LocaleRecord {
     String id;
 
+/*
     public LocaleRecord(String id) {
         this.id = id;
     }
+*/
 
     public LocaleRecord() {
+    }
+
+    public LocaleRecord(Locale locale) {
+        this.id = locale.getLanguage() + "_" + locale.getCountry();
     }
 
     public String getId() {
@@ -31,6 +37,9 @@ public class LocaleRecord {
 
     public Locale asLocale() {
         final String[] split = id.split("_");
+        if (split.length != 2) {
+            throw new IllegalArgumentException("Incorrect Locale: '" + id + "'");
+        }
         return new Locale(split[0], split[1]);
     }
 

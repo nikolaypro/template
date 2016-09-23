@@ -1,5 +1,5 @@
 <fieldset ng-disabled="vm.disableUserForm">
-    <form role="form" name="vm.userEditForm" ng-submit="vm.submitUser()">
+    <form role="form" name="vm.userEditForm" >
         <modal title="{{vm.title}}" visible="vm.showUserDialogFlag" info="vm">
             <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.fullName) }">
                 <label for="fullName">{{'user.table.edit.name' | i18n}}</label>

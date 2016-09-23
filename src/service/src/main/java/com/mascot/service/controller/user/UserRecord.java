@@ -35,7 +35,7 @@ public class UserRecord {
         if (user.getRoles() != null) {
             result.roles = user.getRoles().stream().map(Role::getName).collect(Collectors.toSet());
         }
-        result.locale = new LocaleRecord(user.getLocale() != null ? user.getLocale().toString() : Locale.getDefault().toString());
+        result.locale = new LocaleRecord(user.getLocale() != null ? user.getLocale() : Locale.getDefault());
         return result;
     }
 }

@@ -5,7 +5,7 @@
         .module('app')
         .factory('Utils', Utils);
 
-    Utils.$inject = ['$log', 'ALL_APP_ROLES', $rootScope];
+    Utils.$inject = ['$log', 'ALL_APP_ROLES', '$rootScope'];
     function Utils($log, ALL_APP_ROLES, $rootScope) {
         var service = {};
         service.refreshEditRemoveButtonEnabled = refreshEditRemoveButtonEnabled;

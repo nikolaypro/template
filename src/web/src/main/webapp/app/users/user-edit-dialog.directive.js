@@ -20,11 +20,11 @@
                 var vm = scope.vm;
                 vm.showUserDialogFlag = false;
                 vm.submitUser = function() {
-                    $log.info('full name: ' + vm.user.fullName);
-                    $log.info('login: ' + vm.user.login);
-                    $log.info('psw: ' + vm.user.password);
-                    $log.info('repeat psw: ' + vm.user.repeatPassword);
-                    $log.info('roles: ' + vm.user.roles);
+//                    $log.info('full name: ' + vm.user.fullName);
+//                    $log.info('login: ' + vm.user.login);
+//                    $log.info('psw: ' + vm.user.password);
+//                    $log.info('repeat psw: ' + vm.user.repeatPassword);
+//                    $log.info('roles: ' + vm.user.roles);
                     if (vm.checkInputFields()) {
                         var userCopy = angular.copy(vm.user);
                         if (userCopy.password) {
@@ -44,6 +44,7 @@
                         });
                     }
                 };
+                vm.submit = vm.submitUser;// For Modal template
                 vm.showUserDialog = function(user) {
                     var isNew = typeof user == 'undefined';
                     vm.userEditForm.$setPristine();
@@ -77,7 +78,9 @@
                         vm.localeData = data.data;
                         if (!user.locale) {
                             user["locale"] = vm.localeData[0];
+                            $log.info('Set locale: ' + user.locale);
                         }
+                        $log.info('User locale: ' + user.locale);
                         vm.localeDataLoaded = true;
                     });
                 };
