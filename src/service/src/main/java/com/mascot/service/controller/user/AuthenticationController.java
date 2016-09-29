@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -67,7 +68,7 @@ public class AuthenticationController extends AbstractController {
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     public TableResult<UserRecord> getUsers(@RequestBody TableParams params) {
-        final Collection<User> users = userService.getUsers(params.getStartIndex(), params.count);
+        final Collection<User> users = userService.getUsers(params.getStartIndex(), params.count, params.orderBy);
         int usersCount = userService.getUsersCount();
 
         final List<UserRecord> result = users.stream().
@@ -202,6 +203,27 @@ public class AuthenticationController extends AbstractController {
     @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
     public ResponseEntity handleAuthenticationCredentialsNotFoundException(AuthenticationCredentialsNotFoundException ex) {
         return new ResponseEntity<WebError>(new WebError(ex.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    public static void main(String[] args) {
+        Map<String, String> orderBy = new HashMap<>();
+        orderBy.put("a", "1");
+        orderBy.put("b", "2");
+        orderBy.put("c", "3");
+        final String reduce = orderBy.entrySet().
+                stream().reduce(new StringJoiner(", ", " order by ", ""),
+                (x, y) -> x.add(y.getKey() + " " + y.getValue()),
+                (x, y) -> x.merge(y)).toString();
+        System.out.println("reduce = " + reduce);
+
+        final String collect = orderBy.entrySet().stream().collect(Collector.of(
+                () -> new StringJoiner(", ", " order by ", ""),
+                (x, y) -> x.add(y.getKey() + " " + y.getValue()),
+                (x, y) -> x.merge(y),
+                StringJoiner::toString
+        ));
+        System.out.println("collect = " + collect);
+
     }
 
 }

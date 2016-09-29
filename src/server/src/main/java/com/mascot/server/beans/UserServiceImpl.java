@@ -1,5 +1,6 @@
 package com.mascot.server.beans;
 
+import com.mascot.common.MascotUtils;
 import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 import org.apache.log4j.Logger;
@@ -13,8 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Nikolay on 16.12.2015.
@@ -42,8 +42,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Collection<User> getUsers(int start, int count) {
-        return em.createQuery("select distinct e from User e left join fetch e.roles").
+    public Collection<User> getUsers(int start, int count, Map<String, String> orderBy) {
+        final String orderByStr = MascotUtils.buildOrderByString(orderBy, "e");
+        return em.createQuery("select distinct e from User e left join fetch e.roles " + orderByStr).
                 setMaxResults(count).
                 setFirstResult(start).
                 getResultList();
@@ -125,5 +126,6 @@ public class UserServiceImpl implements UserService {
         }
         return (org.springframework.security.core.userdetails.User) auth.getPrincipal();
     }
+
 
 }

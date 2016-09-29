@@ -4,6 +4,7 @@ import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * Created by Nikolay on 16.12.2015.
@@ -13,7 +14,7 @@ public interface UserService {
 
     public User loadUserByLogin(String login);
 
-    Collection<User> getUsers(int start, int count);
+    Collection<User> getUsers(int start, int count, Map<String, String> orderBy);
 
     User getCurrentUser();
 

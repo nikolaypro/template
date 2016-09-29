@@ -14,7 +14,7 @@ def webWarFileName = 'template-web'
 // VERSIONS
 def spring_version = '4.2.2.RELEASE'
 def spring_security_version = '4.0.3.RELEASE'
-def hibernate_version = '3.6.9.Final'
+def hibernate_version = '4.3.8.Final'
 def jackson_version = '1.9.13'
 def fasterxml_jackson_version = '2.6.3'
 

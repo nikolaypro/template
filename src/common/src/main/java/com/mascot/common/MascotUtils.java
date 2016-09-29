@@ -3,6 +3,7 @@ package com.mascot.common;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.StringJoiner;
 
 /**
  * Created by Nikolay on 09.12.2015.
@@ -25,4 +26,14 @@ public class MascotUtils {
     }
 
 
+    public static String buildOrderByString(Map<String, String> orderBy, String alias) {
+        String orderByStr = "";
+        if (orderBy != null && !orderBy.isEmpty()) {
+            orderByStr = orderBy.entrySet().
+                    stream().reduce(new StringJoiner(",", "order by ", ""),
+                    (x, y) -> x.add(alias + "." + y.getKey() + " " + y.getValue()),
+                    (x, y) -> x.merge(y)).toString();
+        }
+        return orderByStr;
+    }
 }

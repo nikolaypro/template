@@ -1,7 +1,6 @@
 package com.mascot.service.controller.common;
 
 import org.apache.log4j.Logger;
-import org.slf4j.helpers.MessageFormatter;
 
 import java.io.*;
 import java.nio.charset.Charset;
