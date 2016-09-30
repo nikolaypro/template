@@ -8,8 +8,8 @@
     <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-hover">
         <tr ng-repeat="row in $data">
             <td class="table-row-check"><input type="checkbox" ng-change="vm.onRowChecked()" ng-model="row.row_checked"/></td>
-            <td data-title="'user.table.column.name' | i18n" sortable="'fullName'">{{row.fullName}}</td>
-            <td data-title="'user.table.column.login' | i18n" sortable="'login'">{{row.login}}</td>
+            <td class="td_400px" data-title="'user.table.column.name' | i18n" sortable="'fullName'">{{row.fullName}}</td>
+            <td class="td_400px" data-title="'user.table.column.login' | i18n" sortable="'login'">{{row.login}}</td>
             <td data-title="'user.table.column.roles' | i18n">{{vm.formatRoles(row.roles)}}</td>
         </tr>
     </table>

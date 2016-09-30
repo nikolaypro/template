@@ -90,3 +90,8 @@ body, html {
     transform: translate(-50%, -50%);
     z-index: 1001;
 }
+
+.td_400px {
+    width: 400px;
+    word-wrap: break-word;
+}
