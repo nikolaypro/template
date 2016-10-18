@@ -64,6 +64,12 @@
             'ROLE_ADMIN': 'Administrator',
             'ROLE_REGULAR': 'Regular',
 
+            /* REPORTS */
+            'report.name.sign.in.out.user' : 'Login/Logout users',
+            'report.name.users' : 'Users list',
+            'report.create' : 'Create report',
+            'report.date.from' : 'From',
+            'report.date.to' : 'To'
 
         });
 

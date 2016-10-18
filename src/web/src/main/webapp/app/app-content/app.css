@@ -95,3 +95,20 @@ body, html {
     width: 400px;
     word-wrap: break-word;
 }
+
+.report-options {
+    margin-left: 20px;
+    margin-bottom: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-color: rgba(58, 151, 245, 0.40);
+    border-width: 1px;
+    border-style: groove;
+    border-radius: 10px;
+}
+
+.black-font {
+    color: rgb(0, 0, 0);
+}

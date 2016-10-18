@@ -7,8 +7,11 @@ def commonProject = project(':common')
 def serverProject = project(':server')
 def serviceProject = project(':service')
 def webProject = project(':web')
+def reportProject = project(':report')
 def tomcatPath = 'tomcat'
 def tomcatWebApp = tomcatPath + '/webapps'
+def tomcatConf = tomcatPath + '/conf'
+def tomcatReportsDir = tomcatConf + '/reports'
 def warFileName = 'template'
 def webWarFileName = 'template-web'
 // VERSIONS
@@ -35,12 +38,18 @@ allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+        maven {
+            url "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts"
+        }
+//        flatDir(dirs: "$rootDir/lib")
     }
 
     dependencies {
-        testCompile 'junit:junit:4.11'
+//        testCompile 'junit:junit:4.11'
+        testCompile 'org.testng:testng:6.8'
         compile 'javax:javaee-api:6.0'
         compile 'log4j:log4j:1.2.17'
+        compile group: 'commons-io', name: 'commons-io', version: '2.5'
     }
 }
 
@@ -61,6 +70,7 @@ configure([commonProject]) {
 configure([serverProject]) {
     dependencies {
         compile commonProject
+        compile group: 'net.sf.jasperreports', name: 'jasperreports', version: '6.3.0'
     }
 }
 
@@ -79,9 +89,11 @@ configure([serviceProject]) {
         compile 'com.fasterxml.jackson.core:jackson-core:' + fasterxml_jackson_version
         compile 'com.fasterxml.jackson.core:jackson-databind:' + fasterxml_jackson_version
         compile 'javax.inject:javax.inject:1'
+//        compile fileTree(dir: 'lobster', include: '*.jar')
     }
     war {
         archiveName = warFileName + ".war"
+        classpath fileTree(dir: '../../lib', include: '*.jar')
     }
 }
 
@@ -104,11 +116,21 @@ task cleanTomcatDeployDir(type: org.gradle.api.tasks.Delete) {
     delete tomcatWebApp + '/' + webWarFileName + '.war'
 }
 
-task createAndCopyWar(type: Copy, dependsOn: [serviceProject.build, webProject.build, cleanTomcatDeployDir]) {
+task cleanTomcatReportsDir(type: org.gradle.api.tasks.Delete) {
+    delete tomcatReportsDir
+}
+
+task copyReports(type: Copy, dependsOn: [cleanTomcatReportsDir]) {
+    from 'src/report/src/main/resources/'
+    into tomcatReportsDir
+}
+
+task createAndCopyWar(type: Copy, dependsOn: [serviceProject.build, webProject.build, cleanTomcatDeployDir, copyReports]) {
     from 'src/service/build/libs/' + warFileName + '.war', 'src/web/build/libs/' + webWarFileName + '.war'
     into tomcatWebApp
 }
 
+//  ------------------ LIQUIBASE ----------------------
 configurations {
     repositories {
         mavenLocal()
@@ -133,3 +155,6 @@ task liquibase_Update(type: JavaExec) {
 
     args "update"
 }
+
+// -------------------------------------------------------
+

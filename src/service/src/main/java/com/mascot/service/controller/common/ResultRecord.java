@@ -11,23 +11,29 @@ public class ResultRecord {
     public boolean success;
     public String message;
 
+    protected ResultRecord() {
+        this.success = true;
+    }
+
+    protected ResultRecord(String message) {
+        this.success = false;
+        this.message = message;
+    }
+
+    protected ResultRecord(String message, String... params) {
+        this.success = false;
+        this.message = Localization.get(message, MascotSession.getCurrent().getLocale(), params);
+    }
+
     public static ResultRecord success() {
-        final ResultRecord resultRecord = new ResultRecord();
-        resultRecord.success = true;
-        return resultRecord;
+        return new ResultRecord();
     }
 
     public static ResultRecord fail(String message) {
-        final ResultRecord resultRecord = new ResultRecord();
-        resultRecord.success = false;
-        resultRecord.message = message;
-        return resultRecord;
+        return new ResultRecord(message);
     }
 
     public static ResultRecord failLocalized(String message, String... params) {
-        final ResultRecord resultRecord = new ResultRecord();
-        resultRecord.success = false;
-        resultRecord.message = Localization.get(message, MascotSession.getCurrent().getLocale(), params);
-        return resultRecord;
+        return new ResultRecord(message, params);
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,14 +28,14 @@ import java.util.stream.Stream;
 /**
  * Created by Nikolay on 25.11.2015.
  */
-@RestController
-//@Controller
-@RequestMapping(name = "/api")
+//@RestController
+@Controller
+@RequestMapping()
 public class AuthenticationController extends AbstractController {
     @Inject
     private UserService userService;
 
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    @RequestMapping(path = "/authenticate", method = RequestMethod.POST)
     @ResponseBody
     public UserRecord authenticate(@RequestBody User user) {
         if (MascotUtils.isEmpty(user.getPassword())) {

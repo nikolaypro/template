@@ -6,6 +6,8 @@
 
     UrlService.$inject = ['$location'];
     function UrlService($location) {
+        var longUrls = ['/logout', '/reports/'];
+
         var service = {};
         service.url = getApiUrl;
         service.isApiUrl = isApiUrl;
@@ -19,7 +21,12 @@
             return typeof url != 'undefined' &&  url.indexOf('/template/') > -1;
         }
         function isShowLongRequest(url) {
-            return url.indexOf('/logout') > -1;
+            for (var i = 0; i < longUrls.length; i++) {
+                if (url.indexOf(longUrls[i]) > -1) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 })();

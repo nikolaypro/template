@@ -1,5 +1,77 @@
 <main-top-menu></main-top-menu>
 <div class="container">
-    {{vm.tmpValue}}
-    REPORT
+    <div class="row">
+        <div class="col-md-6">
+            <h4><a href="" ng-click="vm.currReport = vm.currReport != vm.signInOutReport ? vm.signInOutReport : '-1'"
+                   ng-class="{'black-font' : vm.currReport != vm.signInOutReport}">{{'report.name.sign.in.out.user' | i18n}}</a></h4>
+            <div ng-show="vm.currReport == vm.signInOutReport" class="report-options">
+                <div><from-to-date-report-section info="vm.signInOutReport"/></div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-sm" ng-click="vm.signInOutReport.createReport()">
+                        {{'report.create' | i18n}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4><a href="" ng-click="vm.currReport = vm.currReport != vm.nameUsersReport ? vm.nameUsersReport : '-1'"
+                   ng-class="{'black-font' : vm.currReport != vm.nameUsersReport}">{{'report.name.users' | i18n}}</a></h4>
+            <div ng-show="vm.currReport == vm.nameUsersReport" class="report-options">
+                <div class="form-group">
+                    <button class="btn btn-primary btn-sm" ng-click="vm.nameUsersReport.createReport()">
+                        {{'report.create' | i18n}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4><a href="" ng-click="vm.currReport = vm.currReport != vm.tmpReport ? vm.tmpReport : '-1'"
+                   ng-class="{'black-font' : vm.currReport != vm.tmpReport}">Tmp report</a></h4>
+            <div ng-show="vm.currReport == vm.tmpReport" class="report-options">
+                <div><from-to-date-report-section info="vm.tmpReport"/></div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-sm" ng-click="vm.tmpReport.createReport()">
+                        {{'report.create' | i18n}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+        <div class="row" ng-repeat="report in vm.reports track by $index">
+            <div class="col-md-6">
+                <h4><a href="" ng-click="vm.onNameClick(report)"
+                       ng-class="{'black-font' : !report.visible}">{{report.name}}</a></h4>
+
+                <div ng-show="report.visible" class="report-options">
+                    <div ng-show="report.optionsType == 0" class="form-group">
+                        <label for="{{ 'dateFrom-' + $index }}">{{'report.date.from' | i18n}}</label>
+                        <input id="{{ 'dateFrom-' + $index }}" name="{{ 'dateFrom-' + $index }}" type="date" ng-model="vm.dateFrom" required>
+                        <div role="alert" ng-show="'dateFrom-' + $index.input.$error.date">
+                            <span class="error">{{vm.errorMessage}}</span>
+                        </div>
+                        <label class>{{'report.date.to' | i18n}}</label>
+                        <input type="date" ng-model="vm.dateTo">
+                    </div>
+                    <div ng-show="report.optionsType == -1" class="form-group">
+                        <label>{{'report.date.from' | i18n}}</label>
+                        <input type="date" ng-model="vm.dateFrom">
+                        <label class>{{'report.date.to' | i18n}}</label>
+                        <input type="date" ng-model="vm.dateTo">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-sm" ng-click="report.createReport()">{{'report.create' | i18n}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    -->
+
 </div>

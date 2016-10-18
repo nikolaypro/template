@@ -36,4 +36,12 @@ public class MascotUtils {
         }
         return orderByStr;
     }
+
+    public static String buildCommaSeparatedString(String... list) {
+        final StringJoiner result = new StringJoiner(",");
+        for (String s : list) {
+            result.add(s);
+        }
+        return result.toString();
+    }
 }

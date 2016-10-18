@@ -65,6 +65,14 @@
             'ROLE_ADMIN': 'Администратор',
             'ROLE_REGULAR': 'Сотрудник',
 
+            /* REPORTS */
+            'report.name.sign.in.out.user' : 'Входы/выходы пользователей',
+            'report.name.users' : 'Список пользователей',
+            'report.create' : 'Создать отчет',
+            'report.date.from' : 'От',
+            'report.date.to' : 'До'
+
+
         });
 
 })();

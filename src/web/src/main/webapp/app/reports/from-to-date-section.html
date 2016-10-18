@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label for="dateFrom">{{'report.date.from' | i18n}}</label>
+    <input id="dateFrom" name="dateFrom" type="date" ng-model="vm.dateFrom" required style="margin-right: 15px">
+    <label class>{{'report.date.to' | i18n}}</label>
+    <input type="date" ng-model="vm.dateTo">
+    <div role="alert" ng-show="vm.errorMessage">
+        <span class="error">{{vm.errorMessage}}</span>
+    </div>
+</div>

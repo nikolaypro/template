@@ -113,7 +113,7 @@
             });
         }
 
-        function getRoleMenu (role) {
+        function getRoleMenu(role) {
             switch (role) {
                 case ALL_APP_ROLES.admin:
                     return ['users', 'reports'];
