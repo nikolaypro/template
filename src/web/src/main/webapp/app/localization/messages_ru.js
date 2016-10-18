@@ -70,8 +70,11 @@
             'report.name.users' : 'Список пользователей',
             'report.create' : 'Создать отчет',
             'report.date.from' : 'От',
-            'report.date.to' : 'До'
+            'report.date.to' : 'До',
 
+            'report.users.full_name.column' : 'Имя',
+            'report.users.login.column' : 'Логин',
+            'report.users.roles.column' : 'Роли'
 
         });
 

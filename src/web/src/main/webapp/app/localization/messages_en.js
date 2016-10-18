@@ -69,7 +69,11 @@
             'report.name.users' : 'Users list',
             'report.create' : 'Create report',
             'report.date.from' : 'From',
-            'report.date.to' : 'To'
+            'report.date.to' : 'To',
+
+            'report.users.full_name.column' : 'Name',
+            'report.users.login.column' : 'Login',
+            'report.users.roles.column' : 'Roles'
 
         });
 

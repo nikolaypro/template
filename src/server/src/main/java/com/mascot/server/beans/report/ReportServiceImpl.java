@@ -7,9 +7,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +16,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.*;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -46,17 +43,7 @@ public class ReportServiceImpl implements ReportService {
         }
 */
         logger.info("ReportServiceImpl: Success");
-        final List<User> users = new ArrayList<User>(em.createQuery("select distinct e from User e join fetch e.roles").getResultList());
-        for (int i = 0; i < 500; i++) {
-            final User e = new User();
-            e.setFullName("Полное имя A" + i);
-            e.setLogin("Логин B" + i);
-            e.setRoles(new HashSet<>());
-            final Role role = new Role();
-            role.setName("Слон");
-            e.getRoles().add(role);
-            users.add(e);
-        }
+        final List<User> users = users();
         List<UserReportItem> data = users.stream().map(UserReportItem::create).collect(Collectors.toList());
         final Path compileFilePath = ReportCompiler.compileReport(MascotReport.USERS_REPORT);
         final JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(data);
@@ -109,6 +96,26 @@ public class ReportServiceImpl implements ReportService {
             throw new IllegalStateException(e);
         }
 
+    }
+
+    private List<User> users() {
+        final List<User> users = new ArrayList<User>(em.createQuery("select distinct e from User e join fetch e.roles").getResultList());
+        for (int i = 0; i < 500; i++) {
+            final User e = new User();
+            e.setFullName("Полное имя A" + i);
+            e.setLogin("Логин B" + i);
+            e.setRoles(new HashSet<>());
+            final Role role = new Role();
+            role.setName("Слон");
+            e.getRoles().add(role);
+            users.add(e);
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return users();
     }
 
 }
