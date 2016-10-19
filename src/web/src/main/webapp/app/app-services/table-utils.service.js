@@ -5,14 +5,14 @@
         .module('app')
         .factory('TableUtils', TableUtils);
 
-    TableUtils.$inject = ['$log', 'Utils', 'NgTableParams', 'ngTableEventsChannel'];
-    function TableUtils($log, Utils, NgTableParams, ngTableEventsChannel) {
+    TableUtils.$inject = ['$log', 'Utils', 'NgTableParams', 'ngTableEventsChannel', 'LocMsg'];
+    function TableUtils($log, Utils, NgTableParams, ngTableEventsChannel, LocMsg) {
         var service = {};
         service.initTablePage = initTablePage;
         service.initTablePage = initTablePage;
         return service;
 
-        function initTablePage(vm, Service) {
+        function initTablePage(vm, Service, $scope) {
             Utils.refreshEditRemoveButtonEnabled(vm);
             vm.doShowEditDialog = function() {
                 vm.showEditDialog(Utils.getCheckedTableRow(vm.tableParams));
@@ -67,7 +67,7 @@
                 {
                     total: 0,
                     getData: function ($defer, params) {
-                        UserService.GetAll(params, function (data) {
+                        Service.GetAll(params, function (data) {
                             params.total(data.data.total);
                             $defer.resolve(data.data.list)
                         });

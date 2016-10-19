@@ -7,7 +7,7 @@
         .controller('tt', tt);
 
     UsersController.$inject = ['UserService', 'NgTableParams', '$scope', '$timeout', '$log', 'ALL_APP_ROLES', 'Utils',
-        '$window', 'ngDialog', 'LocMsg', "ngTableEventsChannel", TableUtils];
+        '$window', 'ngDialog', 'LocMsg', 'ngTableEventsChannel', 'TableUtils'];
     function UsersController(UserService, NgTableParams, $scope, $timeout, $log, ALL_APP_ROLES,
                              Utils, $window, ngDialog, LocMsg, ngTableEventsChannel, TableUtils) {
         var vm = this;
@@ -23,7 +23,9 @@
             return result;
         };
 
-        TableUtils.initTablePage(vm, UserService);
+        vm.deleteConfirmManyMsg = 'user.table.delete.confirm.many';
+        vm.deleteConfirmMsg = 'user.table.delete.confirm';
+        TableUtils.initTablePage(vm, UserService, $scope);
 
 /*
         Utils.refreshEditRemoveButtonEnabled(vm);
