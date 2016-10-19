@@ -45,7 +45,7 @@
                     }
                 };
                 vm.submit = vm.submitUser;// For Modal template
-                vm.showUserDialog = function(user) {
+                vm.showEditDialog = function(user) {
                     var isNew = typeof user == 'undefined';
                     vm.userEditForm.$setPristine();
                     vm.userEditForm.$setUntouched();
