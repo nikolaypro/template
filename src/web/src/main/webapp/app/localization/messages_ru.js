@@ -74,8 +74,11 @@
 
             'report.users.full_name.column' : 'Имя',
             'report.users.login.column' : 'Логин',
-            'report.users.roles.column' : 'Роли'
+            'report.users.roles.column' : 'Роли',
 
+            /*product.table.edit.messages*/
+            'product.table.delete.confirm' : 'Удалить изделие?',
+            'product.table.delete.confirm.many' : 'Удалить изделия (количество: {0})?'
         });
 
 })();

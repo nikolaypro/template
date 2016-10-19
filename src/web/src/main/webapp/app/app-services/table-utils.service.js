@@ -27,7 +27,7 @@
                 if (params.loadFromServerForEdit) {
                     var checkedUserId = checkedUser.id;
                     Service.GetById(checkedUserId, function (data) {
-                        vm.showEditDialog(data.data);
+                        vm.showEditDialog(data);
                     });
                 } else {
                     vm.showEditDialog(checkedUser);
@@ -62,13 +62,13 @@
                     Service.Delete(ids, function (data) {
                         dialogRef.close();
                         Utils.refreshEditRemoveButtonEnabled(vm);
-                        if (data.data.success) {
+                        if (data.success) {
                             $log.info("Success");
                             vm.tableParams.reload()
                         } else {
                             $log.info("Failed");
 //                        BootstrapDialog.warning("Unable delete: Error message: '" + data.data.message + "'");
-                            Utils.showWarning("Unable delete: Error message: '" + data.data.message + "'");
+                            Utils.showWarning("Unable delete: Error message: '" + data.message + "'");
                         }
                     });
                 });
@@ -84,8 +84,8 @@
                     total: 0,
                     getData: function ($defer, params) {
                         Service.GetAll(params, function (data) {
-                            params.total(data.data.total);
-                            $defer.resolve(data.data.list)
+                            params.total(data.total);
+                            $defer.resolve(data.list)
                         });
                     }}
             );

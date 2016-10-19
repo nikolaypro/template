@@ -73,7 +73,11 @@
 
             'report.users.full_name.column' : 'Name',
             'report.users.login.column' : 'Login',
-            'report.users.roles.column' : 'Roles'
+            'report.users.roles.column' : 'Roles',
+
+            /*product.table.edit.messages*/
+            'product.table.delete.confirm' : 'Do you want to delete product?',
+            'product.table.delete.confirm.many' : 'Do you want to delete {0} products?'
 
         });
 

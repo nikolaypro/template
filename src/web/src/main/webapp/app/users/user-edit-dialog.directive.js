@@ -32,13 +32,13 @@
                         }
                         vm.disableUserForm = true;
                         UserService.Update(userCopy, function (data) {
-                            if (data.data.success) {
+                            if (data.success) {
                                 $log.info("Success");
                                 vm.showUserDialogFlag = false;
                                 vm.tableParams.reload()
                             } else {
                                 $log.info("Failed");
-                                vm.errorMessage = data.data.message;
+                                vm.errorMessage = data.message;
                             }
                             vm.disableUserForm = false;
                         });
@@ -75,7 +75,7 @@
                     /*todo Кешировать рузультаты*/
                     UserService.loadLocales(function (data) {
                         $log.info("Success load locales");
-                        vm.localeData = data.data;
+                        vm.localeData = data;
                         if (!user.locale) {
                             user["locale"] = vm.localeData[0];
                             $log.info('Set locale: ' + user.locale);

@@ -26,34 +26,39 @@
                 isOrderAsc: true
             };
 
-            return $http.post(UrlService.url('api/users'), requestParam).then(handleSuccess, handleError);
+            return $http.post(UrlService.url('api/users'), requestParam).then(_handleSuccess(handleSuccess), handleError);
 //            return $http.get(UrlService.url('api/users')).then(handleSuccess, handleError('Error getting all users'));
         }
 
         function GetById(id, handleSuccess) {
-            return $http.get(UrlService.url('api/users/id/' + id)).then(handleSuccess, handleError);
+            return $http.get(UrlService.url('api/users/id/' + id)).then(_handleSuccess(handleSuccess), handleError);
         }
 
-        function GetByUsername(username) {
-            return $http.get(UrlService.url('api/users/' + username)).then(handleSuccess, handleError);
+        function GetByUsername(username, handleSuccess) {
+            return $http.get(UrlService.url('api/users/' + username)).then(_handleSuccess(handleSuccess), handleError);
         }
 
         function Update(user, handleSuccess) {
-            return $http.post(UrlService.url('/api/users/update'), user).then(handleSuccess, handleError);
+            return $http.post(UrlService.url('/api/users/update'), user).then(_handleSuccess(handleSuccess), handleError);
         }
 
         function Delete(ids, handleSuccess) {
-            return $http.post(UrlService.url('/api/users/delete'), ids).then(handleSuccess, handleError);
+            return $http.post(UrlService.url('/api/users/delete'), ids).then(_handleSuccess(handleSuccess), handleError);
         }
 
         function loadLocales(handleSuccess) {
-            return $http.post(UrlService.url('/api/users/locales')).then(handleSuccess, handleError);
+            return $http.post(UrlService.url('/api/users/locales')).then(_handleSuccess(handleSuccess), handleError);
         }
 
         // private functions
 
-        function handleSuccess(data) {
-            return data.data;
+        function _handleSuccess(callback) {
+            return function(data) {
+                if (typeof data.data == 'undefined') {
+                    data.data['success'] = true;
+                }
+                callback(data.data);
+            }
         }
 
         function handleError(response) {
