@@ -12,10 +12,26 @@
         service.initTablePage = initTablePage;
         return service;
 
-        function initTablePage(vm, Service, $scope) {
+        function initTablePage(vm, Service, $scope, params) {
+            params = params || {};
+            if (typeof params.loadFromServerForEdit == 'undefined') {
+                params['loadFromServerForEdit'] = true;
+            }
+
             Utils.refreshEditRemoveButtonEnabled(vm);
+            vm.doShowNewDialog = function() {
+                vm.showEditDialog();
+            };
             vm.doShowEditDialog = function() {
-                vm.showEditDialog(Utils.getCheckedTableRow(vm.tableParams));
+                var checkedUser = Utils.getCheckedTableRow(vm.tableParams);
+                if (params.loadFromServerForEdit) {
+                    var checkedUserId = checkedUser.id;
+                    Service.GetById(checkedUserId, function (data) {
+                        vm.showEditDialog(data.data);
+                    });
+                } else {
+                    vm.showEditDialog(checkedUser);
+                }
             };
 
             ngTableEventsChannel.onAfterReloadData(function() {
@@ -38,8 +54,8 @@
                     return;
                 }
                 var confMsg = rows.length > 1 ?
-                    LocMsg.get(vm.deleteConfirmManyMsg, rows.length):
-                    LocMsg.get(vm.deleteConfirmMsg);
+                    LocMsg.get(params.deleteConfirmManyMsg, rows.length):
+                    LocMsg.get(params.deleteConfirmMsg);
 
                 Utils.showConfirm("Info", confMsg, function(dialogRef) {
                     var ids = Utils.getIds(rows);

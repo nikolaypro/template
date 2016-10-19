@@ -23,9 +23,12 @@
             return result;
         };
 
-        vm.deleteConfirmManyMsg = 'user.table.delete.confirm.many';
-        vm.deleteConfirmMsg = 'user.table.delete.confirm';
-        TableUtils.initTablePage(vm, UserService, $scope);
+        var params = {
+            deleteConfirmManyMsg:  'user.table.delete.confirm.many',
+            deleteConfirmMsg : 'user.table.delete.confirm',
+            loadFromServerForEdit: false
+        };
+        TableUtils.initTablePage(vm, UserService, $scope, params);
 
 /*
         Utils.refreshEditRemoveButtonEnabled(vm);

@@ -201,6 +201,21 @@ public class AuthenticationController extends AbstractController {
 */
     }
 
+    @RequestMapping(value = "/users/id/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
+    @ResponseBody
+    public UserRecord getUser(@PathVariable("id") Long userId) {
+        logger.info("User: '" + userService.getCurrentUser().getFullName() + "'");
+        logger.info("User id: '" + userService.getCurrentUserId()+ "'");
+        final User user = userService.findUser(userId);
+        if (user == null) {
+            logger.warn("User with id = '" + userId + "' not found");
+            throw new IllegalStateException("Unable find user. May be it was deleted");
+        }
+        return UserRecord.build(user);
+    }
+
+
     @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
     public ResponseEntity handleAuthenticationCredentialsNotFoundException(AuthenticationCredentialsNotFoundException ex) {
         return new ResponseEntity<WebError>(new WebError(ex.getMessage()), HttpStatus.UNAUTHORIZED);

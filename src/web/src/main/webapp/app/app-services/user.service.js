@@ -30,8 +30,8 @@
 //            return $http.get(UrlService.url('api/users')).then(handleSuccess, handleError('Error getting all users'));
         }
 
-        function GetById(id) {
-            return $http.get('/api/users/' + id).then(handleSuccess, handleError);
+        function GetById(id, handleSuccess) {
+            return $http.get(UrlService.url('api/users/id/' + id)).then(handleSuccess, handleError);
         }
 
         function GetByUsername(username) {
