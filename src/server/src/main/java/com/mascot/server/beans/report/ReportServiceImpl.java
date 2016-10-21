@@ -1,5 +1,6 @@
 package com.mascot.server.beans.report;
 
+import com.mascot.server.beans.AbstractMascotService;
 import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 import net.sf.jasperreports.engine.JRException;
@@ -27,12 +28,7 @@ import java.util.stream.Collectors;
  */
 @Service(ReportService.NAME)
 @Transactional(propagation = Propagation.REQUIRED)
-public class ReportServiceImpl implements ReportService {
-    private final Logger logger = Logger.getLogger(getClass());
-
-    @PersistenceContext
-    private EntityManager em;
-
+public class ReportServiceImpl extends AbstractMascotService implements ReportService {
     @Override
     public byte[] usersReport() {
 /*

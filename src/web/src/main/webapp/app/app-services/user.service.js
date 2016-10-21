@@ -5,20 +5,20 @@
         .module('app')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$http', 'UrlService', 'FlashService'];
-    function UserService($http, UrlService, FlashService) {
+    UserService.$inject = ['$http', 'UrlService', 'Utils'];
+    function UserService($http, UrlService, Utils) {
         var service = {};
 
-        service.GetAll = GetAll;
-        service.GetById = GetById;
-        service.GetByUsername = GetByUsername;
-        service.Update = Update;
-        service.Delete = Delete;
-        service.Base64 = Base64;
+        service.getAll = getAll;
+        service.getById = getById;
+        service.getByUsername = getByUsername;
+        service.update = update;
+        service.delete = deleteEntity;
+        service.base64 = base64;
         service.loadLocales = loadLocales;
         return service;
 
-        function GetAll(params, handleSuccess) {
+        function getAll(params, handleSuccess) {
             var requestParam = {
                 page: params.page(),
                 count: params.count(),
@@ -26,50 +26,33 @@
                 isOrderAsc: true
             };
 
-            return $http.post(UrlService.url('api/users'), requestParam).then(_handleSuccess(handleSuccess), handleError);
+            return $http.post(UrlService.url('api/users'), requestParam).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
 //            return $http.get(UrlService.url('api/users')).then(handleSuccess, handleError('Error getting all users'));
         }
 
-        function GetById(id, handleSuccess) {
-            return $http.get(UrlService.url('api/users/id/' + id)).then(_handleSuccess(handleSuccess), handleError);
+        function getById(id, handleSuccess) {
+            return $http.get(UrlService.url('api/users/id/' + id)).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
-        function GetByUsername(username, handleSuccess) {
-            return $http.get(UrlService.url('api/users/' + username)).then(_handleSuccess(handleSuccess), handleError);
+        function getByUsername(username, handleSuccess) {
+            return $http.get(UrlService.url('api/users/' + username)).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
-        function Update(user, handleSuccess) {
-            return $http.post(UrlService.url('/api/users/update'), user).then(_handleSuccess(handleSuccess), handleError);
+        function update(user, handleSuccess) {
+            return $http.post(UrlService.url('/api/users/update'), user).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
-        function Delete(ids, handleSuccess) {
-            return $http.post(UrlService.url('/api/users/delete'), ids).then(_handleSuccess(handleSuccess), handleError);
+        function deleteEntity(ids, handleSuccess) {
+            return $http.post(UrlService.url('/api/users/delete'), ids).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
         function loadLocales(handleSuccess) {
-            return $http.post(UrlService.url('/api/users/locales')).then(_handleSuccess(handleSuccess), handleError);
+            return $http.post(UrlService.url('/api/users/locales')).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
-        // private functions
-
-        function _handleSuccess(callback) {
-            return function(data) {
-                if (typeof data.data == 'undefined') {
-                    data.data['success'] = true;
-                }
-                callback(data.data);
-            }
-        }
-
-        function handleError(response) {
-//            FlashService.Error(response.data.error);
-            return function () {
-                return { success: false, message: response.data.error};
-            };
-        }
     }
     // Base64 encoding service used by AuthenticationService
-    var Base64 = {
+    var base64 = {
 
         keyStr: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',
 

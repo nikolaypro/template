@@ -10,22 +10,22 @@
 
         var service = {};
 
-        service.GetAll = GetAll;
-        service.GetById = GetById;
-        service.GetByUsername = GetByUsername;
+        service.getAll = getAll;
+        service.getById = getById;
+        service.getByUsername = getByUsername;
         service.Create = Create;
-        service.Update = Update;
-        service.Delete = Delete;
+        service.update = update;
+        service.delete = deleteEntity;
 
         return service;
 
-        function GetAll() {
+        function getAll() {
             var deferred = $q.defer();
             deferred.resolve(getUsers());
             return deferred.promise;
         }
 
-        function GetById(id) {
+        function getById(id) {
             var deferred = $q.defer();
             var filtered = $filter('filter')(getUsers(), { id: id });
             var user = filtered.length ? filtered[0] : null;
@@ -33,7 +33,7 @@
             return deferred.promise;
         }
 
-        function GetByUsername(username) {
+        function getByUsername(username) {
             var deferred = $q.defer();
             var filtered = $filter('filter')(getUsers(), { username: username });
             var user = filtered.length ? filtered[0] : null;
@@ -46,7 +46,7 @@
 
             // simulate api call with $timeout
             $timeout(function () {
-                GetByUsername(user.username)
+                getByUsername(user.username)
                     .then(function (duplicateUser) {
                         if (duplicateUser !== null) {
                             deferred.resolve({ success: false, message: 'Username "' + user.username + '" is already taken' });
@@ -69,7 +69,7 @@
             return deferred.promise;
         }
 
-        function Update(user) {
+        function update(user) {
             var deferred = $q.defer();
 
             var users = getUsers();
@@ -85,7 +85,7 @@
             return deferred.promise;
         }
 
-        function Delete(id) {
+        function deleteEntity(id) {
             var deferred = $q.defer();
 
             var users = getUsers();

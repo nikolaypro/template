@@ -15,6 +15,8 @@
         service.showConfirm = showConfirm;
         service.showWarning = showWarning;
         service.getEnabledMenu = getEnabledMenu;
+        service.handleSuccess = handleSuccess;
+        service.handleError = handleError;
         return service;
 
         function refreshEditRemoveButtonEnabled(vm, tableParams) {
@@ -116,9 +118,21 @@
         function getRoleMenu(role) {
             switch (role) {
                 case ALL_APP_ROLES.admin:
-                    return ['users', 'reports'];
+                    return [
+                        'users',
+                        'reports',
+                        'dictionary',
+                        'dictionary-product-type',
+                        'dictionary-job-type',
+                        'dictionary-job-sub-type',
+                        'dictionary-price'
+                    ];
                 case ALL_APP_ROLES.regular:
-                    return ['contact', 'dropdown', 'action', 'separated_link'];
+                    return [
+                        'contact',
+                        'dropdown',
+                        'action',
+                        'separated_link'];
                 default:
                     alert('Unknown role: "' + role + '"');
                     return [];
@@ -134,6 +148,22 @@
                 if($.inArray(el, result) === -1) result.push(el);
             });
             return result;
+        }
+
+        function handleSuccess(callback) {
+            return function(data) {
+                if (typeof data.data == 'undefined') {
+                    data.data['success'] = true;
+                }
+                callback(data.data);
+            }
+        }
+
+        function handleError(response) {
+//            FlashService.Error(response.data.error);
+            return function () {
+                return { success: false, message: response.data.error};
+            };
         }
 
     }

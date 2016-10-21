@@ -5,4 +5,5 @@
     <include file="liquibase/1.0/2015-12-17-init.xml"/>
     <include file="liquibase/1.0/2015-12-21-authentication.xml"/>
     <include file="liquibase/1.0/2016-09-12-add-user-locale.xml"/>
+    <include file="liquibase/1.0/2016-10-19-add-product.xml"/>
 </databaseChangeLog>

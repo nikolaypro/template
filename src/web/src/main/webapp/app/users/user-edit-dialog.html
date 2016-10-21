@@ -1,36 +1,36 @@
-<fieldset ng-disabled="vm.disableUserForm">
-    <form role="form" name="vm.userEditForm" >
-        <modal title="{{vm.title}}" visible="vm.showUserDialogFlag" info="vm">
-            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.fullName) }">
+<fieldset ng-disabled="vm.disableForm">
+    <form role="form" name="vm.editForm" >
+        <modal visible="vm.showDialogFlag" info="vm">
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.fullName) }">
                 <label for="fullName">{{'user.table.edit.name' | i18n}}</label>
                 <input type="text" class="form-control" id="fullName" name="fullName" placeholder="{{'user.table.edit.name.hint' | i18n}}"
-                       required="" ng-model="vm.user.fullName"/>
-                <span ng-show="$.isShowRequired(vm.userEditForm.fullName)" class="help-block">{{'user.table.edit.name.required' | i18n}}</span>
+                       ng-model="vm.user.fullName" ng-required="true"/>
+                <span ng-show="vm.isShowRequired(vm.editForm.fullName)" class="help-block">{{'user.table.edit.name.required' | i18n}}</span>
             </div>
-            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.login) }">
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.login) }">
                 <label for="login">{{'user.table.edit.login' | i18n}}</label>
                 <input type="text" class="form-control" id="login" name="login" placeholder="{{'user.table.edit.login.hint' | i18n}}"
-                       required="" ng-model="vm.user.login"/>
-                <span ng-show="$.isShowRequired(vm.userEditForm.login)" class="help-block">{{'user.table.edit.login.required' | i18n}}</span>
+                       ng-model="vm.user.login" ng-required="true"/>
+                <span ng-show="vm.isShowRequired(vm.editForm.login)" class="help-block">{{'user.table.edit.login.required' | i18n}}</span>
             </div>
 
             <div class="form-group glyphicon-asterisk" ng-show="!vm.showEditPassword">
                 <button type="button" class="btn btn-primary btn-sm"
-                        ng-click="vm.showEditPassword = true; vm.userEditForm.$setPristine()">{{'user.table.edit.edit.password.btn' | i18n}}</button>
+                        ng-click="vm.showEditPassword = true; vm.editForm.$setPristine()">{{'user.table.edit.edit.password.btn' | i18n}}</button>
             </div>
 
             <div ng-show="vm.showEditPassword">
-                <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.password) }">
+                <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.password) }">
                     <label for="password">{{'user.table.edit.password' | i18n}}</label>
                     <input type="password" class="form-control" id="password" name="password"
                            placeholder="{{'user.table.edit.password.hint' | i18n}}" ng-model="vm.user.password" ng-required="vm.showEditPassword"/>
-                    <span ng-show="$.isShowRequired(vm.userEditForm.password)" class="help-block">{{'user.table.edit.password.required' | i18n}}</span>
+                    <span ng-show="vm.isShowRequired(vm.editForm.password)" class="help-block">{{'user.table.edit.password.required' | i18n}}</span>
                 </div>
-                <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': $.isShowRequired(vm.userEditForm.repeatPassword) || vm.errorPasswordNotEqueals}">
+                <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.repeatPassword) || vm.errorPasswordNotEqueals}">
                     <label for="repeatPassword">{{'user.table.edit.password.repeat' | i18n}}</label>
                     <input type="password" class="form-control" id="repeatPassword" name="repeatPassword"
                            placeholder="{{'user.table.edit.password.hint' | i18n}}" ng-model="vm.user.repeatPassword" ng-required="vm.showEditPassword"/>
-                    <span ng-show="$.isShowRequired(vm.userEditForm.repeatPassword)" class="help-block">{{'user.table.edit.password.required' | i18n}}</span>
+                    <span ng-show="vm.isShowRequired(vm.editForm.repeatPassword)" class="help-block">{{'user.table.edit.password.required' | i18n}}</span>
                     <span ng-show="vm.errorPasswordNotEqueals" class="help-block">{{'user.table.edit.password.not.equals' | i18n}}</span>
                 </div>
             </div>

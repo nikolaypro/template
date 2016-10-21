@@ -23,21 +23,21 @@
         }
 
         function loadCurrentUser() {
-            UserService.GetByUsername($rootScope.globals.currentUser.username)
+            UserService.getByUsername($rootScope.globals.currentUser.username)
                 .then(function (user) {
                     vm.user = user;
                 });
         }
 
         function loadAllUsers() {
-            UserService.GetAll()
+            UserService.getAll()
                 .then(function (users) {
                     vm.allUsers = users;
                 });
         }
 
         function deleteUser(id) {
-            UserService.Delete(id)
+            UserService.delete(id)
             .then(function () {
                 loadAllUsers();
             });

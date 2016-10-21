@@ -76,9 +76,19 @@
             'report.users.login.column' : 'Логин',
             'report.users.roles.column' : 'Роли',
 
-            /*product.table.edit.messages*/
+            /*product.table*/
+            'product.table.column.name' : 'Название изделия',
             'product.table.delete.confirm' : 'Удалить изделие?',
-            'product.table.delete.confirm.many' : 'Удалить изделия (количество: {0})?'
+            'product.table.delete.confirm.many' : 'Удалить изделия (количество: {0})?',
+
+            /*product.table.edit*/
+            'product.table.edit.title.new': 'Новый продукт',
+            'product.table.edit.title.edit': 'Редактирование продукта',
+            'product.table.edit.name': 'Название продукта',
+            'product.table.edit.name.hint': 'Название',
+            'product.table.edit.name.required': 'Название не задано'
+
+
         });
 
 })();

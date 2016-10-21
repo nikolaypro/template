@@ -23,7 +23,7 @@
 /*
             $timeout(function () {
                 var response;
-                UserService.GetByUsername(username)
+                UserService.getByUsername(username)
                     .then(function (user) {
                         if (user !== null && user.password === password) {
                             response = { success: true };
@@ -38,7 +38,7 @@
             /* Use this for real authentication
              ----------------------------------------------*/
             var url = UrlService.url('api/authenticate');
-            var encodedPassword = UserService.Base64.encode(password);
+            var encodedPassword = UserService.base64.encode(password);
             $http.post(url, { login: username, password: encodedPassword })
                 .success(function (response) {
                     response.success = true;
@@ -59,7 +59,7 @@
         }
 
         function SetCredentials(username, password, roles, locale) {
-            var authdata = UserService.Base64.encode(username + ':' + password);
+            var authdata = UserService.base64.encode(username + ':' + password);
 
             $rootScope.globals = {
                 currentUser: {

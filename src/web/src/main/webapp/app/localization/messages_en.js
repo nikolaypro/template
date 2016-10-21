@@ -75,10 +75,17 @@
             'report.users.login.column' : 'Login',
             'report.users.roles.column' : 'Roles',
 
-            /*product.table.edit.messages*/
+            /*product.table*/
+            'product.table.column.name' : 'Name',
             'product.table.delete.confirm' : 'Do you want to delete product?',
-            'product.table.delete.confirm.many' : 'Do you want to delete {0} products?'
+            'product.table.delete.confirm.many' : 'Do you want to delete {0} products?',
 
+            /*product.table.edit*/
+            'product.table.edit.title.new': 'New product',
+            'product.table.edit.title.edit': 'Update product',
+            'product.table.edit.name': 'Product name',
+            'product.table.edit.name.hint': 'Name',
+            'product.table.edit.name.required': 'Name is required'
         });
 
 })();

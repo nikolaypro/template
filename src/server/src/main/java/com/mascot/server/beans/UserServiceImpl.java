@@ -1,32 +1,26 @@
 package com.mascot.server.beans;
 
-import com.mascot.common.MascotUtils;
+import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
-import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
-import javax.persistence.PersistenceContext;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Nikolay on 16.12.2015.
  */
 @Service(UserService.NAME)
 @Transactional(propagation = Propagation.REQUIRED)
-public class UserServiceImpl implements UserService {
-    private final Logger logger = Logger.getLogger(getClass());
-
-    @PersistenceContext
-    private EntityManager em;
-
+public class UserServiceImpl extends AbstractMascotService implements UserService{
     @Override
     public User loadUserByLogin(String login) {
         try {
@@ -42,12 +36,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Collection<User> getUsers(int start, int count, Map<String, String> orderBy) {
+    public BeanTableResult<User> getList(int start, int count, Map<String, String> orderBy) {
+        return getResult("select distinct e from User e left join fetch e.roles",
+                "select count(distinct e) from User e", start, count, orderBy, new HashMap<>());
+
+/*
         final String orderByStr = MascotUtils.buildOrderByString(orderBy, "e");
         return em.createQuery("select distinct e from User e left join fetch e.roles " + orderByStr).
                 setMaxResults(count).
                 setFirstResult(start).
                 getResultList();
+*/
     }
 
 
@@ -62,23 +61,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
-        if (user.getId() == null) {
-            em.persist(user);
-        } else {
-            em.merge(user);
-        }
+    public void update(User user) {
+        super.update(user);
     }
 
     @Override
-    public boolean removeUser(Long userId) {
+    public boolean remove(Long userId) {
+        return remove(User.class, userId);
+/*
         final User reference = em.getReference(User.class, userId);
         em.remove(reference);
         return true;
+*/
     }
 
     @Override
-    public User findUser(Long userId) {
+    public User find(Long userId) {
         try {
             return (User) em.createQuery("select e from User e left join fetch e.roles where e.id = :id")
                     .setParameter("id", userId)
@@ -89,12 +87,6 @@ public class UserServiceImpl implements UserService {
         } catch (NonUniqueResultException e) {
             throw new IllegalStateException(e);
         }
-    }
-
-    @Override
-    public int getUsersCount() {
-        return ((Long) em.createQuery("select count(e) from User e ")
-                .getSingleResult()).intValue();
     }
 
     @Override

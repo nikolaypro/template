@@ -2,15 +2,14 @@ package com.mascot.service.controller.user;
 
 import com.mascot.common.MascotUtils;
 import com.mascot.server.beans.UserService;
+import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 import com.mascot.service.controller.AbstractController;
 import com.mascot.service.controller.WebError;
-import com.mascot.service.controller.common.Localization;
 import com.mascot.service.controller.common.ResultRecord;
 import com.mascot.service.controller.common.TableParams;
 import com.mascot.service.controller.common.TableResult;
-import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -69,8 +68,9 @@ public class AuthenticationController extends AbstractController {
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     public TableResult<UserRecord> getUsers(@RequestBody TableParams params) {
-        final Collection<User> users = userService.getUsers(params.getStartIndex(), params.count, params.orderBy);
-        int usersCount = userService.getUsersCount();
+        final BeanTableResult<User> beanTableResult = userService.getList(params.getStartIndex(), params.count, params.orderBy);
+        final Collection<User> users = beanTableResult.getRows();
+        final int usersCount = beanTableResult.getCount();
 
         final List<UserRecord> result = users.stream().
                 map(UserRecord::build).
@@ -96,17 +96,17 @@ public class AuthenticationController extends AbstractController {
         if (record.id == null) {
             final User existsLoginUser = userService.loadUserByLogin(record.login);
             if (existsLoginUser != null) {
-                return ResultRecord.failLocalized("user.login.already.exists", record.login, "AAA");
+                return ResultRecord.failLocalized("user.login.already.exists", record.login);
             }
             user = new User();
         } else {
-            final User existsUser = userService.findUser(record.id);
+            final User existsUser = userService.find(record.id);
             if (existsUser == null) {
                 return ResultRecord.fail("Unable find user with id = " + record.id);
             }
             final User existsLoginUser = userService.loadUserByLogin(record.login);
             if (existsLoginUser != null && !existsLoginUser.getId().equals(existsUser.getId())) {
-                return ResultRecord.fail("User with login '" + record.login + "' already exists");
+                return ResultRecord.failLocalized("user.login.already.exists", record.login);
             }
             user = existsUser;
         }
@@ -137,7 +137,7 @@ public class AuthenticationController extends AbstractController {
             user.setLocale(record.locale.asLocale());
         }
 
-        userService.saveUser(user);
+        userService.update(user);
 
         return ResultRecord.success();
     }
@@ -160,7 +160,7 @@ public class AuthenticationController extends AbstractController {
         Stream.of(ids).forEach(id -> {
                     logger.info("Delete user: " + id);
                     try {
-                        if (!userService.removeUser(id)) {
+                        if (!userService.remove(id)) {
                             logger.warn("Unable delete user: " + id);
                         }
                     } catch (Exception e) {
@@ -207,7 +207,7 @@ public class AuthenticationController extends AbstractController {
     public UserRecord getUser(@PathVariable("id") Long userId) {
         logger.info("User: '" + userService.getCurrentUser().getFullName() + "'");
         logger.info("User id: '" + userService.getCurrentUserId()+ "'");
-        final User user = userService.findUser(userId);
+        final User user = userService.find(userId);
         if (user == null) {
             logger.warn("User with id = '" + userId + "' not found");
             throw new IllegalStateException("Unable find user. May be it was deleted");

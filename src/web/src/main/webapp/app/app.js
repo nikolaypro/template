@@ -71,6 +71,12 @@
                 controllerAs: 'vm'
             })
 
+            .when('/products', {
+                controller: 'ProductsController',
+                templateUrl: 'app/dictionary/product/products.view.html',
+                controllerAs: 'vm'
+            })
+
             .when('/reports', {
                 controller: 'ReportsController',
                 templateUrl: 'app/reports/reports.view.html',

@@ -1,5 +1,6 @@
 package com.mascot.server.beans;
 
+import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 
@@ -14,19 +15,17 @@ public interface UserService {
 
     public User loadUserByLogin(String login);
 
-    Collection<User> getUsers(int start, int count, Map<String, String> orderBy);
-
     User getCurrentUser();
 
     Long getCurrentUserId();
 
     Role getRole(String roleName);
 
-    void saveUser(User user);
+    BeanTableResult<User> getList(int start, int count, Map<String, String> orderBy);
 
-    boolean removeUser(Long userId);
+    void update(User user);
 
-    User findUser(Long userId);
+    boolean remove(Long userId);
 
-    int getUsersCount();
+    User find(Long userId);
 }

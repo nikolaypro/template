@@ -12,8 +12,8 @@
                 <div class="alert alert-danger text-left" ng-show="vm.errorMessage">
                     <strong>{{'common.error' | i18n}}:</strong> {{vm.errorMessage}}
                 </div>
-                <button type="btn btn-primary" class="btn btn-primary" ng-click="onSubmit()">{{'common.save' | i18n}}</button>
-                <button class="btn btn-primary" ng-click="onClose()">{{'common.cancel' | i18n}}</button>
+                <button class="btn btn-primary" ng-click="onSubmit()" title="{{'common.save' | i18n}}">{{'common.save' | i18n}}</button>
+                <button type="button" class="btn btn-primary" ng-click="onClose()" title="{{'common.cancel' | i18n}}">{{'common.cancel' | i18n}}</button>
             </div>
         </div>
     </div>
