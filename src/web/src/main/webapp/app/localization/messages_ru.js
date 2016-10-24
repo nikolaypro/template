@@ -17,6 +17,11 @@
             /*top.menu*/
             'top.menu.users' : 'Пользователи',
             'top.menu.reports' : 'Отчеты',
+            'top.menu.dictionary' : 'Справочники',
+            'top.menu.product.type' : 'Вид изделия',
+            'top.menu.job.type' : 'Вид работ',
+            'top.menu.job.sub.type' : 'Подвид работ',
+            'top.menu.job.price' : 'Стоимость работ',
             'top.menu.logout' : 'Выход',
             'top.menu.app.name' : 'Шаблон',
 

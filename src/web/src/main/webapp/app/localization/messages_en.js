@@ -17,6 +17,11 @@
             /*top.menu*/
             'top.menu.users' : 'Users',
             'top.menu.reports' : 'Reports',
+            'top.menu.dictionary' : 'Dictionaries',
+            'top.menu.product.type' : 'Product type',
+            'top.menu.job.type' : 'Job type',
+            'top.menu.job.sub.type' : 'Job sub type',
+            'top.menu.job.price' : 'Job price',
             'top.menu.logout' : 'Logout',
             'top.menu.app.name' : 'Template',
 
@@ -53,8 +58,8 @@
             'user.table.edit.roles.not.defined' : 'Not defined any role',
 
             'user.table.edit.locale' : 'Language',
-             'language.ru_RU' : 'Russian',
-             'language.en_UK' : 'English',
+            'language.ru_RU' : 'Russian',
+            'language.en_UK' : 'English',
 
             /*user.table.edit.messages*/
             'user.table.delete.confirm' : 'Do you want to delete user?',
