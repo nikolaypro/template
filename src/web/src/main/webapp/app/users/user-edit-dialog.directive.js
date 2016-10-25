@@ -64,6 +64,11 @@
                     return userCopy;
                 };
                 submitParams.checkInputFields = function() {
+                    vm.isShowRequired(vm.editForm.fullName);
+                    vm.isShowRequired(vm.editForm.login);
+                    vm.isShowRequired(vm.editForm.password);
+                    vm.isShowRequired(vm.editForm.repeatPassword);
+                    vm.isShowRequired(vm.editForm.repeatPassword);
                     vm.errorPasswordNotEqueals = vm.showEditPassword && vm.user.password != vm.user.repeatPassword;
                     vm.onRolesChange();
                     return !vm.errorPasswordNotEqueals && !vm.errorNotSelectedRole;

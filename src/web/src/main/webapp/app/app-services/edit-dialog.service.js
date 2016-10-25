@@ -52,13 +52,17 @@
             };
 
             vm.isShowRequired = function (el) {
-                if (!vm.showDialogFlag) return false;
+                if (!vm.showDialogFlag || !vm.submitPressed) return false;
+                el.$$parseAndValidate();
                 var showRequired = $.isShowRequired(el);
 //                hasRequiredError = hasRequiredError || showRequired;
                 if (typeof el.$name == 'undefined') {
                     $log.error(el + ": not defined name");
                 }
                 vm.element2HasError[el.$name] = showRequired;
+                if (showRequired) {
+                    $log.info('vm.submitPressed = ' + vm.submitPressed);
+                }
                 return showRequired;
             };
 
@@ -99,8 +103,8 @@
 
         function createSubmitAction(vm, params) {
             return function () {
-                if (!hasInvalidElements(vm) && params.checkInputFields()) {
-                    vm.editForm.$setSubmitted();
+                vm.editForm.$setSubmitted();
+                if (params.checkInputFields() && !hasInvalidElements(vm)) {
                     var entityCopy = params.getEntity();
                     vm.disableForm = true;
                     params.service.update(entityCopy, function (data) {

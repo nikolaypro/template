@@ -34,6 +34,7 @@
                     return vm.jobType;
                 };
                 submitParams.checkInputFields = function() {
+                    vm.isShowRequired(vm.editForm.name);
                     return true;
                 };
 

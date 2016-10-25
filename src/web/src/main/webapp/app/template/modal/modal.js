@@ -19,6 +19,7 @@
             link: function postLink(scope, element, attrs) {
                 scope.title = attrs.title;
                 scope.onClose = function() {
+                    scope.vm.submitPressed = false;
                     $(element).modal('hide');
                     if (scope.vm.onModalClose) {
                         scope.vm.onModalClose();
@@ -26,6 +27,7 @@
                 };
 
                 scope.onSubmit = function() {
+                    scope.vm.submitPressed = true;
                     scope.vm.submit();
 //                    $(element).modal('hide');
                 };
