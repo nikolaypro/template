@@ -90,7 +90,19 @@
             'product.table.edit.title.edit': 'Update product',
             'product.table.edit.name': 'Product name',
             'product.table.edit.name.hint': 'Name',
-            'product.table.edit.name.required': 'Name is required'
+            'product.table.edit.name.required': 'Name is required',
+
+            /*job-type.table*/
+            'job-type.table.column.name' : 'Name',
+            'job-type.table.delete.confirm' : 'Do you want to delete job type?',
+            'job-type.table.delete.confirm.many' : 'Do you want to delete {0} job types?',
+
+            /*job-type.table.edit*/
+            'job-type.table.edit.title.new': 'New job type',
+            'job-type.table.edit.title.edit': 'Update job type',
+            'job-type.table.edit.name': 'Job type name',
+            'job-type.table.edit.name.hint': 'Name',
+            'job-type.table.edit.name.required': 'Name is required'
         });
 
 })();

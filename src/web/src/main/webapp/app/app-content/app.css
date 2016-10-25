@@ -96,6 +96,11 @@ body, html {
     word-wrap: break-word;
 }
 
+.td_up_down {
+    width: 10px;
+    /*word-wrap: break-word;*/
+}
+
 .report-options {
     margin-left: 20px;
     margin-bottom: 30px;
@@ -111,4 +116,12 @@ body, html {
 
 .black-font {
     color: rgb(0, 0, 0);
+}
+
+.disabled-arrow {
+    opacity: 0.4;
+    filter: alpha(opacity=40); /* msie */
+}
+.active-arrow {
+    cursor: pointer
 }

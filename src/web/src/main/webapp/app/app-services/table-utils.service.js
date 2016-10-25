@@ -11,6 +11,7 @@
      *  - params.deleteConfirmManyMsg: Key для сообщения об удалении многих элементов
      *  - params.deleteConfirmMsg: Key для сообщения об удалении одного элемента
      *  - params.defaultSort: default сортировка для таблицы
+     *  - params.onDataLoaded(): фуекция, вызывающееся после загрузки данных
      *  - Service: сервис для вызова методов сервера: getById, getAll, delete
      *
      *
@@ -113,7 +114,7 @@
                     });
                 });
             };
-
+            var superParams = params;
             vm.tableParams = new NgTableParams(
                 {
                     page: 1,
@@ -125,6 +126,9 @@
                     getData: function ($defer, params) {
                         Service.getAll(params, function (data) {
                             params.total(data.total);
+                            if (typeof superParams.onDataLoaded != 'undefined') {
+                                superParams.onDataLoaded(params, data);
+                            }
                             $defer.resolve(data.list)
                         });
                     }}

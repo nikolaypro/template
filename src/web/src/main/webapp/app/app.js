@@ -73,7 +73,13 @@
 
             .when('/products', {
                 controller: 'ProductsController',
-                templateUrl: 'app/dictionary/product/products.view.html',
+                templateUrl: 'app/dictionary/product/product.view.html',
+                controllerAs: 'vm'
+            })
+
+            .when('/job-types', {
+                controller: 'JobTypeController',
+                templateUrl: 'app/dictionary/job-type/job-type.view.html',
                 controllerAs: 'vm'
             })
 

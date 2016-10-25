@@ -47,7 +47,7 @@ allprojects {
     dependencies {
 //        testCompile 'junit:junit:4.11'
         testCompile 'org.testng:testng:6.8'
-        compile 'javax:javaee-api:6.0'
+        compile 'javax:javaee-api:7.0'
         compile 'log4j:log4j:1.2.17'
         compile group: 'commons-io', name: 'commons-io', version: '2.5'
     }
@@ -60,6 +60,7 @@ configure([commonProject]) {
         compile 'org.springframework:spring-orm:' + spring_version
         compile 'org.hibernate:hibernate-entitymanager:' + hibernate_version
         compile 'org.hibernate:hibernate-core:' + hibernate_version
+        testCompile 'org.hibernate:hibernate-core:' + hibernate_version
         compile 'org.springframework.security:spring-security-core:' + spring_security_version
         compile 'mysql:mysql-connector-java:5.1.9'
         compile 'commons-dbcp:commons-dbcp:1.4'

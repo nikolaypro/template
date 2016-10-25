@@ -87,12 +87,23 @@
             'product.table.delete.confirm.many' : 'Удалить изделия (количество: {0})?',
 
             /*product.table.edit*/
-            'product.table.edit.title.new': 'Новый продукт',
-            'product.table.edit.title.edit': 'Редактирование продукта',
-            'product.table.edit.name': 'Название продукта',
+            'product.table.edit.title.new': 'Новое изделие',
+            'product.table.edit.title.edit': 'Редактирование изделия',
+            'product.table.edit.name': 'Название изделия',
             'product.table.edit.name.hint': 'Название',
-            'product.table.edit.name.required': 'Название не задано'
+            'product.table.edit.name.required': 'Название не задано',
 
+            /*job-type.table*/
+            'job-type.table.column.name' : 'Название вида работ',
+            'job-type.table.delete.confirm' : 'Удалить вид работы?',
+            'job-type.table.delete.confirm.many' : 'Удалить вид работы (количество: {0})?',
+
+            /*job-type.table.edit*/
+            'job-type.table.edit.title.new': 'Новый вид работы',
+            'job-type.table.edit.title.edit': 'Редактирование вида работы',
+            'job-type.table.edit.name': 'Название вида работы',
+            'job-type.table.edit.name.hint': 'Название',
+            'job-type.table.edit.name.required': 'Название не задано'
 
         });
 
