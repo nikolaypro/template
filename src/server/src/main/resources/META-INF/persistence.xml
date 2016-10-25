@@ -7,5 +7,6 @@
         <class>com.mascot.server.model.Role</class>
         <class>com.mascot.server.model.Product</class>
         <class>com.mascot.server.model.JobType</class>
+        <class>com.mascot.server.model.JobSubType</class>
     </persistence-unit>
 </persistence>

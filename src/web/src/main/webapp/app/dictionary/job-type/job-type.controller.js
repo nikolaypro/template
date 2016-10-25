@@ -8,13 +8,9 @@
     JobTypeController.$inject = ['JobTypeService', '$log', 'TableUtils', '$scope'];
     function JobTypeController(JobTypeService, $log, TableUtils, $scope) {
         var vm = this;
-        vm.firstElementId = -1
-        vm.lastElementId = -1;
         var params = {};
         params.onDataLoaded = function(params, data) {
             if (data.list.length > 0) {
-                vm.firstElementId = params.page() == 1 ? data.list[0].id: -1;
-                vm.lastElementId = data.total == data.list.length ? data.list[data.list.length - 1].id : -1;
                 vm.pageCount = Math.ceil(vm.tableParams.total() / vm.tableParams.count());
             }
         };

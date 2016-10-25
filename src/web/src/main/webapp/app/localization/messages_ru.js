@@ -103,8 +103,19 @@
             'job-type.table.edit.title.edit': 'Редактирование вида работы',
             'job-type.table.edit.name': 'Название вида работы',
             'job-type.table.edit.name.hint': 'Название',
-            'job-type.table.edit.name.required': 'Название не задано'
+            'job-type.table.edit.name.required': 'Название не задано',
 
+            /*job-subtype.table*/
+            'job-subtype.table.column.name' : 'Название подвида работ',
+            'job-subtype.table.delete.confirm' : 'Удалить подвид работы?',
+            'job-subtype.table.delete.confirm.many' : 'Удалить подвид работы (количество: {0})?',
+
+            /*job-subtype.table.edit*/
+            'job-subtype.table.edit.title.new': 'Новый подвид работы',
+            'job-subtype.table.edit.title.edit': 'Редактирование подвида работы',
+            'job-subtype.table.edit.name': 'Название подвида работы',
+            'job-subtype.table.edit.name.hint': 'Название',
+            'job-subtype.table.edit.name.required': 'Название не задано'
         });
 
 })();

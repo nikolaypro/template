@@ -6,9 +6,7 @@ import com.mascot.server.model.Identified;
 import com.mascot.server.model.Product;
 import org.apache.log4j.Logger;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +47,20 @@ public abstract class AbstractMascotService {
         em.remove(reference);
         return true;
     }
+
+    protected <A extends Identified> A find(Long id, Class entityClass) {
+        try {
+            return (A) em.createQuery("select e from " + entityClass.getSimpleName() + " e where e.id = :id")
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+
+        } catch (NonUniqueResultException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
 
 
 

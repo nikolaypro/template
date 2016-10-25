@@ -83,6 +83,12 @@
                 controllerAs: 'vm'
             })
 
+            .when('/job-subtypes', {
+                controller: 'JobSubTypeController',
+                templateUrl: 'app/dictionary/job-subtype/job-subtype.view.html',
+                controllerAs: 'vm'
+            })
+
             .when('/reports', {
                 controller: 'ReportsController',
                 templateUrl: 'app/reports/reports.view.html',

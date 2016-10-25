@@ -1,0 +1,12 @@
+<fieldset ng-disabled="vm.disableForm">
+    <form role="form" name="vm.editForm" >
+        <modal visible="vm.showDialogFlag" info="vm">
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.name) }">
+                <label for="name">{{'job-subtype.table.edit.name' | i18n}}</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="{{'job-subtype.table.edit.name.hint' | i18n}}"
+                       ng-model="vm.jobSubType.name" ng-required="true"/>
+                <div ng-if="vm.isShowRequired(vm.editForm.name)" class="help-block">{{'job-subtype.table.edit.name.required' | i18n}}</div>
+            </div>
+        </modal>
+    </form>
+</fieldset>
