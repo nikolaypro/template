@@ -51,9 +51,11 @@
                 vm.tableParams.reload();
             };
 
-            vm.isShowRequired = function (el) {
+            vm.isShowRequired = function (el, disableParseAndValidate) {
                 if (!vm.showDialogFlag || !vm.submitPressed) return false;
-                el.$$parseAndValidate();
+                if (!disableParseAndValidate) {
+                    el.$$parseAndValidate();
+                }
                 var showRequired = $.isShowRequired(el);
 //                hasRequiredError = hasRequiredError || showRequired;
                 if (typeof el.$name == 'undefined') {

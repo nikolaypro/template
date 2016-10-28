@@ -9,17 +9,8 @@
         <tr ng-repeat="row in $data track by $index">
             <td class="table-row-check"><input type="checkbox" ng-change="vm.onRowChecked()" ng-model="row.row_checked"/></td>
             <td class="td_400px" data-title="'job-subtype.table.column.name' | i18n" >{{row.name}}</td>
+            <td class="td_400px" data-title="'job-subtype.table.column.job-type' | i18n" >{{row.jobType.name}}</td>
         </tr>
     </table>
-
-    <div class="dropdown pull-right makePaymentDropdownMainDiv" auto-close="outsideClick">
-        <button class="btn btn-default dropdown-toggle makePaymentDropdownBtn" type="button" id="individualDrop"
-                data-toggle="dropdown">Button<span class="caret pull-right"></span></button>
-        <span ng-show="submitted"><label class="error">Select an Individual</label></span>
-        <ul class="dropdown-menu makePaymentDropdownUlStyle" role="menu" aria-labelledby="individualDrop">
-            <input disable-auto-close type="search" ng-model="serchFilter" class="makePaymentDropdownSearchBox" placeholder="Search"/>
-            <li role="presentation" ng-repeat="indi in individuals | filter: serchFilter"><a role="menuitem" ng-click="selectEntity(indi)">{{indi}}</a></li>
-        </ul>
-    </div>
     <job-sub-type-edit-dialog info="vm"/>
 </div>

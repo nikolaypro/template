@@ -11,6 +11,7 @@ import com.mascot.service.controller.AbstractController;
 import com.mascot.service.controller.common.ResultRecord;
 import com.mascot.service.controller.common.TableParams;
 import com.mascot.service.controller.common.TableResult;
+import com.mascot.service.controller.job_type.JobTypeRecord;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -124,5 +125,11 @@ public class JobSubTypeController extends AbstractController {
         return JobSubTypeRecord.build(entity);
     }
 
+    @RequestMapping(value = "/job-types", method = RequestMethod.POST)
+    @ResponseBody
+    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    public List<JobTypeRecord> getJobTypes() {
+        return jobTypeService.getAll().stream().map(JobTypeRecord::build).collect(Collectors.toList());
+    }
 
 }

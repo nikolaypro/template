@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app', ['ngRoute', 'ngCookies', 'ngTable', 'ngDialog', 'localization'])
+        .module('app', ['ngRoute', 'ngCookies', 'ngTable', 'ngDialog', 'localization', 'ui.bootstrap'])
         .constant('ALL_APP_ROLES', {
             admin: 'ROLE_ADMIN',
             regular: 'ROLE_REGULAR'

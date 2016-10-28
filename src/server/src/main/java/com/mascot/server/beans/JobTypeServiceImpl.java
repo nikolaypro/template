@@ -98,4 +98,14 @@ public class JobTypeServiceImpl extends AbstractMascotService implements JobType
             prev[0] = e;
         });
     }
+
+    @Override
+    public List<JobType> getAll() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return em.createQuery("select e from JobType e").getResultList();
+    }
 }

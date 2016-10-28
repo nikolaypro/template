@@ -3,6 +3,7 @@ package com.mascot.server.beans;
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.JobType;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,4 +26,6 @@ public interface JobTypeService {
     void moveUp(Long id);
 
     void moveDown(Long id);
+
+    List<JobType> getAll();
 }

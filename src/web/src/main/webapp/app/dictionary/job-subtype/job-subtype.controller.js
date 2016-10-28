@@ -14,7 +14,6 @@
         params.loadFromServerForEdit = true;
         params.defaultSort = {name: 'asc'};
         TableUtils.initTablePage(vm, JobSubTypeService, $scope, params);
-        var individuals = ["a1","b1","c1"];
     }
 })();
 

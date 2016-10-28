@@ -125,3 +125,8 @@ body, html {
 .active-arrow {
     cursor: pointer
 }
+
+.dropdown-menu {
+    max-height: 300px;
+    overflow: auto;
+}

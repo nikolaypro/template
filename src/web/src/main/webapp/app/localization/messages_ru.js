@@ -13,6 +13,8 @@
             'common.save' : 'Сохранить',
             'common.cancel' : 'Отмена',
             'common.error' : 'Ошибка',
+            'common.loading' : 'Загрузка ...',
+            'common.no.result.found' : 'Ничего не найдено',
 
             /*top.menu*/
             'top.menu.users' : 'Пользователи',
@@ -107,6 +109,7 @@
 
             /*job-subtype.table*/
             'job-subtype.table.column.name' : 'Название подвида работ',
+            'job-subtype.table.column.job-type': 'Вид работы',
             'job-subtype.table.delete.confirm' : 'Удалить подвид работы?',
             'job-subtype.table.delete.confirm.many' : 'Удалить подвид работы (количество: {0})?',
 
@@ -115,7 +118,9 @@
             'job-subtype.table.edit.title.edit': 'Редактирование подвида работы',
             'job-subtype.table.edit.name': 'Название подвида работы',
             'job-subtype.table.edit.name.hint': 'Название',
-            'job-subtype.table.edit.name.required': 'Название не задано'
+            'job-subtype.table.edit.name.required': 'Название не задано',
+            'job-subtype.table.edit.job-type.required': 'Вид работы не задан',
+            'job-subtype.table.edit.job-type': 'Вид работы'
         });
 
 })();

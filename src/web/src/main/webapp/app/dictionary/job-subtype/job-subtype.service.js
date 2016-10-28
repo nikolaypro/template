@@ -12,6 +12,7 @@
         service.getById = getById;
         service.update = update;
         service.delete = deleteEntity;
+        service.getJobTypes = getJobTypes;
         return service;
 
         function getAll(params, handleSuccess) {
@@ -35,6 +36,10 @@
 
         function deleteEntity(ids, handleSuccess) {
             return $http.post(UrlService.url('api/job-subtype/delete'), ids).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+        }
+
+        function getJobTypes(handleSuccess) {
+            return $http.post(UrlService.url('api/job-subtype/job-types')).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
     }
 
