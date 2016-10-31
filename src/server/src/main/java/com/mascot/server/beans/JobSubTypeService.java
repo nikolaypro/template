@@ -4,6 +4,7 @@ import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.JobSubType;
 import com.mascot.server.model.JobType;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,4 +23,7 @@ public interface JobSubTypeService {
 
     JobSubType findByName(String name);
 
+    List<JobSubType> getAll();
+
 }
+

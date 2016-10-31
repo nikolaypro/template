@@ -4,6 +4,7 @@ import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.Product;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,4 +22,5 @@ public interface ProductService {
 
     Product findByName(String name);
 
+    List<Product> getAll();
 }

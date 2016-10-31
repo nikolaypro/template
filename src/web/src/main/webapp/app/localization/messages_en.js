@@ -119,7 +119,27 @@
             'job-subtype.table.edit.name.hint': 'Name',
             'job-subtype.table.edit.name.required': 'Name is required',
             'job-subtype.table.edit.job-type.required': 'Job type is required',
-            'job-subtype.table.edit.job-type': 'Job type'
+            'job-subtype.table.edit.job-type': 'Job type',
+
+             /*job-subtype-cost.table*/
+            'job-subtype-cost.table.column.job-subtype' : 'Job sub type',
+            'job-subtype-cost.table.column.product': 'Product',
+            'job-subtype-cost.table.column.cost': 'Cost',
+            'job-subtype-cost.table.delete.confirm' : 'Do you want to delete job type cost?',
+            'job-subtype-cost.table.delete.confirm.many' : 'Do you want to delete {0} job type costs?',
+
+             /*job-subtype-cost.table.edit*/
+            'job-subtype-cost.table.edit.title.new': 'New job type cost',
+            'job-subtype-cost.table.edit.title.edit': 'Update job type cost',
+            'job-subtype-cost.table.edit.job-subtype': 'Job sub type',
+            'job-subtype-cost.table.edit.job-subtype.hint': 'Job sub type',
+            'job-subtype-cost.table.edit.job-subtype.required': 'Job sub type is required',
+            'job-subtype-cost.table.edit.product': 'Product',
+            'job-subtype-cost.table.edit.product.hint': 'product',
+            'job-subtype-cost.table.edit.product.required': 'Product is required',
+            'job-subtype-cost.table.edit.cost': 'Cost',
+            'job-subtype-cost.table.edit.cost.hint': 'Cost',
+            'job-subtype-cost.table.edit.cost.required': 'Cost is required'
         });
 
 })();

@@ -2,6 +2,7 @@ package com.mascot.server.beans;
 
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.JobSubType;
+import com.mascot.server.model.JobType;
 import com.mascot.server.model.Role;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -67,6 +69,16 @@ public class JobSubTypeServiceImpl extends AbstractMascotService implements JobS
         } catch (NonUniqueResultException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    @Override
+    public List<JobSubType> getAll() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return em.createQuery("select e from JobSubType e").getResultList();
     }
 
 }

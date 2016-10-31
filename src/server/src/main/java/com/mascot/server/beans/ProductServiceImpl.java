@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,4 +62,15 @@ public class ProductServiceImpl extends AbstractMascotService implements Product
             throw new IllegalStateException(e);
         }
     }
+
+    @Override
+    public List<Product> getAll() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return em.createQuery("select e from Product e").getResultList();
+    }
+
 }

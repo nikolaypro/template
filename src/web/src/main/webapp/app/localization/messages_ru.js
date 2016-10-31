@@ -120,7 +120,28 @@
             'job-subtype.table.edit.name.hint': 'Название',
             'job-subtype.table.edit.name.required': 'Название не задано',
             'job-subtype.table.edit.job-type.required': 'Вид работы не задан',
-            'job-subtype.table.edit.job-type': 'Вид работы'
+            'job-subtype.table.edit.job-type': 'Вид работы',
+
+            /*job-subtype-cost.table*/
+            'job-subtype-cost.table.column.job-subtype' : 'Подвид работы',
+            'job-subtype-cost.table.column.product': 'Изделие',
+            'job-subtype-cost.table.column.cost': 'Стоимость',
+            'job-subtype-cost.table.delete.confirm' : 'Удалить стоимость работы?',
+            'job-subtype-cost.table.delete.confirm.many' : 'Удалить стоимости работ (количество: {0})?',
+
+                /*job-subtype-cost.table.edit*/
+            'job-subtype-cost.table.edit.title.new': 'Новая стоимость работы',
+            'job-subtype-cost.table.edit.title.edit': 'Редактироание стоимости работы',
+            'job-subtype-cost.table.edit.job-subtype': 'Подвид работы',
+            'job-subtype-cost.table.edit.job-subtype.hint': 'Подвид работы',
+            'job-subtype-cost.table.edit.job-subtype.required': 'Подвид роботы не задан',
+            'job-subtype-cost.table.edit.product': 'Изделие',
+            'job-subtype-cost.table.edit.product.hint': 'Изделие',
+            'job-subtype-cost.table.edit.product.required': 'Изделие не задано',
+            'job-subtype-cost.table.edit.cost': 'Стоимость',
+            'job-subtype-cost.table.edit.cost.hint': 'Стоимость',
+            'job-subtype-cost.table.edit.cost.required': 'Стоимость не задана'
+
         });
 
 })();
