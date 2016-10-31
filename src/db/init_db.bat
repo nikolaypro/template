@@ -1,0 +1,1 @@
+mysql -uroot -proot < init_db.sql

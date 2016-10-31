@@ -6,6 +6,7 @@
     <include file="liquibase/1.0/2015-12-21-authentication.xml"/>
     <include file="liquibase/1.0/2016-09-12-add-user-locale.xml"/>
     <include file="liquibase/1.0/2016-10-19-add-product.xml"/>
+    <include file="liquibase/1.0/2016-10-27-add-default-user.xml"/>
     <include file="liquibase/1.0/2016-add-job-type.xml"/>
     <include file="liquibase/1.0/2016-10-25-add-job-subtype.xml"/>
 </databaseChangeLog>
