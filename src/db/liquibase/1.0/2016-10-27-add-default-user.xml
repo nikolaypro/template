@@ -3,7 +3,7 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet author="Nikolay" id="add default user">
-        <preConditions>
+        <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 select count(*) from users where login = 'root'
             </sqlCheck>
@@ -13,7 +13,7 @@
         </sql>
     </changeSet>
     <changeSet author="Nikolay" id="insert default roles">
-        <preConditions>
+        <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 select count(*) from roles
             </sqlCheck>
@@ -24,7 +24,7 @@
         </sql>
     </changeSet>
     <changeSet author="Nikolay" id="link default roles and users">
-        <preConditions>
+        <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 select count(*) from users_roles ur
                 inner join users u ON u.id = ur.user_id
