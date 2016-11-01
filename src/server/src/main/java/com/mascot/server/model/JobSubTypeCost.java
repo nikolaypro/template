@@ -12,7 +12,7 @@ public class JobSubTypeCost extends Identified {
     private Double cost;
 
     @ManyToOne(targetEntity = JobSubType.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "job_sub_type_id")
+    @JoinColumn(name = "job_subtype_id")
     private JobSubType jobSubType;
 
     @ManyToOne(targetEntity = Product.class, fetch = FetchType.LAZY)

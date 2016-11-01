@@ -12,7 +12,8 @@
         service.getById = getById;
         service.update = update;
         service.delete = deleteEntity;
-        service.getJobTypes = getJobTypes;
+        service.getJobSubTypes = getJobSubTypes;
+        service.getProducts = getProducts;
         return service;
 
         function getAll(params, handleSuccess) {
