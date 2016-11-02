@@ -28,8 +28,8 @@
                        class="form-control" ng-required="true" typeahead-editable="false" typeahead-loading="vm.loadingJobTypes" typeahead-min-length="0"
                        autocomplete="off" ng-focus="vm.onFocus($event)" focus-me="opened" ng-disabled="vm.loadingJobTypes">
 -->
-
-                <type-ahead info="vm"/>
+                <label> bbb</label>
+                <type-ahead info="vm" ng-model="vm.jobSubType.jobType"/>
 <!--
                 <div class="input-group" uib-dropdown keyboard-nav>
                     <input id="jobType" name="jobType" type="text" ng-model="vm.jobSubType.jobType" placeholder="{{'job-subtype.table.edit.job-type' | i18n}}"

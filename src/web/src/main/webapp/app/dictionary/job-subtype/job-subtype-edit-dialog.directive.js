@@ -53,44 +53,15 @@ variant 1
                 };
 */
 
-                vm.jobTypes = null;
-                vm.getJobTypes = function (str) {
-                    if (vm.jobTypes == null) {
-                        vm.loadingJobTypes = true;
-                        return JobSubTypeService.getJobTypes(function (data) {
-                            $log.info("JobSubTypeService.getJobTypes");
-                            vm.jobTypes = data;
-                            vm.loadingJobTypes = false;
-                            $timeout(function () {
-                                var v = scope.vm.editForm.jobType.$viewValue;
-                                scope.vm.editForm.jobType.$setViewValue('');
-                                $timeout(function () {
-                                    scope.vm.editForm.jobType.$setViewValue(v);
-                                }, 0);
-                            }, 0);
-                            return vm.filter(str);
-                        });
-                    }
-                    return vm.filter(str);
-                };
-
-                EditDialogUtils.initEditDialog(vm, showModalParams, submitParams);
-
-                vm.filter = function(str) {
-                    var result = [];
-                    angular.forEach(vm.jobTypes, function(item) {
-                        if (typeof str == 'undefined' || (item.name).toLowerCase().indexOf(('' + str).toLowerCase()) > -1) {
-                            result.push(item);
-                        }
-                    });
-                    $log.info("Str = " + str + ", Filtered: " + result);
-                    return result;
-                };
-
                 vm.onSelectItem = function(item) {
                     $log.info("Selected: " + item);
                     vm.jobSubType.jobType = item;
                 };
+
+                vm.loadItems = JobSubTypeService.getJobTypes;
+
+                EditDialogUtils.initEditDialog(vm, showModalParams, submitParams);
+
 
 
 /*
