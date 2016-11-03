@@ -1,5 +1,5 @@
 <div class="input-group" uib-dropdown keyboard-nav>
-    <input id="formInput" name="formInput" type="text" ng-model="vm.jobSubType.jobType" placeholder="{{'job-subtype.table.edit.job-type' | i18n}}"
+    <input id="formInput" name="formInput" type="text" ng-model="modelValue" placeholder="{{vm.placeHolder | i18n}}"
            uib-typeahead="item as item.name for item in vm.getItems($viewValue)"
            class="form-control" ng-required="true" typeahead-editable="false" typeahead-loading="vm.loadingItems" typeahead-min-length="1"
            autocomplete="off">

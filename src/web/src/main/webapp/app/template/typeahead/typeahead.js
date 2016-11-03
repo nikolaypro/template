@@ -11,11 +11,14 @@
         return {
             templateUrl: 'app/template/typeahead/typeahead.html',
             restrict: 'E',
-//            transclude: true,
-//            replace: true,
+           transclude: true,
+//             replace: true,
             scope: {
-                vm: '=info'
+                vm: '=info',
+                modelValue: '=',
+                loadItems: '='
             },
+            // require:"ngModel",
             link: function(scope, element, attrs, tabsCtrl) {
                 http://suhairhassan.com/2013/05/01/getting-started-with-angularjs-directive.html#.WBpEIGqLSUl
                 var vm = scope.vm;
@@ -23,7 +26,7 @@
                 vm.getItems = function (str) {
                     if (vm.items == null) {
                         vm.loadingItems = true;
-                        return vm.loadItems(function (data) {
+                        return scope.loadItems(function (data) {
                             $log.info("loadItems");
                             vm.items = data;
                             vm.loadingItems = false;
@@ -50,6 +53,12 @@
                     $log.info("Str = " + str + ", Filtered: " + result);
                     return result;
                 };
+
+                vm.onSelectItem = function(item) {
+                    $log.info("Selected: " + item);
+                    scope.modelValue = item;
+                };
+
 
             }
         }

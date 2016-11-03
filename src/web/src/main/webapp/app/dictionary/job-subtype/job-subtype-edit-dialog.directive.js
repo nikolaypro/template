@@ -25,6 +25,7 @@
                 showModalParams.titleNew = 'job-subtype.table.edit.title.new';
                 showModalParams.titleEdit = 'job-subtype.table.edit.title.edit';
                 showModalParams.onShow = function(isNew) {
+                    vm.jobTypeRequired = false;
 //                    angular.element('.form-control')[0].triggerHandler('click')
                 };
 
@@ -36,10 +37,14 @@
                 };
                 submitParams.checkInputFields = function() {
                     vm.isShowRequired(vm.editForm.name);
-//                    vm.isShowRequired(vm.editForm.jobType);
-                    return true;
+                    vm.jobTypeRequired = typeof vm.jobSubType.jobType == 'undefined';
+                    return !vm.jobTypeRequired;
                 };
 
+                scope.$watch('vm.jobSubType.jobType', function(newVal, oldVal){
+                    console.log("Search was changed to:"+newVal);
+                    vm.jobTypeRequired = false;
+                });
 /*
 variant 1
                 var jobTypes = null;
@@ -53,12 +58,9 @@ variant 1
                 };
 */
 
-                vm.onSelectItem = function(item) {
-                    $log.info("Selected: " + item);
-                    vm.jobSubType.jobType = item;
-                };
 
-                vm.loadItems = JobSubTypeService.getJobTypes;
+                vm.loadJobTypes = JobSubTypeService.getJobTypes;
+                vm.placeHolder = 'job-subtype.table.edit.job-type';
 
                 EditDialogUtils.initEditDialog(vm, showModalParams, submitParams);
 
