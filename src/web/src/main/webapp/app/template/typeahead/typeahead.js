@@ -19,9 +19,11 @@
                 loadItems: '='
             },
             // require:"ngModel",
-            link: function(scope, element, attrs, tabsCtrl) {
+            link: function(scope, element, attrs, controller) {
                 http://suhairhassan.com/2013/05/01/getting-started-with-angularjs-directive.html#.WBpEIGqLSUl
                 var vm = scope.vm;
+                var formInput = angular.element(element[0].firstChild.firstChild.nextElementSibling).controller("ngModel");
+                // angular.element(element[0].firstChild.firstChild.nextElementSibling).controller("uibTypeahead")
                 vm.items = null;
                 vm.getItems = function (str) {
                     if (vm.items == null) {
@@ -30,11 +32,12 @@
                             $log.info("loadItems");
                             vm.items = data;
                             vm.loadingItems = false;
+                            // var formInput = vm.editForm[vm.elementId];
                             $timeout(function () {
-                                var v = scope.vm.editForm.formInput.$viewValue;
-                                scope.vm.editForm.formInput.$setViewValue('');
+                                var v = formInput.$viewValue;
+                                formInput.$setViewValue('');
                                 $timeout(function () {
-                                    scope.vm.editForm.formInput.$setViewValue(v);
+                                    formInput.$setViewValue(v);
                                 }, 0);
                             }, 0);
                             return vm.filter(str);

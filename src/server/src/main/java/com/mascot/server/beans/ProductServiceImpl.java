@@ -65,11 +65,13 @@ public class ProductServiceImpl extends AbstractMascotService implements Product
 
     @Override
     public List<Product> getAll() {
+/*
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+*/
         return em.createQuery("select e from Product e").getResultList();
     }
 

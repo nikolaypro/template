@@ -15,6 +15,9 @@
             'common.error' : 'Danger',
             'common.loading' : 'Loading',
             'common.no.result.found' : 'No Results Found',
+            'common.yes' : 'Yes',
+            'common.no' : 'No',
+            'common.warning' : 'Warning',
 
             /*top.menu*/
             'top.menu.users' : 'Users',
@@ -139,7 +142,8 @@
             'job-subtype-cost.table.edit.product.required': 'Product is required',
             'job-subtype-cost.table.edit.cost': 'Cost',
             'job-subtype-cost.table.edit.cost.hint': 'Cost',
-            'job-subtype-cost.table.edit.cost.required': 'Cost is required'
+            'job-subtype-cost.table.edit.cost.required': 'Cost is required',
+            'job-subtype-cost.already.exists.cost.update.question': 'Cost for this job subtype and product already exists. Do you want update cost?'
         });
 
 })();

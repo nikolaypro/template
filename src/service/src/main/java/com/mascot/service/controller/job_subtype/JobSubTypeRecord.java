@@ -20,5 +20,12 @@ public class JobSubTypeRecord {
         return result;
     }
 
+    public static JobSubTypeRecord buildWOJobType(JobSubType subType) {
+        JobSubTypeRecord result = new JobSubTypeRecord();
+        result.id = subType.getId();
+        result.name = subType.getName();
+        return result;
+    }
+
 
 }

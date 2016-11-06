@@ -27,7 +27,7 @@
                 };
 
                 var loadLocales = function(user) {
-                    /*todo Кешировать рузультаты*/
+                    /*todo пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/
                     UserService.loadLocales(function (data) {
 //                        $log.info("Success load locales");
                         vm.localeData = data;
@@ -55,7 +55,7 @@
 
                 // Configure submit
                 var submitParams = {};
-                submitParams.service = UserService;
+                submitParams.submit = UserService.update;
                 submitParams.getEntity = function() {
                     var userCopy = angular.copy(vm.user);
                     if (userCopy.password) {

@@ -11,6 +11,8 @@
         service.getAll = getAll;
         service.getById = getById;
         service.update = update;
+        service.checkNotExists = checkNotExists;
+        service.updateCostOnly = updateCostOnly;
         service.delete = deleteEntity;
         service.getJobSubTypes = getJobSubTypes;
         service.getProducts = getProducts;
@@ -31,8 +33,16 @@
             return $http.get(UrlService.url('api/job-subtype-cost/id/' + id)).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
-        function update(user, handleSuccess) {
-            return $http.post(UrlService.url('api/job-subtype-cost/update'), user).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+        function update(entity, handleSuccess) {
+            return $http.post(UrlService.url('api/job-subtype-cost/update'), entity).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+        }
+
+        function checkNotExists(entity, handleSuccess) {
+            return $http.post(UrlService.url('api/job-subtype-cost/not-exists'), entity).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+        }
+
+        function updateCostOnly(entity, handleSuccess) {
+            return $http.post(UrlService.url('api/job-subtype-cost/update-cost'), entity).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
         function deleteEntity(ids, handleSuccess) {

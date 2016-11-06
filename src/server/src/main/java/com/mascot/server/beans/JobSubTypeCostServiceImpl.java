@@ -20,7 +20,10 @@ import java.util.Map;
 public class JobSubTypeCostServiceImpl extends AbstractMascotService implements JobSubTypeCostService {
     @Override
     public BeanTableResult<JobSubTypeCost> getList(int start, int count, Map<String, String> orderBy) {
-        return getResult("select distinct e from JobSubTypeCost e left join fetch e.jobSubType left join fetch e.product",
+        return getResult("select distinct e from JobSubTypeCost e " +
+                        "left join fetch e.jobSubType jst " +
+                        "left join fetch jst.jobType " +
+                        "left join fetch e.product",
                 "select count(distinct e) from JobSubTypeCost e", start, count, orderBy, new HashMap<>());
     }
 
@@ -38,7 +41,8 @@ public class JobSubTypeCostServiceImpl extends AbstractMascotService implements 
     public JobSubTypeCost find(Long id) {
         try {
             return (JobSubTypeCost) em.createQuery("select e from JobSubTypeCost e " +
-                    "left join fetch e.jobSubType " +
+                    "left join fetch e.jobSubType jst " +
+                    "left join fetch jst.jobType " +
                     "left join fetch e.product " +
                     "where e.id = :id")
                     .setParameter("id", id)

@@ -29,7 +29,7 @@
 
                 // Configure submit
                 var submitParams = {};
-                submitParams.service = ProductService;
+                submitParams.submit = ProductService.update;
                 submitParams.getEntity = function() {
                     return vm.product;
                 };

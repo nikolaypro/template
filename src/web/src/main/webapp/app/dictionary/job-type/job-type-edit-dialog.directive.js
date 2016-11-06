@@ -29,7 +29,7 @@
 
                 // Configure submit
                 var submitParams = {};
-                submitParams.service = JobTypeService;
+                submitParams.submit = JobTypeService.update;
                 submitParams.getEntity = function() {
                     return vm.jobType;
                 };

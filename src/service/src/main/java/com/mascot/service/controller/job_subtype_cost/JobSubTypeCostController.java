@@ -10,6 +10,7 @@ import com.mascot.server.model.JobSubTypeCost;
 import com.mascot.server.model.Product;
 import com.mascot.server.model.Role;
 import com.mascot.service.controller.AbstractController;
+import com.mascot.service.controller.common.BooleanRecord;
 import com.mascot.service.controller.common.ResultRecord;
 import com.mascot.service.controller.common.TableParams;
 import com.mascot.service.controller.common.TableResult;
@@ -105,6 +106,34 @@ public class JobSubTypeCostController extends AbstractController {
         return ResultRecord.success();
     }
 
+    @RequestMapping(value = "/update-cost", method = RequestMethod.POST)
+    @ResponseBody
+    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    public ResultRecord updateCost(@RequestBody JobSubTypeCostRecord record) {
+        logger.info("Update cost only: jobSubType = " + record.jobSubType + ", product: " + record.product + ", cost: " +
+                record.cost +  "id = " + record.id);
+            final JobSubTypeCost existsEntity = jobSubTypeCostService.findCost(record.jobSubType.id, record.product.id);
+            if (existsEntity == null) {
+                throw new IllegalStateException("Not found cost for jobSubType = " + record.jobSubType + ", product: " + record.product);
+            }
+        existsEntity.setCost(record.cost);
+        jobSubTypeCostService.update(existsEntity);
+        return ResultRecord.success();
+    }
+
+    @RequestMapping(value = "/not-exists", method = RequestMethod.POST)
+    @ResponseBody
+    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    public BooleanRecord isNotExists(@RequestBody JobSubTypeCostRecord record) {
+        logger.info("Check exists: jobSubType = " + record.jobSubType + ", product: " + record.product + ", cost: " +
+                record.cost +  "id = " + record.id);
+        final JobSubTypeCost existsEntity = jobSubTypeCostService.findCost(record.jobSubType.id, record.product.id);
+        if (existsEntity != null) {
+            return BooleanRecord.falseResult(existsEntity.getCost().toString());
+        }
+        return BooleanRecord.trueResult();
+    }
+
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
@@ -142,8 +171,8 @@ public class JobSubTypeCostController extends AbstractController {
     @RequestMapping(value = "/job-subtypes", method = RequestMethod.POST)
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
-    public List<JobSubTypeRecord> getJobTypes() {
-        return jobSubTypeService.getAll().stream().map(JobSubTypeRecord::build).collect(Collectors.toList());
+    public List<JobSubTypeRecord> getJobSubTypes() {
+        return jobSubTypeService.getAll().stream().map(JobSubTypeRecord::buildWOJobType).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)

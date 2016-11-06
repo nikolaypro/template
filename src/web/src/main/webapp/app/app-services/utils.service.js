@@ -5,8 +5,8 @@
         .module('app')
         .factory('Utils', Utils);
 
-    Utils.$inject = ['$log', 'ALL_APP_ROLES', '$rootScope'];
-    function Utils($log, ALL_APP_ROLES, $rootScope) {
+    Utils.$inject = ['$log', 'ALL_APP_ROLES', '$rootScope', 'LocMsg'];
+    function Utils($log, ALL_APP_ROLES, $rootScope, LocMsg) {
         var service = {};
         service.refreshEditRemoveButtonEnabled = refreshEditRemoveButtonEnabled;
         service.getCheckedTableRow = getCheckedTableRow;
@@ -17,6 +17,7 @@
         service.getEnabledMenu = getEnabledMenu;
         service.handleSuccess = handleSuccess;
         service.handleError = handleError;
+        service.callCheckBeforeInvokeService = callCheckBeforeInvokeService;
         return service;
 
         function refreshEditRemoveButtonEnabled(vm, tableParams) {
@@ -66,7 +67,7 @@
             return result;
         }
 
-        function showConfirm(title, message, okHandler) {
+        function showConfirm(title, message, okHandler, cancelHandler) {
             return BootstrapDialog.show({
                 title: title,
                 type: BootstrapDialog.DEFAULTS,
@@ -76,7 +77,7 @@
                 closeByKeyboard: true,
                 draggable: true,
                 buttons: [{
-                    label: 'Ok',
+                    label: LocMsg.get('common.yes'),
                     cssClass: 'btn-primary',
 //                    icon: 'glyphicon glyphicon-send',
                     autospin: false,
@@ -89,11 +90,14 @@
                         okHandler(dialogRef);
                     }
                 }, {
-                    label: 'Cancel',
+                    label: LocMsg.get('common.cancel'),
                     cssClass: 'btn-primary',
                     action: function(dialogRef){
                         $log.info("toggled Cancel");
                         dialogRef.close();
+                        if (cancelHandler) {
+                            cancelHandler(dialogRef);
+                        }
                     }
                 }
                 ]
@@ -164,6 +168,43 @@
             return function () {
                 return { success: false, message: response.data.error};
             };
+        }
+
+        /**
+         * Use in case for select a function to invoke by result of check function and user answer.
+         * All functionas must has the same params with callback function as last parameter with one parameter "data":
+         *
+         * function(...., callbackFun) {
+         *      ....
+         *      callbackFun(data);
+         * }
+         * @param checkFn
+         * @param trueFn - will use if checkFn result true. "Data" params in callbackFun must contains "result" boolean field
+         * @param falseFn - will use if checkFn return false and user say "Yes"
+         * @param params - params for all functions
+         * @param callback - invoke this function if was invoke trueFn or falseFn
+         * @param questionMessage - will use for show to user when checkFn return false
+         */
+        function callCheckBeforeInvokeService(checkFn, trueFn, falseFn, params, callback, questionMessage) {
+            var checkParams = angular.copy(params);
+            checkParams.push(function(data) {
+                var callbackParams = angular.copy(params);
+                callbackParams.push(callback);
+                if (data.result) {
+                    trueFn.apply(this, callbackParams);
+                } else {
+                    showConfirm(LocMsg.get('common.warning'), LocMsg.get(questionMessage), function(dialogRef) {
+                        falseFn.apply(this, callbackParams);
+                        dialogRef.close();
+                    },
+                    function(dialogRef) {
+                        callback({success: false});
+                        dialogRef.$modal.scope().$digest();
+                    });
+                }
+            });
+
+            checkFn.apply(this, (checkParams));
         }
 
     }

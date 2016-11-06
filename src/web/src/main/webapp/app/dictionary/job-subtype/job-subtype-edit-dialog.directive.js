@@ -5,9 +5,9 @@
         .module('app')
         .directive('jobSubTypeEditDialog', JobSubTypeEditDialog);
 
-    JobSubTypeEditDialog.$inject = ['JobSubTypeService', '$timeout', '$log', 'EditDialogUtils', '$window' /* , 'SECRET_EMPTY_KEY'*/];
+    JobSubTypeEditDialog.$inject = ['JobSubTypeService', 'EditDialogUtils'];
 
-    function JobSubTypeEditDialog(JobSubTypeService, $timeout, $log, EditDialogUtils, $window/*, SECRET_EMPTY_KEY*/) {
+    function JobSubTypeEditDialog(JobSubTypeService, EditDialogUtils) {
         return {
             templateUrl: 'app/dictionary/job-subtype/job-subtype-edit-dialog.html',
             restrict: 'E',
@@ -31,7 +31,7 @@
 
                 // Configure submit
                 var submitParams = {};
-                submitParams.service = JobSubTypeService;
+                submitParams.submit = JobSubTypeService.update;
                 submitParams.getEntity = function() {
                     return vm.jobSubType;
                 };

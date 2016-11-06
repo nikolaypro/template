@@ -73,11 +73,13 @@ public class JobSubTypeServiceImpl extends AbstractMascotService implements JobS
 
     @Override
     public List<JobSubType> getAll() {
+/*
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+*/
         return em.createQuery("select e from JobSubType e").getResultList();
     }
 

@@ -1,8 +1,8 @@
 <div class="input-group" uib-dropdown keyboard-nav>
-    <input id="formInput" name="formInput" type="text" ng-model="modelValue" placeholder="{{vm.placeHolder | i18n}}"
+    <input type="text" ng-model="modelValue" placeholder="{{vm.placeHolder | i18n}}"
            uib-typeahead="item as item.name for item in vm.getItems($viewValue)"
-           class="form-control" ng-required="true" typeahead-editable="false" typeahead-loading="vm.loadingItems" typeahead-min-length="1"
-           autocomplete="off">
+           class="form-control" ng-required="true" typeahead-editable="false" typeahead-loading="vm.loadingItems"
+           typeahead-min-length="1" autocomplete="off">
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default typeaheadTrigger" uib-dropdown-toggle ng-click="vm.getItems()">
                             &nbsp;<span class="caret"></span>&nbsp;

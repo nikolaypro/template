@@ -15,6 +15,9 @@
             'common.error' : 'Ошибка',
             'common.loading' : 'Загрузка ...',
             'common.no.result.found' : 'Ничего не найдено',
+            'common.yes' : 'Да',
+            'common.no' : 'Нет',
+            'common.warning' : 'Предупреждение',
 
             /*top.menu*/
             'top.menu.users' : 'Пользователи',
@@ -140,7 +143,8 @@
             'job-subtype-cost.table.edit.product.required': 'Изделие не задано',
             'job-subtype-cost.table.edit.cost': 'Стоимость',
             'job-subtype-cost.table.edit.cost.hint': 'Стоимость',
-            'job-subtype-cost.table.edit.cost.required': 'Стоимость не задана'
+            'job-subtype-cost.table.edit.cost.required': 'Стоимость не задана',
+            'job-subtype-cost.already.exists.cost.update.question': 'Стоимость выбранной работы для данного изделия уже задана. Хотите обновить стоимость?'
 
         });
 
