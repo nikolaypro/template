@@ -8,8 +8,8 @@
     <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-hover">
         <tr ng-repeat="row in $data track by $index">
             <td class="table-row-check"><input type="checkbox" ng-change="vm.onRowChecked()" ng-model="row.row_checked"/></td>
-            <td class="td_400px" data-title="'job-subtype.table.column.name' | i18n" >{{row.name}}</td>
-            <td class="td_400px" data-title="'job-subtype.table.column.job-type' | i18n" >{{row.jobType.name}}</td>
+            <td class="td_400px" data-title="'job-subtype.table.column.name' | i18n" sortable="'name'">{{row.name}}</td>
+            <td class="td_400px" data-title="'job-subtype.table.column.job-type' | i18n" sortable="'jobType.name'">{{row.jobType.name}}</td>
         </tr>
     </table>
     <job-sub-type-edit-dialog info="vm"/>

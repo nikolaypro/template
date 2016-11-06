@@ -8,9 +8,9 @@
     <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-hover">
         <tr ng-repeat="row in $data track by $index">
             <td class="table-row-check"><input type="checkbox" ng-change="vm.onRowChecked()" ng-model="row.row_checked"/></td>
-            <td class="td_400px" data-title="'job-subtype-cost.table.column.job-subtype' | i18n" >{{row.jobSubType.name}}</td>
-            <td class="td_400px" data-title="'job-subtype-cost.table.column.product' | i18n" >{{row.product.name}}</td>
-            <td class="td_400px" data-title="'job-subtype-cost.table.column.cost' | i18n" >{{row.cost}}</td>
+            <td class="td_400px" data-title="'job-subtype-cost.table.column.job-subtype' | i18n" sortable="'jobSubType.name'">{{row.jobSubType.name}}</td>
+            <td class="td_400px" data-title="'job-subtype-cost.table.column.product' | i18n" sortable="'product.name'">{{row.product.name}}</td>
+            <td class="td_400px" data-title="'job-subtype-cost.table.column.cost' | i18n" sortable="'cost'">{{row.cost}}</td>
         </tr>
     </table>
     <job-sub-type-cost-edit-dialog info="vm"/>
