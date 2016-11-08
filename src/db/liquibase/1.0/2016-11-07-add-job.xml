@@ -2,27 +2,33 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="Nikolay" id="create job sub type cost">
-        <createTable tableName="job_subtype_cost">
+    <changeSet author="Nikolay" id="create job table">
+        <createTable tableName="job">
             <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="job_sub_type_cost_id_PK"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="job_id_PK"/>
             </column>
-            <column name="cost" type="DOUBLE">
+            <column name="number" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="job_subtype_id" type="BIGINT">
+            <column name="complete_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="job_type_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
             <column name="product_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addForeignKeyConstraint baseTableName="job_subtype_cost" baseColumnNames="job_subtype_id"
-                                 constraintName="job_subtype_cost_to_job_subtype_FK"
-                                 referencedTableName="job_subtype"
+        <addForeignKeyConstraint baseTableName="job" baseColumnNames="job_type_id"
+                                 constraintName="job_to_job_type_FK"
+                                 referencedTableName="job_type"
                                  referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="job_subtype_cost" baseColumnNames="product_id"
-                                 constraintName="job_subtype_cost_to_product_FK"
+        <addForeignKeyConstraint baseTableName="job" baseColumnNames="product_id"
+                                 constraintName="job_to_product_FK"
                                  referencedTableName="products"
                                  referencedColumnNames="id"/>
     </changeSet>

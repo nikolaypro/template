@@ -10,4 +10,5 @@
     <include file="liquibase/1.0/2016-add-job-type.xml"/>
     <include file="liquibase/1.0/2016-10-25-add-job-subtype.xml"/>
     <include file="liquibase/1.0/2016-10-31-add-job-subtype-cost.xml"/>
+    <include file="liquibase/1.0/2016-11-07-add-job.xml"/>
 </databaseChangeLog>
