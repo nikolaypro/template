@@ -152,8 +152,20 @@
             'job.table.column.job-type' : 'Job type',
             'job.table.column.product': 'Product',
             'job.table.delete.confirm' : 'Do you want to delete job?',
-            'job.table.delete.confirm.many' : 'Do you want to delete {0} jobs?'
+            'job.table.delete.confirm.many' : 'Do you want to delete {0} jobs?',
 
+            'job.table.edit.title.new': 'New job',
+            'job.table.edit.title.edit': 'Update job',
+            'job.table.edit.job-type': 'Job type',
+            'job.table.edit.product': 'Product',
+            'job.table.edit.job-type.required': 'Job type is required',
+            'job.table.edit.product.required': 'Product is required',
+            'job.table.edit.number': 'Number is required',
+            'job.table.edit.number.hint': 'Number',
+            'job.table.edit.number.required': 'Number is required',
+            'job.table.edit.complete.date':'Complete job data',
+            'job.table.edit.complete.date.hint': 'Complete job data',
+            'job.table.edit.complete.date.required': 'Complete job data is required'
 
         });
 

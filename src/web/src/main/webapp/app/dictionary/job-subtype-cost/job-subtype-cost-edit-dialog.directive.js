@@ -24,6 +24,7 @@
                 showModalParams.titleEdit = 'job-subtype-cost.table.edit.title.edit';
                 showModalParams.onShow = function(isNew) {
                     vm.jobSubTypeRequired = false;
+                    vm.productTypeRequired = false;
 //                    angular.element('.form-control')[0].triggerHandler('click')
                 };
 

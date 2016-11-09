@@ -1,0 +1,33 @@
+<fieldset ng-disabled="vm.disableForm" disabled="vm.disableForm">
+    <form role="form" name="vm.editForm" >
+        <modal visible="vm.showDialogFlag" info="vm">
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.jobTypeRequired }">
+                <label for="jobType">{{'job.table.edit.job-type' | i18n}}</label>
+                <type-ahead id="jobType" info="vm.typeVm" model-value="vm.job.jobType" load-items="vm.loadJobTypes"/>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': vm.jobTypeRequired }">
+                <div ng-if="vm.jobTypeRequired" class="help-block">{{'job.table.edit.job-type.required' | i18n}}</div>
+            </div>
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.productTypeRequired }">
+                <label for="productType">{{'job.table.edit.product' | i18n}}</label>
+                <type-ahead id="productType" info="vm.productVm" model-value="vm.job.product" load-items="vm.loadProducts"/>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': vm.productTypeRequired }">
+                <div ng-if="vm.productTypeRequired" class="help-block">{{'job.table.edit.product.required' | i18n}}</div>
+            </div>
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.number) }">
+                <label for="number">{{'job.table.edit.number' | i18n}}</label>
+                <input type="text" class="form-control" id="number" name="number" placeholder="{{'job.table.edit.number.hint' | i18n}}"
+                       ng-model="vm.job.number" ng-required="true"/>
+                <div ng-if="vm.isShowRequired(vm.editForm.number)" class="help-block">{{'job.table.edit.number.required' | i18n}}</div>
+            </div>
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.completeDate) }">
+                <label for="completeDate">{{'job.table.edit.complete.date' | i18n}}</label>
+                <input type="text" class="form-control" id="completeDate" name="completeDate" placeholder="{{'job.table.edit.complete.date.hint' | i18n}}"
+                       ng-model="vm.job.completeDate" ng-required="true"/>
+                <div ng-if="vm.isShowRequired(vm.editForm.completeDate)" class="help-block">{{'job.table.edit.complete.date.required' | i18n}}</div>
+            </div>
+
+        </modal>
+    </form>
+</fieldset>

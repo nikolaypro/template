@@ -26,6 +26,10 @@ public class Job extends Identified {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    public Job() {
+        completeDate = new Date();
+    }
+
     public Date getCompleteDate() {
         return completeDate;
     }

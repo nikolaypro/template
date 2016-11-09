@@ -153,8 +153,20 @@
             'job.table.column.job-type' : 'Вид работы',
             'job.table.column.product': 'Изделие',
             'job.table.delete.confirm' : 'Удалить выполненную работу?',
-            'job.table.delete.confirm.many' : 'Удалить выполненные работы? (количество: {0})'
+            'job.table.delete.confirm.many' : 'Удалить выполненные работы? (количество: {0})',
 
+            'job.table.edit.title.new': 'Новая выполненная работа',
+            'job.table.edit.title.edit': 'Редактирование выполненной работы',
+            'job.table.edit.job-type': 'Вид работы',
+            'job.table.edit.product': 'Изделие',
+            'job.table.edit.job-type.required': 'Вид работы не задан',
+            'job.table.edit.product.required': 'Изделие не задано',
+            'job.table.edit.number': 'Номер не задан',
+            'job.table.edit.number.hint': 'Номер',
+            'job.table.edit.number.required': 'Номер не задан',
+            'job.table.edit.complete.date':'Дата завершения работы',
+            'job.table.edit.complete.date.hint': 'Дата завершения работы',
+            'job.table.edit.complete.date.required': 'Дата завершения работы не задана'
 
         });
 
