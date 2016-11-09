@@ -27,7 +27,7 @@ public class Job extends Identified {
     private Product product;
 
     public Job() {
-        completeDate = new Date();
+        creationDate = new Date();
     }
 
     public Date getCompleteDate() {

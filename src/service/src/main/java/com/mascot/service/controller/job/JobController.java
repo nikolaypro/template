@@ -76,7 +76,7 @@ public class JobController extends AbstractController {
             entity = existsEntity;
         }
         entity.setNumber(record.number);
-        entity.setCompleteDate(new Date(record.number));
+        entity.setCompleteDate(new Date(record.completeDate));
         if (record.jobType == null) {
             throw new IllegalStateException("Job type not defined");
         }

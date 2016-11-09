@@ -9,7 +9,7 @@
 
     function JobEditDialog(JobService, $log, EditDialogUtils, Utils) {
         return {
-            templateUrl: 'app/jobs/job-edit-dialog.html',
+            templateUrl: 'app/jobs/jobs-edit-dialog.html',
             restrict: 'E',
             scope: {
                 vm: '=info'
