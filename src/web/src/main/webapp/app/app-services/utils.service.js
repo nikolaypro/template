@@ -133,10 +133,13 @@
                     ];
                 case ALL_APP_ROLES.regular:
                     return [
-                        'contact',
-                        'dropdown',
-                        'action',
-                        'separated_link'];
+                        'jobs',
+                        'reports'
+//                        'contact',
+//                        'dropdown',
+//                        'action',
+//                        'separated_link'
+                    ];
                 default:
                     alert('Unknown role: "' + role + '"');
                     return [];

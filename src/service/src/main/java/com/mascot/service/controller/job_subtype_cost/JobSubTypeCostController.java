@@ -84,7 +84,7 @@ public class JobSubTypeCostController extends AbstractController {
         }
         entity.setCost(record.cost);
         if (record.jobSubType == null) {
-            throw new IllegalStateException("Job type not defined");
+            throw new IllegalStateException("Job sub type not defined");
         }
         JobSubType jobSubType = jobSubTypeService.find(record.jobSubType.id);
         if (jobSubType == null) {
@@ -97,7 +97,7 @@ public class JobSubTypeCostController extends AbstractController {
         }
         Product product = productService.find(record.product.id);
         if (product == null) {
-            throw new IllegalStateException("Not found product with id = '" + record.jobSubType.id + "'");
+            throw new IllegalStateException("Not found product with id = '" + record.product.id + "'");
         }
         entity.setProduct(product);
 

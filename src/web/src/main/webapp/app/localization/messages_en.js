@@ -27,6 +27,7 @@
             'top.menu.job.type' : 'Job type',
             'top.menu.job.sub.type' : 'Job sub type',
             'top.menu.job.price' : 'Job price',
+            'top.menu.jobs' : 'Jobs',
             'top.menu.logout' : 'Logout',
             'top.menu.app.name' : 'Template',
 
@@ -143,7 +144,17 @@
             'job-subtype-cost.table.edit.cost': 'Cost',
             'job-subtype-cost.table.edit.cost.hint': 'Cost',
             'job-subtype-cost.table.edit.cost.required': 'Cost is required',
-            'job-subtype-cost.already.exists.cost.update.question': 'Cost for this job subtype and product already exists. Do you want update cost?'
+            'job-subtype-cost.already.exists.cost.update.question': 'Cost for this job subtype and product already exists. Do you want update cost?',
+
+            /*job.table*/
+            'job.table.column.number': 'Number',
+            'job.table.column.complete.date': 'Complete date',
+            'job.table.column.job-type' : 'Job type',
+            'job.table.column.product': 'Product',
+            'job.table.delete.confirm' : 'Do you want to delete job?',
+            'job.table.delete.confirm.many' : 'Do you want to delete {0} jobs?'
+
+
         });
 
 })();

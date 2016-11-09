@@ -95,6 +95,12 @@
                 controllerAs: 'vm'
             })
 
+            .when('/jobs', {
+                controller: 'JobController',
+                templateUrl: 'app/jobs/jobs.view.html',
+                controllerAs: 'vm'
+            })
+
             .when('/reports', {
                 controller: 'ReportsController',
                 templateUrl: 'app/reports/reports.view.html',

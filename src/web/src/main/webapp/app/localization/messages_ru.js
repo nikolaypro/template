@@ -27,6 +27,7 @@
             'top.menu.job.type' : 'Вид работ',
             'top.menu.job.sub.type' : 'Подвид работ',
             'top.menu.job.price' : 'Стоимость работ',
+            'top.menu.jobs' : 'Выполненные работы',
             'top.menu.logout' : 'Выход',
             'top.menu.app.name' : 'Шаблон',
 
@@ -144,7 +145,16 @@
             'job-subtype-cost.table.edit.cost': 'Стоимость',
             'job-subtype-cost.table.edit.cost.hint': 'Стоимость',
             'job-subtype-cost.table.edit.cost.required': 'Стоимость не задана',
-            'job-subtype-cost.already.exists.cost.update.question': 'Стоимость выбранной работы для данного изделия уже задана. Хотите обновить стоимость?'
+            'job-subtype-cost.already.exists.cost.update.question': 'Стоимость выбранной работы для данного изделия уже задана. Хотите обновить стоимость?',
+
+            /*job.table*/
+            'job.table.column.number': 'Номер',
+            'job.table.column.complete.date': 'Дата завершения',
+            'job.table.column.job-type' : 'Вид работы',
+            'job.table.column.product': 'Изделие',
+            'job.table.delete.confirm' : 'Удалить выполненную работу?',
+            'job.table.delete.confirm.many' : 'Удалить выполненные работы? (количество: {0})'
+
 
         });
 

@@ -1,0 +1,18 @@
+<main-top-menu xmlns="http://java.sun.com/jsf/html"></main-top-menu>
+<div class="container">
+    <div class="edit-buttons">
+        <button class="btn btn-primary btn-sm" ng-click="vm.doShowNewDialog()">{{'common.new' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-disabled="vm.editDisabled" ng-click="vm.doShowEditDialog()">{{'common.edit' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-disabled="vm.removeDisabled" ng-click="vm.doRemove()">{{'common.remove' | i18n}}</button>
+    </div>
+    <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-hover">
+        <tr ng-repeat="row in $data track by $index">
+            <td class="table-row-check"><input type="checkbox" ng-change="vm.onRowChecked()" ng-model="row.row_checked"/></td>
+            <td class="td_400px" data-title="'job.table.column.complete.date' | i18n" sortable="'cost'">{{row.completeDate}}</td>
+            <td class="td_400px" data-title="'job.table.column.number' | i18n" sortable="'cost'">{{row.number}}</td>
+            <td class="td_400px" data-title="'job.table.column.job-type' | i18n" sortable="'jobSubType.name'">{{row.jobType.name}}</td>
+            <td class="td_400px" data-title="'job.table.column.product' | i18n" sortable="'product.name'">{{row.product.name}}</td>
+        </tr>
+    </table>
+    <!--<job-sub-type-cost-edit-dialog info="vm"/>-->
+</div>
