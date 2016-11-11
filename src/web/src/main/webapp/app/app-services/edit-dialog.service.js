@@ -63,7 +63,7 @@
                 }
                 vm.element2HasError[el.$name] = showRequired;
                 if (showRequired) {
-                    $log.info('vm.submitPressed = ' + vm.submitPressed);
+//                    $log.info('vm.submitPressed = ' + vm.submitPressed);
                 }
                 return showRequired;
             };

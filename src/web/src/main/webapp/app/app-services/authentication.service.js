@@ -66,7 +66,8 @@
                     username: username,
                     authdata: authdata,
                     roles: roles,
-                    locale: locale
+                    locale: locale,
+                    dateFormat: 'yyyy-MM-dd'
                 }
             };
 

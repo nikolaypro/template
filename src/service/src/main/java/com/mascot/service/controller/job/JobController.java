@@ -64,7 +64,7 @@ public class JobController extends AbstractController {
     @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public ResultRecord update(@RequestBody JobRecord record) {
         logger.info("Job : jobType = " + record.jobType + ", product: " + record.product + ", number: " +
-                record.number +  ", complete date: " + new Date(record.completeDate) + " ,id = " + record.id);
+                record.number +  ", complete date: " + record.completeDate + " ,id = " + record.id);
         final Job entity;
         if (record.id == null) {
             entity = new Job();
@@ -76,7 +76,7 @@ public class JobController extends AbstractController {
             entity = existsEntity;
         }
         entity.setNumber(record.number);
-        entity.setCompleteDate(new Date(record.completeDate));
+        entity.setCompleteDate(record.completeDate);
         if (record.jobType == null) {
             throw new IllegalStateException("Job type not defined");
         }

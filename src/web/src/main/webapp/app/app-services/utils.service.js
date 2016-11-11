@@ -5,8 +5,8 @@
         .module('app')
         .factory('Utils', Utils);
 
-    Utils.$inject = ['$log', 'ALL_APP_ROLES', '$rootScope', 'LocMsg'];
-    function Utils($log, ALL_APP_ROLES, $rootScope, LocMsg) {
+    Utils.$inject = ['$log', 'ALL_APP_ROLES', '$rootScope', 'LocMsg', 'uibDateParser'];
+    function Utils($log, ALL_APP_ROLES, $rootScope, LocMsg, uibDateParser) {
         var service = {};
         service.refreshEditRemoveButtonEnabled = refreshEditRemoveButtonEnabled;
         service.getCheckedTableRow = getCheckedTableRow;
@@ -18,6 +18,8 @@
         service.handleSuccess = handleSuccess;
         service.handleError = handleError;
         service.callCheckBeforeInvokeService = callCheckBeforeInvokeService;
+        service.getDateFormat = getDateFormat;
+        service.parseDate = parseDate;
         return service;
 
         function refreshEditRemoveButtonEnabled(vm, tableParams) {
@@ -208,6 +210,14 @@
             });
 
             checkFn.apply(this, (checkParams));
+        }
+
+        function getDateFormat() {
+            return $rootScope.globals.currentUser.dateFormat;
+        }
+
+        function parseDate(dateStr) {
+            return uibDateParser.parse(dateStr, getDateFormat());
         }
 
     }

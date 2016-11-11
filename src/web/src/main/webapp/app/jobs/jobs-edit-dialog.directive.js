@@ -37,8 +37,9 @@
                     vm.jobTypeRequired = typeof vm.job.jobType == 'undefined';
                     vm.productTypeRequired = typeof vm.job.product == 'undefined';
                     vm.isShowRequired(vm.editForm.number);
-                    vm.isShowRequired(vm.editForm.completeDate);
-                    return !vm.jobTypeRequired && !vm.productTypeRequired;
+
+//                    vm.isShowRequired(vm.editForm.completeDate);
+                    return !vm.jobTypeRequired && !vm.productTypeRequired && Utils.parseDate(vm.job.completeDate);
                 };
 
                 scope.$watch('vm.job.jobType', function(newVal, oldVal){
@@ -58,6 +59,19 @@
 
                 EditDialogUtils.initEditDialog(vm, showModalParams, submitParams);
 
+                vm.dateFormat = Utils.getDateFormat();
+                vm.parseDate = Utils.parseDate;
+                vm.validDate = function(date) {
+//                    el.$$parentForm.$submitted
+                    return !vm.submitPressed || Utils.parseDate(date) != undefined;
+                };
+                vm.completeDateOptions = {
+//                    dateDisabled: disabled,
+                    formatYear: 'yy',
+                    maxDate: new Date(2020, 1, 1),
+                    minDate: new Date(2016, 1, 1),
+                    startingDay: 1
+                };
             }
         }
     }
