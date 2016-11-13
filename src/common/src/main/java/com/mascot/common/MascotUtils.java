@@ -32,9 +32,20 @@ public class MascotUtils {
             orderByStr = orderBy.entrySet().
                     stream().reduce(new StringJoiner(",", "order by ", ""),
                     (x, y) -> x.add(alias + "." + y.getKey() + " " + y.getValue()),
-                    (x, y) -> x.merge(y)).toString();
+                    StringJoiner::merge).toString();
         }
         return orderByStr;
+    }
+
+    public static String buildWhereByString(Map<String, String> filter, String alias) {
+        String filterByStr = "";
+        if (filter != null && !filter.isEmpty()) {
+            filterByStr = filter.entrySet().
+                    stream().reduce(new StringJoiner(" and ", "where ", ""),
+                    (x, y) -> x.add(alias + "." + y.getKey() + " like '%" + y.getValue() + "%'"),
+                    StringJoiner::merge).toString();
+        }
+        return filterByStr;
     }
 
     public static String buildCommaSeparatedString(String... list) {

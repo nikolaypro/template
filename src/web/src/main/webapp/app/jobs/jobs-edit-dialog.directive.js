@@ -25,6 +25,9 @@
                 showModalParams.onShow = function(isNew) {
                     vm.jobTypeRequired = false;
                     vm.productTypeRequired = false;
+                    if (isNew) {
+                        vm.job.completeDate = Utils.getCurrDateWOTime();
+                    }
                 };
 
                 // Configure submit
@@ -39,7 +42,7 @@
                     vm.isShowRequired(vm.editForm.number);
 
 //                    vm.isShowRequired(vm.editForm.completeDate);
-                    return !vm.jobTypeRequired && !vm.productTypeRequired && Utils.parseDate(vm.job.completeDate);
+                    return !vm.jobTypeRequired && !vm.productTypeRequired && Utils.parseDate(vm.job.completeDate) != undefined;
                 };
 
                 scope.$watch('vm.job.jobType', function(newVal, oldVal){
@@ -60,10 +63,8 @@
                 EditDialogUtils.initEditDialog(vm, showModalParams, submitParams);
 
                 vm.dateFormat = Utils.getDateFormat();
-                vm.parseDate = Utils.parseDate;
                 vm.validDate = function(date) {
-//                    el.$$parentForm.$submitted
-                    return !vm.submitPressed || Utils.parseDate(date) != undefined;
+                    return Utils.isValidDate(vm, date);
                 };
                 vm.completeDateOptions = {
 //                    dateDisabled: disabled,

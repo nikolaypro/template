@@ -1,17 +1,46 @@
 <main-top-menu xmlns="http://java.sun.com/jsf/html"></main-top-menu>
+<script type="text/ng-template" id="jobs.view/date.filter.html">
+<div class="input-group">
+    <input type="text" id="completeFilterDate" name="completeFilterDate" class="form-control input-filter"
+           ng-disabled="$filterRow.disabled" ng-model="params.filter()[name]"
+           ng-model="vm.job.completeDate" is-open="vm.completeDateFilterOpened"
+           datepicker-options="vm.completeDateOptions" ng-required="true" close-text="Close" current-text="Today"
+           clear-text="Clear" uib-datepicker-popup="{{vm.dateFormat}}" ng-show="false" ng-change="vm.datePeriodFilter = params.filter()[name]"/>
+    <label class="form-control input-filter" >
+        {{vm.getStartWeek(vm.datePeriodFilter) | date : vm.dateFormat}}
+        &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;
+        {{vm.getEndWeek(vm.datePeriodFilter) | date : vm.dateFormat}}
+    </label>
+    <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="vm.completeDateFilterOpened = true">
+            <i class="glyphicon glyphicon-calendar"></i>
+        </button>
+    </span>
+</div>
+
+</script>
 <div class="container">
     <div class="edit-buttons">
         <button class="btn btn-primary btn-sm" ng-click="vm.doShowNewDialog()">{{'common.new' | i18n}}</button>
         <button class="btn btn-primary btn-sm" ng-disabled="vm.editDisabled" ng-click="vm.doShowEditDialog()">{{'common.edit' | i18n}}</button>
         <button class="btn btn-primary btn-sm" ng-disabled="vm.removeDisabled" ng-click="vm.doRemove()">{{'common.remove' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-click="vm.showFilter = !vm.showFilter">{{vm.showFilter ? ('common.filter.hide' | i18n) : ('common.filter.show' | i18n)}}</button>
     </div>
-    <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-hover">
+    <table ng-table="vm.tableParams" show-filter="vm.showFilter" class="table table-condensed table-bordered table-striped table-hover">
         <tr ng-repeat="row in $data track by $index">
             <td class="table-row-check"><input type="checkbox" ng-change="vm.onRowChecked()" ng-model="row.row_checked"/></td>
-            <td class="td_400px" data-title="'job.table.column.complete.date' | i18n" sortable="'cost'">{{row.completeDate}}</td>
-            <td class="td_400px" data-title="'job.table.column.number' | i18n" sortable="'cost'">{{row.number}}</td>
-            <td class="td_400px" data-title="'job.table.column.job-type' | i18n" sortable="'jobSubType.name'">{{row.jobType.name}}</td>
-            <td class="td_400px" data-title="'job.table.column.product' | i18n" sortable="'product.name'">{{row.product.name}}</td>
+            <td class="td_400px" data-title="'job.table.column.complete.date' | i18n" sortable="'completeDate'"
+                filter="{completeDate : 'jobs.view/date.filter.html'}">{{row.completeDate | date : vm.dateFormat}}
+            </td>
+            <td class="td_400px" data-title="'job.table.column.number' | i18n" sortable="'number'"
+                filter="{number: 'text'}">{{row.number}}
+            </td>
+            <td class="td_400px" data-title="'job.table.column.job-type' | i18n" sortable="'jobType.name'"
+                filter="{'jobType.name': 'text'}">{{row.jobType.name}}
+            </td>
+            <td class="td_400px" data-title="'job.table.column.product' | i18n" sortable="'product.name'"
+                filter="{'product.name': 'text'}">{{row.product.name}}
+            </td>
         </tr>
     </table>
     <job-edit-dialog info="vm"/>

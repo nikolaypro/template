@@ -20,6 +20,8 @@
         service.callCheckBeforeInvokeService = callCheckBeforeInvokeService;
         service.getDateFormat = getDateFormat;
         service.parseDate = parseDate;
+        service.isValidDate = isValidDate;
+        service.getCurrDateWOTime = getCurrDateWOTime;
         return service;
 
         function refreshEditRemoveButtonEnabled(vm, tableParams) {
@@ -218,6 +220,17 @@
 
         function parseDate(dateStr) {
             return uibDateParser.parse(dateStr, getDateFormat());
+        }
+
+        function isValidDate(scope, date) {
+//                    el.$$parentForm.$submitted
+            return !scope.submitPressed || parseDate(date) != undefined;
+        }
+
+        function getCurrDateWOTime() {
+            var d = new Date();
+            d.setHours(0,0,0,0);
+            return d;
         }
 
     }

@@ -1,6 +1,6 @@
 task wrapper(type: Wrapper) {
     gradleVersion = '1.9'
-    // это максимальная версия, с которой без ошибок работает gradle plugin в IDEA
+    // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ gradle plugin пїЅ IDEA
 }
 
 def commonProject = project(':common')
@@ -64,6 +64,7 @@ configure([commonProject]) {
         compile 'org.springframework.security:spring-security-core:' + spring_security_version
         compile 'mysql:mysql-connector-java:5.1.9'
         compile 'commons-dbcp:commons-dbcp:1.4'
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.6.3'
     }
 }
 

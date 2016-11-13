@@ -28,7 +28,7 @@ public class JobSubTypeServiceImpl extends AbstractMascotService implements JobS
     @Override
     public BeanTableResult<JobSubType> getList(int start, int count, Map<String, String> orderBy) {
         return getResult("select distinct e from JobSubType e left join fetch e.jobType",
-                "select count(distinct e) from JobSubType e", start, count, orderBy, new HashMap<>());
+                "select count(distinct e) from JobSubType e", start, count, orderBy, new HashMap<>(), new HashMap<>());
     }
 
     @Override

@@ -18,6 +18,8 @@
             'common.yes' : 'Yes',
             'common.no' : 'No',
             'common.warning' : 'Warning',
+            'common.filter.hide' : 'Hide filter',
+            'common.filter.show' : 'Show filter',
 
             /*top.menu*/
             'top.menu.users' : 'Users',

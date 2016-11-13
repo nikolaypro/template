@@ -38,7 +38,7 @@ public class UserServiceImpl extends AbstractMascotService implements UserServic
     @Override
     public BeanTableResult<User> getList(int start, int count, Map<String, String> orderBy) {
         return getResult("select distinct e from User e left join fetch e.roles",
-                "select count(distinct e) from User e", start, count, orderBy, new HashMap<>());
+                "select count(distinct e) from User e", start, count, orderBy, new HashMap<>(), new HashMap<>());
 
 /*
         final String orderByStr = MascotUtils.buildOrderByString(orderBy, "e");

@@ -23,7 +23,7 @@ public class JobTypeServiceImpl extends AbstractMascotService implements JobType
     @Override
     public BeanTableResult<JobType> getList(int start, int count, Map<String, String> orderBy) {
         return getResult("select distinct e from JobType e",
-                "select count(distinct e) from JobType e", start, count, orderBy, new HashMap<>());
+                "select count(distinct e) from JobType e", start, count, orderBy, new HashMap<>(), new HashMap<>());
     }
 
     @Override
@@ -101,11 +101,14 @@ public class JobTypeServiceImpl extends AbstractMascotService implements JobType
 
     @Override
     public List<JobType> getAll() {
+//        gtyjty
+/*
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+*/
         return em.createQuery("select e from JobType e").getResultList();
     }
 }

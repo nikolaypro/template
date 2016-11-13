@@ -11,7 +11,7 @@ import java.util.Map;
 public interface JobService {
     String NAME = "JobService";
 
-    BeanTableResult<Job> getList(int start, int count, Map<String, String> orderBy);
+    BeanTableResult<Job> getList(int start, int count, Map<String, String> orderBy, Map<String, String> filter);
 
     void update(Job entity);
 

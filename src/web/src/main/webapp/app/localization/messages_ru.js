@@ -18,6 +18,8 @@
             'common.yes' : 'Да',
             'common.no' : 'Нет',
             'common.warning' : 'Предупреждение',
+            'common.filter.hide' : 'Скрыть фильтры',
+            'common.filter.show' : 'Показать фильтр',
 
             /*top.menu*/
             'top.menu.users' : 'Пользователи',

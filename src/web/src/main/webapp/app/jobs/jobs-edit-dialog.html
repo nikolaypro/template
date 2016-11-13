@@ -35,19 +35,17 @@
                 <label for="completeDate">{{'job.table.edit.complete.date' | i18n}}</label>
                 <p class="input-group">
                     <input type="text" id="completeDate" name="completeDate" class="form-control"
-                           ng-model="vm.job.completeDate" is-open="vm.dateCompletedOpened"
+                           ng-model="vm.job.completeDate" is-open="vm.completeDateOpened"
                            datepicker-options="vm.completeDateOptions" ng-required="true" close-text="Close" current-text="Today"
                            clear-text="Clear" uib-datepicker-popup="{{vm.dateFormat}}" />
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.dateCompletedOpened = true">
+                        <button type="button" class="btn btn-default" ng-click="vm.completeDateOpened = true">
                             <i class="glyphicon glyphicon-calendar"></i>
                         </button>
                     </span>
                 </p>
-<!--
-                <div ng-if="vm.isShowRequired(vm.editForm.completeDate)"
+                <div ng-if="!vm.validDate(vm.job.completeDate)"
                      class="help-block">{{'job.table.edit.complete.date.required' | i18n}}</div>
--->
 
                 <!--
                 <label for="completeDate">{{'job.table.edit.complete.date' | i18n}}</label>
