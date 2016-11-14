@@ -12,6 +12,8 @@
             'common.remove' : 'Удалить',
             'common.save' : 'Сохранить',
             'common.cancel' : 'Отмена',
+            'common.close' : 'Закрыть',
+            'common.clear' : 'Очистить',
             'common.error' : 'Ошибка',
             'common.loading' : 'Загрузка ...',
             'common.no.result.found' : 'Ничего не найдено',
@@ -20,6 +22,8 @@
             'common.warning' : 'Предупреждение',
             'common.filter.hide' : 'Скрыть фильтры',
             'common.filter.show' : 'Показать фильтр',
+
+            'calendar.current.day' : 'Сегодня',
 
             /*top.menu*/
             'top.menu.users' : 'Пользователи',

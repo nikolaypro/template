@@ -36,8 +36,11 @@
                 <p class="input-group">
                     <input type="text" id="completeDate" name="completeDate" class="form-control"
                            ng-model="vm.job.completeDate" is-open="vm.completeDateOpened"
-                           datepicker-options="vm.completeDateOptions" ng-required="true" close-text="Close" current-text="Today"
-                           clear-text="Clear" uib-datepicker-popup="{{vm.dateFormat}}" />
+                           datepicker-options="vm.completeDateOptions" ng-required="true"
+                           uib-datepicker-popup="{{vm.dateFormat}}"
+                           show-button-bar = "true"
+                           close-text="{{'common.close' | i18n}}" current-text="{{'calendar.current.day' | i18n}}" clear-text="{{'common.clear' | i18n}}"
+                            />
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="vm.completeDateOpened = true">
                             <i class="glyphicon glyphicon-calendar"></i>

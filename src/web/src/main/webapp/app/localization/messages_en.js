@@ -12,6 +12,8 @@
             'common.remove' : 'Remove',
             'common.save' : 'Save',
             'common.cancel' : 'Cancel',
+            'common.close' : 'Close',
+            'common.clear' : 'Clear',
             'common.error' : 'Danger',
             'common.loading' : 'Loading',
             'common.no.result.found' : 'No Results Found',
@@ -20,6 +22,8 @@
             'common.warning' : 'Warning',
             'common.filter.hide' : 'Hide filter',
             'common.filter.show' : 'Show filter',
+
+            'calendar.current.day' : 'Today',
 
             /*top.menu*/
             'top.menu.users' : 'Users',

@@ -17,11 +17,17 @@
         vm.datePeriodFilter = Utils.getCurrDateWOTime();
         vm.dateFormat = Utils.getDateFormat();
         vm.getStartWeek = function(date) {
+            if (date == undefined) {
+                return undefined;
+            }
             var first = date.getDay() == 0 ? (date.getDate() - 6) : (date.getDate() - date.getDay() + 1); // First day is the day of the month - the day of the week
 
             return new Date(new Date(date).setDate(first));
         };
         vm.getEndWeek = function(date) {
+            if (date == undefined) {
+                return undefined;
+            }
             var startWeek = vm.getStartWeek(date);
             var last = startWeek.getDate() + 6;
             return new Date(new Date(startWeek).setDate(last));

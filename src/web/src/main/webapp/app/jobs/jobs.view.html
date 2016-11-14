@@ -4,8 +4,11 @@
     <input type="text" id="completeFilterDate" name="completeFilterDate" class="form-control input-filter"
            ng-disabled="$filterRow.disabled" ng-model="params.filter()[name]"
            ng-model="vm.job.completeDate" is-open="vm.completeDateFilterOpened"
-           datepicker-options="vm.completeDateOptions" ng-required="true" close-text="Close" current-text="Today"
-           clear-text="Clear" uib-datepicker-popup="{{vm.dateFormat}}" ng-show="false" ng-change="vm.datePeriodFilter = params.filter()[name]"/>
+           datepicker-options="vm.completeDateOptions" ng-required="true"
+           show-button-bar = "true"
+           close-text="{{'common.close' | i18n}}" current-text="{{'calendar.current.day' | i18n}}" clear-text="{{'common.clear' | i18n}}"
+           uib-datepicker-popup="{{vm.dateFormat}}" ng-show="false" ng-change="vm.datePeriodFilter = params.filter()[name]"
+           />
     <label class="form-control input-filter" >
         {{vm.getStartWeek(vm.datePeriodFilter) | date : vm.dateFormat}}
         &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;

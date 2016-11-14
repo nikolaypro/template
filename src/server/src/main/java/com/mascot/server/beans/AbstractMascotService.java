@@ -49,7 +49,7 @@ public abstract class AbstractMascotService {
 
     private String correctWhereStrIfNeeds(String queryStr, String whereStr) {
         if (queryStr.toUpperCase().contains("WHERE")) {
-            whereStr = whereStr.replace("where", "");
+            whereStr = whereStr.replace("where", " and ");
         }
         return whereStr;
     }
