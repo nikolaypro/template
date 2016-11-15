@@ -1,5 +1,6 @@
 package com.mascot.server.beans;
 
+import com.mascot.common.MascotUtils;
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.Job;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,8 +37,8 @@ public class JobServiceImpl extends AbstractMascotService implements JobService 
             ZonedDateTime date = ZonedDateTime.parse(dateStr);
             if (date != null) {
                 where = " where e.completeDate >= :startDate and e.completeDate <= :endDate";
-                params.put("startDate", getStartWeek(date));
-                params.put("endDate", getEndWeek(date));
+                params.put("startDate", MascotUtils.toDate(MascotUtils.getStartWeek(date)));
+                params.put("endDate", MascotUtils.toDate(MascotUtils.getEndWeek(date)));
             }
         }
         return getResult("select distinct e from Job e " +
@@ -45,33 +46,6 @@ public class JobServiceImpl extends AbstractMascotService implements JobService 
                         "left join fetch e.product" + where,
                 "select count(distinct e) from Job e" + where, start, count, orderBy, params, filter);
     }
-
-    private Date getStartWeek(ZonedDateTime date) {
-/*
-        date = date.withZoneSameInstant(ZoneId.systemDefault());
-        ZonedDateTime result = date.minusDays(date.getDayOfWeek().getValue());
-        return new Date(result.toInstant().toEpochMilli());
-*/
-
-        date = date.withZoneSameInstant(ZoneId.systemDefault());
-        TemporalField fieldISO = WeekFields.of(Locale.UK).dayOfWeek();
-        ZonedDateTime with = date.with(fieldISO, 1);
-        return new Date(with.toInstant().toEpochMilli());
-    }
-
-    private Date getEndWeek(ZonedDateTime date) {
-/*
-        date = date.withZoneSameInstant(ZoneId.systemDefault());
-        ZonedDateTime result = date.plusDays(6 - date.getDayOfWeek().getValue());
-        return new Date(result.toInstant().toEpochMilli());
-
-*/
-        date = date.withZoneSameInstant(ZoneId.systemDefault());
-        TemporalField fieldISO = WeekFields.of(Locale.UK).dayOfWeek();
-        ZonedDateTime with = date.with(fieldISO, 7);
-        return new Date(with.toInstant().toEpochMilli());
-    }
-
 
     @Override
     public void update(Job entity) {

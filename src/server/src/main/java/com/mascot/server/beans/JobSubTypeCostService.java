@@ -3,6 +3,7 @@ package com.mascot.server.beans;
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.JobSubTypeCost;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,4 +21,6 @@ public interface JobSubTypeCostService {
     JobSubTypeCost find(Long id);
 
     JobSubTypeCost findCost(Long jobSubTypeId, Long productId);
+
+    List<JobSubTypeCost> getAll();
 }

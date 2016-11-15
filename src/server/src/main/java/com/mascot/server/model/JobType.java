@@ -1,8 +1,7 @@
 package com.mascot.server.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Nikolay on 24.10.2016.
@@ -14,7 +13,11 @@ public class JobType extends Identified {
     private String name;
 
     @Column(name = "order_number")
+
     private Integer order;
+
+    @OneToMany(targetEntity = JobSubType.class, fetch = FetchType.LAZY, mappedBy = "jobType")
+    private Set<JobSubType> jobSubTypes;
 
     public String getName() {
         return name;
@@ -30,6 +33,14 @@ public class JobType extends Identified {
 
     public void setOrder(Integer order) {
         this.order = order;
+    }
+
+    public Set<JobSubType> getJobSubTypes() {
+        return jobSubTypes;
+    }
+
+    public void setJobSubTypes(Set<JobSubType> jobSubTypes) {
+        this.jobSubTypes = jobSubTypes;
     }
 
     @Override

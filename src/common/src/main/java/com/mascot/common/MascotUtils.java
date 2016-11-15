@@ -1,9 +1,11 @@
 package com.mascot.common;
 
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
+import java.util.*;
 
 /**
  * Created by Nikolay on 09.12.2015.
@@ -55,4 +57,33 @@ public class MascotUtils {
         }
         return result.toString();
     }
+
+    public static ZonedDateTime getStartWeek(ZonedDateTime date) {
+/*
+        date = date.withZoneSameInstant(ZoneId.systemDefault());
+        ZonedDateTime result = date.minusDays(date.getDayOfWeek().getValue());
+        return new Date(result.toInstant().toEpochMilli());
+*/
+
+        date = date.withZoneSameInstant(ZoneId.systemDefault());
+        TemporalField fieldISO = WeekFields.of(Locale.UK).dayOfWeek();
+        return date.with(fieldISO, 1);
+    }
+
+    public static ZonedDateTime getEndWeek(ZonedDateTime date) {
+/*
+        date = date.withZoneSameInstant(ZoneId.systemDefault());
+        ZonedDateTime result = date.plusDays(6 - date.getDayOfWeek().getValue());
+        return new Date(result.toInstant().toEpochMilli());
+
+*/
+        date = date.withZoneSameInstant(ZoneId.systemDefault());
+        TemporalField fieldISO = WeekFields.of(Locale.UK).dayOfWeek();
+        return date.with(fieldISO, 7);
+    }
+
+    public static Date toDate(ZonedDateTime date) {
+        return new Date(date.toInstant().toEpochMilli());
+    }
+
 }

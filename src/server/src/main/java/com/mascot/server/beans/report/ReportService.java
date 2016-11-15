@@ -2,6 +2,7 @@ package com.mascot.server.beans.report;
 
 import com.mascot.server.model.User;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -13,4 +14,5 @@ public interface ReportService {
     byte[] usersReport();
 
     List<User> getUsers();
-}
+
+    List<SalaryReportItem> getSalary(ZonedDateTime from, ZonedDateTime to);

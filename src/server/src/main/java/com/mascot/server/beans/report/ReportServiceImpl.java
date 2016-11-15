@@ -1,6 +1,9 @@
 package com.mascot.server.beans.report;
 
+import com.mascot.common.MascotUtils;
 import com.mascot.server.beans.AbstractMascotService;
+import com.mascot.server.beans.JobSubTypeCostService;
+import com.mascot.server.model.Job;
 import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 import net.sf.jasperreports.engine.JRException;
@@ -13,10 +16,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.*;
 import java.nio.file.Path;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,6 +34,10 @@ import java.util.stream.Collectors;
 @Service(ReportService.NAME)
 @Transactional(propagation = Propagation.REQUIRED)
 public class ReportServiceImpl extends AbstractMascotService implements ReportService {
+
+    @Inject
+    private JobSubTypeCostService jobSubTypeCostService;
+
     @Override
     public byte[] usersReport() {
 /*
@@ -114,4 +123,17 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
         return users();
     }
 
+    @Override
+    public List<SalaryReportItem> getSalary(ZonedDateTime from, ZonedDateTime to) {
+        return new SalaryReportComputer().report(()-> em.createQuery("select e from Job e " +
+                "left join fetch e.jobType jt " +
+                "left join fetch jt.jobSubTypes st " +
+                "left join fetch e.product p " +
+                "where e.completeDate >= :startDate and e.completeDate <= :endDate")
+                .setParameter("startDate", MascotUtils.toDate(from))
+                .setParameter("endDate", MascotUtils.toDate(to))
+                .getResultList(),
+                () -> jobSubTypeCostService.getAll()
+        );
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -70,5 +71,11 @@ public class JobSubTypeCostServiceImpl extends AbstractMascotService implements 
         }
     }
 
-
+    @Override
+    public List<JobSubTypeCost> getAll() {
+        return em.createQuery("select distinct e from JobSubTypeCost e " +
+                "left join fetch e.jobSubType jst " +
+                "left join fetch jst.jobType " +
+                "left join fetch e.product").getResultList();
+    }
 }
