@@ -1,5 +1,6 @@
 package com.mascot.server.beans;
 
+import com.mascot.TestModelFactory;
 import com.mascot.server.model.JobType;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -44,11 +45,7 @@ public class JobTypeServiceImplTest {
     }
 
     private JobType create(long id, String name, int order) {
-        JobType result = new JobType();
-        result.setId(id);
-        result.setName(name);
-        result.setOrder(order);
-        return result;
+        return TestModelFactory.createJobType(id, name, order);
     }
 
 

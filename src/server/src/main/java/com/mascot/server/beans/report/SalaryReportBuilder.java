@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Nikolay on 15.11.2016.
  */
-public class SalaryReportComputer {
+public class SalaryReportBuilder {
     private final Logger logger = Logger.getLogger(getClass());
     public List<SalaryReportItem> report(Supplier<List<Job>> jobsSupplier, Supplier<List<JobSubTypeCost>> jobSubTypeCostSupplier) {
         StringBuilder log = new StringBuilder();

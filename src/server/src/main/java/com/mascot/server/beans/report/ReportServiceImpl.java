@@ -3,7 +3,6 @@ package com.mascot.server.beans.report;
 import com.mascot.common.MascotUtils;
 import com.mascot.server.beans.AbstractMascotService;
 import com.mascot.server.beans.JobSubTypeCostService;
-import com.mascot.server.model.Job;
 import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 import net.sf.jasperreports.engine.JRException;
@@ -11,14 +10,11 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.io.*;
 import java.nio.file.Path;
 import java.time.ZonedDateTime;
@@ -107,11 +103,11 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
         final List<User> users = new ArrayList<User>(em.createQuery("select distinct e from User e join fetch e.roles").getResultList());
         for (int i = 0; i < 500; i++) {
             final User e = new User();
-            e.setFullName("Полное имя A" + i);
-            e.setLogin("Логин B" + i);
+            e.setFullName("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ A" + i);
+            e.setLogin("пїЅпїЅпїЅпїЅпїЅ B" + i);
             e.setRoles(new HashSet<>());
             final Role role = new Role();
-            role.setName("Слон");
+            role.setName("пїЅпїЅпїЅпїЅ");
             e.getRoles().add(role);
             users.add(e);
         }
@@ -125,7 +121,7 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
 
     @Override
     public List<SalaryReportItem> getSalary(ZonedDateTime from, ZonedDateTime to) {
-        return new SalaryReportComputer().report(()-> em.createQuery("select e from Job e " +
+        return new SalaryReportBuilder().report(()-> em.createQuery("select e from Job e " +
                 "left join fetch e.jobType jt " +
                 "left join fetch jt.jobSubTypes st " +
                 "left join fetch e.product p " +
