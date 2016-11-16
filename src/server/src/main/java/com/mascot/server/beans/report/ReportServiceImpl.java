@@ -3,6 +3,7 @@ package com.mascot.server.beans.report;
 import com.mascot.common.MascotUtils;
 import com.mascot.server.beans.AbstractMascotService;
 import com.mascot.server.beans.JobSubTypeCostService;
+import com.mascot.server.beans.JobTypeService;
 import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 import net.sf.jasperreports.engine.JRException;
@@ -33,6 +34,9 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
 
     @Inject
     private JobSubTypeCostService jobSubTypeCostService;
+
+    @Inject
+    private JobTypeService jobTypeService;
 
     @Override
     public byte[] usersReport() {
@@ -121,15 +125,15 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
 
     @Override
     public List<SalaryReportItem> getSalary(ZonedDateTime from, ZonedDateTime to) {
-        return new SalaryReportBuilder().report(()-> em.createQuery("select e from Job e " +
-                "left join fetch e.jobType jt " +
-                "left join fetch jt.jobSubTypes st " +
-                "left join fetch e.product p " +
-                "where e.completeDate >= :startDate and e.completeDate <= :endDate")
-                .setParameter("startDate", MascotUtils.toDate(from))
-                .setParameter("endDate", MascotUtils.toDate(to))
-                .getResultList(),
-                () -> jobSubTypeCostService.getAll()
+        final SalaryReportBuilder builder = new SalaryReportBuilder(jobSubTypeCostService::getAll, jobTypeService::getAll);
+        return builder.report(() -> em.createQuery("select e from Job e " +
+                        "left join fetch e.jobType jt " +
+                        "left join fetch jt.jobSubTypes st " +
+                        "left join fetch e.product p " +
+                        "where e.completeDate >= :startDate and e.completeDate <= :endDate")
+                        .setParameter("startDate", MascotUtils.toDate(from))
+                        .setParameter("endDate", MascotUtils.toDate(to))
+                        .getResultList()
         );
     }
 }

@@ -1,6 +1,7 @@
 package com.mascot.common;
 
 
+import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.TemporalField;
@@ -84,6 +85,10 @@ public class MascotUtils {
 
     public static Date toDate(ZonedDateTime date) {
         return new Date(date.toInstant().toEpochMilli());
+    }
+
+    public static ZonedDateTime toDefaultZonedDateTime(Date date) {
+        return ZonedDateTime.ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneId.systemDefault());
     }
 
 }
