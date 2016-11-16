@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -120,21 +121,21 @@ public class SalaryReportBuilderTest {
 
     public void testOneTypeOneJob() {
         Job job1 = TestModelFactory.createJob(1, jobType1, product1, "number1");
-        List<SalaryReportItem> report = createBuilder().report(() -> Arrays.asList(job1));
+        List<SalaryReportItem> report = createBuilder().report(() -> Collections.singletonList(job1), Arrays::asList);
         Assert.assertEquals(report.size(), 1);
         Assert.assertEquals(report.get(0).getJobType(), jobType1);
         double expectedCost = jobSubTypeCost11.getCost() + jobSubTypeCost31.getCost();
         Assert.assertEquals(report.get(0).getCost(), expectedCost);
 
         Job job2 = TestModelFactory.createJob(1, jobType1, product2, "number1");
-        report = createBuilder().report(() -> Arrays.asList(job2));
+        report = createBuilder().report(() -> Collections.singletonList(job2), Arrays::asList);
         Assert.assertEquals(report.size(), 1);
         Assert.assertEquals(report.get(0).getJobType(), jobType1);
         expectedCost = jobSubTypeCost12.getCost() + jobSubTypeCost22.getCost() + jobSubTypeCost32.getCost();
         Assert.assertEquals(report.get(0).getCost(), expectedCost);
 
         Job job3 = TestModelFactory.createJob(1, jobType1, product3, "number1");
-        report = createBuilder().report(() -> Arrays.asList(job3));
+        report = createBuilder().report(() -> Collections.singletonList(job3), Arrays::asList);
         Assert.assertEquals(report.size(), 1);
         Assert.assertEquals(report.get(0).getJobType(), jobType1);
         expectedCost = jobSubTypeCost23.getCost() + jobSubTypeCost33.getCost();
@@ -143,7 +144,7 @@ public class SalaryReportBuilderTest {
 
     public void testTwoTypeOneJob() {
         Job job1 = TestModelFactory.createJob(1, jobType2, product1, "number1");
-        List<SalaryReportItem> report = createBuilder().report(() -> Arrays.asList(job1));
+        List<SalaryReportItem> report = createBuilder().report(() -> Collections.singletonList(job1), Arrays::asList);
         Assert.assertEquals(report.size(), 2);
         Assert.assertEquals(report.get(0).getJobType(), jobType1);
         double expectedCost = jobSubTypeCost11.getCost() + jobSubTypeCost31.getCost();
@@ -154,14 +155,14 @@ public class SalaryReportBuilderTest {
         Assert.assertEquals(report.get(1).getCost(), expectedCost);
 
         Job job2 = TestModelFactory.createJob(1, jobType2, product2, "number1");
-        report = createBuilder().report(() -> Arrays.asList(job2));
+        report = createBuilder().report(() -> Collections.singletonList(job2), Arrays::asList);
         Assert.assertEquals(report.size(), 1);
         Assert.assertEquals(report.get(0).getJobType(), jobType1);
         expectedCost = jobSubTypeCost12.getCost() + jobSubTypeCost22.getCost() + jobSubTypeCost32.getCost();
         Assert.assertEquals(report.get(0).getCost(), expectedCost);
 
         Job job3 = TestModelFactory.createJob(1, jobType2, product3, "number1");
-        report = createBuilder().report(() -> Arrays.asList(job3));
+        report = createBuilder().report(() -> Collections.singletonList(job3), Arrays::asList);
         Assert.assertEquals(report.size(), 2);
         Assert.assertEquals(report.get(0).getJobType(), jobType1);
         expectedCost = jobSubTypeCost23.getCost() + jobSubTypeCost33.getCost();
@@ -174,7 +175,7 @@ public class SalaryReportBuilderTest {
 
     public void testThreeTypeOneJob() {
         Job job1 = TestModelFactory.createJob(1, jobType3, product1, "number1");
-        List<SalaryReportItem> report = createBuilder().report(() -> Arrays.asList(job1));
+        List<SalaryReportItem> report = createBuilder().report(() -> Collections.singletonList(job1), Arrays::asList);
         Assert.assertEquals(report.size(), 3);
         Assert.assertEquals(report.get(0).getJobType(), jobType1);
         double expectedCost = jobSubTypeCost11.getCost() + jobSubTypeCost31.getCost();
@@ -189,7 +190,7 @@ public class SalaryReportBuilderTest {
         Assert.assertEquals(report.get(2).getCost(), expectedCost);
 
         Job job2 = TestModelFactory.createJob(1, jobType3, product2, "number1");
-        report = createBuilder().report(() -> Arrays.asList(job2));
+        report = createBuilder().report(() -> Collections.singletonList(job2), Arrays::asList);
         Assert.assertEquals(report.size(), 2);
         Assert.assertEquals(report.get(0).getJobType(), jobType1);
         expectedCost = jobSubTypeCost12.getCost() + jobSubTypeCost22.getCost() + jobSubTypeCost32.getCost();
@@ -200,7 +201,7 @@ public class SalaryReportBuilderTest {
         Assert.assertEquals(report.get(1).getCost(), expectedCost);
 
         Job job3 = TestModelFactory.createJob(1, jobType3, product3, "number1");
-        report = createBuilder().report(() -> Arrays.asList(job3));
+        report = createBuilder().report(() -> Collections.singletonList(job3), Arrays::asList);
         Assert.assertEquals(report.size(), 3);
         Assert.assertEquals(report.get(0).getJobType(), jobType1);
         expectedCost = jobSubTypeCost23.getCost() + jobSubTypeCost33.getCost();
@@ -213,6 +214,40 @@ public class SalaryReportBuilderTest {
         Assert.assertEquals(report.get(2).getJobType(), jobType3);
         expectedCost = jobSubTypeCost73.getCost() + jobSubTypeCost83.getCost();
         Assert.assertEquals(report.get(2).getCost(), expectedCost);
+    }
+
+    public void testThreeTypeOneJobWithTail() {
+        Job job1 = TestModelFactory.createJob(1, jobType3, product1, "number1");
+        List<Job> tailsJobs = Arrays.asList(
+                TestModelFactory.createJob(2, jobType1, product1, "number1"),
+                TestModelFactory.createJob(3, jobType1, product2, "number1"),
+                TestModelFactory.createJob(4, jobType2, product3, "number1")
+        );
+        List<SalaryReportItem> report = createBuilder().report(() -> Collections.singletonList(job1), () -> tailsJobs);
+        Assert.assertEquals(report.size(), 2);
+        Assert.assertEquals(report.get(0).getJobType(), jobType2);
+        double expectedCost = jobSubTypeCost41.getCost() + jobSubTypeCost51.getCost();
+        Assert.assertEquals(report.get(0).getCost(), expectedCost);
+
+        Assert.assertEquals(report.get(1).getJobType(), jobType3);
+        expectedCost = jobSubTypeCost61.getCost() + jobSubTypeCost71.getCost();
+        Assert.assertEquals(report.get(1).getCost(), expectedCost);
+
+        Job job2 = TestModelFactory.createJob(1, jobType3, product2, "number1");
+        report = createBuilder().report(() -> Collections.singletonList(job2), () -> tailsJobs);
+        Assert.assertEquals(report.size(), 1);
+
+        Assert.assertEquals(report.get(0).getJobType(), jobType3);
+        expectedCost = jobSubTypeCost62.getCost() + jobSubTypeCost72.getCost();
+        Assert.assertEquals(report.get(0).getCost(), expectedCost);
+
+        Job job3 = TestModelFactory.createJob(1, jobType3, product3, "number1");
+        report = createBuilder().report(() -> Collections.singletonList(job3), () -> tailsJobs);
+        Assert.assertEquals(report.size(), 1);
+
+        Assert.assertEquals(report.get(0).getJobType(), jobType3);
+        expectedCost = jobSubTypeCost73.getCost() + jobSubTypeCost83.getCost();
+        Assert.assertEquals(report.get(0).getCost(), expectedCost);
     }
 
     private SalaryReportBuilder createBuilder() {

@@ -133,7 +133,7 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
                         "where e.completeDate >= :startDate and e.completeDate <= :endDate")
                         .setParameter("startDate", MascotUtils.toDate(from))
                         .setParameter("endDate", MascotUtils.toDate(to))
-                        .getResultList()
+                        .getResultList(), null
         );
     }
 }

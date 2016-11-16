@@ -31,7 +31,7 @@ public class SalaryReportBuilder {
         final List<JobType> allJobTypes = jobTypeSupplier.get();
         final List<Job> tailJobs = new ArrayList<>(tailJobSupplier.get());
         allJobTypes.sort((e1, e2) -> e1.getOrder() > e2.getOrder() ? 1 : -1);
-        jobs.sort((o1, o2) -> o1.getCompleteDate().compareTo(o2.getCompleteDate()));
+        jobs.sort(Comparator.comparing(Job::getCompleteDate));
         log.append(addJobsLog(jobs));
         log.append("\n **************************************************\n");
         log.append("Start computing:");
@@ -44,7 +44,7 @@ public class SalaryReportBuilder {
         final Map<JobType, CostDetails> jobType2Details = new HashMap<>();
         jobs.forEach(job -> {
             log.append("\n").append(getJobInfo(job));
-            getCompletedJobTypes(job, allJobTypes, tailJobs).forEachOrdered(jobType -> {
+            getCompletedJobTypes(job, allJobTypes, tailJobs, log).forEachOrdered(jobType -> {
 
                 jobType.getJobSubTypes().forEach(subType -> {
 
@@ -68,22 +68,30 @@ public class SalaryReportBuilder {
 
         logger.info(log.toString());
 
-        return jobType2Details.entrySet().stream().sorted((e1, e2) -> e1.getKey().getOrder().compareTo(e2.getKey().getOrder())).
+        return jobType2Details.entrySet().stream().sorted(Comparator.comparing(e -> e.getKey().getOrder())).
                 map(entry -> new SalaryReportItem(entry.getKey(), entry.getValue().cost)).
                 collect(Collectors.toList());
     }
 
-    private Stream<JobType> getCompletedJobTypes(Job job, List<JobType> allJobTypes, List<Job> tailJobs) {
+    private Stream<JobType> getCompletedJobTypes(Job job, List<JobType> allJobTypes, List<Job> tailJobs, StringBuilder log) {
         final JobType jobType = job.getJobType();
         final Product product = job.getProduct();
 
         boolean jobTypeIsFinal = jobType.getOrder().equals(allJobTypes.get(allJobTypes.size() - 1).getOrder());
 
-        tailJobs.stream(). filter(e -> e.getProduct().getId().equals(product.getId())).findFirst();
+        final Optional<Job> tailJob = jobTypeIsFinal ?
+                tailJobs.stream().filter(e -> e.getProduct().getId().equals(product.getId())).findFirst() :
+                Optional.empty();
+        tailJob.ifPresent(e -> logInfoAboutTailJob(log, e));
         final Stream<JobType> sorted = allJobTypes.stream().
-                filter(e -> e.getOrder() <= jobType.getOrder()).
-                sorted((e1, e2) -> e1.getOrder().compareTo(e2.getOrder()));
+                filter(e -> (!tailJob.isPresent() || e.getOrder() > tailJob.get().getJobType().getOrder()) && e.getOrder() <= jobType.getOrder()).
+                sorted(Comparator.comparing(JobType::getOrder));
+        tailJob.ifPresent(tailJobs::remove);
         return sorted;
+    }
+
+    private StringBuilder logInfoAboutTailJob(StringBuilder log, Job job) {
+        return log.append("\n corrected by tail ").append(getJobInfo(job));
     }
 
     private StringBuilder logNewCostValue(JobType jobType, Double newCostValue) {
@@ -96,7 +104,7 @@ public class SalaryReportBuilder {
     private StringBuilder logDetails(Map<JobType, CostDetails> jobSubTypeCosts) {
         StringBuilder result = new StringBuilder("\n******************* FINAL RESULT ***************************\n");
         jobSubTypeCosts.entrySet().stream().
-                sorted((e1, e2) -> e1.getKey().getOrder().compareTo(e2.getKey().getOrder())).
+                sorted(Comparator.comparing(e -> e.getKey().getOrder())).
                 forEachOrdered(entry -> {
                     final CostDetails costDetails = entry.getValue();
                     result.append("- [").append(entry.getKey().getName()).append("] summary cost: ").append(costDetails.cost).append("  ----------\n");
