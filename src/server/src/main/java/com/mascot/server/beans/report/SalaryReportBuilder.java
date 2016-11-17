@@ -33,6 +33,7 @@ public class SalaryReportBuilder {
         allJobTypes.sort((e1, e2) -> e1.getOrder() > e2.getOrder() ? 1 : -1);
         jobs.sort(Comparator.comparing(Job::getCompleteDate));
         log.append(addJobsLog(jobs));
+        log.append(addTailJobsLog(tailJobs));
         log.append("\n **************************************************\n");
         log.append("Start computing:");
         final BiFunction<JobSubType, Product, Optional<JobSubTypeCost>> costFinder = (subType, product) ->
@@ -150,10 +151,18 @@ public class SalaryReportBuilder {
 
     private StringBuilder addJobsLog(List<Job> jobs) {
         StringBuilder log = new StringBuilder();
-        log.append("Founded ").append(jobs.size()).append(" jobs:").append("\n");
-        jobs.stream().forEachOrdered(job -> log.append("\t").append(getJobInfo(job)));
+        log.append("Founded ").append(jobs.size()).append(" jobs for compute report:").append("\n");
+        jobs.stream().forEachOrdered(job -> log.append("\n\t").append(getJobInfo(job)));
         return log;
+    }
 
+    private StringBuilder addTailJobsLog(List<Job> jobs) {
+        StringBuilder log = new StringBuilder();
+        log.append("\n---------------------------------------------------------------------------------\n");
+        log.append("Founded ").append(jobs.size()).append(" TAIL jobs for compute report:").append("\n");
+        jobs.stream().forEachOrdered(job -> log.append("\n\t").append(getJobInfo(job)));
+        log.append("\n---------------------------------------------------------------------------------\n");
+        return log;
     }
 
     private StringBuilder getJobInfo(Job job) {
