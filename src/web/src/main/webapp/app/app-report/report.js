@@ -18,6 +18,11 @@
                 templateUrl: 'users/users-show-report.view.html',
                 controllerAs: 'vm'
             })
+            .when('/salary/:unique', {
+                controller: 'SalaryShowReportController',
+                templateUrl: 'salary/salary-show-report.view.html',
+                controllerAs: 'vm'
+            })
             .otherwise({ redirectTo: '/' });
 
     }

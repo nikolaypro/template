@@ -1,0 +1,19 @@
+<div class="input-group">
+    <input type="text" class="form-control input-filter"
+           ng-model="ngModel" is-open="vm.completeDateFilterOpened"
+           datepicker-options="vm.dateOptions" ng-required="true"
+           show-button-bar = "true"
+           close-text="{{'common.close' | i18n}}" current-text="{{'calendar.current.day' | i18n}}" clear-text="{{'common.clear' | i18n}}"
+           uib-datepicker-popup="{{vm.dateFormat}}" ng-show="false" ng-change="vm.datePeriodFilter = ngModel"
+    />
+    <label class="form-control input-filter" >
+        {{vm.getStartWeek(vm.datePeriodFilter) | date : vm.dateFormat}}
+        &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;
+        {{vm.getEndWeek(vm.datePeriodFilter) | date : vm.dateFormat}}
+    </label>
+    <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="vm.completeDateFilterOpened = true">
+            <i class="glyphicon glyphicon-calendar"></i>
+        </button>
+    </span>
+</div>

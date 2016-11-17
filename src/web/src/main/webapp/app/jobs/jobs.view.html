@@ -1,9 +1,11 @@
 <main-top-menu xmlns="http://java.sun.com/jsf/html"></main-top-menu>
 <script type="text/ng-template" id="jobs.view/date.filter.html">
+    <date-picker vm="vm" ng-model="params.filter()[name]"/>
+<!--
 <div class="input-group">
     <input type="text" id="completeFilterDate" name="completeFilterDate" class="form-control input-filter"
-           ng-disabled="$filterRow.disabled" ng-model="params.filter()[name]"
-           ng-model="vm.job.completeDate" is-open="vm.completeDateFilterOpened"
+           ng-model="params.filter()[name]"
+           is-open="vm.completeDateFilterOpened"
            datepicker-options="vm.completeDateOptions" ng-required="true"
            show-button-bar = "true"
            close-text="{{'common.close' | i18n}}" current-text="{{'calendar.current.day' | i18n}}" clear-text="{{'common.clear' | i18n}}"
@@ -20,6 +22,7 @@
         </button>
     </span>
 </div>
+-->
 
 </script>
 <div class="container">

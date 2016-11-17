@@ -92,6 +92,8 @@
             'report.users.login.column' : 'Login',
             'report.users.roles.column' : 'Roles',
 
+            'report.salary' : 'Salary report',
+
             /*product.table*/
             'product.table.column.name' : 'Name',
             'product.table.delete.confirm' : 'Do you want to delete product?',

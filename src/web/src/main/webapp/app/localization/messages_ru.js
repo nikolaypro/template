@@ -93,6 +93,8 @@
             'report.users.login.column' : 'Логин',
             'report.users.roles.column' : 'Роли',
 
+            'report.salary' : 'Отчет о зарплате',
+
             /*product.table*/
             'product.table.column.name' : 'Название изделия',
             'product.table.delete.confirm' : 'Удалить изделие?',

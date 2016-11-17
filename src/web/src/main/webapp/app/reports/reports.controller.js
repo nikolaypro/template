@@ -61,14 +61,28 @@
             }
         };
 
-        vm.tmpReport = {
+        vm.salaryReport = {
             createReport: function () {
-                Utils.showConfirm("Info",
-                        "Start create tmpReport: " + vm.tmpReport.dateFrom + " - " + vm.tmpReport.dateTo,
-                    function (dialogRef) {
-                    });
-            }
+                ReportsService.reportSalaryData(vm.salaryReport.date, function (data) {
+                    ReportsService.openReport('salary', 'Salary report', data.data);
+//                    win.reloadRoute();
+
+                });
+            },
+            date: Utils.getCurrDateWOTime()
         };
+
+
+        /*
+                vm.tmpReport = {
+                    createReport: function () {
+                        Utils.showConfirm("Info",
+                                "Start create tmpReport: " + vm.tmpReport.dateFrom + " - " + vm.tmpReport.dateTo,
+                            function (dialogRef) {
+                            });
+                    }
+                };
+        */
 
     }
 

@@ -12,6 +12,7 @@
         service.openReport = openReport;
         service.reportUsers = reportUsers;
         service.reportUsersData = reportUsersData;
+        service.reportSalaryData = reportSalaryData;
         return service;
 
         function openReport(url, name, data) {
@@ -27,6 +28,10 @@
 
         function reportUsersData(handleSuccess) {
             return $http.post(UrlService.url('api/reports/users-data')).then(handleSuccess, handleError);
+        }
+
+        function reportSalaryData(date, handleSuccess) {
+            return $http.post(UrlService.url('api/reports/salary-data'), date).then(handleSuccess, handleError);
         }
 
         function handleError(response) {

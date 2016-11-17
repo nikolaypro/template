@@ -105,9 +105,10 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
 
     private List<User> users() {
         final List<User> users = new ArrayList<User>(em.createQuery("select distinct e from User e join fetch e.roles").getResultList());
+/*
         for (int i = 0; i < 500; i++) {
             final User e = new User();
-            e.setFullName("������ ��� A" + i);
+            e.setFullName("Полное иммя A" + i);
             e.setLogin("����� B" + i);
             e.setRoles(new HashSet<>());
             final Role role = new Role();
@@ -115,6 +116,7 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
             e.getRoles().add(role);
             users.add(e);
         }
+*/
         return users;
     }
 
@@ -126,14 +128,34 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
     @Override
     public List<SalaryReportItem> getSalary(ZonedDateTime from, ZonedDateTime to) {
         final SalaryReportBuilder builder = new SalaryReportBuilder(jobSubTypeCostService::getAll, jobTypeService::getAll);
-        return builder.report(() -> em.createQuery("select e from Job e " +
-                        "left join fetch e.jobType jt " +
-                        "left join fetch jt.jobSubTypes st " +
-                        "left join fetch e.product p " +
-                        "where e.completeDate >= :startDate and e.completeDate <= :endDate")
-                        .setParameter("startDate", MascotUtils.toDate(from))
-                        .setParameter("endDate", MascotUtils.toDate(to))
-                        .getResultList(), null
+        final ZonedDateTime prevWeekFrom = MascotUtils.getStartWeek(from.minusDays(1));
+        final ZonedDateTime prevWeekTo = MascotUtils.getEndWeek(from.minusDays(1));
+        return builder.report(
+                () -> getJobs(from, to),
+                () -> getTailJobs(prevWeekFrom, prevWeekTo)
         );
+    }
+
+    private List getJobs(ZonedDateTime from, ZonedDateTime to) {
+        return em.createQuery("select e from Job e " +
+                "left join fetch e.jobType jt " +
+                "left join fetch jt.jobSubTypes st " +
+                "left join fetch e.product p " +
+                "where e.completeDate >= :startDate and e.completeDate <= :endDate")
+                .setParameter("startDate", MascotUtils.toDate(from))
+                .setParameter("endDate", MascotUtils.toDate(to))
+                .getResultList();
+    }
+
+    private List getTailJobs(ZonedDateTime from, ZonedDateTime to) {
+        return em.createQuery("select e from Job e " +
+                "left join fetch e.jobType jt " +
+                "left join fetch jt.jobSubTypes st " +
+                "left join fetch e.product p " +
+                "where e.jobType.order < (select max(j.order) from JobType j) " +
+                "and e.completeDate >= :startDate and e.completeDate <= :endDate")
+                .setParameter("startDate", MascotUtils.toDate(from))
+                .setParameter("endDate", MascotUtils.toDate(to))
+                .getResultList();
     }
 }
