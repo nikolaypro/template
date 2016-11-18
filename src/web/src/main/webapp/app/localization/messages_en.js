@@ -93,6 +93,10 @@
             'report.users.roles.column' : 'Roles',
 
             'report.salary' : 'Salary report',
+            'report.name.salary' : 'Salary report',
+            'report.salary.title.period' : 'Period: {0} - {1}',
+            'report.salary.job.type.column' : 'Job type',
+            'report.salary.cost.column' : 'Summary cost',
 
             /*product.table*/
             'product.table.column.name' : 'Name',

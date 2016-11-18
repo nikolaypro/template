@@ -4,6 +4,7 @@ import com.mascot.common.MascotUtils;
 import com.mascot.server.beans.AbstractMascotService;
 import com.mascot.server.beans.JobSubTypeCostService;
 import com.mascot.server.beans.JobTypeService;
+import com.mascot.server.model.Job;
 import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 import net.sf.jasperreports.engine.JRException;
@@ -136,7 +137,7 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
         );
     }
 
-    private List getJobs(ZonedDateTime from, ZonedDateTime to) {
+    private List<Job> getJobs(ZonedDateTime from, ZonedDateTime to) {
         return em.createQuery("select e from Job e " +
                 "left join fetch e.jobType jt " +
                 "left join fetch jt.jobSubTypes st " +
@@ -147,7 +148,7 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
                 .getResultList();
     }
 
-    private List getTailJobs(ZonedDateTime from, ZonedDateTime to) {
+    private List<Job> getTailJobs(ZonedDateTime from, ZonedDateTime to) {
         return em.createQuery("select e from Job e " +
                 "left join fetch e.jobType jt " +
                 "left join fetch jt.jobSubTypes st " +

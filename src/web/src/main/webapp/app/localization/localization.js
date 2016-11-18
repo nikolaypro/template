@@ -4,8 +4,8 @@
     angular.module('localization', [])
     .filter('i18n', ['LocMsg', function (LocMsg) {
 
-            return function (text) {
-                return LocMsg.get(text);
+            return function () {
+                return LocMsg.get.apply(this, arguments);
             };
 /*
         return function (text) {

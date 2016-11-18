@@ -64,6 +64,7 @@
         vm.salaryReport = {
             createReport: function () {
                 ReportsService.reportSalaryData(vm.salaryReport.date, function (data) {
+                    data.data.date = vm.salaryReport.date;
                     ReportsService.openReport('salary', 'Salary report', data.data);
 //                    win.reloadRoute();
 

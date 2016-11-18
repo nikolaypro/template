@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app-report', ['ngRoute', 'localization'])
+        .module('app-report', ['ngRoute', 'localization', 'mascotCommon'])
         .config(config)
         .run(run);
 

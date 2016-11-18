@@ -93,7 +93,11 @@
             'report.users.login.column' : 'Логин',
             'report.users.roles.column' : 'Роли',
 
-            'report.salary' : 'Отчет о зарплате',
+            'report.salary' : 'Отчет о суммарной стоимости по работам',
+            'report.name.salary' : 'Отчет о суммарной стоимости по работам',
+            'report.salary.title.period' : 'Период: {0} - {1}',
+            'report.salary.job.type.column' : 'Тип работы',
+            'report.salary.cost.column' : 'Суммарная стоимость',
 
             /*product.table*/
             'product.table.column.name' : 'Название изделия',

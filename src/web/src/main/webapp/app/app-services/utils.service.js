@@ -5,8 +5,8 @@
         .module('app')
         .factory('Utils', Utils);
 
-    Utils.$inject = ['$log', 'ALL_APP_ROLES', '$rootScope', 'LocMsg', 'uibDateParser'];
-    function Utils($log, ALL_APP_ROLES, $rootScope, LocMsg, uibDateParser) {
+    Utils.$inject = ['$log', 'ALL_APP_ROLES', '$rootScope', 'LocMsg', 'uibDateParser', 'CommonUtils'];
+    function Utils($log, ALL_APP_ROLES, $rootScope, LocMsg, uibDateParser, CommonUtils) {
         var service = {};
         service.refreshEditRemoveButtonEnabled = refreshEditRemoveButtonEnabled;
         service.getCheckedTableRow = getCheckedTableRow;
@@ -18,10 +18,12 @@
         service.handleSuccess = handleSuccess;
         service.handleError = handleError;
         service.callCheckBeforeInvokeService = callCheckBeforeInvokeService;
-        service.getDateFormat = getDateFormat;
         service.parseDate = parseDate;
         service.isValidDate = isValidDate;
-        service.getCurrDateWOTime = getCurrDateWOTime;
+        service.getDateFormat = CommonUtils.getDateFormat;
+        service.getCurrDateWOTime = CommonUtils.getCurrDateWOTime;
+        service.getStartWeek = CommonUtils.getStartWeek;
+        service.getEndWeek = CommonUtils.getEndWeek;
         return service;
 
         function refreshEditRemoveButtonEnabled(vm, tableParams) {
@@ -214,23 +216,13 @@
             checkFn.apply(this, (checkParams));
         }
 
-        function getDateFormat() {
-            return $rootScope.globals.currentUser.dateFormat;
-        }
-
         function parseDate(dateStr) {
-            return uibDateParser.parse(dateStr, getDateFormat());
+            return uibDateParser.parse(dateStr, CommonUtils.getDateFormat());
         }
 
         function isValidDate(scope, date) {
 //                    el.$$parentForm.$submitted
             return !scope.submitPressed || parseDate(date) != undefined;
-        }
-
-        function getCurrDateWOTime() {
-            var d = new Date();
-            d.setHours(0,0,0,0);
-            return d;
         }
 
     }

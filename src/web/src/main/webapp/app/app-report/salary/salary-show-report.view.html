@@ -1,0 +1,22 @@
+<h1 class="text-center">{{'report.name.salary' | i18n}}</h1>
+<h2 class="text-center">{{'report.salary.title.period' | i18n : vm.dateFrom : vm.dateTo}}</h2>
+
+<div>
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th></th>
+            <th>{{'report.salary.job.type.column' | i18n}}</th>
+            <th>{{'report.salary.cost.column' | i18n}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in vm.data.rows">
+            <td>
+            <td>{{row.jobType}}</td>
+            <td>{{row.cost}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
