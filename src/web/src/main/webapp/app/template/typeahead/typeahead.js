@@ -31,6 +31,15 @@
                         return scope.loadItems(function (data) {
                             $log.info("loadItems");
                             vm.items = data;
+                            angular.forEach(vm.items, function(item) {
+                                if (item.$fullItemName == undefined) {
+                                    if (vm.itemFormatter == undefined) {
+                                        item.$fullItemName = item.name;
+                                    } else {
+                                        item.$fullItemName = vm.itemFormatter(item);
+                                    }
+                                }
+                            });
                             vm.loadingItems = false;
                             // var formInput = vm.editForm[vm.elementId];
                             $timeout(function () {

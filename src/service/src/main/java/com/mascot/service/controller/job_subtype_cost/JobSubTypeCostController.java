@@ -172,7 +172,7 @@ public class JobSubTypeCostController extends AbstractController {
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     public List<JobSubTypeRecord> getJobSubTypes() {
-        return jobSubTypeService.getAll().stream().map(JobSubTypeRecord::buildWOJobType).collect(Collectors.toList());
+        return jobSubTypeService.getAll().stream().map(JobSubTypeRecord::build).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)

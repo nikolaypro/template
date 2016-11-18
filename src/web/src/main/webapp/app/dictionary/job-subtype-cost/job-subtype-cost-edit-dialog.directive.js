@@ -61,6 +61,9 @@
                 vm.loadProducts = JobSubTypeCostService.getProducts;
                 vm.subTypeVm = {};
                 vm.subTypeVm.placeHolder = 'job-subtype-cost.table.edit.job-subtype';
+                vm.subTypeVm.itemFormatter = function(item) {
+                    return '[' + item.jobType.name + ']:' + item.name
+                };
                 vm.productVm = {};
                 vm.productVm.placeHolder = 'job-subtype-cost.table.edit.product';
                 // vm.placeHolder = 'job-subtype-cost.table.edit.job-subtype';
