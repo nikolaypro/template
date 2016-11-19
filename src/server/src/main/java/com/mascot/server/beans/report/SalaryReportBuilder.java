@@ -1,9 +1,15 @@
 package com.mascot.server.beans.report;
 
 import com.mascot.common.MascotUtils;
+import com.mascot.server.common.ServerUtils;
 import com.mascot.server.model.*;
 import org.apache.log4j.Logger;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.BiFunction;
@@ -23,9 +29,12 @@ public class SalaryReportBuilder {
         this.jobSubTypeCostSupplier = jobSubTypeCostSupplier;
         this.jobTypeSupplier = jobTypeSupplier;
     }
-
     public List<SalaryReportItem> report(Supplier<List<Job>> jobsSupplier, Supplier<List<Job>> tailJobSupplier) {
-        StringBuilder log = new StringBuilder();
+        return report(jobsSupplier, tailJobSupplier, "Test log");
+    }
+
+    public List<SalaryReportItem> report(Supplier<List<Job>> jobsSupplier, Supplier<List<Job>> tailJobSupplier, String logInfo) {
+        StringBuilder log = new StringBuilder(logInfo).append("\n");
         final List<Job> jobs = jobsSupplier.get();
         final List<JobSubTypeCost> jobSubTypeCosts = jobSubTypeCostSupplier.get();
         final List<JobType> allJobTypes = jobTypeSupplier.get();
@@ -69,9 +78,40 @@ public class SalaryReportBuilder {
 
         logger.info(log.toString());
 
+        exportToFile(log);
+
         return jobType2Details.entrySet().stream().sorted(Comparator.comparing(e -> e.getKey().getOrder())).
                 map(entry -> new SalaryReportItem(entry.getKey(), entry.getValue().cost)).
                 collect(Collectors.toList());
+    }
+
+    private void exportToFile(StringBuilder log) {
+        Path path = ServerUtils.getSalaryReportLogPath();
+        if (!path.toFile().exists()) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                logger.error("Unable create a directory '" + path.toString() + "'", e);
+                return;
+            }
+        }
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss-SSS");
+        String currDate = LocalDateTime.now().format(dateTimeFormatter);
+        path = path.resolve(currDate + ".log");
+
+        Path file;
+        try {
+            file = Files.createFile(path);
+        } catch (IOException e) {
+            logger.error("Unable create a file '" + path.toString() + "'", e);
+            return;
+        }
+        try {
+            Files.write(file, log.toString().getBytes());
+            logger.info("Log stored successfully to '" + file.toString());
+        } catch (Exception e) {
+            logger.error("Unable store to file", e);
+        }
     }
 
     private Stream<JobType> getCompletedJobTypes(Job job, List<JobType> allJobTypes, List<Job> tailJobs, StringBuilder log) {

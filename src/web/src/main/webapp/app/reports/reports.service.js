@@ -13,6 +13,8 @@
         service.reportUsers = reportUsers;
         service.reportUsersData = reportUsersData;
         service.reportSalaryData = reportSalaryData;
+        service.loadLogFileList = loadLogFileList;
+        service.loadLogFile = loadLogFile;
         return service;
 
         function openReport(url, name, data) {
@@ -33,6 +35,15 @@
         function reportSalaryData(date, handleSuccess) {
             return $http.post(UrlService.url('api/reports/salary-data'), date).then(handleSuccess, handleError);
         }
+
+        function loadLogFileList(handleSuccess) {
+            return $http.post(UrlService.url('api/administration/salary-logs')).then(handleSuccess, handleError);
+        }
+
+        function loadLogFile(fileName, handleSuccess) {
+            return $http.post(UrlService.url('api/administration/salary-load-log'), fileName).then(handleSuccess, handleError);
+        }
+
 
         function handleError(response) {
 //            FlashService.Error(response.data.error);

@@ -23,6 +23,11 @@
                 templateUrl: 'salary/salary-show-report.view.html',
                 controllerAs: 'vm'
             })
+            .when('/salary-log/:unique', {
+                controller: 'SalaryShowLogReportController',
+                templateUrl: 'salary/salary-show-log-report.view.html',
+                controllerAs: 'vm'
+            })
             .otherwise({ redirectTo: '/' });
 
     }

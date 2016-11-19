@@ -133,7 +133,8 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
         final ZonedDateTime prevWeekTo = MascotUtils.getEndWeek(from.minusDays(1));
         return builder.report(
                 () -> getJobs(from, to),
-                () -> getTailJobs(prevWeekFrom, prevWeekTo)
+                () -> getTailJobs(prevWeekFrom, prevWeekTo),
+                "Report period: " + from + " - " + to
         );
     }
 

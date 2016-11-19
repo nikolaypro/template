@@ -73,6 +73,18 @@
             date: Utils.getCurrDateWOTime()
         };
 
+        vm.salaryLogReport = {
+            showLogFiles: function () {
+                ReportsService.loadLogFileList(function (data) {
+                    vm.logFiles = data.data;
+                });
+            },
+            showLog: function(fileName) {
+                ReportsService.loadLogFile(fileName, function (data) {
+                    ReportsService.openReport('salary-log', 'Salary log report', data.data[0]);
+                });
+            }
+        };
 
         /*
                 vm.tmpReport = {

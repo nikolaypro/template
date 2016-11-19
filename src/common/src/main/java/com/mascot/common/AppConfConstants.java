@@ -6,4 +6,6 @@ package com.mascot.common;
 public class AppConfConstants {
 //    public static final String WEB_INF_MASCOT_CONTEXT_XML = "/WEB-INF/mascot-context.xml";
     public static final String WEB_INF_MASCOT_CONTEXT_XML = "mascot-context.xml";
+
+
 }
