@@ -28,6 +28,8 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -51,6 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                final byte[] encode = Base64.encode("2:1".getBytes());
 //                final String password = new String(encode );
                 // todo find in cache and if not found find in database;
+                username = decodeUTF8(username);
                 final UserService userService = MascotAppContext.getBean(UserService.class);
                 final com.mascot.server.model.User appUser = userService.loadUserByLogin(username);
                 if (appUser == null) {
@@ -74,11 +77,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 */
     }
 
+    private String decodeUTF8(String username) {
+        try {
+            return URLDecoder.decode(username, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.
                 authorizeRequests()
-                    .antMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
 //                    .antMatchers(HttpMethod.POST, "/api/users").permitAll()
 //                    .antMatchers(HttpMethod.GET, "/api/users/*").permitAll()
                 .and()

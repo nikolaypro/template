@@ -16,6 +16,9 @@
         service.delete = deleteEntity;
         service.base64 = base64;
         service.loadLocales = loadLocales;
+        service.encode_utf8 = encode_utf8;
+        service.decode_utf8 = decode_utf8;
+
         return service;
 
         function getAll(params, handleSuccess) {
@@ -51,6 +54,17 @@
         }
 
     }
+
+    function encode_utf8( s ) {
+        // return decodeURI ( encodeURIComponent( s ) );
+        return encodeURI(s);
+    }
+
+    function decode_utf8( s ) {
+        return decodeURI(s);
+    }
+
+
     // Base64 encoding service used by AuthenticationService
     var base64 = {
 

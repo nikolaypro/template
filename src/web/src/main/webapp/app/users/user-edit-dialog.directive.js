@@ -59,7 +59,7 @@
                 submitParams.getEntity = function() {
                     var userCopy = angular.copy(vm.user);
                     if (userCopy.password) {
-                        userCopy.password = UserService.base64.encode(userCopy.password);
+                        userCopy.password = UserService.base64.encode(UserService.encode_utf8(userCopy.password));
                     }
                     return userCopy;
                 };

@@ -59,7 +59,8 @@ public class JobSubTypeCostServiceImpl extends AbstractMascotService implements 
     @Override
     public JobSubTypeCost findCost(Long jobSubTypeId, Long productId) {
         try {
-            return (JobSubTypeCost) em.createQuery("select e from JobSubTypeCost e where e.jobSubType.id = :jobSubTypeId and e.product.id = :productId")
+            return (JobSubTypeCost) em.createQuery("select e from JobSubTypeCost e " +
+                    "where e.jobSubType.id = :jobSubTypeId and e.product.id = :productId")
                     .setParameter("jobSubTypeId", jobSubTypeId)
                     .setParameter("productId", productId)
                     .getSingleResult();

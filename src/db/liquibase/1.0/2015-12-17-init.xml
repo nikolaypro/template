@@ -19,4 +19,16 @@
             <column name="login"/>
         </createIndex>
     </changeSet>
+    <changeSet author="Nikolay" id="rename password column">
+        <addColumn tableName="users">
+            <column name="new_password" type="VARCHAR(1000)"/>
+        </addColumn>
+        <sql>
+            update users set new_password = password
+        </sql>
+        <dropColumn tableName="users">
+            <column name="password" type="VARCHAR(1000)"/>
+        </dropColumn>
+        <renameColumn tableName="users" oldColumnName="new_password" newColumnName="password" columnDataType="VARCHAR(1000)"/>
+    </changeSet>
 </databaseChangeLog>

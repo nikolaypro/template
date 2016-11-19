@@ -38,4 +38,16 @@
         </sql>
     </changeSet>
 
+    <changeSet author="Nikolay" id="change password">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                select count(*) from users where login = 'root' and password = 'cm9vdA=='
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            update users set password = 'cm9vdA==' where login = 'root'
+        </sql>
+    </changeSet>
+
+
 </databaseChangeLog>
