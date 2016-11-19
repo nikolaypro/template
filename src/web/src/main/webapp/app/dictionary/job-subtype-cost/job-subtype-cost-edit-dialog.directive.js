@@ -64,6 +64,9 @@
                 vm.subTypeVm.itemFormatter = function(item) {
                     return '[' + item.jobType.name + ']:' + item.name
                 };
+                vm.subTypeVm.getComboItemPrefix = function(item) {
+                    return item.jobType.name;
+                };
                 vm.productVm = {};
                 vm.productVm.placeHolder = 'job-subtype-cost.table.edit.product';
                 // vm.placeHolder = 'job-subtype-cost.table.edit.job-subtype';

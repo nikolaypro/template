@@ -136,8 +136,8 @@
 
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookieStore', '$http', 'ALL_APP_ROLES'];
-    function run($rootScope, $location, $cookieStore, $http, ALL_APP_ROLES) {
+    run.$inject = ['$rootScope', '$location', '$cookieStore', '$http', 'ALL_APP_ROLES', '$templateCache'];
+    function run($rootScope, $location, $cookieStore, $http, ALL_APP_ROLES, $templateCache) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
@@ -156,6 +156,37 @@
                 $location.path('/login');
             }
         });
+
+/*
+            $templateCache.put("uib/template/typeahead/mascot-typeahead-match.html",
+                "<a href\n" +
+                "   tabindex=\"-1\"\n" +
+                // "   ng-bind-html=\"match.label | uibTypeaheadHighlight:query\"\n" +
+                "   ng-bind-html=\"match.model.getMathItem(match, query)\"\n" +
+                // "   ng-attr-title=\"{{match.label}}\"" +
+                "></a>\n" +
+                "");
+*/
+
+        $templateCache.put("uib/template/typeahead/mascot-typeahead-match.html",
+            " <a>"+
+            "   <span class='typeahead-prefix'>{{$parent.$parent.$parent.getPrefix(match.model)}}</span>" +
+            "   <span ng-bind-html=\"match.label | uibTypeaheadHighlight:query\"></span>" +
+            " </a>"
+
+        );
+
+        /*
+                $templateCache.put("uib/template/typeahead/mascot-typeahead-popup.html",
+                    "<ul class=\"dropdown-menu\" ng-show=\"isOpen() && !moveInProgress\" ng-style=\"{top: position().top+'px', left: position().left+'px'}\" role=\"listbox\" aria-hidden=\"{{!isOpen()}}\">\n" +
+                    "    <li class=\"uib-typeahead-match\" ng-repeat=\"match in matches track by $index\" ng-class=\"{active: isActive($index) }\" ng-mouseenter=\"selectActive($index)\" ng-click=\"selectMatch($index, $event)\" role=\"option\" id=\"{{::match.id}}\">\n" +
+                     // "    <div class=\"typeahead-items\"> " +
+                    "        <div class=\"typeahead-items\">{{match.model.jobType.name}}</div><div uib-typeahead-match index=\"$index\" match=\"match\" query=\"query\" template-url=\"templateUrl\"></div>\n" +
+                     // "    </div> " +
+                    "    </li>\n" +
+                    "</ul>\n" +
+                    "");
+        */
     }
 
 })();

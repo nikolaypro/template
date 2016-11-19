@@ -5,9 +5,9 @@
         .module('app')
         .directive('typeAhead', TypeAhead);
 
-    TypeAhead.$inject = ['$log', '$timeout'];
+    TypeAhead.$inject = ['$log', '$timeout', '$filter'];
 
-    function TypeAhead($log, $timeout) {
+    function TypeAhead($log, $timeout, $filter) {
         return {
             templateUrl: 'app/template/typeahead/typeahead.html',
             restrict: 'E',
@@ -33,11 +33,22 @@
                             vm.items = data;
                             angular.forEach(vm.items, function(item) {
                                 if (item.$fullItemName == undefined) {
+/*
                                     if (vm.itemFormatter == undefined) {
                                         item.$fullItemName = item.name;
                                     } else {
                                         item.$fullItemName = vm.itemFormatter(item);
                                     }
+*/
+/*
+                                    item.getMathItem = function(item, query) {
+                                        var res = $filter('uibTypeaheadHighlight')(item.label, query);
+                                        $log.log("Res: " + res);
+
+                                        return '' + res;
+                                    }
+*/
+
                                 }
                             });
                             vm.loadingItems = false;
@@ -62,7 +73,7 @@
                             result.push(item);
                         }
                     });
-                    $log.info("Str = " + str + ", Filtered: " + result);
+                    // $log.info("Str = " + str + ", Filtered: " + result);
                     return result;
                 };
 
@@ -71,6 +82,18 @@
                     scope.modelValue = item;
                 };
 
+                scope.getPrefix = function(item) {
+                    if (vm.getComboItemPrefix == undefined) {
+                        return "";
+                    }
+
+                    return '[' + vm.getComboItemPrefix(item) + ']';
+                };
+
+                vm.isCurrent = function(item) {
+                    $log.info("AAAAAAA: " + (item == scope.modelValue));
+                    return item == scope.modelValue;
+                }
 
             }
         }

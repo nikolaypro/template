@@ -130,3 +130,13 @@ body, html {
     max-height: 300px;
     overflow: auto;
 }
+
+.typeahead-prefix {
+    color: #acacac;
+    font-size: 90%;
+    padding-right: 10px;
+}
+
+.typeahed-current-item {
+    font-weight: bold !important;
+}

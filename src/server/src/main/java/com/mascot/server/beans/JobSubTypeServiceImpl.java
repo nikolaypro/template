@@ -80,7 +80,7 @@ public class JobSubTypeServiceImpl extends AbstractMascotService implements JobS
             e.printStackTrace();
         }
 */
-        return em.createQuery("select e from JobSubType e left join fetch e.jobType").getResultList();
+        return em.createQuery("select e from JobSubType e left join fetch e.jobType order by e.jobType.order desc, e.name").getResultList();
     }
 
 }
