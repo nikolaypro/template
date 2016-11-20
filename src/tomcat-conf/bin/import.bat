@@ -1,0 +1,1 @@
+keytool -importcert -file gmail.cer -alias gmail.com -keystore keystore
