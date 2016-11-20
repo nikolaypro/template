@@ -91,6 +91,15 @@ body, html {
     z-index: 1001;
 }
 
+.tableLoading {
+    display: flex;
+    justify-content: center;
+}
+
+.tableRowLoading {
+    opacity: 0.5;
+}
+
 .td_400px {
     width: 400px;
     word-wrap: break-word;

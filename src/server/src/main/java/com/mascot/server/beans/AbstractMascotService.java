@@ -28,6 +28,11 @@ public abstract class AbstractMascotService {
     protected <A> BeanTableResult<A> getResult(String queryStr, String countQueryStr,
                                                int start, int count, Map<String, String> orderBy,
                                                Map<String, Object> params, Map<String, String> filter) {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         final String orderByStr = MascotUtils.buildOrderByString(orderBy, "e");
         String whereStr = MascotUtils.buildWhereByString(filter, "e");
         whereStr = correctWhereStrIfNeeds(queryStr, whereStr);

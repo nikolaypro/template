@@ -60,6 +60,7 @@
             }
 
             Utils.refreshEditRemoveButtonEnabled(vm);
+            vm.tableLoading = false;
             vm.doShowNewDialog = function() {
                 vm.showEditDialog();
             };
@@ -127,11 +128,13 @@
                 {
                     total: 0,
                     getData: function ($defer, params) {
+                        vm.tableLoading = true;
                         Service.getAll(params, function (data) {
                             params.total(data.total);
                             if (typeof superParams.onDataLoaded != 'undefined') {
                                 superParams.onDataLoaded(params, data);
                             }
+                            vm.tableLoading = false;
                             $defer.resolve(data.list)
                         });
                     }}

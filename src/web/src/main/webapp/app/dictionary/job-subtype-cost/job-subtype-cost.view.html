@@ -2,16 +2,36 @@
 <div class="container">
     <div class="edit-buttons">
         <button class="btn btn-primary btn-sm" ng-click="vm.doShowNewDialog()">{{'common.new' | i18n}}</button>
-        <button class="btn btn-primary btn-sm" ng-disabled="vm.editDisabled" ng-click="vm.doShowEditDialog()">{{'common.edit' | i18n}}</button>
-        <button class="btn btn-primary btn-sm" ng-disabled="vm.removeDisabled" ng-click="vm.doRemove()">{{'common.remove' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-disabled="vm.editDisabled" ng-click="vm.doShowEditDialog()">
+            {{'common.edit' | i18n}}
+        </button>
+        <button class="btn btn-primary btn-sm" ng-disabled="vm.removeDisabled" ng-click="vm.doRemove()">
+            {{'common.remove' | i18n}}
+        </button>
     </div>
-    <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-hover">
+    <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-hover"
+           ng-class="{tableRowLoading: vm.tableLoading}">
         <tr ng-repeat="row in $data track by $index">
-            <td class="table-row-check"><input type="checkbox" ng-change="vm.onRowChecked()" ng-model="row.row_checked"/></td>
-            <td class="td_400px" data-title="'job-subtype-cost.table.column.job-subtype' | i18n" sortable="'jobSubType.name'">{{row.jobSubType.name}}</td>
-            <td class="td_400px" data-title="'job-subtype-cost.table.column.product' | i18n" sortable="'product.name'">{{row.product.name}}</td>
-            <td class="td_400px" data-title="'job-subtype-cost.table.column.cost' | i18n" sortable="'cost'">{{row.cost}}</td>
+            <td class="table-row-check"><input type="checkbox" ng-change="vm.onRowChecked()"
+                                               ng-model="row.row_checked"/></td>
+            <td class="td_400px" data-title="'job-subtype-cost.table.column.job-subtype' | i18n"
+                sortable="'jobSubType.name'">{{row.jobSubType.name}}
+            </td>
+            <td class="td_400px" data-title="'job-subtype-cost.table.column.product' | i18n" sortable="'product.name'">
+                {{row.product.name}}
+            </td>
+            <td class="td_400px" data-title="'job-subtype-cost.table.column.cost' | i18n" sortable="'cost'">
+                {{row.cost}}
+            </td>
         </tr>
     </table>
+    <table-loading vm="vm"></table-loading>
+<!--
+    <div ng-show="vm.tableLoading" class="tableLoading">
+        <img id="dataLoading" ng-if="vm.tableLoading"
+             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+    </div>
+-->
+
     <job-sub-type-cost-edit-dialog info="vm"/>
 </div>

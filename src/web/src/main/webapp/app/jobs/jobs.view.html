@@ -32,7 +32,8 @@
         <button class="btn btn-primary btn-sm" ng-disabled="vm.removeDisabled" ng-click="vm.doRemove()">{{'common.remove' | i18n}}</button>
         <button class="btn btn-primary btn-sm" ng-click="vm.showFilter = !vm.showFilter">{{vm.showFilter ? ('common.filter.hide' | i18n) : ('common.filter.show' | i18n)}}</button>
     </div>
-    <table ng-table="vm.tableParams" show-filter="vm.showFilter" class="table table-condensed table-bordered table-striped table-hover">
+    <table ng-table="vm.tableParams" show-filter="vm.showFilter" class="table table-condensed table-bordered table-striped table-hover"
+           ng-class="{tableRowLoading: vm.tableLoading}">
         <tr ng-repeat="row in $data track by $index">
             <td class="table-row-check"><input type="checkbox" ng-change="vm.onRowChecked()" ng-model="row.row_checked"/></td>
             <td class="td_400px" data-title="'job.table.column.complete.date' | i18n" sortable="'completeDate'"
@@ -49,5 +50,6 @@
             </td>
         </tr>
     </table>
+    <table-loading vm="vm"></table-loading>
     <job-edit-dialog info="vm"/>
 </div>
