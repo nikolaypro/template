@@ -15,6 +15,7 @@
         service.showConfirm = showConfirm;
         service.showWarning = showWarning;
         service.getEnabledMenu = getEnabledMenu;
+        service.isCurrentAdminRole = isCurrentAdminRole;
         service.handleSuccess = handleSuccess;
         service.handleError = handleError;
         service.callCheckBeforeInvokeService = callCheckBeforeInvokeService;
@@ -151,6 +152,11 @@
                     return [];
             }
         }
+
+        function isCurrentAdminRole() {
+            return $rootScope.globals.currentUser.roles.indexOf(ALL_APP_ROLES.admin) != -1;
+        }
+
         function getEnabledMenu () {
             var roles = [];
             $.each($rootScope.globals.currentUser.roles, function(i, el) {

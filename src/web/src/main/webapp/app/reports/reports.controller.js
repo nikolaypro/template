@@ -9,6 +9,7 @@
     function ReportsController(LocMsg, $log, Utils, ReportsService, $rootScope) {
         var vm = this;
         vm.currReport = "-1";
+        vm.isCurrentAdminRole = Utils.isCurrentAdminRole;
 
         vm.signInOutReport = {
             createReport: function () {
