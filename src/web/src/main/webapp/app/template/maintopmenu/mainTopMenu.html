@@ -28,22 +28,27 @@
             <li ng-class="isActive('reports') ? 'active' : ''" ng-show="$.inArray('reports', enabledMenu) > -1">
                 <a href="#/reports">{{'top.menu.reports' | i18n}}</a>
             </li>
-            <li ng-class="isActive('dictionary') ? 'active' : ''" ng-show="$.inArray('dictionary', enabledMenu) != -1" class="dropdown">
+            <li ng-class="
+                isActive('products') ||
+                isActive('job-types') ||
+                isActive('job-subtypes') ||
+                isActive('job-subtype-costs')
+            ? 'active' : ''" ng-show="$.inArray('dictionary', enabledMenu) != -1" class="dropdown">
                 <a ng-show="$.inArray('dictionary', enabledMenu) != -1" href="" class="dropdown-toggle"
                    data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     {{'top.menu.dictionary' | i18n}} <span class="caret"></span>
                 </a>
                 <ul ng-show="$.inArray('dictionary', enabledMenu) != -1" class="dropdown-menu">
-                    <li ng-class="isActive('dictionary-product-type') ? 'active' : ''" ng-show="$.inArray('dictionary-product-type', enabledMenu) != -1">
+                    <li ng-class="isActive('products') ? 'active' : ''" ng-show="$.inArray('products', enabledMenu) != -1">
                         <a href="#/products">{{'top.menu.product.type' | i18n}}</a>
                     </li>
-                    <li ng-class="isActive('dictionary-job-type') ? 'active' : ''" ng-show="$.inArray('dictionary-job-type', enabledMenu) != -1">
+                    <li ng-class="isActive('job-types') ? 'active' : ''" ng-show="$.inArray('job-types', enabledMenu) != -1">
                         <a href="#/job-types">{{'top.menu.job.type' | i18n}}</a>
                     </li>
-                    <li ng-class="isActive('dictionary-job-sub-type') ? 'active' : ''" ng-show="$.inArray('dictionary-job-sub-type', enabledMenu) != -1">
+                    <li ng-class="isActive('job-subtypes') ? 'active' : ''" ng-show="$.inArray('job-subtypes', enabledMenu) != -1">
                         <a href="#job-subtypes">{{'top.menu.job.sub.type' | i18n}}</a>
                     </li>
-                    <li ng-class="isActive('dictionary-price') ? 'active' : ''" ng-show="$.inArray('dictionary-price', enabledMenu) != -1">
+                    <li ng-class="isActive('job-subtype-costs') ? 'active' : ''" ng-show="$.inArray('job-subtype-costs', enabledMenu) != -1">
                         <a href="#job-subtype-costs">{{'top.menu.job.price' | i18n}}</a>
                     </li>
                 </ul>

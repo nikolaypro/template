@@ -132,10 +132,10 @@
                         'users',
                         'reports',
                         'dictionary',
-                        'dictionary-product-type',
-                        'dictionary-job-type',
-                        'dictionary-job-sub-type',
-                        'dictionary-price'
+                        'products',
+                        'job-types',
+                        'job-subtypes',
+                        'job-subtype-costs'
                     ];
                 case ALL_APP_ROLES.regular:
                     return [
