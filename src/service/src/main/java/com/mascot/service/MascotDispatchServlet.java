@@ -37,4 +37,5 @@ public class MascotDispatchServlet extends DispatcherServlet {
         return "classpath:" + AppConfConstants.WEB_INF_MASCOT_CONTEXT_XML;
     }
 
+
 }
