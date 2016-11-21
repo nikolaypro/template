@@ -32,20 +32,44 @@ public class JobServiceImpl extends AbstractMascotService implements JobService 
         String where = "";
         final String completeDateFilterName = "completeDate";
         final Map<String, Object> params = new HashMap<>();
+        final ZonedDateTime date;
         if (filter != null && filter.containsKey(completeDateFilterName)) {
             String dateStr = filter.get(completeDateFilterName);
             filter.remove(completeDateFilterName);
-            ZonedDateTime date = ZonedDateTime.parse(dateStr);
+            date = ZonedDateTime.parse(dateStr);
             if (date != null) {
                 where = " where e.completeDate >= :startDate and e.completeDate <= :endDate";
-                params.put("startDate", MascotUtils.toDate(MascotUtils.getStartWeek(date)));
-                params.put("endDate", MascotUtils.toDate(MascotUtils.getEndWeek(date)));
+                final Date startDate = isShowTail(filter) ?
+                        MascotUtils.toDate(MascotUtils.getStartWeek(MascotUtils.getStartWeek(date).minusDays(1))):
+                        MascotUtils.toDate(MascotUtils.getStartWeek(date));
+                final Date toDate = MascotUtils.toDate(MascotUtils.getEndWeek(date));
+                params.put("startDate", startDate);
+                params.put("endDate", toDate);
             }
+        } else {
+            date = null;
         }
-        return getResult("select distinct e from Job e " +
+        final BeanTableResult<Job> result = getResult("select distinct e from Job e " +
                         "left join fetch e.jobType jst " +
                         "left join fetch e.product" + where,
-                "select count(distinct e) from Job e" + where, start, count, orderBy, params, filter);
+                "select count(distinct e) from Job e" + where, start, count, orderBy, params, filter
+        );
+        result.getRows().forEach(e -> e.setTail(isTail(e, date)));
+        return result;
+    }
+
+    private Boolean isTail(Job e, ZonedDateTime date) {
+        return date != null && MascotUtils.toDefaultZonedDateTime(e.getCompleteDate()).isBefore(MascotUtils.getStartWeek(date));
+    }
+
+    private boolean isShowTail(Map<String, String> filter) {
+        final String showTailParamName = "showTail";
+        if (filter != null && filter.containsKey(showTailParamName)) {
+            String showTailStr = filter.get(showTailParamName);
+            filter.remove(showTailParamName);
+            return Boolean.parseBoolean(showTailStr);
+        }
+        return false;
     }
 
     @Override

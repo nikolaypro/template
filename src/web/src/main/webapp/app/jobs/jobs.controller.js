@@ -13,8 +13,14 @@
         params.deleteConfirmMsg = 'job.table.delete.confirm';
         params.loadFromServerForEdit = true;
         params.defaultSort = {id: 'asc'};
-        params.defaultFilter = {completeDate: Utils.getCurrDateWOTime()};
+        params.defaultFilter = {completeDate: Utils.getCurrDateWOTime(), showTail: vm.showTail};
         TableUtils.initTablePage(vm, JobService, $scope, params);
+
+        vm.changeTail = function() {
+            vm.tableParams.filter().showTail = !vm.tableParams.filter().showTail;
+            vm.tableParams.reload();
+        };
+
 
     }
 })();

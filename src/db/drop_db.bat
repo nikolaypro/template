@@ -1,0 +1,1 @@
+mysql -uroot -proot < drop_db.sql

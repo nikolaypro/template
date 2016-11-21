@@ -149,3 +149,7 @@ body, html {
 .typeahed-current-item {
     font-weight: bold !important;
 }
+
+.tailJob {
+    background-color: #008800;
+}

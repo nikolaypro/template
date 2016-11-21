@@ -15,6 +15,7 @@ public class JobRecord {
     public ProductRecord product;
     public String number;
     public Date completeDate;
+    public Boolean tail;
 
     public static JobRecord build(Job job) {
         JobRecord result = new JobRecord();
@@ -23,6 +24,7 @@ public class JobRecord {
         result.product = ProductRecord.build(job.getProduct());
         result.number = job.getNumber();
         result.completeDate = job.getCompleteDate();
+        result.tail = job.getTail();
         return result;
     }
 
