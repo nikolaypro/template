@@ -1,5 +1,6 @@
 package com.mascot.server.beans;
 
+import com.mascot.common.MailSender;
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
@@ -31,6 +32,7 @@ public class UserServiceImpl extends AbstractMascotService implements UserServic
             return null;
 
         } catch (NonUniqueResultException e) {
+            MailSender.sendErrorAsync("NonUniqueResultException for user login = '" + login + "'", e);
             throw new IllegalStateException(e);
         }
     }
@@ -85,6 +87,7 @@ public class UserServiceImpl extends AbstractMascotService implements UserServic
             return null;
 
         } catch (NonUniqueResultException e) {
+            MailSender.sendErrorAsync("NonUniqueResultException for user id = '" + userId + "'", e);
             throw new IllegalStateException(e);
         }
     }

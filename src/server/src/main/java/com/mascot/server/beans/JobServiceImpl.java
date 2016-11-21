@@ -1,5 +1,6 @@
 package com.mascot.server.beans;
 
+import com.mascot.common.MailSender;
 import com.mascot.common.MascotUtils;
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.Job;
@@ -70,6 +71,7 @@ public class JobServiceImpl extends AbstractMascotService implements JobService 
             return null;
 
         } catch (NonUniqueResultException e) {
+            MailSender.sendErrorAsync("NonUniqueResultException for job id = " + id, e);
             throw new IllegalStateException(e);
         }
     }

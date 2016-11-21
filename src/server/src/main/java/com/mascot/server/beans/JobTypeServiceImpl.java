@@ -1,5 +1,6 @@
 package com.mascot.server.beans;
 
+import com.mascot.common.MailSender;
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.JobType;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,7 @@ public class JobTypeServiceImpl extends AbstractMascotService implements JobType
             return null;
 
         } catch (NonUniqueResultException e) {
+            MailSender.sendErrorAsync("NonUniqueResultException for jobType id = '" + id + "'", e);
             throw new IllegalStateException(e);
         }
     }
@@ -68,6 +70,7 @@ public class JobTypeServiceImpl extends AbstractMascotService implements JobType
             return null;
 
         } catch (NonUniqueResultException e) {
+            MailSender.sendErrorAsync("NonUniqueResultException for jobType name = '" + name + "'", e);
             throw new IllegalStateException(e);
         }
     }

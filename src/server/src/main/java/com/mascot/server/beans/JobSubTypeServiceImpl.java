@@ -1,5 +1,6 @@
 package com.mascot.server.beans;
 
+import com.mascot.common.MailSender;
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.JobSubType;
 import com.mascot.server.model.JobType;
@@ -53,6 +54,7 @@ public class JobSubTypeServiceImpl extends AbstractMascotService implements JobS
             return null;
 
         } catch (NonUniqueResultException e) {
+            MailSender.sendErrorAsync("NonUniqueResultException for jobSubType Id = " + id, e);
             throw new IllegalStateException(e);
         }
     }
@@ -67,6 +69,7 @@ public class JobSubTypeServiceImpl extends AbstractMascotService implements JobS
             return null;
 
         } catch (NonUniqueResultException e) {
+            MailSender.sendErrorAsync("NonUniqueResultException for jobSubType name = '" + name + "'", e);
             throw new IllegalStateException(e);
         }
     }

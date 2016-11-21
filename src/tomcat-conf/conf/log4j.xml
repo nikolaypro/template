@@ -44,7 +44,31 @@
     </appender>
 
     <appender name="HTTP-REQUEST-FILE" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="../logs//http/http.log"/>
+        <param name="File" value="../logs/http/http.log"/>
+        <param name="Append" value="false"/>
+        <param name="Threshold" value="INFO"/>
+
+        <!-- Rollover at midnight each day -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+
+        <!-- Rollover at the top of each hour
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+        -->
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>
+
+            <!-- The default pattern: Date Priority [Category] (Thread) Message\n -->
+            <!--<param name="ConversionPattern" value="%d %-5p [%c] (%t) %m%n"/>-->
+
+            <!-- The full pattern: Date MS Priority [Category] (Thread:NDC) Message\n
+           <param name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/>
+            -->
+        </layout>
+    </appender>
+
+    <appender name="EMAIL-FILE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="../logs/email/email.log"/>
         <param name="Append" value="false"/>
         <param name="Threshold" value="INFO"/>
 
@@ -138,6 +162,12 @@
         <priority value="DEBUG"/>
         <appender-ref ref="HTTP-REQUEST-FILE"/>
     </category>
+
+    <category name="email" additivity="false">
+        <priority value="DEBUG"/>
+        <appender-ref ref="EMAIL-FILE"/>
+    </category>
+
 
     <!-- ======================= -->
     <!-- Setup the Root category -->

@@ -1,5 +1,6 @@
 package com.mascot.service.controller.product;
 
+import com.mascot.common.ErrorLogger;
 import com.mascot.server.beans.ProductService;
 import com.mascot.server.beans.UserService;
 import com.mascot.server.common.BeanTableResult;
@@ -97,7 +98,7 @@ public class ProductController extends AbstractController {
                             logger.warn("Unable delete product: " + id);
                         }
                     } catch (Exception e) {
-                        logger.error("Unable delete product: " + id, e);
+                        ErrorLogger.error(logger, "Unable delete product: " + id, e);;
                     }
                 }
         );

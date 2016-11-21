@@ -1,5 +1,6 @@
 package com.mascot.server.beans;
 
+import com.mascot.common.MailSender;
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.Product;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,7 @@ public class ProductServiceImpl extends AbstractMascotService implements Product
             return null;
 
         } catch (NonUniqueResultException e) {
+            MailSender.sendErrorAsync("NonUniqueResultException for product id = '" + id + "'", e);
             throw new IllegalStateException(e);
         }
     }
@@ -59,6 +61,7 @@ public class ProductServiceImpl extends AbstractMascotService implements Product
             return null;
 
         } catch (NonUniqueResultException e) {
+            MailSender.sendErrorAsync("NonUniqueResultException for product name = '" + name + "'", e);
             throw new IllegalStateException(e);
         }
     }

@@ -1,5 +1,6 @@
 package com.mascot.service.controller.job;
 
+import com.mascot.common.ErrorLogger;
 import com.mascot.server.beans.JobService;
 import com.mascot.server.beans.JobTypeService;
 import com.mascot.server.beans.ProductService;
@@ -115,7 +116,7 @@ public class JobController extends AbstractController {
                             logger.warn("Unable delete job sub type cost: " + id);
                         }
                     } catch (Exception e) {
-                        logger.error("Unable delete job sub type cost: " + id, e);
+                        ErrorLogger.error(logger, "Unable delete job sub type cost: " + id, e);;
                     }
                 }
         );

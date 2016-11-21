@@ -66,6 +66,7 @@ configure([commonProject]) {
         compile 'org.springframework.security:spring-security-core:' + spring_security_version
         compile 'mysql:mysql-connector-java:5.1.9'
         compile 'commons-dbcp:commons-dbcp:1.4'
+        compile 'commons-lang:commons-lang:2.6'
         compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.6.3'
     }
 }

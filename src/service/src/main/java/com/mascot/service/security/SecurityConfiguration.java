@@ -1,5 +1,6 @@
 package com.mascot.service.security;
 
+import com.mascot.common.MailSender;
 import com.mascot.common.MascotAppContext;
 import com.mascot.server.beans.UserService;
 import com.mascot.server.model.Role;
@@ -81,6 +82,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         try {
             return URLDecoder.decode(username, "UTF-8");
         } catch (UnsupportedEncodingException e) {
+            MailSender.sendErrorAsync("Unable decode username: '" + username + "'", e);
             throw new RuntimeException(e);
         }
     }

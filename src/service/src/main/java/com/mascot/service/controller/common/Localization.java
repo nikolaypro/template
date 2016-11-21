@@ -1,5 +1,7 @@
 package com.mascot.service.controller.common;
 
+import com.mascot.common.ErrorLogger;
+import com.mascot.common.MailSender;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -31,11 +33,13 @@ public class Localization {
         try {
             resourceAsStream = getClass().getClassLoader().getResourceAsStream(bundleName);
         } catch (Exception e) {
+            ErrorLogger.error(logger, "Unable get a bundle '" + bundleName + "'", e);;
             throw new IllegalStateException(e);
         }
         try (Reader r = new InputStreamReader(resourceAsStream, Charset.forName("UTF-8"))) {
             this.bundle = new PropertyResourceBundle(r);
         } catch (IOException e) {
+            ErrorLogger.error(logger, "Unable get reader for bundle '" + bundleName + "'", e);;
             throw new IllegalStateException(e);
         }
 

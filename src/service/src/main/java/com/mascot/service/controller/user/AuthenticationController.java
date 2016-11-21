@@ -1,5 +1,7 @@
 package com.mascot.service.controller.user;
 
+import com.mascot.common.ErrorLogger;
+import com.mascot.common.MailSender;
 import com.mascot.common.MascotUtils;
 import com.mascot.server.beans.UserService;
 import com.mascot.server.common.BeanTableResult;
@@ -124,6 +126,7 @@ public class AuthenticationController extends AbstractController {
                     }).
                     collect(Collectors.toSet()));
         } catch (IllegalStateException e) {
+            MailSender.sendErrorAsync("Unable set roles", e);
             return ResultRecord.fail(e.getMessage());
         }
 
@@ -164,7 +167,7 @@ public class AuthenticationController extends AbstractController {
                             logger.warn("Unable delete user: " + id);
                         }
                     } catch (Exception e) {
-                        logger.error("Unable delete user: " + id, e);
+                        ErrorLogger.error(logger, "Unable delete user: " + id, e);;
                     }
                 }
         );

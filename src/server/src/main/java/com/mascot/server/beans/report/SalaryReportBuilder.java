@@ -1,5 +1,6 @@
 package com.mascot.server.beans.report;
 
+import com.mascot.common.MailSender;
 import com.mascot.common.MascotUtils;
 import com.mascot.server.common.ServerUtils;
 import com.mascot.server.model.*;
@@ -91,7 +92,7 @@ public class SalaryReportBuilder {
             try {
                 Files.createDirectories(path);
             } catch (IOException e) {
-                logger.error("Unable create a directory '" + path.toString() + "'", e);
+                MailSender.sendErrorAsync("Unable create a directory '" + path.toString() + "'", e);
                 return;
             }
         }
@@ -103,14 +104,14 @@ public class SalaryReportBuilder {
         try {
             file = Files.createFile(path);
         } catch (IOException e) {
-            logger.error("Unable create a file '" + path.toString() + "'", e);
+            MailSender.sendErrorAsync("Unable create a file '" + path.toString() + "'", e);
             return;
         }
         try {
             Files.write(file, log.toString().getBytes());
             logger.info("Log stored successfully to '" + file.toString());
         } catch (Exception e) {
-            logger.error("Unable store to file", e);
+            MailSender.sendErrorAsync("Unable store to file '" + path.toString() + "'", e);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.mascot.service.controller.job_type;
 
+import com.mascot.common.ErrorLogger;
 import com.mascot.server.beans.JobTypeService;
 import com.mascot.server.beans.UserService;
 import com.mascot.server.common.BeanTableResult;
@@ -97,7 +98,7 @@ public class JobTypeController extends AbstractController {
                             logger.warn("Unable delete job type: " + id);
                         }
                     } catch (Exception e) {
-                        logger.error("Unable delete job type: " + id, e);
+                        ErrorLogger.error(logger, "Unable delete job type: " + id, e);;
                     }
                 }
         );

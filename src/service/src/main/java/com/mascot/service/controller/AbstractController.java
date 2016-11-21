@@ -1,5 +1,6 @@
 package com.mascot.service.controller;
 
+import com.mascot.common.MailSender;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ public class AbstractController {
     @ExceptionHandler(Exception.class)
     public ResponseEntity handleException(Exception ex) {
         logger.error("", ex);
+        MailSender.sendErrorAsync(ex);
         if (ex instanceof ArrayStoreException) { // for example
             return new ResponseEntity<WebError>(new WebError(ex.getMessage()), HttpStatus.CONFLICT);
         }

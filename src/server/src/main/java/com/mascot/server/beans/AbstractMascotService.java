@@ -1,6 +1,7 @@
 package com.mascot.server.beans;
 
 import com.fasterxml.jackson.databind.util.StdDateFormat;
+import com.mascot.common.MailSender;
 import com.mascot.common.MascotUtils;
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.Identified;
@@ -84,6 +85,7 @@ public abstract class AbstractMascotService {
             return null;
 
         } catch (NonUniqueResultException e) {
+            MailSender.sendErrorAsync("NonUniqueResultException for entityClass: " + entityClass.getSimpleName() + ", id = " + id, e);
             throw new IllegalStateException(e);
         }
     }
@@ -92,7 +94,7 @@ public abstract class AbstractMascotService {
         try {
             return StdDateFormat.instance.parse(dateStr);
         } catch (Exception e) {
-            logger.error("Unable parse a date", e);
+            MailSender.sendErrorAsync("Unable parse a date: '" + dateStr + "'", e);
         }
         return null;
 

@@ -1,1 +1,1 @@
-keytool -importcert -file gmail.cer -alias gmail.com -keystore keystore
+keytool -importcert -file gmail2.cer -alias gmail2.com -keystore keystore
