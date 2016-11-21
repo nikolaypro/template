@@ -38,13 +38,22 @@ public class JobServiceImpl extends AbstractMascotService implements JobService 
             filter.remove(completeDateFilterName);
             date = ZonedDateTime.parse(dateStr);
             if (date != null) {
-                where = " where e.completeDate >= :startDate and e.completeDate <= :endDate";
+                where = "e.completeDate >= :startDate and e.completeDate <= :endDate";
                 final Date startDate = isShowTail(filter) ?
                         MascotUtils.toDate(MascotUtils.getStartWeek(MascotUtils.getStartWeek(date).minusDays(1))):
                         MascotUtils.toDate(MascotUtils.getStartWeek(date));
                 final Date toDate = MascotUtils.toDate(MascotUtils.getEndWeek(date));
                 params.put("startDate", startDate);
                 params.put("endDate", toDate);
+                if (isShowTail(filter)) {
+                    where = "(" + where + " or e.completeDate >= :prevWeekStartDate and e.completeDate < :startDate and e.jobType.order < (select max(j.order) from JobType j where j.deleted <> true)" +
+                            ")";
+                    final Date prevWeekStartDate = MascotUtils.toDate(MascotUtils.getStartWeek(MascotUtils.getStartWeek(date).minusDays(1)));
+                    params.put("prevWeekStartDate", prevWeekStartDate);
+                }
+
+                where = " where " + where;
+
             }
         } else {
             date = null;

@@ -154,7 +154,7 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
                 "left join fetch e.jobType jt " +
                 "left join fetch jt.jobSubTypes st " +
                 "left join fetch e.product p " +
-                "where e.jobType.order < (select max(j.order) from JobType j) " +
+                "where e.jobType.order < (select max(j.order) from JobType j where j.deleted <> true) " +
                 "and e.completeDate >= :startDate and e.completeDate <= :endDate")
                 .setParameter("startDate", MascotUtils.toDate(from))
                 .setParameter("endDate", MascotUtils.toDate(to))
