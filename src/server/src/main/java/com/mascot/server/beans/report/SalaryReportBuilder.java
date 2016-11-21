@@ -77,7 +77,7 @@ public class SalaryReportBuilder {
 
         log.append(logDetails(jobType2Details));
 
-        logger.info(log.toString());
+//        logger.info(log.toString());
 
         exportToFile(log);
 

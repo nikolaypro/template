@@ -26,4 +26,15 @@
                                  referencedTableName="products"
                                  referencedColumnNames="id"/>
     </changeSet>
+    <changeSet id="add deleted column to job_subtype_cost" author="Nikolay">
+        <preConditions>
+            <not>
+                <columnExists tableName="job_subtype_cost" columnName="deleted"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="job_subtype_cost">
+            <column name="deleted" type="bit(1)" defaultValueBoolean="false"/>
+        </addColumn>
+        <addNotNullConstraint tableName="job_subtype_cost" columnName="deleted" columnDataType="bit(1)"/>
+    </changeSet>
 </databaseChangeLog>

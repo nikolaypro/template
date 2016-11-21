@@ -8,7 +8,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "job_type")
-public class JobType extends Identified {
+public class JobType extends IdentifiedDeleted {
     @Column
     private String name;
 

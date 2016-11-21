@@ -8,11 +8,24 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="job_type_id_PK"/>
             </column>
             <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="order_number" type="int">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
+
+    <changeSet id="add deleted column to job_type" author="Nikolay">
+        <preConditions>
+            <not>
+                <columnExists tableName="job_type" columnName="deleted"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="job_type">
+            <column name="deleted" type="bit(1)" defaultValueBoolean="false"/>
+        </addColumn>
+        <addNotNullConstraint tableName="job_type" columnName="deleted" columnDataType="bit(1)"/>
+    </changeSet>
+
 </databaseChangeLog>

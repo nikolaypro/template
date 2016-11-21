@@ -8,8 +8,20 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="product_id_PK"/>
             </column>
             <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+    <changeSet id="add deleted column to product" author="Nikolay">
+        <preConditions>
+            <not>
+                <columnExists tableName="products" columnName="deleted"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="products">
+            <column name="deleted" type="bit(1)" defaultValueBoolean="false"/>
+        </addColumn>
+        <addNotNullConstraint tableName="products" columnName="deleted" columnDataType="bit(1)"/>
+        <addDefaultValue tableName="products" columnName="deleted" defaultValueBoolean="false" columnDataType="bit(1)"/>
     </changeSet>
 </databaseChangeLog>

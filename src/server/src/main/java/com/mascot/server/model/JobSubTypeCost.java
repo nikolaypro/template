@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "job_subtype_cost")
-public class JobSubTypeCost extends Identified {
+public class JobSubTypeCost extends IdentifiedDeleted {
     @Column
     private Double cost;
 

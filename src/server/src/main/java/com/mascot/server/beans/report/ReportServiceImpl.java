@@ -128,7 +128,7 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
 
     @Override
     public List<SalaryReportItem> getSalary(ZonedDateTime from, ZonedDateTime to) {
-        final SalaryReportBuilder builder = new SalaryReportBuilder(jobSubTypeCostService::getAll, jobTypeService::getAll);
+        final SalaryReportBuilder builder = new SalaryReportBuilder(jobSubTypeCostService::getAllWithDeleted, jobTypeService::getAllWithDeleted);
         final ZonedDateTime prevWeekFrom = MascotUtils.getStartWeek(from.minusDays(1));
         final ZonedDateTime prevWeekTo = MascotUtils.getEndWeek(from.minusDays(1));
         return builder.report(

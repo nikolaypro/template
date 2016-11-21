@@ -23,4 +23,6 @@ public interface JobSubTypeCostService {
     JobSubTypeCost findCost(Long jobSubTypeId, Long productId);
 
     List<JobSubTypeCost> getAll();
+
+    List<JobSubTypeCost> getAllWithDeleted();
 }

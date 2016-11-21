@@ -28,4 +28,6 @@ public interface JobTypeService {
     void moveDown(Long id);
 
     List<JobType> getAll();
+
+    List<JobType> getAllWithDeleted();
 }

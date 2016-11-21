@@ -29,7 +29,7 @@ public class JobSubTypeServiceImpl extends AbstractMascotService implements JobS
     @Override
     public BeanTableResult<JobSubType> getList(int start, int count, Map<String, String> orderBy) {
         return getResult("select distinct e from JobSubType e left join fetch e.jobType",
-                "select count(distinct e) from JobSubType e", start, count, orderBy, new HashMap<>(), new HashMap<>());
+                "select count(distinct e) from JobSubType e", start, count, orderBy, new HashMap<>(), new HashMap<>(), true);
     }
 
     @Override
@@ -39,7 +39,10 @@ public class JobSubTypeServiceImpl extends AbstractMascotService implements JobS
 
     @Override
     public boolean remove(Long id) {
-        return remove(JobSubType.class, id);
+        em.createQuery("update JobSubTypeCost e set e.deleted = true where e.jobSubType.id = :id").
+                setParameter("id", id).
+                executeUpdate();
+        return markAsDeleted(JobSubType.class, id);
     }
 
     @Override
@@ -62,7 +65,7 @@ public class JobSubTypeServiceImpl extends AbstractMascotService implements JobS
     @Override
     public JobSubType findByName(String name) {
         try {
-            return (JobSubType) em.createQuery("select e from JobSubType e where e.name = :name")
+            return (JobSubType) em.createQuery("select e from JobSubType e where e.name = :name and e.deleted <> true")
                     .setParameter("name", name)
                     .getSingleResult();
         } catch (NoResultException e) {
@@ -76,14 +79,10 @@ public class JobSubTypeServiceImpl extends AbstractMascotService implements JobS
 
     @Override
     public List<JobSubType> getAll() {
-/*
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-*/
-        return em.createQuery("select e from JobSubType e left join fetch e.jobType order by e.jobType.order desc, e.name").getResultList();
+        return em.createQuery("select e from JobSubType e " +
+                "left join fetch e.jobType " +
+                "where e.deleted <> true " +
+                "order by e.jobType.order desc, e.name").getResultList();
     }
 
 }

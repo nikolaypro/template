@@ -139,6 +139,7 @@
             'job-subtype.table.edit.job-type': 'Вид работы',
 
             /*job-subtype-cost.table*/
+            'job-subtype-cost.table.column.job-type' : 'Вид работы',
             'job-subtype-cost.table.column.job-subtype' : 'Подвид работы',
             'job-subtype-cost.table.column.product': 'Изделие',
             'job-subtype-cost.table.column.cost': 'Стоимость',

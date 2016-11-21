@@ -23,7 +23,7 @@ public class ProductServiceImpl extends AbstractMascotService implements Product
     @Override
     public BeanTableResult<Product> getList(int start, int count, Map<String, String> orderBy) {
         return getResult("select distinct e from Product e",
-                "select count(distinct e) from Product e", start, count, orderBy, new HashMap<>(), new HashMap<>());
+                "select count(distinct e) from Product e", start, count, orderBy, new HashMap<>(), new HashMap<>(), true);
     }
 
     @Override
@@ -33,7 +33,11 @@ public class ProductServiceImpl extends AbstractMascotService implements Product
 
     @Override
     public boolean remove(Long id) {
-        return remove(Product.class, id);
+        em.createQuery("update JobSubTypeCost e set e.deleted = true where e.product.id = :id").
+                setParameter("id", id).
+                executeUpdate();
+        return markAsDeleted(Product.class, id);
+//        return remove(Product.class, id);
     }
 
     @Override
@@ -54,7 +58,7 @@ public class ProductServiceImpl extends AbstractMascotService implements Product
     @Override
     public Product findByName(String name) {
         try {
-            return (Product) em.createQuery("select e from Product e where e.name = :name")
+            return (Product) em.createQuery("select e from Product e where e.name = :name and e.deleted <> true")
                     .setParameter("name", name)
                     .getSingleResult();
         } catch (NoResultException e) {
@@ -75,7 +79,7 @@ public class ProductServiceImpl extends AbstractMascotService implements Product
             e.printStackTrace();
         }
 */
-        return em.createQuery("select e from Product e").getResultList();
+        return em.createQuery("select e from Product e where e.deleted <> true").getResultList();
     }
 
 }

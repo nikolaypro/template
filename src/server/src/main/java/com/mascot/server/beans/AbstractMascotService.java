@@ -5,16 +5,13 @@ import com.mascot.common.MailSender;
 import com.mascot.common.MascotUtils;
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.Identified;
-import com.mascot.server.model.Product;
+import com.mascot.server.model.IdentifiedDeleted;
 import org.apache.log4j.Logger;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.datetime.DateFormatter;
 
 import javax.persistence.*;
-import java.text.ParseException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -29,6 +26,19 @@ public abstract class AbstractMascotService {
     protected <A> BeanTableResult<A> getResult(String queryStr, String countQueryStr,
                                                int start, int count, Map<String, String> orderBy,
                                                Map<String, Object> params, Map<String, String> filter) {
+        return getResult(queryStr, countQueryStr, start, count, orderBy, params, filter, false);
+    }
+
+    protected Map<String, Object> deletedMap() {
+        final Map<String, Object> res = new HashMap<>();
+        res.put("deleted", true);
+        return res;
+    }
+
+    protected <A> BeanTableResult<A> getResult(String queryStr, String countQueryStr,
+                                               int start, int count, Map<String, String> orderBy,
+                                               Map<String, Object> params, Map<String, String> filter,
+                                               boolean checkDeleted) {
 /*
         try {
             Thread.sleep(3000);
@@ -39,7 +49,16 @@ public abstract class AbstractMascotService {
         final String orderByStr = MascotUtils.buildOrderByString(orderBy, "e");
         String whereStr = MascotUtils.buildWhereByString(filter, "e");
         whereStr = correctWhereStrIfNeeds(queryStr, whereStr);
-        final Query query = em.createQuery(queryStr + " " + whereStr + " " + orderByStr).
+
+        queryStr = queryStr + " " + whereStr;
+
+        if (checkDeleted) {
+            String deletedQuery = "where (e.deleted is null or e.deleted = :deleted)";
+            deletedQuery = correctWhereStrIfNeeds(queryStr, deletedQuery);
+            queryStr = queryStr + " " + deletedQuery;
+            params.put("deleted", false);
+        }
+        final Query query = em.createQuery(queryStr + " " + orderByStr).
                 setMaxResults(count).
                 setFirstResult(start);
         params.entrySet().stream().forEach(e -> query.setParameter(e.getKey(), e.getValue()));
@@ -49,7 +68,13 @@ public abstract class AbstractMascotService {
         // Count
         whereStr = MascotUtils.buildWhereByString(filter, "e");
         whereStr = correctWhereStrIfNeeds(countQueryStr, whereStr);
-        final Query countQuery = em.createQuery(countQueryStr + " " + whereStr);
+        countQueryStr = countQueryStr + " " + whereStr;
+        if (checkDeleted) {
+            String deletedQuery = "where (e.deleted is null or e.deleted = :deleted)";
+            deletedQuery = correctWhereStrIfNeeds(countQueryStr, deletedQuery);
+            countQueryStr = countQueryStr + " " + deletedQuery;
+        }
+        final Query countQuery = em.createQuery(countQueryStr);
         params.entrySet().stream().forEach(e -> countQuery.setParameter(e.getKey(), e.getValue()));
         final Long totalCount = (Long) countQuery.getSingleResult();
         return new BeanTableResult<A>(resultList, totalCount.intValue());
@@ -70,9 +95,16 @@ public abstract class AbstractMascotService {
         }
     }
 
-    protected <A extends Identified> boolean remove(Class<A> aClass, Long userId) {
-        final A reference = em.getReference(aClass, userId);
+    protected <A extends Identified> boolean remove(Class<A> aClass, Long id) {
+        final A reference = em.getReference(aClass, id);
         em.remove(reference);
+        return true;
+    }
+
+    protected <A extends IdentifiedDeleted> boolean markAsDeleted(Class<A> aClass, Long id) {
+        em.createQuery("update " + aClass.getSimpleName() + " e set e.deleted = :deleted where e.id = :id").
+                setParameter("deleted", true).
+                setParameter("id", id).executeUpdate();
         return true;
     }
 

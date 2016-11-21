@@ -2,7 +2,6 @@ package com.mascot.server.beans;
 
 import com.mascot.common.MailSender;
 import com.mascot.server.common.BeanTableResult;
-import com.mascot.server.model.JobSubType;
 import com.mascot.server.model.JobSubTypeCost;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -26,7 +25,7 @@ public class JobSubTypeCostServiceImpl extends AbstractMascotService implements 
                         "left join fetch e.jobSubType jst " +
                         "left join fetch jst.jobType " +
                         "left join fetch e.product",
-                "select count(distinct e) from JobSubTypeCost e", start, count, orderBy, new HashMap<>(), new HashMap<>());
+                "select count(distinct e) from JobSubTypeCost e", start, count, orderBy, new HashMap<>(), new HashMap<>(), true);
     }
 
     @Override
@@ -36,7 +35,7 @@ public class JobSubTypeCostServiceImpl extends AbstractMascotService implements 
 
     @Override
     public boolean remove(Long id) {
-        return remove(JobSubTypeCost.class, id);
+        return markAsDeleted(JobSubTypeCost.class, id);
     }
 
     @Override
@@ -61,7 +60,7 @@ public class JobSubTypeCostServiceImpl extends AbstractMascotService implements 
     public JobSubTypeCost findCost(Long jobSubTypeId, Long productId) {
         try {
             return (JobSubTypeCost) em.createQuery("select e from JobSubTypeCost e " +
-                    "where e.jobSubType.id = :jobSubTypeId and e.product.id = :productId")
+                    "where e.jobSubType.id = :jobSubTypeId and e.product.id = :productId and e.deleted <> true")
                     .setParameter("jobSubTypeId", jobSubTypeId)
                     .setParameter("productId", productId)
                     .getSingleResult();
@@ -79,6 +78,17 @@ public class JobSubTypeCostServiceImpl extends AbstractMascotService implements 
         return em.createQuery("select distinct e from JobSubTypeCost e " +
                 "left join fetch e.jobSubType jst " +
                 "left join fetch jst.jobType " +
-                "left join fetch e.product").getResultList();
+                "left join fetch e.product " +
+                "where e.deleted <> true").
+                getResultList();
+    }
+
+    @Override
+    public List<JobSubTypeCost> getAllWithDeleted() {
+        return em.createQuery("select distinct e from JobSubTypeCost e " +
+                "left join fetch e.jobSubType jst " +
+                "left join fetch jst.jobType " +
+                "left join fetch e.product").
+                getResultList();
     }
 }

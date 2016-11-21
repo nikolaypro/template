@@ -138,6 +138,7 @@
             'job-subtype.table.edit.job-type': 'Job type',
 
              /*job-subtype-cost.table*/
+            'job-subtype-cost.table.column.job-type' : 'Job type',
             'job-subtype-cost.table.column.job-subtype' : 'Job sub type',
             'job-subtype-cost.table.column.product': 'Product',
             'job-subtype-cost.table.column.cost': 'Cost',
