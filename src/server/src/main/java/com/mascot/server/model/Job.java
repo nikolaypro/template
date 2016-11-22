@@ -26,9 +26,6 @@ public class Job extends Identified {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @Transient
-    private Boolean tail;
-
     public Job() {
         creationDate = new Date();
     }
@@ -73,11 +70,4 @@ public class Job extends Identified {
         this.product = product;
     }
 
-    public Boolean getTail() {
-        return tail;
-    }
-
-    public void setTail(Boolean tail) {
-        this.tail = tail;
-    }
 }

@@ -12,7 +12,6 @@ import javax.persistence.NonUniqueResultException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Created by Nikolay on 24.10.2016.
@@ -30,12 +29,17 @@ public class JobTypeServiceImpl extends AbstractMascotService implements JobType
     @Override
     public void update(JobType entity) {
         if (entity.getId() == null) {
-            entity.setOrder(getMaxOrder() + 1);
+            entity.setOrder(getMaxOrderWithDeleted() + 1);
         }
         super.update(entity);
     }
 
-    private int getMaxOrder() {
+    private int getMaxOrderWithDeleted() {
+        final Integer max = (Integer) em.createQuery("select max(e.order) from JobType e").getSingleResult();
+        return max != null ? max : 0;
+    }
+
+    public int getMaxOrder() {
         final Integer max = (Integer) em.createQuery("select max(e.order) from JobType e where e.deleted <> true").getSingleResult();
         return max != null ? max : 0;
     }
@@ -47,7 +51,7 @@ public class JobTypeServiceImpl extends AbstractMascotService implements JobType
                 executeUpdate();
         em.createQuery("update JobSubTypeCost e " +
                         "set e.deleted = true " +
-                "where e.jobSubType.id in (select e1 from JobSubType e1 where e1.jobType.id = :id )"
+                        "where e.jobSubType.id in (select e1 from JobSubType e1 where e1.jobType.id = :id )"
         ).
                 setParameter("id", id).
                 executeUpdate();

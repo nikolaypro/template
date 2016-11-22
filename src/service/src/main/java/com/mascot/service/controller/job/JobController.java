@@ -1,6 +1,7 @@
 package com.mascot.service.controller.job;
 
 import com.mascot.common.ErrorLogger;
+import com.mascot.common.MascotUtils;
 import com.mascot.server.beans.JobService;
 import com.mascot.server.beans.JobTypeService;
 import com.mascot.server.beans.ProductService;
@@ -21,6 +22,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -49,16 +51,30 @@ public class JobController extends AbstractController {
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public TableResult<JobRecord> getList(@RequestBody TableParams params) {
-        final BeanTableResult<Job> beanTableResult = jobService.getList(params.getStartIndex(), params.count, params.orderBy, params.filter);
+        final ZonedDateTime filterDate = jobService.getFilterDate(params.filter);
+        final int maxOrder = jobTypeService.getMaxOrder();
+        final BeanTableResult<Job> beanTableResult = jobService.getList(params.getStartIndex(), params.count,
+                params.orderBy, params.filter);
         final Collection<Job> list = beanTableResult.getRows();
         final int totalCount = beanTableResult.getCount();
 
         final List<JobRecord> result = list.stream().
                 map(JobRecord::build).
+                peek(e -> {
+                    if (filterDate != null) {
+                        e.tail = isTail(e, filterDate, maxOrder);
+                        e.forNextWeekTail = !e.tail && e.jobType.order < maxOrder;
+                    }
+                }).
                 collect(Collectors.toList());
 
         return TableResult.create(result.toArray(new JobRecord[result.size()]), totalCount);
     }
+
+    private Boolean isTail(JobRecord e, ZonedDateTime date, int maxOrder) {
+        return date != null && e.jobType.order < maxOrder && MascotUtils.toDefaultZonedDateTime(e.completeDate).isBefore(MascotUtils.getStartWeek(date));
+    }
+
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody

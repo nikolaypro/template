@@ -179,7 +179,9 @@
             'job.table.edit.number.required': 'Номер не задан',
             'job.table.edit.complete.date':'Дата завершения работы',
             'job.table.edit.complete.date.hint': 'Дата завершения работы',
-            'job.table.edit.complete.date.required': 'Дата завершения работы не задана'
+            'job.table.edit.complete.date.required': 'Дата завершения работы не задана',
+            'job.table.show.tail': 'Показать "хвост"',
+            'job.table.hide.tail': 'Скрыть "хвост"'
 
         });
 

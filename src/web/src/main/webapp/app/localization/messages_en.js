@@ -178,7 +178,9 @@
             'job.table.edit.number.required': 'Number is required',
             'job.table.edit.complete.date':'Complete job data',
             'job.table.edit.complete.date.hint': 'Complete job data',
-            'job.table.edit.complete.date.required': 'Complete job data is required'
+            'job.table.edit.complete.date.required': 'Complete job data is required',
+            'job.table.show.tail': 'Show tail',
+            'job.table.hide.tail': 'Hide tail'
 
         });
 

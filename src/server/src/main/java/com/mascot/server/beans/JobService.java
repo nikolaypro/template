@@ -3,6 +3,7 @@ package com.mascot.server.beans;
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.Job;
 
+import java.time.ZonedDateTime;
 import java.util.Map;
 
 /**
@@ -19,4 +20,5 @@ public interface JobService {
 
     Job find(Long id);
 
+    ZonedDateTime getFilterDate(Map<String, String> filter);
 }

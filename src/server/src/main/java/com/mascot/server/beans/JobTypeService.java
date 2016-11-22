@@ -30,4 +30,7 @@ public interface JobTypeService {
     List<JobType> getAll();
 
     List<JobType> getAllWithDeleted();
+
+    int getMaxOrder();
+
 }

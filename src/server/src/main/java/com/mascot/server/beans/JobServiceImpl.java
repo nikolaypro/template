@@ -4,21 +4,15 @@ import com.mascot.common.MailSender;
 import com.mascot.common.MascotUtils;
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.Job;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
-import java.text.ParseException;
 import java.time.*;
-import java.time.temporal.TemporalField;
-import java.time.temporal.WeekFields;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -27,48 +21,41 @@ import java.util.Map;
 @Service(JobService.NAME)
 @Transactional(propagation = Propagation.REQUIRED)
 public class JobServiceImpl extends AbstractMascotService implements JobService {
+    private static final String COMPLETE_DATE_FILTER_NAME = "completeDate";
     @Override
     public BeanTableResult<Job> getList(int start, int count, Map<String, String> orderBy, Map<String, String> filter) {
         String where = "";
-        final String completeDateFilterName = "completeDate";
         final Map<String, Object> params = new HashMap<>();
-        final ZonedDateTime date;
-        if (filter != null && filter.containsKey(completeDateFilterName)) {
-            String dateStr = filter.get(completeDateFilterName);
-            filter.remove(completeDateFilterName);
-            date = ZonedDateTime.parse(dateStr);
-            if (date != null) {
-                where = "e.completeDate >= :startDate and e.completeDate <= :endDate";
-                final Date startDate = isShowTail(filter) ?
-                        MascotUtils.toDate(MascotUtils.getStartWeek(MascotUtils.getStartWeek(date).minusDays(1))):
-                        MascotUtils.toDate(MascotUtils.getStartWeek(date));
-                final Date toDate = MascotUtils.toDate(MascotUtils.getEndWeek(date));
-                params.put("startDate", startDate);
-                params.put("endDate", toDate);
-                if (isShowTail(filter)) {
-                    where = "(" + where + " or e.completeDate >= :prevWeekStartDate and e.completeDate < :startDate and e.jobType.order < (select max(j.order) from JobType j where j.deleted <> true)" +
-                            ")";
-                    final Date prevWeekStartDate = MascotUtils.toDate(MascotUtils.getStartWeek(MascotUtils.getStartWeek(date).minusDays(1)));
-                    params.put("prevWeekStartDate", prevWeekStartDate);
-                }
-
-                where = " where " + where;
-
+        final ZonedDateTime date = getFilterDate(filter);
+        if (date != null) {
+            filter.remove(COMPLETE_DATE_FILTER_NAME);
+            where = "e.completeDate >= :startDate and e.completeDate <= :endDate";
+            final Date startDate = MascotUtils.toDate(MascotUtils.getStartWeek(date));
+            final Date toDate = MascotUtils.toDate(MascotUtils.getEndWeek(date));
+            params.put("startDate", startDate);
+            params.put("endDate", toDate);
+            if (isShowTail(filter)) {
+                where = "(" + where + " or e.completeDate >= :prevWeekStartDate and e.completeDate < :startDate and e.jobType.order < (select max(j.order) from JobType j where j.deleted <> true)" +
+                        ")";
+                final Date prevWeekStartDate = MascotUtils.toDate(MascotUtils.getStartWeek(MascotUtils.getStartWeek(date).minusDays(1)));
+                params.put("prevWeekStartDate", prevWeekStartDate);
             }
-        } else {
-            date = null;
+
+            where = " where " + where;
         }
-        final BeanTableResult<Job> result = getResult("select distinct e from Job e " +
+        return getResult("select distinct e from Job e " +
                         "left join fetch e.jobType jst " +
                         "left join fetch e.product" + where,
                 "select count(distinct e) from Job e" + where, start, count, orderBy, params, filter
         );
-        result.getRows().forEach(e -> e.setTail(isTail(e, date)));
-        return result;
     }
 
-    private Boolean isTail(Job e, ZonedDateTime date) {
-        return date != null && MascotUtils.toDefaultZonedDateTime(e.getCompleteDate()).isBefore(MascotUtils.getStartWeek(date));
+    public ZonedDateTime getFilterDate(Map<String, String> filter) {
+        if (filter == null || !filter.containsKey(COMPLETE_DATE_FILTER_NAME)) {
+            return null;
+        }
+        String dateStr = filter.get(COMPLETE_DATE_FILTER_NAME);
+        return ZonedDateTime.parse(dateStr);
     }
 
     private boolean isShowTail(Map<String, String> filter) {
