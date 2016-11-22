@@ -13,7 +13,7 @@ import java.util.Map;
 public interface JobSubTypeService {
     String NAME = "JobSubTypeService";
 
-    BeanTableResult<JobSubType> getList(int start, int count, Map<String, String> orderBy);
+    BeanTableResult<JobSubType> getList(int start, int count, Map<String, String> orderBy, Map<String, String> filter);
 
     void update(JobSubType entity);
 

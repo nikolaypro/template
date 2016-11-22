@@ -13,6 +13,7 @@
         params.deleteConfirmMsg = 'job-subtype.table.delete.confirm';
         params.loadFromServerForEdit = true;
         params.defaultSort = {name: 'asc'};
+        params.defaultFilter = {};
         TableUtils.initTablePage(vm, JobSubTypeService, $scope, params);
     }
 })();

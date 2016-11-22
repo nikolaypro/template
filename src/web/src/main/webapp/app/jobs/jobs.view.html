@@ -30,7 +30,7 @@
         <button class="btn btn-primary btn-sm" ng-click="vm.doShowNewDialog()">{{'common.new' | i18n}}</button>
         <button class="btn btn-primary btn-sm" ng-disabled="vm.editDisabled" ng-click="vm.doShowEditDialog()">{{'common.edit' | i18n}}</button>
         <button class="btn btn-primary btn-sm" ng-disabled="vm.removeDisabled" ng-click="vm.doRemove()">{{'common.remove' | i18n}}</button>
-        <span class="button-divider"/>
+        <span class="button-divider"></span>
         <button class="btn btn-primary btn-sm" ng-click="vm.showFilter = !vm.showFilter">{{vm.showFilter ? ('common.filter.hide' | i18n) : ('common.filter.show' | i18n)}}</button>
         <button class="btn btn-primary btn-sm" ng-click="vm.changeTail()">{{vm.tableParams.filter().showTail ? ('job.table.hide.tail' | i18n) : ('job.table.show.tail' | i18n)}}</button>
     </div>

@@ -122,13 +122,17 @@ body, html {
     color: rgb(0, 0, 0);
 }
 
+/*
 .disabled-arrow {
     opacity: 0.4;
-    filter: alpha(opacity=40); /* msie */
+    filter: alpha(opacity=40); */
+/* msie *//*
+
 }
 .active-arrow {
     cursor: pointer
 }
+*/
 
 .dropdown-menu {
     max-height: 300px;
