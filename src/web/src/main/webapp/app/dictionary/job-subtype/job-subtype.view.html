@@ -1,4 +1,9 @@
 <main-top-menu xmlns="http://java.sun.com/jsf/html"></main-top-menu>
+<script type="text/ng-template" id="job-subtype.view/jobtype.filter.html">
+    <type-ahead id="jobType" info="vm" model-value="params.filter()[name]" load-items="vm.loadJobTypeNames"/>
+
+    <!--<date-picker vm="vm" ng-model="params.filter()[name]"/>-->
+</script>
 <div class="container">
     <div class="edit-buttons">
         <button class="btn btn-primary btn-sm" ng-click="vm.doShowNewDialog()">{{'common.new' | i18n}}</button>
@@ -12,7 +17,8 @@
         <tr ng-repeat="row in $data track by $index">
             <td class="table-row-check"><input type="checkbox" ng-change="vm.onRowChecked()" ng-model="row.row_checked"/></td>
             <td class="td_400px" data-title="'job-subtype.table.column.name' | i18n" sortable="'name'">{{row.name}}</td>
-            <td class="td_400px" filter="{'jobType.name': 'text'}" data-title="'job-subtype.table.column.job-type' | i18n" sortable="'jobType.name'">{{row.jobType.name}}</td>
+            <td class="td_400px" filter="{'jobType.name' : 'job-subtype.view/jobtype.filter.html'}"
+                data-title="'job-subtype.table.column.job-type' | i18n" sortable="'jobType.name'">{{row.jobType.name}}</td>
         </tr>
     </table>
     <table-loading vm="vm"></table-loading>

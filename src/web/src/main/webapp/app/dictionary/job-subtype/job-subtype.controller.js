@@ -14,6 +14,16 @@
         params.loadFromServerForEdit = true;
         params.defaultSort = {name: 'asc'};
         params.defaultFilter = {};
+        vm.loadJobTypeNames = function(handleSuccess) {
+            JobSubTypeService.getJobTypes(function(data) {
+                var res = [];
+                angular.forEach(data, function(e) {
+                    res.push(e.name);
+                });
+                handleSuccess(res);
+            });
+        };
+
         TableUtils.initTablePage(vm, JobSubTypeService, $scope, params);
     }
 })();

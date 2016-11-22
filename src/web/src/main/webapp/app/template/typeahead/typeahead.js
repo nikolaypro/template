@@ -66,10 +66,14 @@
                     return vm.filter(str);
                 };
 
+                var getName = function(item) {
+                    return typeof item == 'string' ? item : item.name;
+                };
+
                 vm.filter = function(str) {
                     var result = [];
                     angular.forEach(vm.items, function(item) {
-                        if (typeof str == 'undefined' || (item.name).toLowerCase().indexOf(('' + str).toLowerCase()) > -1) {
+                        if (typeof str == 'undefined' || (getName(item)).toLowerCase().indexOf(('' + str).toLowerCase()) > -1) {
                             result.push(item);
                         }
                     });
