@@ -24,6 +24,10 @@
                 isOrderAsc: true
             };
 
+            if (requestParam.filter != undefined && requestParam.filter['jobType.name'] != undefined && requestParam.filter['jobType.name']['name'] != undefined) {
+                requestParam.filter['jobType.name'] = requestParam.filter['jobType.name']['name'];
+            }
+
             return $http.post(UrlService.url('api/job-subtype'), requestParam).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
