@@ -5,9 +5,9 @@
         .module('app')
         .directive('mainTopMenu', MainTopMenu);
 
-    MainTopMenu.$inject = ['$rootScope', '$location', 'ALL_APP_ROLES', 'Utils'];
+    MainTopMenu.$inject = ['$rootScope', '$location', 'ALL_APP_ROLES', 'Utils', 'LocMsg'];
 
-    function MainTopMenu($rootScope, $location, ALL_APP_ROLES, Utils) {
+    function MainTopMenu($rootScope, $location, ALL_APP_ROLES, Utils, LocMsg) {
 
         var getSelectedMenu = function($location) {
             var patch = $location.$$path;
@@ -26,7 +26,8 @@
                 if (result.length > 0) {
                     result += ", "
                 }
-                result += role;
+                result += LocMsg.get(role);
+                result += "\n"
             });
             return result;
         };

@@ -22,6 +22,7 @@
             'common.warning' : 'Предупреждение',
             'common.filter.hide' : 'Скрыть фильтры',
             'common.filter.show' : 'Показать фильтр',
+            'common.document.title' : 'Система недельного расчета стоимости выполненных работ',
 
             'calendar.current.day' : 'Сегодня',
 
@@ -35,7 +36,7 @@
             'top.menu.job.price' : 'Стоимость работ',
             'top.menu.jobs' : 'Выполненные работы',
             'top.menu.logout' : 'Выход',
-            'top.menu.app.name' : 'Шаблон',
+            'top.menu.app.name' : 'Система рассчета работ',
 
             /*top.menu.user.details*/
             'top.menu.user.details.name' : 'Пользователь',
@@ -80,7 +81,7 @@
 
             /* ROLES */
             'ROLE_ADMIN': 'Администратор',
-            'ROLE_REGULAR': 'Сотрудник',
+            'ROLE_REGULAR': 'Оператор',
 
             /* REPORTS */
             'report.name.sign.in.out.user' : 'Входы/выходы пользователей',
@@ -93,8 +94,8 @@
             'report.users.login.column' : 'Логин',
             'report.users.roles.column' : 'Роли',
 
-            'report.salary' : 'Отчет о суммарной стоимости по работам',
-            'report.name.salary' : 'Отчет о суммарной стоимости по работам',
+            'report.salary' : 'Отчет о выполненных работах за неделю',
+            'report.name.salary' : 'Отчет о выполненных работах за неделю',
             'report.salary.title.period' : 'Период: {0} - {1}',
             'report.salary.job.type.column' : 'Тип работы',
             'report.salary.cost.column' : 'Суммарная стоимость',

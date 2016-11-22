@@ -22,6 +22,7 @@
             'common.warning' : 'Warning',
             'common.filter.hide' : 'Hide filter',
             'common.filter.show' : 'Show filter',
+            'common.document.title' : 'Furniture',
 
             'calendar.current.day' : 'Today',
 
@@ -35,7 +36,7 @@
             'top.menu.job.price' : 'Job price',
             'top.menu.jobs' : 'Jobs',
             'top.menu.logout' : 'Logout',
-            'top.menu.app.name' : 'Template',
+            'top.menu.app.name' : 'Furniture',
 
             /*top.menu.user.details*/
             'top.menu.user.details.name' : 'User name',
