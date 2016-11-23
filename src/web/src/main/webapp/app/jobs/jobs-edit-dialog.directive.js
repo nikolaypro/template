@@ -54,12 +54,6 @@
 
                 vm.loadJobTypes = JobService.getJobTypes;
                 vm.loadProducts = JobService.getProducts;
-                vm.typeVm = {};
-                vm.typeVm.placeHolder = 'job.table.edit.job-type';
-                vm.productVm = {};
-                vm.productVm.placeHolder = 'job.table.edit.product';
-                // vm.placeHolder = 'job-subtype-cost.table.edit.job-subtype';
-
                 EditDialogUtils.initEditDialog(vm, showModalParams, submitParams);
 
                 vm.dateFormat = Utils.getDateFormat();

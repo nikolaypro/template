@@ -60,7 +60,7 @@ variant 1
 
 
                 vm.loadJobTypes = JobSubTypeService.getJobTypes;
-                vm.placeHolder = 'job-subtype.table.edit.job-type';
+//                vm.placeHolder = 'job-subtype.table.edit.job-type';
 
                 EditDialogUtils.initEditDialog(vm, showModalParams, submitParams);
 

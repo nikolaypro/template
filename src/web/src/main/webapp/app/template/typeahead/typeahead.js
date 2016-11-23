@@ -14,14 +14,14 @@
             transclude: true,
 //             replace: true,
             scope: {
-                vm: '=info',
                 ngModel: '=',
-                loadItems: '='
+                loadItems: '=',
+                placeHolder: '=',
+                getComboItemPrefix: '='
             },
             // require:"ngModel",
             link: function(scope, element, attrs, controller) {
                 //http://suhairhassan.com/2013/05/01/getting-started-with-angularjs-directive.html#.WBpEIGqLSUl
-                var vm = scope.vm;
 //                var formInput = angular.element(element[0].firstChild.firstChild.nextElementSibling).controller("ngModel");
                 // angular.element(element[0].firstChild.firstChild.nextElementSibling).controller("uibTypeahead")
                 var filter = function(str, items) {
@@ -56,11 +56,11 @@
                 };
 
                 scope.getPrefix = function(item) {
-                    if (vm.getComboItemPrefix == undefined) {
+                    if (scope.getComboItemPrefix == undefined) {
                         return "";
                     }
 
-                    return '[' + vm.getComboItemPrefix(item) + ']';
+                    return '[' + scope.getComboItemPrefix(item) + ']';
                 };
 
                 scope.isCurrent = function(item) {

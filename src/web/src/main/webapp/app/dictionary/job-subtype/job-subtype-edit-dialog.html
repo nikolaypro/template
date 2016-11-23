@@ -9,7 +9,8 @@
             </div>
             <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.jobTypeRequired }">
                 <label for="jobType">{{'job-subtype.table.edit.job-type' | i18n}}</label>
-                <type-ahead id="jobType" info="vm" ng-model="vm.jobSubType.jobType" load-items="vm.loadJobTypes"/>
+                <type-ahead id="jobType" ng-model="vm.jobSubType.jobType" load-items="vm.loadJobTypes"
+                            place-holder="'job-subtype.table.edit.job-type'"/>
             </div>
             <div class="form-group" ng-class="{ 'has-error': vm.jobTypeRequired }">
                 <div ng-if="vm.jobTypeRequired" class="help-block">{{'job-subtype.table.edit.job-type.required' | i18n}}</div>
