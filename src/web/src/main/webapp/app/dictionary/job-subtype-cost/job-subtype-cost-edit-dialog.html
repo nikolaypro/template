@@ -3,14 +3,14 @@
         <modal visible="vm.showDialogFlag" info="vm">
             <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.jobSubTypeRequired }">
                 <label for="jobSubType">{{'job-subtype-cost.table.edit.job-subtype' | i18n}}</label>
-                <type-ahead id="jobSubType" info="vm.subTypeVm" model-value="vm.jobSubTypeCost.jobSubType" load-items="vm.loadJobSubTypes"/>
+                <type-ahead id="jobSubType" info="vm.subTypeVm" ng-model="vm.jobSubTypeCost.jobSubType" load-items="vm.loadJobSubTypes"/>
             </div>
             <div class="form-group" ng-class="{ 'has-error': vm.jobSubTypeRequired }">
                 <div ng-if="vm.jobSubTypeRequired" class="help-block">{{'job-subtype-cost.table.edit.job-subtype.required' | i18n}}</div>
             </div>
             <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.productTypeRequired }">
                 <label for="productType">{{'job-subtype-cost.table.edit.product' | i18n}}</label>
-                <type-ahead id="productType" info="vm.productVm" model-value="vm.jobSubTypeCost.product" load-items="vm.loadProducts"/>
+                <type-ahead id="productType" info="vm.productVm" ng-model="vm.jobSubTypeCost.product" load-items="vm.loadProducts"/>
             </div>
             <div class="form-group" ng-class="{ 'has-error': vm.productTypeRequired }">
                 <div ng-if="vm.productTypeRequired" class="help-block">{{'job-subtype-cost.table.edit.product.required' | i18n}}</div>

@@ -9,14 +9,14 @@
             </div>
             <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.jobTypeRequired }">
                 <label for="jobType">{{'job.table.edit.job-type' | i18n}}</label>
-                <type-ahead id="jobType" info="vm.typeVm" model-value="vm.job.jobType" load-items="vm.loadJobTypes"/>
+                <type-ahead id="jobType" info="vm.typeVm" ng-model="vm.job.jobType" load-items="vm.loadJobTypes"/>
             </div>
             <div class="form-group" ng-class="{ 'has-error': vm.jobTypeRequired }">
                 <div ng-if="vm.jobTypeRequired" class="help-block">{{'job.table.edit.job-type.required' | i18n}}</div>
             </div>
             <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.productTypeRequired }">
                 <label for="productType">{{'job.table.edit.product' | i18n}}</label>
-                <type-ahead id="productType" info="vm.productVm" model-value="vm.job.product" load-items="vm.loadProducts"/>
+                <type-ahead id="productType" info="vm.productVm" ng-model="vm.job.product" load-items="vm.loadProducts"/>
             </div>
             <div class="form-group" ng-class="{ 'has-error': vm.productTypeRequired }">
                 <div ng-if="vm.productTypeRequired" class="help-block">{{'job.table.edit.product.required' | i18n}}</div>

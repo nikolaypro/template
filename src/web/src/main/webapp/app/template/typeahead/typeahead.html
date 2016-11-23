@@ -1,20 +1,20 @@
 <div class="input-group" uib-dropdown keyboard-nav>
-    <input type="text" ng-model="modelValue" placeholder="{{vm.placeHolder | i18n}}"
-           uib-typeahead="item as item.name for item in vm.getItems($viewValue)"
-           class="form-control" ng-required="true" typeahead-editable="false" typeahead-loading="vm.loadingItems"
+    <input type="text" ng-model="ngModel" placeholder="{{vm.placeHolder | i18n}}"
+           uib-typeahead="item as item.name for item in getItems($viewValue)"
+           class="form-control" ng-required="true" typeahead-editable="false" typeahead-loading="loadingItems"
            typeahead-min-length="1" autocomplete="off" typeahead-template-url="uib/template/typeahead/mascot-typeahead-match.html"
            />
     <span class="input-group-btn">
-        <button type="button" class="btn btn-default typeaheadTrigger" uib-dropdown-toggle ng-click="vm.getItems()">
+        <button type="button" class="btn btn-default typeaheadTrigger" uib-dropdown-toggle ng-click="getItems()">
             &nbsp;<span class="caret"></span>&nbsp;
         </button>
     </span>
     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
-        <div ng-if="vm.loadingItems" style="padding-left: 15px">
+        <div ng-if="loadingItems" style="padding-left: 15px">
             <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
         </div>
-        <li ng-repeat="op in vm.items" role="menuitem">
-            <a href ng-click="vm.onSelectItem(op)" ng-class="{'typeahed-current-item': vm.isCurrent(op)}">
+        <li ng-repeat="op in items" role="menuitem">
+            <a href ng-click="onSelectItem(op)" ng-class="{'typeahed-current-item': isCurrent(op)}">
                 <span class='typeahead-prefix'>{{getPrefix(op)}}</span>
                 <span>{{op.name}}</span>
                 <!--{{op.name}}-->
@@ -23,6 +23,6 @@
     </ul>
 </div>
 <div>
-    <img ng-if="vm.loadingItems"
+    <img ng-if="loadingItems"
          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
 </div>
