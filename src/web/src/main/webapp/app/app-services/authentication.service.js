@@ -49,7 +49,9 @@
                     if (status == 404) {
                         message = 'Server not found';
                     }
-                    if (status == 401 && data.error) {
+                    if (status == 401 && data.error && data.error.indexOf('trial version') != -1 ) {
+                        message = data.error;
+                    } else if (status == 401 && data.error) {
                         message = 'Username or password is incorrect';
                     }
                     var response = { success: false, message: message };

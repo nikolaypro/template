@@ -7,6 +7,7 @@ import com.mascot.server.beans.UserService;
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
+import com.mascot.service.common.CommonUtils;
 import com.mascot.service.controller.AbstractController;
 import com.mascot.service.controller.WebError;
 import com.mascot.service.controller.common.ResultRecord;
@@ -39,6 +40,7 @@ public class AuthenticationController extends AbstractController {
     @RequestMapping(path = "/authenticate", method = RequestMethod.POST)
     @ResponseBody
     public UserRecord authenticate(@RequestBody User user) {
+        CommonUtils.checkRegistered();
         if (MascotUtils.isEmpty(user.getPassword())) {
             throw createInvalidPasswordException(user);
         }
