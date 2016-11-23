@@ -139,25 +139,35 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
     }
 
     private List<Job> getJobs(ZonedDateTime from, ZonedDateTime to) {
-        return em.createQuery("select e from Job e " +
-                "left join fetch e.jobType jt " +
-                "left join fetch jt.jobSubTypes st " +
-                "left join fetch e.product p " +
-                "where e.completeDate >= :startDate and e.completeDate <= :endDate")
-                .setParameter("startDate", MascotUtils.toDate(from))
-                .setParameter("endDate", MascotUtils.toDate(to))
-                .getResultList();
+        final long start = System.currentTimeMillis();
+        try {
+            return em.createQuery("select e from Job e " +
+                    "left join fetch e.jobType jt " +
+                    "left join fetch jt.jobSubTypes st " +
+                    "left join fetch e.product p " +
+                    "where e.completeDate >= :startDate and e.completeDate <= :endDate")
+                    .setParameter("startDate", MascotUtils.toDate(from))
+                    .setParameter("endDate", MascotUtils.toDate(to))
+                    .getResultList();
+        } finally {
+            logger.info("Salary report: get jobs duration: " + (System.currentTimeMillis() - start) + " msec");
+        }
     }
 
     private List<Job> getTailJobs(ZonedDateTime from, ZonedDateTime to) {
-        return em.createQuery("select e from Job e " +
-                "left join fetch e.jobType jt " +
-                "left join fetch jt.jobSubTypes st " +
-                "left join fetch e.product p " +
-                "where e.jobType.order < (select max(j.order) from JobType j where j.deleted <> true) " +
-                "and e.completeDate >= :startDate and e.completeDate <= :endDate")
-                .setParameter("startDate", MascotUtils.toDate(from))
-                .setParameter("endDate", MascotUtils.toDate(to))
-                .getResultList();
+        final long start = System.currentTimeMillis();
+        try {
+            return em.createQuery("select e from Job e " +
+                    "left join fetch e.jobType jt " +
+                    "left join fetch jt.jobSubTypes st " +
+                    "left join fetch e.product p " +
+                    "where e.jobType.order < (select max(j.order) from JobType j where j.deleted <> true) " +
+                    "and e.completeDate >= :startDate and e.completeDate <= :endDate")
+                    .setParameter("startDate", MascotUtils.toDate(from))
+                    .setParameter("endDate", MascotUtils.toDate(to))
+                    .getResultList();
+        } finally {
+            logger.info("Salary report: get jobs duration: " + (System.currentTimeMillis() - start) + " msec");
+        }
     }
 }

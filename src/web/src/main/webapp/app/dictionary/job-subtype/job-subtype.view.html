@@ -1,18 +1,14 @@
 <main-top-menu xmlns="http://java.sun.com/jsf/html"></main-top-menu>
 <script type="text/ng-template" id="job-subtype.view/jobtype.filter.html">
-    <type-ahead id="jobType" info="vm" model-value="params.filter()[name]" load-items="vm.loadJobTypes"/>
-
-    <!--<date-picker vm="vm" ng-model="params.filter()[name]"/>-->
+    <type-ahead-filter vm="vm" ng-model="params.filter()[name]" load-items="vm.loadFilterJobTypeNames"></type-ahead-filter>
 </script>
 <div class="container">
     <div class="edit-buttons">
         <button class="btn btn-primary btn-sm" ng-click="vm.doShowNewDialog()">{{'common.new' | i18n}}</button>
         <button class="btn btn-primary btn-sm" ng-disabled="vm.editDisabled" ng-click="vm.doShowEditDialog()">{{'common.edit' | i18n}}</button>
         <button class="btn btn-primary btn-sm" ng-disabled="vm.removeDisabled" ng-click="vm.doRemove()">{{'common.remove' | i18n}}</button>
-<!--
         <span class="button-divider"/>
         <button class="btn btn-primary btn-sm" ng-click="vm.showFilter = !vm.showFilter">{{vm.showFilter ? ('common.filter.hide' | i18n) : ('common.filter.show' | i18n)}}</button>
--->
     </div>
     <table ng-table="vm.tableParams" show-filter="vm.showFilter" class="table table-condensed table-bordered table-striped table-hover"
            ng-class="{tableRowLoading: vm.tableLoading}">

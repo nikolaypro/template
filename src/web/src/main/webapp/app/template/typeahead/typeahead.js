@@ -20,7 +20,7 @@
             },
             // require:"ngModel",
             link: function(scope, element, attrs, controller) {
-                http://suhairhassan.com/2013/05/01/getting-started-with-angularjs-directive.html#.WBpEIGqLSUl
+                //http://suhairhassan.com/2013/05/01/getting-started-with-angularjs-directive.html#.WBpEIGqLSUl
                 var vm = scope.vm;
                 var formInput = angular.element(element[0].firstChild.firstChild.nextElementSibling).controller("ngModel");
                 // angular.element(element[0].firstChild.firstChild.nextElementSibling).controller("uibTypeahead")
@@ -31,26 +31,6 @@
                         return scope.loadItems(function (data) {
                             $log.info("loadItems");
                             vm.items = data;
-                            angular.forEach(vm.items, function(item) {
-                                if (item.$fullItemName == undefined) {
-/*
-                                    if (vm.itemFormatter == undefined) {
-                                        item.$fullItemName = item.name;
-                                    } else {
-                                        item.$fullItemName = vm.itemFormatter(item);
-                                    }
-*/
-/*
-                                    item.getMathItem = function(item, query) {
-                                        var res = $filter('uibTypeaheadHighlight')(item.label, query);
-                                        $log.log("Res: " + res);
-
-                                        return '' + res;
-                                    }
-*/
-
-                                }
-                            });
                             vm.loadingItems = false;
                             // var formInput = vm.editForm[vm.elementId];
                             $timeout(function () {

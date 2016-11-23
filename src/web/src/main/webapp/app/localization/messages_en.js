@@ -22,6 +22,7 @@
             'common.warning' : 'Warning',
             'common.filter.hide' : 'Hide filter',
             'common.filter.show' : 'Show filter',
+            'common.filter.clear.tooltip' : 'Clear filter',
             'common.document.title' : 'Furniture',
 
             'calendar.current.day' : 'Today',

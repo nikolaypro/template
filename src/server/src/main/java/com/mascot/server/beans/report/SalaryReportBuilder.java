@@ -35,55 +35,60 @@ public class SalaryReportBuilder {
     }
 
     public List<SalaryReportItem> report(Supplier<List<Job>> jobsSupplier, Supplier<List<Job>> tailJobSupplier, String logInfo) {
-        StringBuilder log = new StringBuilder(logInfo).append("\n");
-        final List<Job> jobs = jobsSupplier.get();
-        final List<JobSubTypeCost> jobSubTypeCosts = jobSubTypeCostSupplier.get();
-        final List<JobType> allJobTypes = jobTypeSupplier.get();
-        final List<Job> tailJobs = new ArrayList<>(tailJobSupplier.get());
-        allJobTypes.sort((e1, e2) -> e1.getOrder() > e2.getOrder() ? 1 : -1);
-        jobs.sort(Comparator.comparing(Job::getCompleteDate));
-        log.append(addJobsLog(jobs));
-        log.append(addTailJobsLog(tailJobs));
-        log.append("\n **************************************************\n");
-        log.append("Start computing:");
-        final BiFunction<JobSubType, Product, Optional<JobSubTypeCost>> costFinder = (subType, product) ->
-                jobSubTypeCosts.stream().
-                        filter(cost ->
-                                cost.getJobSubType().getId().equals(subType.getId()) && cost.getProduct().getId().equals(product.getId()))
-                        .findFirst();
+        final long start = System.currentTimeMillis();
+        try {
+            StringBuilder log = new StringBuilder(logInfo).append("\n");
+            final List<Job> jobs = jobsSupplier.get();
+            final List<JobSubTypeCost> jobSubTypeCosts = jobSubTypeCostSupplier.get();
+            final List<JobType> allJobTypes = jobTypeSupplier.get();
+            final List<Job> tailJobs = new ArrayList<>(tailJobSupplier.get());
+            allJobTypes.sort((e1, e2) -> e1.getOrder() > e2.getOrder() ? 1 : -1);
+            jobs.sort(Comparator.comparing(Job::getCompleteDate));
+            log.append(addJobsLog(jobs));
+            log.append(addTailJobsLog(tailJobs));
+            log.append("\n **************************************************\n");
+            log.append("Start computing:");
+            final BiFunction<JobSubType, Product, Optional<JobSubTypeCost>> costFinder = (subType, product) ->
+                    jobSubTypeCosts.stream().
+                            filter(cost ->
+                                    cost.getJobSubType().getId().equals(subType.getId()) && cost.getProduct().getId().equals(product.getId()))
+                            .findFirst();
 
-        final Map<JobType, CostDetails> jobType2Details = new HashMap<>();
-        jobs.forEach(job -> {
-            log.append("\n").append(getJobInfo(job));
-            getCompletedJobTypes(job, allJobTypes, tailJobs, log).forEachOrdered(jobType -> {
+            final Map<JobType, CostDetails> jobType2Details = new HashMap<>();
+            jobs.forEach(job -> {
+                log.append("\n").append(getJobInfo(job));
+                getCompletedJobTypes(job, allJobTypes, tailJobs, log).forEachOrdered(jobType -> {
 
-                jobType.getJobSubTypes().forEach(subType -> {
+                    jobType.getJobSubTypes().forEach(subType -> {
 
-                    final Optional<JobSubTypeCost> costOptional = costFinder.apply(subType, job.getProduct());
-                    costOptional.ifPresent(e ->
-                                    log.append("\n\t - ").append(getCostInfo(e, subType, job.getProduct()))
-                    );
-                    costOptional.ifPresent(jobSubTypeCost -> {
-                        CostDetails costDetails = jobType2Details.get(jobType);
-                        if (costDetails == null) {
-                            jobType2Details.put(jobType, costDetails = new CostDetails());
-                        }
-                        final Double newCostValue = costDetails.changeCost(jobSubTypeCost.getCost(), job, subType);
-                        log.append(logNewCostValue(jobType, newCostValue));
+                        final Optional<JobSubTypeCost> costOptional = costFinder.apply(subType, job.getProduct());
+                        costOptional.ifPresent(e ->
+                                        log.append("\n\t - ").append(getCostInfo(e, subType, job.getProduct()))
+                        );
+                        costOptional.ifPresent(jobSubTypeCost -> {
+                            CostDetails costDetails = jobType2Details.get(jobType);
+                            if (costDetails == null) {
+                                jobType2Details.put(jobType, costDetails = new CostDetails());
+                            }
+                            final Double newCostValue = costDetails.changeCost(jobSubTypeCost.getCost(), job, subType);
+                            log.append(logNewCostValue(jobType, newCostValue));
+                        });
                     });
                 });
             });
-        });
 
-        log.append(logDetails(jobType2Details));
+            log.append(logDetails(jobType2Details));
 
 //        logger.info(log.toString());
 
-        exportToFile(log);
+            exportToFile(log);
 
-        return jobType2Details.entrySet().stream().sorted(Comparator.comparing(e -> e.getKey().getOrder())).
-                map(entry -> new SalaryReportItem(entry.getKey(), entry.getValue().cost)).
-                collect(Collectors.toList());
+            return jobType2Details.entrySet().stream().sorted(Comparator.comparing(e -> e.getKey().getOrder())).
+                    map(entry -> new SalaryReportItem(entry.getKey(), entry.getValue().cost)).
+                    collect(Collectors.toList());
+        } finally {
+            logger.info("Salary report duration: " + (System.currentTimeMillis() - start) + " msec");
+        }
     }
 
     private void exportToFile(StringBuilder log) {

@@ -1,0 +1,16 @@
+<div class="input-group" uib-dropdown keyboard-nav>
+    <!--| filter : $viewValue-->
+    <input type="text" ng-model="ngModel"
+           uib-typeahead="item for item in getItems($viewValue)"
+           class="form-control" typeahead-editable="true"
+           typeahead-min-length="1" autocomplete="off"
+            />
+    <span class="input-group-btn">
+            <button type="button" class="close edit-buttons titip-primary titip-top-left" style="padding-left: 10px"
+                    aria-hidden="true"
+                    ng-click="ngModel = ''">
+                <span class="titip-content">{{'common.filter.clear.tooltip' | i18n}}</span>
+                &times;
+            </button>
+    </span>
+</div>

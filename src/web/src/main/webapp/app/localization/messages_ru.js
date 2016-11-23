@@ -22,6 +22,7 @@
             'common.warning' : 'Предупреждение',
             'common.filter.hide' : 'Скрыть фильтры',
             'common.filter.show' : 'Показать фильтр',
+            'common.filter.clear.tooltip' : 'Очистить фильтр',
             'common.document.title' : 'Система недельного расчета стоимости выполненных работ',
 
             'calendar.current.day' : 'Сегодня',

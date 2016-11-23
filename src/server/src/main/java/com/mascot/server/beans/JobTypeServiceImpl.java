@@ -129,6 +129,12 @@ public class JobTypeServiceImpl extends AbstractMascotService implements JobType
     }
 
     public List<JobType> getAllWithDeleted() {
-        return em.createQuery("select e from JobType e").getResultList();
+        final long start = System.currentTimeMillis();
+        try {
+            return em.createQuery("select e from JobType e").getResultList();
+        } finally {
+            logger.info("Get all job types duration: " + (System.currentTimeMillis() - start) + " msec");
+
+        }
     }
 }
