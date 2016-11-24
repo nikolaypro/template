@@ -25,6 +25,7 @@
         service.getCurrDateWOTime = CommonUtils.getCurrDateWOTime;
         service.getStartWeek = CommonUtils.getStartWeek;
         service.getEndWeek = CommonUtils.getEndWeek;
+        service.updateDocumentTitle = updateDocumentTitle;
         return service;
 
         function refreshEditRemoveButtonEnabled(vm, tableParams) {
@@ -229,6 +230,13 @@
         function isValidDate(scope, date) {
 //                    el.$$parentForm.$submitted
             return !scope.submitPressed || parseDate(date) != undefined;
+        }
+
+        function updateDocumentTitle() {
+            document.title = LocMsg.get('common.document.title');
+            if ($rootScope.globals.appVersion != undefined) {
+                document.title += (" ver: " + $rootScope.globals.appVersion);
+            }
         }
 
     }

@@ -22,11 +22,11 @@
             </a>
         </li>
 -->
+            <li ng-class="isActive('jobs') ? 'active' : ''" ng-show="$.inArray('jobs', enabledMenu) > -1">
+                <a href="#/jobs">{{'top.menu.jobs' | i18n}}</a>
+            </li>
             <li ng-class="isActive('users') ? 'active' : ''" ng-show="$.inArray('users', enabledMenu) > -1">
                 <a href="#/users">{{'top.menu.users' | i18n}}</a>
-            </li>
-            <li ng-class="isActive('reports') ? 'active' : ''" ng-show="$.inArray('reports', enabledMenu) > -1">
-                <a href="#/reports">{{'top.menu.reports' | i18n}}</a>
             </li>
             <li ng-class="
                 isActive('products') ||
@@ -54,8 +54,8 @@
                 </ul>
             </li>
 
-            <li ng-class="isActive('jobs') ? 'active' : ''" ng-show="$.inArray('jobs', enabledMenu) > -1">
-                <a href="#/jobs">{{'top.menu.jobs' | i18n}}</a>
+            <li ng-class="isActive('reports') ? 'active' : ''" ng-show="$.inArray('reports', enabledMenu) > -1">
+                <a href="#/reports">{{'top.menu.reports' | i18n}}</a>
             </li>
 
             <li ng-class="isActive('home') ? 'active' : ''" ng-show="$.inArray('home', enabledMenu) > -1">

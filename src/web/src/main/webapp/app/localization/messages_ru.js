@@ -37,7 +37,7 @@
             'top.menu.job.price' : 'Стоимость работ',
             'top.menu.jobs' : 'Выполненные работы',
             'top.menu.logout' : 'Выход',
-            'top.menu.app.name' : 'Система рассчета работ',
+            'top.menu.app.name' : 'Система расчета работ',
 
             /*top.menu.user.details*/
             'top.menu.user.details.name' : 'Пользователь',

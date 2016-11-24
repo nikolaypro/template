@@ -5,6 +5,7 @@ import com.mascot.common.MailSender;
 import com.mascot.common.MascotUtils;
 import com.mascot.server.beans.UserService;
 import com.mascot.server.common.BeanTableResult;
+import com.mascot.server.common.ServerUtils;
 import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 import com.mascot.service.common.CommonUtils;
@@ -39,7 +40,7 @@ public class AuthenticationController extends AbstractController {
 
     @RequestMapping(path = "/authenticate", method = RequestMethod.POST)
     @ResponseBody
-    public UserRecord authenticate(@RequestBody User user) {
+    public LoginUserRecord authenticate(@RequestBody User user) {
         CommonUtils.checkRegistered();
         if (MascotUtils.isEmpty(user.getPassword())) {
             throw createInvalidPasswordException(user);
@@ -53,7 +54,7 @@ public class AuthenticationController extends AbstractController {
         }
         logger.info("Successfully login: username = " + user.getLogin() +
                 ", roles: [" + StringUtils.collectionToCommaDelimitedString(entityUser.getRoles()) + "]");
-        return UserRecord.build(entityUser);
+        return LoginUserRecord.build(entityUser, ServerUtils.getAppVersion());
     }
 
     private RuntimeException createInvalidUserNameException(User user) {

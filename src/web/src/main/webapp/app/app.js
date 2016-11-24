@@ -136,14 +136,14 @@
 
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookieStore', '$http', 'ALL_APP_ROLES', '$templateCache', 'LocMsg'];
-    function run($rootScope, $location, $cookieStore, $http, ALL_APP_ROLES, $templateCache, LocMsg) {
+    run.$inject = ['$rootScope', '$location', '$cookieStore', '$http', 'ALL_APP_ROLES', '$templateCache', 'Utils'];
+    function run($rootScope, $location, $cookieStore, $http, ALL_APP_ROLES, $templateCache, Utils) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
         }
-        document.title = LocMsg.get('common.document.title');
+        Utils.updateDocumentTitle();
         $rootScope.userPerm = {
             users: function () {
                 return ($rootScope.globals.roles.contains(ALL_APP_ROLES.admin));

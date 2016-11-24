@@ -26,14 +26,14 @@
             vm.dataLoading = true;
             AuthenticationService.Login(vm.username, vm.password, function (response) {
                 if (response.success) {
-                    AuthenticationService.SetCredentials(vm.username, vm.password, response.roles, response.locale);
+                    AuthenticationService.SetCredentials(vm.username, vm.password, response.roles, response.locale, response.appVersion);
                     $location.path('/');
                 } else {
                     FlashService.Error(response.message);
                     vm.dataLoading = false;
                 }
             });
-        };
+        }
     }
 
 })();

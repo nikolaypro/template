@@ -5,8 +5,8 @@
         .module('app')
         .factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService', 'UrlService'];
-    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService, UrlService) {
+    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService', 'UrlService', 'Utils'];
+    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService, UrlService, Utils) {
         var service = {};
 
         service.Login = Login;
@@ -60,7 +60,7 @@
 
         }
 
-        function SetCredentials(username, password, roles, locale) {
+        function SetCredentials(username, password, roles, locale, appVersion) {
             var authdata = UserService.base64.encode(UserService.encode_utf8(username) + ':' + UserService.encode_utf8(password));
 
             $rootScope.globals = {
@@ -74,7 +74,9 @@
             };
 
             $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+            $rootScope.globals.appVersion = appVersion;
             $cookieStore.put('globals', $rootScope.globals);
+            Utils.updateDocumentTitle();
         }
 
         function Logout(callback) {
