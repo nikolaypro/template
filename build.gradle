@@ -1,6 +1,5 @@
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.9'
-    // ��� ������������ ������, � ������� ��� ������ �������� gradle plugin � IDEA
+    gradleVersion = '3.2'
 }
 
 def commonProject = project(':common')
