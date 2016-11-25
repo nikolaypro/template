@@ -1,0 +1,14 @@
+Для деплоя необходимо:
+ - db папка
+ - template.war
+ - template-web.war
+ - tomcat-conf папка
+ - дистрибутив tomcat
+ - дистрибутив mysql
+ - дистрибутив java
+
+DATABASE
+
+1.  выполнить init_db.bat (при этом рядом должен лежать файл init_db.sql)
+2.  настроить файл liquibase.properties
+3.  выполнить update.bat

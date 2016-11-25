@@ -1,0 +1,1 @@
+gradlew.bat -d createAndCopyWar > out.txt 2>&1

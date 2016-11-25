@@ -7,4 +7,3 @@ set CATALINA_OPTS=%CATALINA_OPTS% -Dcom.sun.management.jmxremote -Dcom.sun.manag
 rem set JPDA_OPTS=-Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n
 set JPDA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=9797
 
-set JAVA_OPTS=-Djavax.net.ssl.trustStore=keystore -Djavax.net.ssl.trustStorePassword=qwerty
