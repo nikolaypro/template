@@ -18,8 +18,7 @@
         return service;
 
         function openReport(url, name, data) {
-            // var win = window.open('app/app-report/report.html#/' + url + '/' + new Date().getTime(), name);
-            var win = undefined;
+            var win = window.open('app/app-report/report.html#/' + url + '/' + new Date().getTime(), name);
             if (win == undefined) {
                 Utils.showWarning(LocMsg.get('report.please.enable.popup.window'))
                 return;
@@ -59,4 +58,4 @@
 
     }
 
-})();
+})()
