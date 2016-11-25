@@ -122,7 +122,10 @@
                 draggable: true,
                 buttons: [{
                     label: 'Close',
-                    cssClass: 'btn-primary'
+                    cssClass: 'btn-primary',
+                    action: function(dialogRef){
+                        dialogRef.close();
+                    }
                 }]
             });
         }

@@ -5,28 +5,45 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template project</title>
-    <link rel="icon" type="image/png" href="app/pic/brand-logo.png">
+    <link rel="icon" type="image/png" href="app/pic/brand-logo.png" />
+
     <link href="ext/bootstrap-3.3.5-dist/css/bootstrap.css" rel="stylesheet" />
+    <!--<link href="ext/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet" >-->
+
     <link href="app/app-content/sticky-footer.css" rel="stylesheet" />
     <link href="app/app-content/app.css" rel="stylesheet" />
+
     <link href="ext/bower_components/ng-table/dist/ng-table.css" rel="stylesheet" />
-    <link rel="stylesheet" href="ext/ng-dialog/css/ngDialog.css">
-    <link href="ext/ng-dialog/css/ngDialog-theme-default.css" rel="stylesheet" >
-    <link href="ext/ng-dialog/css/ngDialog-theme-plain.css" rel="stylesheet" >
-    <link href="ext/ng-dialog/css/ngDialog-custom-width.css" rel="stylesheet" >
-    <link href="ext/bootstrap3-dialog/css/bootstrap-dialog.css" rel="stylesheet" >
-    <link href="ext/titip/css/titip.css" rel="stylesheet" >
-    <link href="ext/angular-ui-bootstrap/ui-bootstrap-csp.css" rel="stylesheet" >
+    <!--<link href="ext/bower_components/ng-table/dist/ng-table.min.css" rel="stylesheet" >-->
+
+    <link href="ext/ng-dialog/css/ngDialog.css" rel="stylesheet" />
+    <!--<link href="ext/ng-dialog/css/ngDialog.min.css" rel="stylesheet" >-->
+
+    <link href="ext/ng-dialog/css/ngDialog-theme-default.css" rel="stylesheet" />
+    <!--<link href="ext/ng-dialog/css/ngDialog-theme-default.min.css" rel="stylesheet" >-->
+
+    <link href="ext/ng-dialog/css/ngDialog-theme-plain.css" rel="stylesheet" />
+    <!--<link href="ext/ng-dialog/css/ngDialog-theme-plain.min.css" rel="stylesheet" >-->
+
+    <link href="ext/ng-dialog/css/ngDialog-custom-width.css" rel="stylesheet" />
+
+    <link href="ext/bootstrap3-dialog/css/bootstrap-dialog.css" rel="stylesheet" />
+    <!--<link href="ext/bootstrap3-dialog/css/bootstrap-dialog.min.css" rel="stylesheet" >-->
+
+    <link href="ext/titip/css/titip.css" rel="stylesheet" />
+    <!--<link href="ext/titip/css/titip.min.css" rel="stylesheet" >-->
+
+    <link href="ext/angular-ui-bootstrap/ui-bootstrap-csp.css" rel="stylesheet" />
 
 </head>
 <body>
 
 <div class="jumbotron">
-        <div class="container">
-            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }"
-                 ng-if="flash" ng-bind="flash.message"></div>
-            <div ng-view></div>
-        </div>
+    <div class="container">
+        <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }"
+             ng-if="flash" ng-bind="flash.message"></div>
+        <div ng-view></div>
+    </div>
 
 </div>
 
@@ -35,95 +52,100 @@
          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
 </div>
 
-<!--
-    <footer class="footer">
-        <hr/>
-        <div class="container">
-            <p>
-                Template project
-            </p>
-        </div>
-                    <img ng-if="dataLoading"
-                         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-    </footer>
--->
 
-    <script src="ext/bower_components/jquery/jquery.min.js"></script>
-    <script src="ext/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
-    <!--<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>-->
-    <script src="ext/bower_components/angular/angular.js"></script>
-    <script src="ext/bower_components/angular-route/angular-route.js"></script>
-    <script src="ext/bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="ext/bower_components/ng-table/dist/ng-table.js"></script>
-    <script src="ext/ng-dialog/ngDialog.js"></script>
-    <script src="ext/bootstrap3-dialog/js/bootstrap-dialog.js"></script>
+<script src="ext/bower_components/jquery/jquery.min.js"></script>
 
-    <script src="ext/angular-ui-bootstrap/ui-bootstrap.js"></script>
-    <!--<script src="ext/angular-ui-bootstrap/ui-bootstrap-2.2.0.min.js"></script>-->
-    <!--<script src="ext/angular-ui-bootstrap/typeahead/ui-bootstrap-typeahead-2.2.0.js"></script>-->
-    <script src="ext/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
-    <!--<script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>-->
-    <!--<script src="//code.angularjs.org/1.2.20/angular.js"></script>-->
-    <!--<script src="//code.angularjs.org/1.2.20/angular-route.js"></script>-->
-    <!--<script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>-->
+<script src="ext/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
+<!--<script src="ext/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>-->
 
-    <script src="app/utils.js"></script>
-    <script src="app/app.js"></script>
-    <script src="app/localization/localization.js"></script>
-    <script src="app/localization/messages_en.js"></script>
-    <script src="app/localization/messages_ru.js"></script>
-    <script src="ext/checklist-model.js"></script>
-    <script src="app/app-services/url.service.js"></script>
-    <script src="app/app-services/authentication.service.js"></script>
-    <script src="app/app-services/flash.service.js"></script>
-    <script src="app/app-services/long.run.service.js"></script>
-    <script src="app/app-services/common.utils.service.js"></script>
-    <script src="app/app-services/utils.service.js"></script>
-    <script src="app/app-services/table-utils.service.js"></script>
-    <script src="app/app-services/edit-dialog.service.js"></script>
+<script src="ext/bower_components/angular/angular.js"></script>
+<!--<script src="ext/bower_components/angular/angular.min.js"></script>-->
 
-    <!-- Real user service that uses an api -->
-     <script src="app/app-services/user.service.js"></script>
+<script src="ext/bower_components/angular-route/angular-route.js"></script>
+<!--<script src="ext/bower_components/angular-route/angular-route.min.js"></script>-->
 
-    <!-- Fake user service for demo that uses local storage -->
+<script src="ext/bower_components/angular-cookies/angular-cookies.js"></script>
+<!--<script src="ext/bower_components/angular-cookies/angular-cookies.min.js"></script>-->
+
+<script src="ext/bower_components/ng-table/dist/ng-table.js"></script>
+<!--<script src="ext/bower_components/ng-table/dist/ng-table.min.js"></script>-->
+
+<script src="ext/ng-dialog/ngDialog.js"></script>
+<!--<script src="ext/ng-dialog/ngDialog.min.js"></script>-->
+
+<script src="ext/bootstrap3-dialog/js/bootstrap-dialog.js"></script>
+<!--<script src="ext/bootstrap3-dialog/js/bootstrap-dialog.min.js"></script>-->
+
+<script src="ext/angular-ui-bootstrap/ui-bootstrap.js"></script>
+<!--<script src="ext/angular-ui-bootstrap/ui-bootstrap-2.2.0.min.js"></script>-->
+
+<!--<script src="ext/angular-ui-bootstrap/typeahead/ui-bootstrap-typeahead-2.2.0.js"></script>-->
+
+<script src="ext/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
+
+<!--<script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>-->
+<!--<script src="//code.angularjs.org/1.2.20/angular.js"></script>-->
+<!--<script src="//code.angularjs.org/1.2.20/angular-route.js"></script>-->
+<!--<script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>-->
+
+<script src="app/utils.js"></script>
+<script src="app/app.js"></script>
+<script src="app/localization/localization.js"></script>
+<script src="app/localization/messages_en.js"></script>
+<script src="app/localization/messages_ru.js"></script>
+<script src="ext/checklist-model.js"></script>
+<script src="app/app-services/url.service.js"></script>
+<script src="app/app-services/authentication.service.js"></script>
+<script src="app/app-services/flash.service.js"></script>
+<script src="app/app-services/long.run.service.js"></script>
+<script src="app/app-services/common.utils.service.js"></script>
+<script src="app/app-services/utils.service.js"></script>
+<script src="app/app-services/table-utils.service.js"></script>
+<script src="app/app-services/edit-dialog.service.js"></script>
+
+<!-- Real user service that uses an api -->
+<script src="app/app-services/user.service.js"></script>
+
+<!-- Fake user service for demo that uses local storage -->
 <!--    <script src="app-services/user.service.local-storage.js"></script> -->
 
-    <!--<script src="app/app-directives/focus.directive.js"></script>-->
-    <!--<script src="app/app-directives/empty-typeahead.js"></script>-->
+<!--<script src="app/app-directives/focus.directive.js"></script>-->
+<!--<script src="app/app-directives/empty-typeahead.js"></script>-->
 
 
-    <script src="app/users/user-edit-dialog.directive.js"></script>
+<script src="app/users/user-edit-dialog.directive.js"></script>
 
-    <script src="app/template/tableloading/table-loading.js"></script>
-    <script src="app/template/modal/modal.js"></script>
-    <script src="app/template/maintopmenu/mainTopMenu.js"></script>
-    <script src="app/template/typeahead/typeahead.js"></script>
-    <script src="app/template/typeaheadfilter/typeahead-filter.js"></script>
-    <script src="app/template/weekpicker/weekpicker.js"></script>
-    <script src="app/home/home.controller.js"></script>
-    <script src="app/login/login.controller.js"></script>
-    <script src="app/register/register.controller.js"></script>
-    <script src="app/main/main.controller.js"></script>
-    <script src="app/contact/contact.controller.js"></script>
-    <script src="app/users/users.controller.js"></script>
-    <script src="app/reports/from-to-date-section-directive.js"></script>
-    <script src="app/reports/reports.controller.js"></script>
-    <script src="app/reports/reports.service.js"></script>
-    <script src="app/dictionary/product/product.controller.js"></script>
-    <script src="app/dictionary/product/product.service.js"></script>
-    <script src="app/dictionary/product/product-edit-dialog.directive.js"></script>
-    <script src="app/dictionary/job-type/job-type.controller.js"></script>
-    <script src="app/dictionary/job-type/job-type.service.js"></script>
-    <script src="app/dictionary/job-type/job-type-edit-dialog.directive.js"></script>
-    <script src="app/dictionary/job-subtype/job-subtype.controller.js"></script>
-    <script src="app/dictionary/job-subtype/job-subtype.service.js"></script>
-    <script src="app/dictionary/job-subtype/job-subtype-edit-dialog.directive.js"></script>
-    <script src="app/dictionary/job-subtype-cost/job-subtype-cost.controller.js"></script>
-    <script src="app/dictionary/job-subtype-cost/job-subtype-cost.service.js"></script>
-    <script src="app/dictionary/job-subtype-cost/job-subtype-cost-edit-dialog.directive.js"></script>
-    <script src="app/jobs/jobs.controller.js"></script>
-    <script src="app/jobs/jobs.service.js"></script>
-    <script src="app/jobs/jobs-edit-dialog.directive.js"></script>
+<script src="app/template/tableloading/table-loading.js"></script>
+<script src="app/template/modal/modal.js"></script>
+<script src="app/template/maintopmenu/mainTopMenu.js"></script>
+<script src="app/template/typeahead/typeahead.js"></script>
+<script src="app/template/typeaheadfilter/typeahead-filter.js"></script>
+<script src="app/template/weekpicker/weekpicker.js"></script>
+<script src="app/home/home.controller.js"></script>
+<script src="app/login/login.controller.js"></script>
+<script src="app/register/register.controller.js"></script>
+<script src="app/main/main.controller.js"></script>
+<script src="app/contact/contact.controller.js"></script>
+<script src="app/users/users.controller.js"></script>
+<script src="app/reports/from-to-date-section-directive.js"></script>
+<script src="app/reports/reports.controller.js"></script>
+<script src="app/reports/reports.service.js"></script>
+<script src="app/dictionary/product/product.controller.js"></script>
+<script src="app/dictionary/product/product.service.js"></script>
+<script src="app/dictionary/product/product-edit-dialog.directive.js"></script>
+<script src="app/dictionary/job-type/job-type.controller.js"></script>
+<script src="app/dictionary/job-type/job-type.service.js"></script>
+<script src="app/dictionary/job-type/job-type-edit-dialog.directive.js"></script>
+<script src="app/dictionary/job-subtype/job-subtype.controller.js"></script>
+<script src="app/dictionary/job-subtype/job-subtype.service.js"></script>
+<script src="app/dictionary/job-subtype/job-subtype-edit-dialog.directive.js"></script>
+<script src="app/dictionary/job-subtype-cost/job-subtype-cost.controller.js"></script>
+<script src="app/dictionary/job-subtype-cost/job-subtype-cost.service.js"></script>
+<script src="app/dictionary/job-subtype-cost/job-subtype-cost-edit-dialog.directive.js"></script>
+<script src="app/jobs/jobs.controller.js"></script>
+<script src="app/jobs/jobs.service.js"></script>
+<script src="app/jobs/jobs-edit-dialog.directive.js"></script>
 
 </body>
+
 </html>

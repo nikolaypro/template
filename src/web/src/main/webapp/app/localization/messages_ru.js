@@ -101,6 +101,8 @@
             'report.salary.job.type.column' : 'Тип работы',
             'report.salary.cost.column' : 'Суммарная стоимость',
 
+            'report.please.enable.popup.window' : 'Невозможно открыть новое окно (вкладку) для отчета. Возможно, запрещен показ высплывающих окон. Разрешите, пожалуйста, высплывающие окна для данного сайта.',
+
             /*product.table*/
             'product.table.column.name' : 'Название изделия',
             'product.table.delete.confirm' : 'Удалить изделие?',

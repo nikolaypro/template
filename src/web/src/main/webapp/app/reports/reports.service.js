@@ -5,8 +5,8 @@
         .module('app')
         .factory('ReportsService', ReportsService);
 
-    ReportsService.$inject = ['$http', 'UrlService', '$rootScope'];
-    function ReportsService($http, UrlService, $rootScope) {
+    ReportsService.$inject = ['$http', 'UrlService', '$rootScope', 'Utils', 'LocMsg'];
+    function ReportsService($http, UrlService, $rootScope, Utils, LocMsg) {
         var service = {};
 
         service.openReport = openReport;
@@ -18,7 +18,12 @@
         return service;
 
         function openReport(url, name, data) {
-            var win = window.open('app/app-report/report.html#/' + url + '/' + new Date().getTime(), name);
+            // var win = window.open('app/app-report/report.html#/' + url + '/' + new Date().getTime(), name);
+            var win = undefined;
+            if (win == undefined) {
+                Utils.showWarning(LocMsg.get('report.please.enable.popup.window'))
+                return;
+            }
             win.user = $rootScope.globals.currentUser;
             win.data = data;
 

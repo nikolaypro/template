@@ -28,7 +28,8 @@
             JobTypeService.moveDown(row.id, moveCallBack);
         };
 
-        vm.onUp = function(row) {
+        vm.onUp = function(row, page, index) {
+            $log.info('Page = ' + page + ", index = " + index);
             JobTypeService.moveUp(row.id, moveCallBack);
         }
 
