@@ -38,7 +38,7 @@
             /* Use this for real authentication
              ----------------------------------------------*/
             var url = UrlService.url('api/authenticate');
-            var encodedPassword = UserService.base64.encode(UserService.encode_utf8(password));
+            var encodedPassword = UserService.base64().encode(UserService.encode_utf8(password));
             $http.post(url, { login: username, password: encodedPassword })
                 .success(function (response) {
                     response.success = true;
@@ -61,7 +61,7 @@
         }
 
         function SetCredentials(username, password, roles, locale, appVersion) {
-            var authdata = UserService.base64.encode(UserService.encode_utf8(username) + ':' + UserService.encode_utf8(password));
+            var authdata = UserService.base64().encode(UserService.encode_utf8(username) + ':' + UserService.encode_utf8(password));
 
             $rootScope.globals = {
                 currentUser: {

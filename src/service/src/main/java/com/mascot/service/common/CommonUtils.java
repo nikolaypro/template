@@ -45,7 +45,7 @@ public class CommonUtils {
             date = LocalDate.parse(new String(data), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (Exception e) {
             logger.info("Not found licence or it is incorrect");
-            return;
+            throw new AuthenticationCredentialsNotFoundException("You use a trial version of system");
         }
         if (LocalDate.now().isAfter(date)) {
             throw new AuthenticationCredentialsNotFoundException("You use a trial version of system");

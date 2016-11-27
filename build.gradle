@@ -1,5 +1,19 @@
+plugins {
+    id "com.eriwen.gradle.js" version "2.14.1"
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '3.2'
+}
+
+javascript.source {
+    dev {
+        js {
+            srcDir "src/web/src/main/webapp/app/"
+            include "**/*.js"
+            exclude "app.js"
+        }
+    }
 }
 
 def commonProject = project(':common')
@@ -21,6 +35,7 @@ def jackson_version = '1.9.13'
 def fasterxml_jackson_version = '2.6.3'
 
 //println 'Common project dir: ' + commonProject.projectDir
+
 
 allprojects {
     apply plugin: 'java'
@@ -132,6 +147,12 @@ task copyReports(type: Copy, dependsOn: [cleanTomcatReportsDir]) {
 task createAndCopyWar(type: Copy, dependsOn: [serviceProject.build, webProject.build, cleanTomcatDeployDir, copyReports]) {
     from 'src/service/build/libs/' + warFileName + '.war', 'src/web/build/libs/' + webWarFileName + '.war'
     into tomcatWebApp
+}
+
+// Combine JS files
+task combine(type: com.eriwen.gradle.js.tasks.CombineJsTask) {
+    source = javascript.source.dev.js.files
+    dest = "src/web/src/main/webapp/app/app-all.js"
 }
 
 //  ------------------ LIQUIBASE ----------------------
