@@ -15,17 +15,17 @@
            ng-class="{tableRowLoading: vm.tableLoading}">
         <tr ng-repeat="row in $data track by $index" ng-class="{'danger': row.forNextWeekTail, 'success': row.tail}">
             <td class="table-row-check"><input type="checkbox" ng-change="vm.onRowChecked()" ng-model="row.row_checked"/></td>
-            <td class="td_400px" data-title="'job.table.column.complete.date' | i18n" sortable="'completeDate'"
-                filter="{completeDate : 'jobs.view/date.filter.html'}">{{row.completeDate | date : vm.dateFormat}}
-            </td>
-            <td class="td_400px" data-title="'job.table.column.number' | i18n" sortable="'number'"
+            <td class="td_50px" data-title="'job.table.column.number' | i18n" sortable="'number'"
                 filter="{number: 'text'}">{{row.number}}
+            </td>
+            <td class="td_400px" data-title="'job.table.column.product' | i18n" sortable="'product.name'"
+                filter="{'product.name': 'text'}">{{row.product.name}}
             </td>
             <td class="td_400px" data-title="'job.table.column.job-type' | i18n" sortable="'jobType.name'"
                 filter="{'jobType.name': 'text'}">{{row.jobType.name}}
             </td>
-            <td class="td_400px" data-title="'job.table.column.product' | i18n" sortable="'product.name'"
-                filter="{'product.name': 'text'}">{{row.product.name}}
+            <td class="td_400px" data-title="'job.table.column.complete.date' | i18n" sortable="'completeDate'"
+                filter="{completeDate : 'jobs.view/date.filter.html'}">{{row.completeDate | date : vm.dateFormat}}
             </td>
         </tr>
     </table>

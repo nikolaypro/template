@@ -27,6 +27,7 @@
                     vm.productTypeRequired = false;
                     if (isNew) {
                         vm.job.completeDate = Utils.getCurrDateWOTime();
+                        vm.job.jobType = vm.lastJobTypeSelected;
                     }
                 };
 
@@ -47,6 +48,7 @@
 
                 scope.$watch('vm.job.jobType', function(newVal, oldVal){
                     vm.jobTypeRequired = false;
+                    vm.lastJobTypeSelected = newVal;
                 });
                 scope.$watch('vm.job.product', function(newVal, oldVal){
                     vm.productTypeRequired = false;

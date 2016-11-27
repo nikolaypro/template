@@ -7,14 +7,6 @@
                        ng-model="vm.job.number" ng-required="true"/>
                 <div ng-if="vm.isShowRequired(vm.editForm.number)" class="help-block">{{'job.table.edit.number.required' | i18n}}</div>
             </div>
-            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.jobTypeRequired }">
-                <label for="jobType">{{'job.table.edit.job-type' | i18n}}</label>
-                <type-ahead id="jobType" ng-model="vm.job.jobType" load-items="vm.loadJobTypes"
-                            place-holder="'job.table.edit.job-type'"/>
-            </div>
-            <div class="form-group" ng-class="{ 'has-error': vm.jobTypeRequired }">
-                <div ng-if="vm.jobTypeRequired" class="help-block">{{'job.table.edit.job-type.required' | i18n}}</div>
-            </div>
             <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.productTypeRequired }">
                 <label for="productType">{{'job.table.edit.product' | i18n}}</label>
                 <type-ahead id="productType" ng-model="vm.job.product" load-items="vm.loadProducts"
@@ -23,14 +15,14 @@
             <div class="form-group" ng-class="{ 'has-error': vm.productTypeRequired }">
                 <div ng-if="vm.productTypeRequired" class="help-block">{{'job.table.edit.product.required' | i18n}}</div>
             </div>
-<!--
-            <div class="form-group glyphicon-asterisk"
-                 >
--->
-<!--
-            <div class="form-group glyphicon-asterisk"
-                 ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.completeDate)}">
--->
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.jobTypeRequired }">
+                <label for="jobType">{{'job.table.edit.job-type' | i18n}}</label>
+                <type-ahead id="jobType" ng-model="vm.job.jobType" load-items="vm.loadJobTypes"
+                            place-holder="'job.table.edit.job-type'"/>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': vm.jobTypeRequired }">
+                <div ng-if="vm.jobTypeRequired" class="help-block">{{'job.table.edit.job-type.required' | i18n}}</div>
+            </div>
             <div class="form-group glyphicon-asterisk"
                  ng-class="{ 'has-error': !vm.validDate(vm.job.completeDate)}">
 

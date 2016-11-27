@@ -105,6 +105,11 @@ body, html {
     word-wrap: break-word;
 }
 
+.td_50px {
+    width: 50px;
+    word-wrap: break-word;
+}
+
 .td_up_down {
     width: 10px;
     /*word-wrap: break-word;*/
