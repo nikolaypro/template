@@ -29,10 +29,25 @@
         <property name="jpaDialect" ref="jpaDialect" />
     </bean>
 
+    <bean id="msEntityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
+        <property name="persistenceUnitName" value="templateMSPersistenceUnit" />
+        <property name="dataSource" ref="msDataSource" />
+        <property name="jpaVendorAdapter" ref="jpaMSVendorAdapter" />
+        <property name="jpaDialect" ref="jpaDialect" />
+    </bean>
+
     <bean id="jpaVendorAdapter"
           class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="database" value="HSQL" />
         <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
+    </bean>
+
+    <bean id="jpaMSVendorAdapter"
+          class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="database" value="HSQL" />
+        <property name="databasePlatform" value="org.hibernate.dialect.SQLServer2008Dialect" />
     </bean>
 
     <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
@@ -43,10 +58,21 @@
         <property name="jpaDialect" ref="jpaDialect" />
     </bean>
 
+    <bean id="msTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="msEntityManagerFactory" />
+        <property name="dataSource" ref="msDataSource" />
+        <property name="jpaDialect" ref="jpaDialect" />
+    </bean>
+
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <!--For use proxy--><!--<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>-->
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="jdbc/MascotDS"/>
+        <property name="resourceRef" value="true"/>
+    </bean>
+
+    <bean id="msDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="jdbc/MascotMSDS"/>
         <property name="resourceRef" value="true"/>
     </bean>
 

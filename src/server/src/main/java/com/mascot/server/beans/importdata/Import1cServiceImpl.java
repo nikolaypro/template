@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 
 /**
@@ -16,6 +18,8 @@ import java.util.Arrays;
 @Service(Import1cService.NAME)
 @Transactional(propagation = Propagation.REQUIRED)
 public class Import1cServiceImpl implements Import1cService {
+    @PersistenceContext(unitName = "templateMSPersistenceUnit")
+    protected EntityManager msSqlEm;
     @Override
     public ImportCheckData checkImport() {
 

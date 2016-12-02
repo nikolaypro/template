@@ -2,6 +2,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
              version="1.0">
     <persistence-unit name="templatePersistenceUnit" transaction-type="RESOURCE_LOCAL" >
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>com.mascot.server.model.User</class>
         <class>com.mascot.server.model.Role</class>
         <class>com.mascot.server.model.Product</class>
@@ -9,6 +10,7 @@
         <class>com.mascot.server.model.JobSubType</class>
         <class>com.mascot.server.model.JobSubTypeCost</class>
         <class>com.mascot.server.model.Job</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="validate"/>
             <property name="hibernate.show_sql" value="false"/>
@@ -16,13 +18,8 @@
             <property name="hibernate.use_sql_comments" value="false"/>
             <property name="hibernate.generate_statistics" value="false"/>
             <property name="hibernate.transaction.auto_close_session" value="true"/>
-            <property name="hibernate.dialect" value="com.magenta.rosinkas.server.MySQLDialect"/>
-            <property name="hibernate.connection.provider_class"
-                      value="org.hibernate.connection.DatasourceConnectionProvider"/>
             <!--<property name="cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>-->
             <property name="hibernate.current_session_context_class" value="jta"/>
-            <property name="hibernate.transaction.manager_lookup_class"
-                      value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
             <!--<property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.JTATransactionFactory"/>-->
             <property name="hibernate.cache.region.jbc2.cachefactory" value="java:CacheManager"/>
             <property name="hibernate.cache.region.jbc2.cfg.entity" value="mvcc-entity"/>
@@ -30,7 +27,29 @@
             <property name="hibernate.cache.use_second_level_cache" value="false"/>
             <property name="hibernate.cache.use_query_cache" value="false"/>
             <property name="hibernate.cache.region.jbc2.query.localonly" value="true"/>
-            <property name="hibernate.cache.region_prefix" value="templatePersistenceTracking"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="templateMSPersistenceUnit" transaction-type="RESOURCE_LOCAL" >
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!--<class>com.mascot.server.model.importdata.TmpBean</class>-->
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="false"/>
+            <property name="hibernate.generate_statistics" value="false"/>
+            <property name="hibernate.transaction.auto_close_session" value="true"/>
+            <!--<property name="cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>-->
+            <property name="hibernate.current_session_context_class" value="jta"/>
+            <!--<property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.JTATransactionFactory"/>-->
+            <property name="hibernate.cache.region.jbc2.cachefactory" value="java:CacheManager"/>
+            <property name="hibernate.cache.region.jbc2.cfg.entity" value="mvcc-entity"/>
+            <property name="hibernate.cache.region.jbc2.cfg.query" value="local-query"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.cache.use_query_cache" value="false"/>
+            <property name="hibernate.cache.region.jbc2.query.localonly" value="true"/>
         </properties>
     </persistence-unit>
 

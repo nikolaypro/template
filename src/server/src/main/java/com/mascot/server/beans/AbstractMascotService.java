@@ -20,7 +20,7 @@ import java.util.Map;
 public abstract class AbstractMascotService {
     protected final Logger logger = Logger.getLogger(getClass());
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "templatePersistenceUnit")
     protected EntityManager em;
 
     protected <A> BeanTableResult<A> getResult(String queryStr, String countQueryStr,
