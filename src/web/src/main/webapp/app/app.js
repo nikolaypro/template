@@ -119,6 +119,12 @@
                 controllerAs: 'vm'
             })
 
+            .when('/import', {
+                controller: 'Import1cController',
+                templateUrl: 'app/admin/import-1c.html',
+                controllerAs: 'vm'
+            })
+
             .otherwise({ redirectTo: '/login' });
 
         $httpProvider.interceptors.push('httpInterceptor');
