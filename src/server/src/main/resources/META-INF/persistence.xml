@@ -50,6 +50,7 @@
             <property name="hibernate.cache.use_second_level_cache" value="false"/>
             <property name="hibernate.cache.use_query_cache" value="false"/>
             <property name="hibernate.cache.region.jbc2.query.localonly" value="true"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2008Dialect" />
         </properties>
     </persistence-unit>
 

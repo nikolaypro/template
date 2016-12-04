@@ -1,9 +1,11 @@
 package com.mascot.server.beans.importdata;
 
+import com.mascot.server.beans.AbstractMascotService;
 import com.mascot.server.model.JobSubType;
 import com.mascot.server.model.JobSubTypeCost;
 import com.mascot.server.model.JobType;
 import com.mascot.server.model.Product;
+import org.hibernate.service.internal.AbstractServiceRegistryImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,13 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Николай on 02.12.2016.
  */
 @Service(Import1cService.NAME)
 @Transactional(propagation = Propagation.REQUIRED)
-public class Import1cServiceImpl implements Import1cService {
+public class Import1cServiceImpl extends AbstractMascotService implements Import1cService {
     @PersistenceContext(unitName = "templateMSPersistenceUnit")
     protected EntityManager msSqlEm;
     @Override
@@ -43,6 +46,25 @@ public class Import1cServiceImpl implements Import1cService {
          INNER JOIN _Reference6995 subType ON cost._Reference6995_IDRRef = subType._IDRRef
 
          */
+
+
+        List<Object[]> resultList = msSqlEm.createNativeQuery("select " +
+                "         jobType._IDRRef as jobType_id, jobType._Code as jobTypeCode, jobType._Description jobType,\n" +
+                "         jobSubType._IDRRef as jobSubType_id, jobSubType._Code as jobSubTypeCode, jobSubType._Description jobSubType\n" +
+                "         FROM _Reference6995 jobSubType\n" +
+                "         INNER JOIN _Reference6995 jobType ON jobType._IDRRef = jobSubType._ParentIDRRef\n" +
+                "         order by jobType._IDRRef\n").getResultList();
+
+        for (Object[] objects : resultList) {
+            Object jobTypeId = objects[0];
+            Object jobTypeCode = objects[1];
+            Object jobTypeDescription = objects[2];
+
+            Object jobSubTypeId = objects[3];
+            Object jobSubTypeCode = objects[4];
+            Object jobSubTypeDescription = objects[5];
+        }
+
 
 
         ImportCheckData data = new ImportCheckData();
