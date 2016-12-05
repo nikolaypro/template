@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "job_subtype")
-public class JobSubType extends IdentifiedDeleted {
+public class JobSubType extends ExternalEntity {
     @Column
     private String name;
 

@@ -8,12 +8,11 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "job_type")
-public class JobType extends IdentifiedDeleted {
+public class JobType extends ExternalEntity {
     @Column
     private String name;
 
     @Column(name = "order_number")
-
     private Integer order;
 
     @OneToMany(targetEntity = JobSubType.class, fetch = FetchType.LAZY, mappedBy = "jobType")

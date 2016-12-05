@@ -47,7 +47,8 @@
     <bean id="jpaMSVendorAdapter"
           class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="database" value="HSQL" />
-        <property name="databasePlatform" value="org.hibernate.dialect.SQLServer2008Dialect" />
+        <!--<property name="databasePlatform" value="org.hibernate.dialect.SQLServer2008Dialect" />-->
+        <property name="databasePlatform" value="com.mascot.common.MascotSqlServerDialect" />
     </bean>
 
     <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />

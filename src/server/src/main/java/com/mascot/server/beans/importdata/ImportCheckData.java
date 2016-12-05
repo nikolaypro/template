@@ -5,6 +5,7 @@ import com.mascot.server.model.JobSubTypeCost;
 import com.mascot.server.model.JobType;
 import com.mascot.server.model.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**

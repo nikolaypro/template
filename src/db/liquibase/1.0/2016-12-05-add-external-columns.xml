@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="add external column external_id to products" author="Nikolay">
+        <preConditions>
+            <not>
+                <columnExists tableName="products" columnName="external_id"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="products">
+            <column name="external_id" type="varchar(255)" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add external column external_id to job type" author="Nikolay">
+        <preConditions>
+            <not>
+                <columnExists tableName="job_type" columnName="external_id"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="job_type">
+            <column name="external_id" type="varchar(255)" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add external column external_id to job subtype" author="Nikolay">
+        <preConditions>
+            <not>
+                <columnExists tableName="job_subtype" columnName="external_id"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="job_subtype">
+            <column name="external_id" type="varchar(255)" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add external column external_code to products" author="Nikolay">
+        <preConditions>
+            <not>
+                <columnExists tableName="products" columnName="external_code"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="products">
+            <column name="external_code" type="varchar(255)" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add external column external_code to job type" author="Nikolay">
+        <preConditions>
+            <not>
+                <columnExists tableName="job_type" columnName="external_code"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="job_type">
+            <column name="external_code" type="varchar(255)" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add external column external_code to job subtype" author="Nikolay">
+        <preConditions>
+            <not>
+                <columnExists tableName="job_subtype" columnName="external_code"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="job_subtype">
+            <column name="external_code" type="varchar(255)" />
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

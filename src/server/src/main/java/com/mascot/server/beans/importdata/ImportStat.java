@@ -18,7 +18,7 @@ public class ImportStat {
 
     private int newCostCount;
     private int changedCostCount;
-    private int deletedCostCount;
+    private int removedCostCount;
 
     public int getNewProductCount() {
         return newProductCount;
@@ -108,11 +108,11 @@ public class ImportStat {
         this.changedCostCount = changedCostCount;
     }
 
-    public int getDeletedCostCount() {
-        return deletedCostCount;
+    public int getRemovedCostCount() {
+        return removedCostCount;
     }
 
-    public void setDeletedCostCount(int deletedCostCount) {
-        this.deletedCostCount = deletedCostCount;
+    public void setRemovedCostCount(int removedCostCount) {
+        this.removedCostCount = removedCostCount;
     }
 }

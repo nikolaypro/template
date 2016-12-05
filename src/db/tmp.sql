@@ -16,3 +16,25 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 
+
+INSERT INTO [dbo].[_Reference6995]
+           ([_IDRRef]
+           ,[_Marked]
+           ,[_IsMetadata]
+           ,[_ParentIDRRef]
+           ,[_Folder]
+           ,[_Code]
+           ,[_Description]
+           ,[_Fld8687]
+           ,[_Fld8698])
+     VALUES
+           (0x81F3705AB67B77C011DFFBDAF3E67235
+           ,0x00
+           ,0x00
+           ,0x876E00195BFE421211DF627D295C40B0
+           ,0x01
+           ,'000000052'
+           ,'Крой К/П'
+           ,2
+           ,1)
+

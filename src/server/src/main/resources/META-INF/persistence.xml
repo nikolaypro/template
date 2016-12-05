@@ -32,7 +32,7 @@
 
     <persistence-unit name="templateMSPersistenceUnit" transaction-type="RESOURCE_LOCAL" >
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <!--<class>com.mascot.server.model.importdata.TmpBean</class>-->
+        <!--<class>com.mascot.server.model.importdata.OneCJobSubType</class>-->
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="validate"/>
@@ -50,7 +50,9 @@
             <property name="hibernate.cache.use_second_level_cache" value="false"/>
             <property name="hibernate.cache.use_query_cache" value="false"/>
             <property name="hibernate.cache.region.jbc2.query.localonly" value="true"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2008Dialect" />
+            <property name="hibernate.use_nationalized_character_data" value="true"/>
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2008Dialect" />-->
+            <!--<property name="hibernate.dialect" value="com.mascot.common.MascotSqlServerDialect" />-->
         </properties>
     </persistence-unit>
 
