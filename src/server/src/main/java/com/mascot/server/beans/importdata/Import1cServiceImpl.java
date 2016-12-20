@@ -186,6 +186,7 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
     @Override
     public ImportStat doImport() {
         final ImportCheckData importCheckData = checkImport();
+        clearDatabase();
         importCheckData.getNewProducts().forEach(em::persist);
         importCheckData.getNewJobTypes().forEach(em::persist);
         importCheckData.getNewJobSubTypes().forEach(em::persist);
@@ -196,12 +197,11 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
         importCheckData.getChangedJobSubTypes().forEach(em::merge);
         importCheckData.getChangedCosts().forEach(em::merge);
 
-        importCheckData.getRemovedProducts().forEach(em::remove);
-        importCheckData.getRemovedJobTypes().forEach(em::remove);
-        importCheckData.getRemovedJobSubTypes().forEach(em::remove);
-        importCheckData.getRemovedCosts().forEach(em::remove);
+        importCheckData.getRemovedProducts().forEach(e -> {e.setDeleted(true);em.merge(e);});
+        importCheckData.getRemovedJobTypes().forEach(e -> {e.setDeleted(true);em.merge(e);});
+        importCheckData.getRemovedJobSubTypes().forEach(e -> {e.setDeleted(true);em.merge(e);});
+        importCheckData.getRemovedCosts().forEach(e -> {e.setDeleted(true);em.merge(e);});
 
-        clearDatabase();
 
         ImportStat importStat = new ImportStat();
 
@@ -223,6 +223,7 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
     }
 
     private void clearDatabase() {
+        em.createQuery("delete from Job").executeUpdate();
         em.createQuery("delete from JobSubTypeCost").executeUpdate();
         em.createQuery("delete from Product").executeUpdate();
         em.createQuery("delete from JobSubType").executeUpdate();
