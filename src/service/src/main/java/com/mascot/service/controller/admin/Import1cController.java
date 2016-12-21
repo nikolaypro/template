@@ -46,6 +46,7 @@ public class Import1cController extends AbstractController {
         result.append("New job types: ").append(importStat.getNewJobTypeCount()).append("\n");
         result.append("New job sub types: ").append(importStat.getNewJobSubTypeCount()).append("\n");
         result.append("New costs: ").append(importStat.getNewCostCount()).append("\n");
+        logger.info(result.toString());
         return Collections.singletonList(result.toString());
     }
 
@@ -53,22 +54,22 @@ public class Import1cController extends AbstractController {
         StringBuilder builder = new StringBuilder();
         if (importCheckData.getNewProducts() != null && !importCheckData.getNewProducts().isEmpty()) {
             builder.append("New Products\n");
-            importCheckData.getNewProducts().forEach(e -> builder.append("\t").append(buildLog(e)));
+            importCheckData.getNewProducts().forEach(e -> builder.append("\t").append(buildLog(e)).append("\n"));
             builder.append("\n");
         }
         if (importCheckData.getNewJobTypes() != null && !importCheckData.getNewJobTypes().isEmpty()) {
             builder.append("New Job Types\n");
-            importCheckData.getNewJobTypes().forEach(e -> builder.append("\t").append(buildLog(e)));
+            importCheckData.getNewJobTypes().forEach(e -> builder.append("\t").append(buildLog(e)).append("\n"));
             builder.append("\n");
         }
         if (importCheckData.getNewJobSubTypes() != null && !importCheckData.getNewJobSubTypes().isEmpty()) {
             builder.append("New Job Sub Types\n");
-            importCheckData.getNewJobSubTypes().forEach(e -> builder.append("\t").append(buildLog(e)));
+            importCheckData.getNewJobSubTypes().forEach(e -> builder.append("\t").append(buildLog(e)).append("\n"));
             builder.append("\n");
         }
         if (importCheckData.getNewCosts() != null && !importCheckData.getNewCosts().isEmpty()) {
             builder.append("New Costs\n");
-            importCheckData.getNewCosts().forEach(e -> builder.append("\t").append(buildLog(e)));
+            importCheckData.getNewCosts().forEach(e -> builder.append("\t").append(buildLog(e)).append("\n"));
             builder.append("\n");
         }
         return builder.toString();

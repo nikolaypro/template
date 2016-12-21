@@ -12,18 +12,18 @@ import java.util.List;
  * Created by Николай on 02.12.2016.
  */
 public class ImportCheckData {
-    private List<Product> newProducts;
-    private List<Product> changedProducts;
-    private List<Product> removedProducts;
-    private List<JobType> newJobTypes;
-    private List<JobType> changedJobTypes;
-    private List<JobType> removedJobTypes;
-    private List<JobSubType> newJobSubTypes;
-    private List<JobSubType> changedJobSubTypes;
-    private List<JobSubType> removedJobSubTypes;
-    private List<JobSubTypeCost> newCosts;
-    private List<JobSubTypeCost> changedCosts;
-    private List<JobSubTypeCost> removedCosts;
+    private List<Product> newProducts = new ArrayList<>();
+    private List<Product> changedProducts = new ArrayList<>();
+    private List<Product> removedProducts = new ArrayList<>();
+    private List<JobType> newJobTypes = new ArrayList<>();
+    private List<JobType> changedJobTypes = new ArrayList<>();
+    private List<JobType> removedJobTypes = new ArrayList<>();
+    private List<JobSubType> newJobSubTypes = new ArrayList<>();
+    private List<JobSubType> changedJobSubTypes = new ArrayList<>();
+    private List<JobSubType> removedJobSubTypes = new ArrayList<>();
+    private List<JobSubTypeCost> newCosts = new ArrayList<>();
+    private List<JobSubTypeCost> changedCosts = new ArrayList<>();
+    private List<JobSubTypeCost> removedCosts = new ArrayList<>();
 
     public List<Product> getNewProducts() {
         return newProducts;

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -61,8 +62,8 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
                 "         convert(varchar(max), jobType._IDRRef, 2) as jobType_id, jobType._Code as jobTypeCode, jobType._Description jobType, " +
                 "         convert(varchar(max), jobSubType._IDRRef, 2) as jobSubType_id, jobSubType._Code as jobSubTypeCode, jobSubType._Description jobSubType " +
                 "         FROM _Reference6995 jobSubType " +
-                "         INNER JOIN _Reference6995 jobType ON jobType._IDRRef = jobSubType._ParentIDRRef " +
-                "         order by jobType._IDRRef").getResultList();
+                "         INNER JOIN _Reference6995 jobType ON jobType._IDRRef = jobSubType._ParentIDRRef "
+                /*"         order by jobType._IDRRef"*/).getResultList();
 
         for (Object[] objects : resultList) {
             String jobTypeId = (String) objects[0];
@@ -110,7 +111,7 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
             String jobSubTypeId = (String) objects[3];
             String jobSubTypeCode = (String) objects[4];
             String jobSubTypeDescription = (String) objects[5];
-            Double cost = (Double) objects[6];
+            BigDecimal cost = (BigDecimal) objects[6];
 
             Product product = productsMap.get(productId);
             if (product == null) {
@@ -134,11 +135,11 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
             costsMap.put(costKey, jobSubTypeCost = new JobSubTypeCost());
             jobSubTypeCost.setProduct(product);
             jobSubTypeCost.setJobSubType(jobSubType);
-            jobSubTypeCost.setCost(cost);
+            jobSubTypeCost.setCost(cost.doubleValue());
         }
 
         final List<JobType> newJobTypes = new ArrayList<>(jobTypesMap.values());
-        Collections.sort(newJobTypes, (e1, e2) -> e1.getExternalCode().compareTo(e2.getExternalCode()));
+        newJobTypes.sort((e1, e2) -> e1.getExternalCode().compareTo(e2.getExternalCode()));
         int order = 0;
         for (JobType newJobType : newJobTypes) {
             newJobType.setOrder(order++);

@@ -22,6 +22,8 @@ import java.util.Map;
 @Transactional(propagation = Propagation.REQUIRED)
 public class JobServiceImpl extends AbstractMascotService implements JobService {
     private static final String COMPLETE_DATE_FILTER_NAME = "completeDate";
+    public static final String SHOW_TAIL_PARAM_NAME = "showTail";
+
     @Override
     public BeanTableResult<Job> getList(int start, int count, Map<String, String> orderBy, Map<String, String> filter) {
         final long startMethod = System.currentTimeMillis();
@@ -45,6 +47,7 @@ public class JobServiceImpl extends AbstractMascotService implements JobService 
 
                 where = " where " + where;
             }
+            filter.remove(SHOW_TAIL_PARAM_NAME);
             return getResult("select distinct e from Job e " +
                             "left join fetch e.jobType jst " +
                             "left join fetch e.product" + where,
@@ -64,10 +67,8 @@ public class JobServiceImpl extends AbstractMascotService implements JobService 
     }
 
     private boolean isShowTail(Map<String, String> filter) {
-        final String showTailParamName = "showTail";
-        if (filter != null && filter.containsKey(showTailParamName)) {
-            String showTailStr = filter.get(showTailParamName);
-            filter.remove(showTailParamName);
+        if (filter != null && filter.containsKey(SHOW_TAIL_PARAM_NAME)) {
+            String showTailStr = filter.get(SHOW_TAIL_PARAM_NAME);
             return Boolean.parseBoolean(showTailStr);
         }
         return false;
