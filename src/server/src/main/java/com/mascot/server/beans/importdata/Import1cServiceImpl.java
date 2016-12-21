@@ -5,6 +5,7 @@ import com.mascot.server.model.JobSubType;
 import com.mascot.server.model.JobSubTypeCost;
 import com.mascot.server.model.JobType;
 import com.mascot.server.model.Product;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,12 +19,24 @@ import java.util.*;
  * Created by Николай on 02.12.2016.
  */
 @Service(Import1cService.NAME)
+@Scope("singleton")
 @Transactional(propagation = Propagation.REQUIRED)
 public class Import1cServiceImpl extends AbstractMascotService implements Import1cService {
     @PersistenceContext(unitName = "templateMSPersistenceUnit")
     protected EntityManager msSqlEm;
+
+    private ImportProgress progress;
+
+    private int checkDataMaxPercent;
+
     @Override
     public ImportCheckData checkImport() {
+        progress = new ImportProgress();
+        checkDataMaxPercent = 100;
+        return doCheckData();
+    }
+
+    private ImportCheckData doCheckData() {
 
         /*
 
@@ -58,6 +71,8 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
         Map<String, JobSubType> jobSubTypesMap = new HashMap<>();
         Map<String, JobSubTypeCost> costsMap = new HashMap<>();
 
+        progress.setStage("Load job types and job subtypes");
+        progress.setPercent(1);
         List<Object[]> resultList = msSqlEm.createNativeQuery("select distinct " +
                 "         convert(varchar(max), jobType._IDRRef, 2) as jobType_id, jobType._Code as jobTypeCode, jobType._Description jobType, " +
                 "         convert(varchar(max), jobSubType._IDRRef, 2) as jobSubType_id, jobSubType._Code as jobSubTypeCode, jobSubType._Description jobSubType " +
@@ -65,6 +80,7 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
                 "         INNER JOIN _Reference6995 jobType ON jobType._IDRRef = jobSubType._ParentIDRRef "
                 /*"         order by jobType._IDRRef"*/).getResultList();
 
+        progress.setPercent(25 * checkDataMaxPercent / 100);
         for (Object[] objects : resultList) {
             String jobTypeId = (String) objects[0];
             String jobTypeCode = (String) objects[1];
@@ -93,7 +109,9 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
             subType.setJobType(jobType);
             jobType.getJobSubTypes().add(subType);
         }
+        progress.setPercent(30 * checkDataMaxPercent / 100);
 
+        progress.setStage("Load products and job costs");
         resultList = msSqlEm.createNativeQuery("SELECT distinct " +
                 "         convert(varchar(max), product._IDRRef, 2) as product_id, product._Code as productCode, product._Description as product," +
                 "         convert(varchar(max), subType._IDRRef, 2) as subType_id,  subType._Code as subTypeCode, subType._Description as subType," +
@@ -102,6 +120,7 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
                 "         INNER JOIN _Reference46 product ON cost._Fld7003RRef = product._IDRRef" +
                 "         INNER JOIN _Reference6995 subType ON cost._Reference6995_IDRRef = subType._IDRRef").getResultList();
 
+        progress.setPercent(60 * checkDataMaxPercent / 100);
 
         for (Object[] objects : resultList) {
             String productId = (String) objects[0];
@@ -150,6 +169,9 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
         data.setNewJobTypes(newJobTypes);
         data.setNewJobSubTypes(new ArrayList<>(jobSubTypesMap.values()));
         data.setNewCosts(new ArrayList<>(costsMap.values()));
+
+        progress.setPercent(100 * checkDataMaxPercent / 100);
+
         return data;
 
 /*
@@ -186,22 +208,56 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
 
     @Override
     public ImportStat doImport() {
-        final ImportCheckData importCheckData = checkImport();
+        progress = new ImportProgress();
+        checkDataMaxPercent = 50;
+        final ImportCheckData importCheckData = doCheckData();
+
+        progress.setStage("Clear database");
         clearDatabase();
+        int allCount = getAllCount(importCheckData);
+
+
+        progress.set("New product process", 60);
         importCheckData.getNewProducts().forEach(em::persist);
+        final int rem = 100 - progress.getPercent();
+        progress.inc("New job types process", rem * importCheckData.getNewProducts().size() / allCount);
         importCheckData.getNewJobTypes().forEach(em::persist);
+        progress.inc("New job sub types process", rem * importCheckData.getNewJobTypes().size() / allCount);
         importCheckData.getNewJobSubTypes().forEach(em::persist);
+        progress.inc("New costs process", rem * importCheckData.getNewJobSubTypes().size() / allCount);
         importCheckData.getNewCosts().forEach(em::persist);
 
+        progress.inc("Changed products process", rem * importCheckData.getNewCosts().size() / allCount);
         importCheckData.getChangedProducts().forEach(em::merge);
+        progress.inc("Changed job type process", rem * importCheckData.getChangedProducts().size() / allCount);
         importCheckData.getChangedJobTypes().forEach(em::merge);
+        progress.inc("Changed job sub type process", rem * importCheckData.getChangedJobTypes().size() / allCount);
         importCheckData.getChangedJobSubTypes().forEach(em::merge);
+        progress.inc("Changed costs process", rem * importCheckData.getChangedJobSubTypes().size() / allCount);
         importCheckData.getChangedCosts().forEach(em::merge);
 
-        importCheckData.getRemovedProducts().forEach(e -> {e.setDeleted(true);em.merge(e);});
-        importCheckData.getRemovedJobTypes().forEach(e -> {e.setDeleted(true);em.merge(e);});
-        importCheckData.getRemovedJobSubTypes().forEach(e -> {e.setDeleted(true);em.merge(e);});
-        importCheckData.getRemovedCosts().forEach(e -> {e.setDeleted(true);em.merge(e);});
+        progress.inc("Removed products process", rem * importCheckData.getChangedCosts().size() / allCount);
+        importCheckData.getRemovedProducts().forEach(e -> {
+            e.setDeleted(true);
+            em.merge(e);
+        });
+        progress.inc("Removed job types process", rem * importCheckData.getRemovedProducts().size() / allCount);
+        importCheckData.getRemovedJobTypes().forEach(e -> {
+            e.setDeleted(true);
+            em.merge(e);
+        });
+        progress.inc("Removed job sub types process", rem * importCheckData.getRemovedJobTypes().size() / allCount);
+        importCheckData.getRemovedJobSubTypes().forEach(e -> {
+            e.setDeleted(true);
+            em.merge(e);
+        });
+        progress.inc("Removed costs process", rem * importCheckData.getRemovedJobSubTypes().size() / allCount);
+        importCheckData.getRemovedCosts().forEach(e -> {
+            e.setDeleted(true);
+            em.merge(e);
+        });
+
+        progress.setPercent(100);
 
 
         ImportStat importStat = new ImportStat();
@@ -223,6 +279,23 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
         return importStat;
     }
 
+    private int getAllCount(ImportCheckData importCheckData) {
+        return importCheckData.getNewProducts().size() +
+        importCheckData.getNewJobTypes().size() +
+        importCheckData.getNewJobSubTypes().size() +
+        importCheckData.getNewCosts().size() +
+
+        importCheckData.getChangedProducts().size() +
+        importCheckData.getChangedJobTypes().size() +
+        importCheckData.getChangedJobSubTypes().size() +
+        importCheckData.getChangedCosts().size() +
+
+        importCheckData.getRemovedProducts().size() +
+        importCheckData.getRemovedJobTypes().size() +
+        importCheckData.getRemovedJobSubTypes().size() +
+        importCheckData.getRemovedCosts().size();
+    }
+
     private void clearDatabase() {
         em.createQuery("delete from Job").executeUpdate();
         em.createQuery("delete from JobSubTypeCost").executeUpdate();
@@ -237,6 +310,6 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
 
     @Override
     public ImportProgress getProgress() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return progress;
     }
 }

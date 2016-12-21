@@ -22,4 +22,14 @@ public class ImportProgress {
     public void setPercent(int percent) {
         this.percent = percent;
     }
+
+    public void set(String stage, int percent) {
+        this.stage = stage;
+        this.percent = percent;
+    }
+
+    public void inc(String stage, int percent) {
+        this.stage = stage;
+        this.percent += percent;
+    }
 }
