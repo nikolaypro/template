@@ -14,7 +14,7 @@
         params.loadFromServerForEdit = true;
         params.defaultSort = {name: 'asc'};
         params.defaultFilter = {};
-        vm.loadFilterJobTypeNames = ["name1", "name2"];
+//        vm.loadFilterJobTypeNames = ["name1", "name2"];
 //        var filterJobTypeNames = null;
         vm.loadFilterJobTypeNames = function() {
 //            if (filterJobTypeNames == null) {

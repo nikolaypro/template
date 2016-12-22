@@ -23,6 +23,7 @@
                 page: params.page(),
                 count: params.count(),
                 orderBy: params.sorting(),
+                filter: params.filter(),
                 isOrderAsc: true
             };
 

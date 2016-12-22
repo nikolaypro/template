@@ -48,7 +48,7 @@ public class JobSubTypeCostController extends AbstractController {
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     public TableResult<JobSubTypeCostRecord> getList(@RequestBody TableParams params) {
-        final BeanTableResult<JobSubTypeCost> beanTableResult = jobSubTypeCostService.getList(params.getStartIndex(), params.count, params.orderBy);
+        final BeanTableResult<JobSubTypeCost> beanTableResult = jobSubTypeCostService.getList(params.getStartIndex(), params.count, params.orderBy, params.filter);
         final Collection<JobSubTypeCost> list = beanTableResult.getRows();
         final int totalCount = beanTableResult.getCount();
 

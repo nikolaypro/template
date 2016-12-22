@@ -20,12 +20,12 @@ import java.util.Map;
 @Transactional(propagation = Propagation.REQUIRED)
 public class JobSubTypeCostServiceImpl extends AbstractMascotService implements JobSubTypeCostService {
     @Override
-    public BeanTableResult<JobSubTypeCost> getList(int start, int count, Map<String, String> orderBy) {
+    public BeanTableResult<JobSubTypeCost> getList(int start, int count, Map<String, String> orderBy, Map<String, String> filter) {
         return getResult("select distinct e from JobSubTypeCost e " +
                         "left join fetch e.jobSubType jst " +
                         "left join fetch jst.jobType " +
                         "left join fetch e.product",
-                "select count(distinct e) from JobSubTypeCost e", start, count, orderBy, new HashMap<>(), new HashMap<>(), true);
+                "select count(distinct e) from JobSubTypeCost e", start, count, orderBy, new HashMap<>(), filter, true);
     }
 
     @Override
