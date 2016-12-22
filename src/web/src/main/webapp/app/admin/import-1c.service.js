@@ -10,6 +10,7 @@
         var service = {};
         service.checkImport = checkImport;
         service.doImport = doImport;
+        service.getProgress = getProgress;
         return service;
 
         function checkImport(handleSuccess) {
@@ -18,6 +19,10 @@
 
         function doImport(handleSuccess) {
             return $http.post(UrlService.url('api/import-1c/do-import')).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+        }
+
+        function getProgress(handleSuccess) {
+            return $http.post(UrlService.url('api/import-1c/progress')).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
     }
 

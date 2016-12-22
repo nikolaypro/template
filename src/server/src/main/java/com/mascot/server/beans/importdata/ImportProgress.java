@@ -4,32 +4,32 @@ package com.mascot.server.beans.importdata;
  * Created by Николай on 02.12.2016.
  */
 public class ImportProgress {
-    private String stage;
+    private String state;
     private int percent;
 
-    public String getStage() {
-        return stage;
+    public String getState() {
+        return state;
     }
 
-    public void setStage(String stage) {
-        this.stage = stage;
+    void setState(String state) {
+        this.state = state;
     }
 
     public int getPercent() {
         return percent;
     }
 
-    public void setPercent(int percent) {
+    void setPercent(int percent) {
         this.percent = percent;
     }
 
-    public void set(String stage, int percent) {
-        this.stage = stage;
+    public void set(String state, int percent) {
+        this.state = state;
         this.percent = percent;
     }
 
-    public void inc(String stage, int percent) {
-        this.stage = stage;
+    void inc(String state, int percent) {
+        this.state = state;
         this.percent += percent;
     }
 }

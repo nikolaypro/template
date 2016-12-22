@@ -1,7 +1,13 @@
-<div>
+<div>State: {{vm.importState}}</div>
+<div class="row">
+    <div class="col-sm-4">
+        <uib-progressbar class="progress-striped" value="vm.importPercent">{{vm.importPercent}}</uib-progressbar>
+    </div>
+</div>
+<div class="row">
     <button ng-click="vm.checkImport()"> Check import </button>
 </div>
-<div ng-show="vm.showImport">
+    <div ng-show="vm.showImport">
     <label> Click Ok if do import process</label>
     <button ng-click="vm.doImport()"> Ok </button>
 </div>

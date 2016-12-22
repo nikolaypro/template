@@ -71,7 +71,7 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
         Map<String, JobSubType> jobSubTypesMap = new HashMap<>();
         Map<String, JobSubTypeCost> costsMap = new HashMap<>();
 
-        progress.setStage("Load job types and job subtypes");
+        progress.setState("Load job types and job subtypes");
         progress.setPercent(1);
         List<Object[]> resultList = msSqlEm.createNativeQuery("select distinct " +
                 "         convert(varchar(max), jobType._IDRRef, 2) as jobType_id, jobType._Code as jobTypeCode, jobType._Description jobType, " +
@@ -80,6 +80,7 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
                 "         INNER JOIN _Reference6995 jobType ON jobType._IDRRef = jobSubType._ParentIDRRef "
                 /*"         order by jobType._IDRRef"*/).getResultList();
 
+        doSleep(2);
         progress.setPercent(25 * checkDataMaxPercent / 100);
         for (Object[] objects : resultList) {
             String jobTypeId = (String) objects[0];
@@ -109,9 +110,9 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
             subType.setJobType(jobType);
             jobType.getJobSubTypes().add(subType);
         }
-        progress.setPercent(30 * checkDataMaxPercent / 100);
+        doSleep(2);
+        progress.set("Load products and job costs", 30 * checkDataMaxPercent / 100);
 
-        progress.setStage("Load products and job costs");
         resultList = msSqlEm.createNativeQuery("SELECT distinct " +
                 "         convert(varchar(max), product._IDRRef, 2) as product_id, product._Code as productCode, product._Description as product," +
                 "         convert(varchar(max), subType._IDRRef, 2) as subType_id,  subType._Code as subTypeCode, subType._Description as subType," +
@@ -121,6 +122,7 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
                 "         INNER JOIN _Reference6995 subType ON cost._Reference6995_IDRRef = subType._IDRRef").getResultList();
 
         progress.setPercent(60 * checkDataMaxPercent / 100);
+        doSleep(2);
 
         for (Object[] objects : resultList) {
             String productId = (String) objects[0];
@@ -170,6 +172,7 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
         data.setNewJobSubTypes(new ArrayList<>(jobSubTypesMap.values()));
         data.setNewCosts(new ArrayList<>(costsMap.values()));
 
+        doSleep(2);
         progress.setPercent(100 * checkDataMaxPercent / 100);
 
         return data;
@@ -206,13 +209,21 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
          */
     }
 
+    private void doSleep(int i) {
+        try {
+            Thread.sleep(i * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public ImportStat doImport() {
         progress = new ImportProgress();
         checkDataMaxPercent = 50;
         final ImportCheckData importCheckData = doCheckData();
 
-        progress.setStage("Clear database");
+        progress.setState("Clear database");
         clearDatabase();
         int allCount = getAllCount(importCheckData);
 

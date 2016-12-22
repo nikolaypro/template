@@ -2,6 +2,7 @@ package com.mascot.service.controller.admin;
 
 import com.mascot.server.beans.importdata.Import1cService;
 import com.mascot.server.beans.importdata.ImportCheckData;
+import com.mascot.server.beans.importdata.ImportProgress;
 import com.mascot.server.beans.importdata.ImportStat;
 import com.mascot.server.model.*;
 import com.mascot.service.controller.AbstractController;
@@ -48,6 +49,14 @@ public class Import1cController extends AbstractController {
         result.append("New costs: ").append(importStat.getNewCostCount()).append("\n");
         logger.info(result.toString());
         return Collections.singletonList(result.toString());
+    }
+
+    @RequestMapping(value = "/progress", method = RequestMethod.POST)
+    @ResponseBody
+    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    public ImportProgressRecord getProgress() {
+        ImportProgress progress = import1cService.getProgress();
+        return progress != null ? ImportProgressRecord.build(progress) : null;
     }
 
     private String buildLog(ImportCheckData importCheckData) {
