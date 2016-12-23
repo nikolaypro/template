@@ -210,11 +210,13 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
     }
 
     private void doSleep(int i) {
+/*
         try {
             Thread.sleep(i * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+*/
     }
 
     @Override

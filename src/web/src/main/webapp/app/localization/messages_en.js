@@ -145,7 +145,7 @@
             'job-subtype-cost.table.column.job-type' : 'Job type',
             'job-subtype-cost.table.column.job-subtype' : 'Job sub type',
             'job-subtype-cost.table.column.product': 'Product',
-            'job-subtype-cost.table.column.cost': 'Cost',
+            'job-subtype-cost.table.column.cost': 'Cost ($)',
             'job-subtype-cost.table.delete.confirm' : 'Do you want to delete job type cost?',
             'job-subtype-cost.table.delete.confirm.many' : 'Do you want to delete {0} job type costs?',
 

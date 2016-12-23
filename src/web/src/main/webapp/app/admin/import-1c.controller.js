@@ -19,7 +19,7 @@
                     vm.importState = data.state;
                     vm.importPercent = data.percent;
                 });
-            }, 1000);
+            }, 500);
         };
 
         $scope.stopProgressTimer = function() {

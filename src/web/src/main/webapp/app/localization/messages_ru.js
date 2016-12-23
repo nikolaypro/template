@@ -146,7 +146,7 @@
             'job-subtype-cost.table.column.job-type' : 'Вид работы',
             'job-subtype-cost.table.column.job-subtype' : 'Подвид работы',
             'job-subtype-cost.table.column.product': 'Изделие',
-            'job-subtype-cost.table.column.cost': 'Стоимость',
+            'job-subtype-cost.table.column.cost': 'Стоимость (руб)',
             'job-subtype-cost.table.delete.confirm' : 'Удалить стоимость работы?',
             'job-subtype-cost.table.delete.confirm.many' : 'Удалить стоимости работ (количество: {0})?',
 
