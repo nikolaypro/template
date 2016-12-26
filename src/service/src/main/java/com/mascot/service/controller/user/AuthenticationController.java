@@ -14,6 +14,7 @@ import com.mascot.service.controller.WebError;
 import com.mascot.service.controller.common.ResultRecord;
 import com.mascot.service.controller.common.TableParams;
 import com.mascot.service.controller.common.TableResult;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,6 +38,9 @@ import java.util.stream.Stream;
 public class AuthenticationController extends AbstractController {
     @Inject
     private UserService userService;
+
+    @Value("${properties.value}")
+    private String propertiesValue;
 
     @RequestMapping(path = "/authenticate", method = RequestMethod.POST)
     @ResponseBody
