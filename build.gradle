@@ -23,6 +23,7 @@ def webProject = project(':web')
 def reportProject = project(':report')
 def tomcatPath = 'tomcat'
 def tomcatWebApp = tomcatPath + '/webapps'
+def releaseTmpDir = 'build/release'
 def tomcatConf = tomcatPath + '/conf'
 def tomcatReportsDir = tomcatConf + '/reports'
 def warFileName = 'template'
@@ -149,6 +150,56 @@ task copyReports(type: Copy, dependsOn: [cleanTomcatReportsDir]) {
 task createAndCopyWar(type: Copy, dependsOn: [serviceProject.build, webProject.build, cleanTomcatDeployDir, copyReports]) {
     from 'src/service/build/libs/' + warFileName + '.war', 'src/web/build/libs/' + webWarFileName + '.war'
     into tomcatWebApp
+}
+
+task cleanReleaseDir(type: org.gradle.api.tasks.Delete) {
+    delete releaseTmpDir
+}
+
+task releasePrepareWar(type: Copy, dependsOn: [/*serviceProject.build, webProject.build, */]) {
+    from 'src/service/build/libs/' + warFileName + '.war',
+         'src/web/build/libs/' + webWarFileName + '.war'
+    into releaseTmpDir
+}
+
+task releasePrepareDb(type: Copy, dependsOn: [/*serviceProject.build, webProject.build, */]) {
+    from 'src/db'
+    into releaseTmpDir + '/db'
+    exclude 'liquibase.properties'
+}
+
+task releasePrepareTomcat(type: Copy, dependsOn: [/*serviceProject.build, webProject.build, */]) {
+    from 'src/tomcat-conf'
+    into releaseTmpDir + '/tomcat'
+}
+
+task release(type: Zip, dependsOn: [/*serviceProject.build, webProject.build, */cleanReleaseDir,
+                                    releasePrepareWar, releasePrepareDb, releasePrepareTomcat]) {
+    archivesBaseName = 'furniture'
+    destinationDir = new File('releases')
+    from releaseTmpDir
+    into 'release'
+}
+
+task buildAndRelease(type: Zip, dependsOn: [serviceProject.build, webProject.build, release]) {
+    archivesBaseName = 'furniture'
+    destinationDir = new File('releases')
+    from releaseTmpDir
+    into 'release'
+}
+
+release.shouldRunAfter serviceProject.build
+release.shouldRunAfter webProject.build
+
+gradle.taskGraph.whenReady {taskGraph ->
+    if (taskGraph.hasTask(release)) {
+        String fileContents = new File('src/server/src/main/resources/META-INF/build.version').getText('UTF-8')
+        def formattedDate = new Date().format('yyyyMMddHHmmss')
+        version = fileContents + '_' + formattedDate
+        println 'RELEASE VERSION: "' + version + '"'
+    } /*else {
+        version = '1.0-SNAPSHOT'
+    }*/
 }
 
 // Combine JS files
