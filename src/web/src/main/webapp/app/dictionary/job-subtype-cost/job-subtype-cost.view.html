@@ -33,7 +33,7 @@
                 sortable="'jobSubType.jobType.name'">{{row.jobSubType.jobType.name}}
             </td>
             <td class="td_50px" data-title="'job-subtype-cost.table.column.cost' | i18n" sortable="'cost'">
-                {{row.cost}}
+                {{row.cost | number : 2}}
             </td>
         </tr>
     </table>
