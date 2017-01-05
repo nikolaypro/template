@@ -91,13 +91,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.
                 authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/authenticate1").permitAll()
+//                .antMatchers(HttpMethod.POST, "/api/autoLogin").permitAll()
 //                    .antMatchers(HttpMethod.POST, "/api/users").permitAll()
 //                    .antMatchers(HttpMethod.GET, "/api/users/*").permitAll()
                 .and()
 // -- CSRF configuration
-//                .csrf().disable()
-                .csrf().ignoringAntMatchers("/api/authenticate", "/logout").and()
+                .csrf().disable()// отключил, так как есть проблема, что после логина при попытке перехода на какую-нибудь страницу опять выбрасывает на логин, так как не проходит валидация по CSRF
+                .csrf().ignoringAntMatchers("/api/authenticate", "/logout", "/api/autoLogin").and()
                 .csrf().csrfTokenRepository(csrfTokenRepository())
                 .and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
@@ -105,10 +106,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
 // -- Logout configuration
-                .logout().
-                logoutUrl("/logout").
-                logoutSuccessUrl("/").
-                addLogoutHandler(createLogoutHandler());
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .addLogoutHandler(createLogoutHandler());
 // -- End logout configuration
 
 /*

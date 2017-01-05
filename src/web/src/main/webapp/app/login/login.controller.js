@@ -9,18 +9,43 @@
     function LoginController($location, AuthenticationService, FlashService, $rootScope) {
         var vm = this;
 
+        var logoutProcess = false;
+        var autoLoginProcess = false;
+
+        var updateDataLoading = function() {
+            vm.dataLoading = logoutProcess || autoLoginProcess;
+        };
+
+        // --- ONLY FOR GURGEN ----
+        // ------------------------
+
+
         vm.login = login;
 
         (function initController() {
             // reset login status
             if ($rootScope.globals && $rootScope.globals.currentUser) {
-                vm.dataLoading = true;
+                logoutProcess = true;
+                updateDataLoading();
                 AuthenticationService.Logout(function (success) {
                     AuthenticationService.ClearCredentials();
-                    vm.dataLoading = false;
+                    logoutProcess = false;
+                    updateDataLoading();
                 });
             }
         })();
+
+        autoLoginProcess = true;
+        updateDataLoading();
+        AuthenticationService.AutoLogin(function(response) {
+            if (response.enabled) {
+                vm.username = response.login;
+                vm.password = response.password;
+                login();
+            }
+            autoLoginProcess = false;
+            updateDataLoading();
+        });
 
         function login() {
             vm.dataLoading = true;

@@ -39,8 +39,11 @@ public class AuthenticationController extends AbstractController {
     @Inject
     private UserService userService;
 
-    @Value("${properties.value}")
-    private String propertiesValue;
+    @Value("${autoLogin.login}")
+    private String autoLogin;
+
+    @Value("${autoLogin.password}")
+    private String autoPassword;
 
     @RequestMapping(path = "/authenticate", method = RequestMethod.POST)
     @ResponseBody
@@ -59,6 +62,12 @@ public class AuthenticationController extends AbstractController {
         logger.info("Successfully login: username = " + user.getLogin() +
                 ", roles: [" + StringUtils.collectionToCommaDelimitedString(entityUser.getRoles()) + "]");
         return LoginUserRecord.build(entityUser, ServerUtils.getAppVersion());
+    }
+
+    @RequestMapping(path = "/autoLogin", method = RequestMethod.POST)
+    @ResponseBody
+    public AutoLoginRecord getAutoLogin() {
+        return new AutoLoginRecord(autoLogin, autoPassword);
     }
 
     private RuntimeException createInvalidUserNameException(User user) {

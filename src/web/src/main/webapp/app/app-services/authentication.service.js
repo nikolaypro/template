@@ -13,6 +13,7 @@
         service.Logout = Logout;
         service.SetCredentials = SetCredentials;
         service.ClearCredentials = ClearCredentials;
+        service.AutoLogin = AutoLogin;
 
         return service;
 
@@ -86,6 +87,16 @@
                 })
                 .error(function (data, status, headers, config) {
                     callback(false)
+                });
+        }
+
+        function AutoLogin(callback) {
+            $http.post(UrlService.url('api/autoLogin'), {})
+                .success(function (response) {
+                    callback(response)
+                })
+                .error(function (data, status, headers, config) {
+                    callback({enabled: false})
                 });
         }
 
