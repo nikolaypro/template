@@ -152,29 +152,29 @@ task createAndCopyWar(type: Copy, dependsOn: [serviceProject.build, webProject.b
     into tomcatWebApp
 }
 
+//  ------------------ RELEASE ----------------------
 task cleanReleaseDir(type: org.gradle.api.tasks.Delete) {
     delete releaseTmpDir
 }
 
-task releasePrepareWar(type: Copy, dependsOn: [/*serviceProject.build, webProject.build, */]) {
+task releasePrepareWar(type: Copy) {
     from 'src/service/build/libs/' + warFileName + '.war',
          'src/web/build/libs/' + webWarFileName + '.war'
     into releaseTmpDir
 }
 
-task releasePrepareDb(type: Copy, dependsOn: [/*serviceProject.build, webProject.build, */]) {
+task releasePrepareDb(type: Copy) {
     from 'src/db'
     into releaseTmpDir + '/db'
     exclude 'liquibase.properties'
 }
 
-task releasePrepareTomcat(type: Copy, dependsOn: [/*serviceProject.build, webProject.build, */]) {
+task releasePrepareTomcat(type: Copy) {
     from 'src/tomcat-conf'
     into releaseTmpDir + '/tomcat'
 }
 
-task release(type: Zip, dependsOn: [/*serviceProject.build, webProject.build, */cleanReleaseDir,
-                                    releasePrepareWar, releasePrepareDb, releasePrepareTomcat]) {
+task release(type: Zip, dependsOn: [cleanReleaseDir, releasePrepareWar, releasePrepareDb, releasePrepareTomcat]) {
     archivesBaseName = 'furniture'
     destinationDir = new File('releases')
     from releaseTmpDir
@@ -182,6 +182,7 @@ task release(type: Zip, dependsOn: [/*serviceProject.build, webProject.build, */
 }
 
 task buildAndRelease(type: Zip, dependsOn: [serviceProject.build, webProject.build, release]) {
+    group = "build"
     archivesBaseName = 'furniture'
     destinationDir = new File('releases')
     from releaseTmpDir
