@@ -16,10 +16,6 @@
             vm.dataLoading = logoutProcess || autoLoginProcess;
         };
 
-        // --- ONLY FOR GURGEN ----
-        // ------------------------
-
-
         vm.login = login;
 
         (function initController() {
@@ -41,7 +37,7 @@
             if (response.enabled) {
                 vm.username = response.login;
                 vm.password = response.password;
-                login();
+                // login();
             }
             autoLoginProcess = false;
             updateDataLoading();

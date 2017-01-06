@@ -33,7 +33,7 @@ public class ProductController extends AbstractController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public TableResult<ProductRecord> getList(@RequestBody TableParams params) {
         final BeanTableResult<Product> beanTableResult = productService.getList(params.getStartIndex(), params.count, params.orderBy);
         final Collection<Product> list = beanTableResult.getRows();
@@ -48,7 +48,7 @@ public class ProductController extends AbstractController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public ResultRecord update(@RequestBody ProductRecord record) {
         logger.info("Product: name = " + record.name + ", id = " + record.id);
         final Product entity;
@@ -78,7 +78,7 @@ public class ProductController extends AbstractController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public ResultRecord delete(@RequestBody Long[] ids) {
 /*
         try {

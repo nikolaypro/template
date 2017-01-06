@@ -185,13 +185,13 @@ public class SalaryReportBuilder {
 
     private StringBuilder getCostInfo(JobSubTypeCost cost, JobSubType subType, Product product) {
         return new StringBuilder().
-                append(subType.getName()).
-                append("(type:").
                 append(subType.getJobType().getName()).
-                append("):").
+                append(" -> ").
+                append(subType.getName()).
+                append(" -> ").
                 append(product.getName()).
                 append(": cost = ").
-                append(cost);
+                append(cost.getCost());
 
     }
 

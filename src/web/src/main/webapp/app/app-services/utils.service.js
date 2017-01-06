@@ -145,11 +145,12 @@
                 case ALL_APP_ROLES.regular:
                     return [
                         'jobs',
-                        'reports'
-//                        'contact',
-//                        'dropdown',
-//                        'action',
-//                        'separated_link'
+                        'reports',
+                        'dictionary',
+                        'products',
+                        'job-types',
+                        'job-subtypes',
+                        'job-subtype-costs'
                     ];
                 default:
                     alert('Unknown role: "' + role + '"');

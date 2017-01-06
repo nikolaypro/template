@@ -20,7 +20,7 @@
     </div>
 -->
 
-    <div class="row">
+    <div class="row" ng-show="vm.isCurrentAdminRole()">
         <div class="col-md-6">
             <h4><a href="" ng-click="vm.currReport = vm.currReport != vm.nameUsersReport ? vm.nameUsersReport : '-1'"
                    ng-class="{'black-font' : vm.currReport != vm.nameUsersReport}">{{'report.name.users' | i18n}}</a>

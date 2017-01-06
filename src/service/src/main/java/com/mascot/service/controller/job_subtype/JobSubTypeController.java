@@ -39,7 +39,7 @@ public class JobSubTypeController extends AbstractController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public TableResult<JobSubTypeRecord> getList(@RequestBody TableParams params) {
         final BeanTableResult<JobSubType> beanTableResult = jobSubTypeService.getList(params.getStartIndex(), params.count, params.orderBy, params.filter);
         final Collection<JobSubType> list = beanTableResult.getRows();
@@ -54,7 +54,7 @@ public class JobSubTypeController extends AbstractController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public ResultRecord update(@RequestBody JobSubTypeRecord record) {
         logger.info("Job type: name = " + record.name + ", id = " + record.id);
         final JobSubType entity;
@@ -92,7 +92,7 @@ public class JobSubTypeController extends AbstractController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public ResultRecord delete(@RequestBody Long[] ids) {
         if (ids == null) {
             return ResultRecord.success();
@@ -128,7 +128,7 @@ public class JobSubTypeController extends AbstractController {
 
     @RequestMapping(value = "/job-types", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public List<JobTypeRecord> getJobTypes() {
         return jobTypeService.getAll().stream().map(JobTypeRecord::build).collect(Collectors.toList());
     }

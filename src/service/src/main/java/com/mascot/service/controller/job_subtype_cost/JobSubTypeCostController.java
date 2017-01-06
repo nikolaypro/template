@@ -46,7 +46,7 @@ public class JobSubTypeCostController extends AbstractController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public TableResult<JobSubTypeCostRecord> getList(@RequestBody TableParams params) {
         final BeanTableResult<JobSubTypeCost> beanTableResult = jobSubTypeCostService.getList(params.getStartIndex(), params.count, params.orderBy, params.filter);
         final Collection<JobSubTypeCost> list = beanTableResult.getRows();
@@ -61,7 +61,7 @@ public class JobSubTypeCostController extends AbstractController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public ResultRecord update(@RequestBody JobSubTypeCostRecord record) {
         logger.info("Job type cost: jobSubType = " + record.jobSubType + ", product: " + record.product + ", cost: " +
                 record.cost +  "id = " + record.id);
@@ -109,7 +109,7 @@ public class JobSubTypeCostController extends AbstractController {
 
     @RequestMapping(value = "/update-cost", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public ResultRecord updateCost(@RequestBody JobSubTypeCostRecord record) {
         logger.info("Update cost only: jobSubType = " + record.jobSubType + ", product: " + record.product + ", cost: " +
                 record.cost +  "id = " + record.id);
@@ -124,7 +124,7 @@ public class JobSubTypeCostController extends AbstractController {
 
     @RequestMapping(value = "/not-exists", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public BooleanRecord isNotExists(@RequestBody JobSubTypeCostRecord record) {
         logger.info("Check exists: jobSubType = " + record.jobSubType + ", product: " + record.product + ", cost: " +
                 record.cost +  "id = " + record.id);
@@ -137,7 +137,7 @@ public class JobSubTypeCostController extends AbstractController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public ResultRecord delete(@RequestBody Long[] ids) {
         if (ids == null) {
             return ResultRecord.success();
@@ -171,14 +171,14 @@ public class JobSubTypeCostController extends AbstractController {
 
     @RequestMapping(value = "/job-subtypes", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public List<JobSubTypeRecord> getJobSubTypes() {
         return jobSubTypeService.getAll().stream().map(JobSubTypeRecord::build).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public List<ProductRecord> getProducts() {
         return productService.getAll().stream().map(ProductRecord::build).collect(Collectors.toList());
     }
