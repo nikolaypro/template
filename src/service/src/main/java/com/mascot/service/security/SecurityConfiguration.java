@@ -98,10 +98,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
 // -- CSRF configuration
                 .csrf().disable()// отключил, так как есть проблема, что после логина при попытке перехода на какую-нибудь страницу опять выбрасывает на логин, так как не проходит валидация по CSRF
-                .csrf().ignoringAntMatchers("/api/authenticate", "/logout", "/api/autoLogin").and()
-                .csrf().csrfTokenRepository(csrfTokenRepository())
-                .and()
-                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+//                .csrf().ignoringAntMatchers("/api/authenticate", "/logout", "/api/autoLogin").and()
+//                .csrf().csrfTokenRepository(csrfTokenRepository())
+//                .and()
+//                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
 // -- end CSRF configuration
                 .httpBasic()
                 .and()
