@@ -91,4 +91,15 @@ public class MascotUtils {
         return ZonedDateTime.ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneId.systemDefault());
     }
 
+    public static boolean equalsOrBothEmpty(String o1, String o2) {
+        if (o1 == null) {
+            o1 = "";
+        }
+        if (o2 == null) {
+            o2 = "";
+        }
+        return o1.equals(o2);
+    }
+
+
 }
