@@ -16,7 +16,7 @@ public class Job extends Identified {
     private Date creationDate;
 
     @Column(name = "number")
-    private String number;
+    private Integer number;
 
     @ManyToOne(targetEntity = JobType.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "job_type_id")
@@ -46,11 +46,11 @@ public class Job extends Identified {
         this.creationDate = creationDate;
     }
 
-    public String getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 

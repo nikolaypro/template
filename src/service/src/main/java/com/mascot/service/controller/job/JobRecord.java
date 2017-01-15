@@ -13,7 +13,7 @@ public class JobRecord {
     public Long id;
     public JobTypeRecord jobType;
     public ProductRecord product;
-    public String number;
+    public Integer number;
     public Date completeDate;
     public Boolean tail;
     public Boolean forNextWeekTail;

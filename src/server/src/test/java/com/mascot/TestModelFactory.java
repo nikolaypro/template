@@ -48,7 +48,7 @@ public class TestModelFactory {
         return result;
     }
 
-    public static Job createJob(long id, JobType type, Product product, String number) {
+    public static Job createJob(long id, JobType type, Product product, Integer number) {
         Job job = new Job();
         job.setId(id);
         job.setProduct(product);

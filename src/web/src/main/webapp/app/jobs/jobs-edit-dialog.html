@@ -3,7 +3,7 @@
         <modal visible="vm.showDialogFlag" info="vm">
             <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.number) }">
                 <label for="number">{{'job.table.edit.number' | i18n}}</label>
-                <input type="text" class="form-control" id="number" name="number" placeholder="{{'job.table.edit.number.hint' | i18n}}"
+                <input type="number" class="form-control" id="number" name="number" placeholder="{{'job.table.edit.number.hint' | i18n}}"
                        ng-model="vm.job.number" ng-required="true"/>
                 <div ng-if="vm.isShowRequired(vm.editForm.number)" class="help-block">{{'job.table.edit.number.required' | i18n}}</div>
             </div>
