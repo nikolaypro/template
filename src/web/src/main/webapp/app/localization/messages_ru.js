@@ -130,6 +130,7 @@
             /*job-subtype.table*/
             'job-subtype.table.column.name' : 'Название подвида работ',
             'job-subtype.table.column.job-type': 'Вид работы',
+            'job-subtype.table.column.use-in-salary-report' : 'Исп. в рассчете зарплаты',
             'job-subtype.table.delete.confirm' : 'Удалить подвид работы?',
             'job-subtype.table.delete.confirm.many' : 'Удалить подвид работы (количество: {0})?',
 
@@ -141,6 +142,8 @@
             'job-subtype.table.edit.name.required': 'Название не задано',
             'job-subtype.table.edit.job-type.required': 'Вид работы не задан',
             'job-subtype.table.edit.job-type': 'Вид работы',
+            'job-subtype.table.edit.use-in-salary-report': 'Использовать в расчете зарплаты',
+            'job-subtype.table.edit.use-in-salary-report.hint': 'Использовать в расчете зарплаты',
 
             /*job-subtype-cost.table*/
             'job-subtype-cost.table.column.job-type' : 'Вид работы',

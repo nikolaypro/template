@@ -17,6 +17,9 @@
             <td class="td_400px" data-title="'job-subtype.table.column.name' | i18n" sortable="'name'">{{row.name}}</td>
             <td class="td_400px" filter="{'jobType.name' : 'job-subtype.view/jobtype.filter.html'}"
                 data-title="'job-subtype.table.column.job-type' | i18n" sortable="'jobType.name'">{{row.jobType.name}}</td>
+            <td class="td_50px" data-title="'job-subtype.table.column.use-in-salary-report' | i18n">
+               <span ng-if="row.useInSalaryReport"><img src="app/pic/yes.png"></span>
+            </td>
         </tr>
     </table>
     <table-loading vm="vm"></table-loading>

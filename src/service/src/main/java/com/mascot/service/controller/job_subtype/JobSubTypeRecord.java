@@ -10,12 +10,14 @@ import com.mascot.service.controller.job_type.JobTypeRecord;
 public class JobSubTypeRecord {
     public Long id;
     public String name;
+    public Boolean useInSalaryReport;
     public JobTypeRecord jobType;
 
     public static JobSubTypeRecord build(JobSubType subType) {
         JobSubTypeRecord result = new JobSubTypeRecord();
         result.id = subType.getId();
         result.name = subType.getName();
+        result.useInSalaryReport = subType.getUseInSalaryReport();
         result.jobType = JobTypeRecord.build(subType.getJobType());
         return result;
     }

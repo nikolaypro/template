@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="add use_in_salary_report column" author="Nikolay">
+        <preConditions>
+            <not>
+                <columnExists tableName="job_subtype" columnName="use_in_salary_report"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="job_subtype">
+            <column name="use_in_salary_report" type="bit(1)" defaultValueBoolean="true"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

@@ -15,6 +15,14 @@
             <div class="form-group" ng-class="{ 'has-error': vm.jobTypeRequired }">
                 <div ng-if="vm.jobTypeRequired" class="help-block">{{'job-subtype.table.edit.job-type.required' | i18n}}</div>
             </div>
+            <div class="form-group checkbox">
+                    <label>
+                        <input type="checkbox" id="useInSalaryReport" name="useInSalaryReport"
+                               placeholder="{{'job-subtype.table.edit.use-in-salary-report.hint' | i18n}}"
+                               ng-model="vm.jobSubType.useInSalaryReport">
+                        {{'job-subtype.table.edit.use-in-salary-report' | i18n}}
+                    </label>
+            </div>
         </modal>
     </form>
 </fieldset>

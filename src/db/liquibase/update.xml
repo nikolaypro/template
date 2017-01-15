@@ -13,4 +13,5 @@
     <include file="liquibase/1.0/2016-11-07-add-job.xml"/>
     <include file="liquibase/1.0/2016-12-05-add-external-columns.xml"/>
     <include file="liquibase/1.0/2016-12-27-add-complete-date-index.xml"/>
+    <include file="liquibase/1.0/2017-01-15-add-use_in_salary_report.xml"/>
 </databaseChangeLog>

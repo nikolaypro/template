@@ -79,7 +79,8 @@ public class JobSubTypeController extends AbstractController {
         if (record.jobType == null) {
             throw new IllegalStateException("Job type not defined");
         }
-        JobType jobType = jobTypeService.find(record.jobType.id);
+        entity.setUseInSalaryReport(record.useInSalaryReport);
+        final JobType jobType = jobTypeService.find(record.jobType.id);
         if (jobType == null) {
             throw new IllegalStateException("Not found job type with id = '" + record.jobType.id + "'");
         }

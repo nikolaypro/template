@@ -15,6 +15,9 @@ public class JobSubType extends ExternalEntity {
     @JoinColumn(name = "job_type_id")
     private JobType jobType;
 
+    @Column(name = "use_in_salary_report")
+    private Boolean useInSalaryReport = true;
+
     public String getName() {
         return name;
     }
@@ -35,6 +38,14 @@ public class JobSubType extends ExternalEntity {
 
     public void setJobType(JobType jobType) {
         this.jobType = jobType;
+    }
+
+    public Boolean getUseInSalaryReport() {
+        return useInSalaryReport;
+    }
+
+    public void setUseInSalaryReport(Boolean useInSalaryReport) {
+        this.useInSalaryReport = useInSalaryReport;
     }
 }
 
