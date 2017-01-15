@@ -84,13 +84,14 @@ public class JobSubTypeCostServiceImpl extends AbstractMascotService implements 
     }
 
     @Override
-    public List<JobSubTypeCost> getAllWithDeleted() {
+    public List<JobSubTypeCost> getAllWithDeleted(boolean useInSalaryReport) {
         final long start = System.currentTimeMillis();
         try {
             return em.createQuery("select distinct e from JobSubTypeCost e " +
                     "left join fetch e.jobSubType jst " +
                     "left join fetch jst.jobType " +
-                    "left join fetch e.product").
+                    "left join fetch e.product " +
+                    (useInSalaryReport ? "where jst.useInSalaryReport = true" : "")).
                     getResultList();
         } finally {
             logger.info("Get all job sub type costs duration: " + (System.currentTimeMillis() - start) + " msec");

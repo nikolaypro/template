@@ -14,7 +14,8 @@
            ng-class="{tableRowLoading: vm.tableLoading}">
         <tr ng-repeat="row in $data track by $index">
             <td class="table-row-check"><input type="checkbox" ng-change="vm.onRowChecked()" ng-model="row.row_checked"/></td>
-            <td class="td_400px" data-title="'job-subtype.table.column.name' | i18n" sortable="'name'">{{row.name}}</td>
+            <td class="td_400px" data-title="'job-subtype.table.column.name' | i18n"
+                sortable="'name'" filter="{'name': 'text'}">{{row.name}}</td>
             <td class="td_400px" filter="{'jobType.name' : 'job-subtype.view/jobtype.filter.html'}"
                 data-title="'job-subtype.table.column.job-type' | i18n" sortable="'jobType.name'">{{row.jobType.name}}</td>
             <td class="td_50px" data-title="'job-subtype.table.column.use-in-salary-report' | i18n">

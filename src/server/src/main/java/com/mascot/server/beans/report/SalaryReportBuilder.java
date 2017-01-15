@@ -78,6 +78,7 @@ public class SalaryReportBuilder {
             });
 
             log.append(logDetails(jobType2Details));
+            log.append(logDetailsGroupsByJobSubType(jobType2Details));
 
 //        logger.info(log.toString());
 
@@ -89,6 +90,24 @@ public class SalaryReportBuilder {
         } finally {
             logger.info("Salary report duration: " + (System.currentTimeMillis() - start) + " msec");
         }
+    }
+
+    private StringBuilder logDetailsGroupsByJobSubType(Map<JobType, CostDetails> jobType2Details) {
+        StringBuilder result = new StringBuilder("\n******************* FINAL RESULT GROUPED BY SUBTYPE ***************************\n");
+        jobType2Details.entrySet().stream().
+                sorted(Comparator.comparing(e -> e.getKey().getOrder())).
+                forEachOrdered(entry -> {
+                    final CostDetails costDetails = entry.getValue();
+                    result.append("- [").append(entry.getKey().getName()).append("] summary cost: ").append(costDetails.cost).append("  ----------\n");
+                    costDetails.getGroupedByJobSubType().forEach((summaryCost) -> {
+                        result.append("\t").append("sub type: ").append(summaryCost.subType).append(", cost: ").append(summaryCost.summaryCost).append("\n");
+                        summaryCost.jobs.entrySet().stream()
+                                .sorted(Comparator.comparing(jobEntry -> jobEntry.getKey().getNumber()))
+                                .forEachOrdered(jobEntry -> result.append("\t \t - ").append(jobEntry.getValue()).append(" - ")
+                                        .append(getJobInfo(jobEntry.getKey())).append("\n"));
+                    });
+                });
+        return result;
     }
 
     private void exportToFile(StringBuilder log) {
@@ -180,6 +199,32 @@ public class SalaryReportBuilder {
             jobSubTypes.put(jobSubType, cost);
             this.cost += cost;
             return this.cost;
+        }
+
+        Collection<JobSubTypeSummaryCost> getGroupedByJobSubType() {
+            final Map<JobSubType, JobSubTypeSummaryCost> result = new HashMap<>();
+            details.forEach((job, map) -> {
+                map.forEach((subType, cost) -> {
+                    JobSubTypeSummaryCost jobSubTypeSummaryCost = result.computeIfAbsent(subType, JobSubTypeSummaryCost::new);
+                    jobSubTypeSummaryCost.addJob(job, cost);
+                });
+            });
+            return result.values();
+        }
+    }
+
+    private class JobSubTypeSummaryCost {
+        final JobSubType subType;
+        Double summaryCost = 0.0;
+        final Map<Job, Double> jobs = new HashMap<>();
+
+        JobSubTypeSummaryCost(JobSubType subType) {
+            this.subType = subType;
+        }
+
+        void addJob(Job job, Double cost) {
+            jobs.put(job, cost);
+            summaryCost += cost;
         }
     }
 

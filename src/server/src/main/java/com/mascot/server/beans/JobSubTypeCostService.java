@@ -24,5 +24,5 @@ public interface JobSubTypeCostService {
 
     List<JobSubTypeCost> getAll();
 
-    List<JobSubTypeCost> getAllWithDeleted();
+    List<JobSubTypeCost> getAllWithDeleted(boolean useInSalaryReport);
 }
