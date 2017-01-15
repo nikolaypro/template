@@ -141,7 +141,7 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
     private List<Job> getJobs(ZonedDateTime from, ZonedDateTime to) {
         final long start = System.currentTimeMillis();
         try {
-            return em.createQuery("select e from Job e " +
+            return em.createQuery("select distinct e from Job e " +
                     "left join fetch e.jobType jt " +
                     "left join fetch jt.jobSubTypes st " +
                     "left join fetch e.product p " +
@@ -157,7 +157,7 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
     private List<Job> getTailJobs(ZonedDateTime from, ZonedDateTime to) {
         final long start = System.currentTimeMillis();
         try {
-            return em.createQuery("select e from Job e " +
+            return em.createQuery("select distinct e from Job e " +
                     "left join fetch e.jobType jt " +
                     "left join fetch jt.jobSubTypes st " +
                     "left join fetch e.product p " +
