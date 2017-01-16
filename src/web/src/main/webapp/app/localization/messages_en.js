@@ -180,7 +180,7 @@
             'job.table.edit.product': 'Product',
             'job.table.edit.job-type.required': 'Job type is required',
             'job.table.edit.product.required': 'Product is required',
-            'job.table.edit.number': 'Number is required',
+            'job.table.edit.number': 'Number',
             'job.table.edit.number.hint': 'Number',
             'job.table.edit.number.required': 'Number is required',
             'job.table.edit.complete.date':'Complete job data',

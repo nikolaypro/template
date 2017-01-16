@@ -181,7 +181,7 @@
             'job.table.edit.product': 'Изделие',
             'job.table.edit.job-type.required': 'Вид работы не задан',
             'job.table.edit.product.required': 'Изделие не задано',
-            'job.table.edit.number': 'Номер не задан',
+            'job.table.edit.number': 'Номер',
             'job.table.edit.number.hint': 'Номер',
             'job.table.edit.number.required': 'Номер не задан',
             'job.table.edit.complete.date':'Дата завершения работы',
