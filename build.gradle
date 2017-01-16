@@ -31,6 +31,7 @@ def warFileName = 'template'
 def webWarFileName = 'template-web'
 // VERSIONS
 def spring_version = '4.2.2.RELEASE'
+def liquibase_version = '3.4.1'
 def spring_security_version = '4.0.3.RELEASE'
 def hibernate_version = '4.3.8.Final'
 def jackson_version = '1.9.13'
@@ -95,6 +96,7 @@ configure([serverProject]) {
         compile commonProject
         compile group: 'net.sf.jasperreports', name: 'jasperreports', version: '6.3.0'
         testCompile 'org.springframework:spring-test:' + spring_version
+        testCompile 'org.liquibase:liquibase-core:' + liquibase_version
 //        testCompile 'org.springframework:spring-orm:' + spring_version
     }
 }
@@ -222,7 +224,7 @@ configurations {
 }
 
 dependencies {
-    liquibase 'org.liquibase:liquibase-core:3.4.1'
+    liquibase 'org.liquibase:liquibase-core:' + liquibase_version
 }
 
 task liquibase_Update(type: JavaExec) {

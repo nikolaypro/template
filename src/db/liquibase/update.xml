@@ -2,17 +2,17 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <include file="liquibase/1.0/2015-12-17-init.xml"/>
-    <include file="liquibase/1.0/2015-12-21-authentication.xml"/>
-    <include file="liquibase/1.0/2016-09-12-add-user-locale.xml"/>
-    <include file="liquibase/1.0/2016-10-19-add-product.xml"/>
-    <include file="liquibase/1.0/2016-10-27-add-default-user.xml"/>
-    <include file="liquibase/1.0/2016-add-job-type.xml"/>
-    <include file="liquibase/1.0/2016-10-25-add-job-subtype.xml"/>
-    <include file="liquibase/1.0/2016-10-31-add-job-subtype-cost.xml"/>
-    <include file="liquibase/1.0/2016-11-07-add-job.xml"/>
-    <include file="liquibase/1.0/2016-12-05-add-external-columns.xml"/>
-    <include file="liquibase/1.0/2016-12-27-add-complete-date-index.xml"/>
-    <include file="liquibase/1.0/2017-01-15-add-use_in_salary_report.xml"/>
-    <include file="liquibase/1.0/2017-01-15-modify_number_type.xml"/>
+    <include file="1.0/2015-12-17-init.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2015-12-21-authentication.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2016-09-12-add-user-locale.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2016-10-19-add-product.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2016-10-27-add-default-user.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2016-add-job-type.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2016-10-25-add-job-subtype.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2016-10-31-add-job-subtype-cost.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2016-11-07-add-job.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2016-12-05-add-external-columns.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2016-12-27-add-complete-date-index.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2017-01-15-add-use_in_salary_report.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2017-01-15-modify_number_type.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

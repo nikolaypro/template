@@ -1,10 +1,8 @@
 package com.mascot.server.beans.importdata;
 
+import com.mascot.common.MascotUtils;
 import com.mascot.server.beans.AbstractMascotService;
-import com.mascot.server.model.JobSubType;
-import com.mascot.server.model.JobSubTypeCost;
-import com.mascot.server.model.JobType;
-import com.mascot.server.model.Product;
+import com.mascot.server.model.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -14,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Николай on 02.12.2016.
@@ -23,7 +22,7 @@ import java.util.*;
 @Transactional(propagation = Propagation.REQUIRED)
 public class Import1cServiceImpl extends AbstractMascotService implements Import1cService {
     @PersistenceContext(unitName = "templateMSPersistenceUnit")
-    protected EntityManager msSqlEm;
+    private EntityManager msSqlEm;
 
     private ImportProgress progress;
 
@@ -65,6 +64,11 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
                 "   convert(varchar(max), jobSubType._IDRRef, 2) as jobSubType_id, jobSubType._Code as jobSubTypeCode, jobSubType._Description jobSubType" +
                 "   FROM _Reference6995 jobSubType").getResultList();
 */
+
+        final Map<String, Product> ownDbExistingProducts = createMap(em.createQuery("select e from Product e").getResultList());
+        final List<Product> changedProducts = new ArrayList<>();
+
+        final Map<String, JobType> ownDbExistingJobTypes = createMap(em.createQuery("select e from JobType e").getResultList());
 
         Map<String, Product> productsMap = new HashMap<>();
         Map<String, JobType> jobTypesMap = new HashMap<>();
@@ -136,10 +140,19 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
 
             Product product = productsMap.get(productId);
             if (product == null) {
-                productsMap.put(productId, product = new Product());
+                product = ownDbExistingProducts.get(productId);
+                if (product == null) {
+                    product = new Product();
+                } else {
+                    if (productModified(product, productDescription)) {
+                        changedProducts.add(product);
+                    }
+                }
+                productsMap.put(productId, product);
                 product.setExternalId(productId);
                 product.setExternalCode(productCode);
                 product.setName(productDescription);
+
             }
             final JobSubType jobSubType = jobSubTypesMap.get(jobSubTypeId);
             if (jobSubType == null) {
@@ -167,7 +180,10 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
         }
 
         ImportCheckData data = new ImportCheckData();
-        data.setNewProducts(new ArrayList<>(productsMap.values()));
+        data.setNewProducts(getNew(productsMap.values()));
+        data.setRemovedProducts(getRemoved(ownDbExistingProducts, productsMap));
+        data.setChangedProducts(changedProducts);
+
         data.setNewJobTypes(newJobTypes);
         data.setNewJobSubTypes(new ArrayList<>(jobSubTypesMap.values()));
         data.setNewCosts(new ArrayList<>(costsMap.values()));
@@ -207,6 +223,22 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
         "         FROM _Reference6995 jobSubType\n" +
         "").getResultList()
          */
+    }
+
+    private boolean productModified(Product product, String productDescription) {
+        return !MascotUtils.equalsOrBothEmpty(productDescription, product.getName());
+    }
+
+    private <A extends ExternalEntity> List<A> getRemoved(Map<String, A> ownDbExisting, Map<String, A> imported) {
+        return ownDbExisting.entrySet().stream().filter(e -> !imported.containsKey(e.getKey())).map(e -> e.getValue()).collect(Collectors.toList());
+    }
+
+    private <A extends ExternalEntity> List<A> getNew(Collection<A> values) {
+        return values.stream().filter(e -> e.getId() == null).collect(Collectors.toList());
+    }
+
+    private <A extends ExternalEntity> Map<String, A> createMap(List<A> list) {
+        return list.stream().collect(Collectors.toMap(ExternalEntity::getExternalId, e -> e));
     }
 
     private void doSleep(int i) {
