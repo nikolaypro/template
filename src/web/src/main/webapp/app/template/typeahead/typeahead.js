@@ -17,7 +17,8 @@
                 ngModel: '=',
                 loadItems: '=',
                 placeHolder: '=',
-                getComboItemPrefix: '='
+                getComboItemPrefix: '=',
+                fixedElement: '='
             },
             // require:"ngModel",
             link: function(scope, element, attrs, controller) {
@@ -66,6 +67,10 @@
                 scope.isCurrent = function(item) {
                     // $log.info("AAAAAAA: " + (item == scope.ngModel));
                     return item == scope.ngModel;
+                };
+
+                scope.setFixed = function() {
+                    scope.ngModel = scope.fixedElement;
                 }
 
             }

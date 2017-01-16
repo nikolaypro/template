@@ -187,8 +187,9 @@
             'job.table.edit.complete.date.hint': 'Complete job data',
             'job.table.edit.complete.date.required': 'Complete job data is required',
             'job.table.show.tail': 'Show tail',
-            'job.table.hide.tail': 'Hide tail'
+            'job.table.hide.tail': 'Hide tail',
 
+            'typeahead.fixed.element.hint' : 'Use last selected element'
         });
 
 })();

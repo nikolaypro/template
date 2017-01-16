@@ -28,6 +28,9 @@
                     if (isNew) {
                         vm.job.completeDate = Utils.getCurrDateWOTime();
                         vm.job.jobType = vm.lastJobTypeSelected;
+                        if (vm.lastProductSelected != undefined) {
+                            vm.fixedProduct = vm.lastProductSelected;
+                        }
                     }
                 };
 
@@ -52,6 +55,7 @@
                 });
                 scope.$watch('vm.job.product', function(newVal, oldVal){
                     vm.productTypeRequired = false;
+                    vm.lastProductSelected = newVal;
                 });
 
                 vm.loadJobTypes = JobService.getJobTypes;

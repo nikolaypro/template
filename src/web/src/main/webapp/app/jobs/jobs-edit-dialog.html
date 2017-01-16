@@ -10,7 +10,7 @@
             <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.productTypeRequired }">
                 <label for="productType">{{'job.table.edit.product' | i18n}}</label>
                 <type-ahead id="productType" ng-model="vm.job.product" load-items="vm.loadProducts"
-                            place-holder="'job.table.edit.product'"/>
+                            place-holder="'job.table.edit.product'" fixed-element="vm.fixedProduct"/>
             </div>
             <div class="form-group" ng-class="{ 'has-error': vm.productTypeRequired }">
                 <div ng-if="vm.productTypeRequired" class="help-block">{{'job.table.edit.product.required' | i18n}}</div>
