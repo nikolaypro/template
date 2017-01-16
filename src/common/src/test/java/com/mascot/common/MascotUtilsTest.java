@@ -1,14 +1,11 @@
 package com.mascot.common;
 
 import com.fasterxml.jackson.databind.util.StdDateFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.datetime.DateFormatter;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 @Test
@@ -17,8 +14,17 @@ public class MascotUtilsTest {
         Map<String, String> map = new HashMap<>();
         map.put("name", "aaa");
         map.put("secondEntity.name", "bbb");
-        String result = MascotUtils.buildWhereByString(map, "e");
+        String result = MascotUtils.buildWhereByString(map, "e", null);
         Assert.assertEquals(result, "where e.name like '%aaa%' and e.secondEntity.name like '%bbb%'");
+
+    }
+
+    public void testBuildWhereByStringWithFilterCorrector() {
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "aaa");
+        map.put("secondEntity.name", "bbb");
+        String result = MascotUtils.buildWhereByString(map, "e", (p, v) -> p.equals("name") ? "e.name = '" + v + "'" : null);
+        Assert.assertEquals(result, "where e.name = 'aaa' and e.secondEntity.name like '%bbb%'");
 
     }
 

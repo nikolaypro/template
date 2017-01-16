@@ -25,7 +25,7 @@ public class JobSubTypeCostServiceImpl extends AbstractMascotService implements 
                         "left join fetch e.jobSubType jst " +
                         "left join fetch jst.jobType " +
                         "left join fetch e.product",
-                "select count(distinct e) from JobSubTypeCost e", start, count, orderBy, new HashMap<>(), filter, true);
+                "select count(distinct e) from JobSubTypeCost e", start, count, orderBy, new HashMap<>(), filter, true, null);
     }
 
     @Override

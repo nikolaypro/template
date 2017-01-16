@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * Created by Nikolay on 19.10.2016.
@@ -26,7 +28,7 @@ public abstract class AbstractMascotService {
     protected <A> BeanTableResult<A> getResult(String queryStr, String countQueryStr,
                                                int start, int count, Map<String, String> orderBy,
                                                Map<String, Object> params, Map<String, String> filter) {
-        return getResult(queryStr, countQueryStr, start, count, orderBy, params, filter, false);
+        return getResult(queryStr, countQueryStr, start, count, orderBy, params, filter, false, null);
     }
 
     protected Map<String, Object> deletedMap() {
@@ -38,7 +40,7 @@ public abstract class AbstractMascotService {
     protected <A> BeanTableResult<A> getResult(String queryStr, String countQueryStr,
                                                int start, int count, Map<String, String> orderBy,
                                                Map<String, Object> params, Map<String, String> filter,
-                                               boolean checkDeleted) {
+                                               boolean checkDeleted, BiFunction<String, String, Object> filterCorrector) {
 /*
         try {
             Thread.sleep(3000);
@@ -47,7 +49,7 @@ public abstract class AbstractMascotService {
         }
 */
         final String orderByStr = MascotUtils.buildOrderByString(orderBy, "e");
-        String whereStr = MascotUtils.buildWhereByString(filter, "e");
+        String whereStr = MascotUtils.buildWhereByString(filter, "e", filterCorrector);
         whereStr = correctWhereStrIfNeeds(queryStr, whereStr);
 
         queryStr = queryStr + " " + whereStr;
@@ -66,7 +68,7 @@ public abstract class AbstractMascotService {
         final List<A> resultList = query.getResultList();
 
         // Count
-        whereStr = MascotUtils.buildWhereByString(filter, "e");
+        whereStr = MascotUtils.buildWhereByString(filter, "e", filterCorrector);
         whereStr = correctWhereStrIfNeeds(countQueryStr, whereStr);
         countQueryStr = countQueryStr + " " + whereStr;
         if (checkDeleted) {

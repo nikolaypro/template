@@ -7,6 +7,8 @@ import java.time.ZonedDateTime;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * Created by Nikolay on 09.12.2015.
@@ -40,12 +42,28 @@ public class MascotUtils {
         return orderByStr;
     }
 
-    public static String buildWhereByString(Map<String, String> filter, String alias) {
+    /**
+     *
+     * @param filter
+     * @param alias
+     * @param filterCorrector for correct default filter builder
+     * @return
+     */
+    public static String buildWhereByString(Map<String, String> filter, String alias,
+                                            BiFunction<String, String, Object> filterCorrector) {
         String filterByStr = "";
+
+        BiFunction<String, String, String> filterElement = (key, value) -> {
+            final Object corrected = filterCorrector != null ? filterCorrector.apply(key, value) : null;
+            return corrected != null ?
+                    corrected.toString() :
+                    alias + "." + key + " like '%" + value + "%'";
+        };
+
         if (filter != null && !filter.isEmpty()) {
             filterByStr = filter.entrySet().
                     stream().reduce(new StringJoiner(" and ", "where ", ""),
-                    (x, y) -> x.add(alias + "." + y.getKey() + " like '%" + y.getValue() + "%'"),
+                    (x, y) -> x.add(filterElement.apply(y.getKey(), y.getValue())),
                     StringJoiner::merge).toString();
         }
         return filterByStr;

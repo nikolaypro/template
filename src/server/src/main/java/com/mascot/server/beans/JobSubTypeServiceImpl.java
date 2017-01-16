@@ -19,6 +19,7 @@ import javax.persistence.NonUniqueResultException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 
 /**
  * Created by Nikolay on 25.10.2016.
@@ -29,7 +30,11 @@ public class JobSubTypeServiceImpl extends AbstractMascotService implements JobS
     @Override
     public BeanTableResult<JobSubType> getList(int start, int count, Map<String, String> orderBy, Map<String, String> filter) {
         return getResult("select distinct e from JobSubType e left join fetch e.jobType",
-                "select count(distinct e) from JobSubType e", start, count, orderBy, new HashMap<>(), filter, true);
+                "select count(distinct e) from JobSubType e", start, count, orderBy, new HashMap<>(), filter, true, getFilterCorrector());
+    }
+
+    private BiFunction<String, String, Object> getFilterCorrector() {
+        return (key, value) -> key.equals("useInSalaryReport") ? "e." + key + " = " + value : null;
     }
 
     @Override

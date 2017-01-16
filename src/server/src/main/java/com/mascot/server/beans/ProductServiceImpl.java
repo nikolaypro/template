@@ -23,7 +23,7 @@ public class ProductServiceImpl extends AbstractMascotService implements Product
     @Override
     public BeanTableResult<Product> getList(int start, int count, Map<String, String> orderBy) {
         return getResult("select distinct e from Product e",
-                "select count(distinct e) from Product e", start, count, orderBy, new HashMap<>(), new HashMap<>(), true);
+                "select count(distinct e) from Product e", start, count, orderBy, new HashMap<>(), new HashMap<>(), true, null);
     }
 
     @Override

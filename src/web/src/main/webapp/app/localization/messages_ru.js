@@ -133,6 +133,8 @@
             'job-subtype.table.column.use-in-salary-report' : 'Исп. в рассчете зарплаты',
             'job-subtype.table.delete.confirm' : 'Удалить подвид работы?',
             'job-subtype.table.delete.confirm.many' : 'Удалить подвид работы (количество: {0})?',
+            'job-subtype.table.filter.use-in-salary-report': 'Использовать для расчета зарплаты',
+            'job-subtype.table.filter.not-use-in-salary-report': 'Не использовать для расчета зарплаты',
 
             /*job-subtype.table.edit*/
             'job-subtype.table.edit.title.new': 'Новый подвид работы',

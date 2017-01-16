@@ -128,10 +128,12 @@
 
             /*job-subtype.table*/
             'job-subtype.table.column.name' : 'Name',
-            'job-subtype.table.column.use-in-salary-report' : 'Use in salary report',
+            'job-subtype.table.column.use-in-salary-report' : 'Salary report',
             'job-subtype.table.column.job-type': 'Job type',
             'job-subtype.table.delete.confirm' : 'Do you want to delete job sub type?',
             'job-subtype.table.delete.confirm.many' : 'Do you want to delete {0} job sub types?',
+            'job-subtype.table.filter.use-in-salary-report': 'Use in salary report',
+            'job-subtype.table.filter.not-use-in-salary-report': 'Don`t use in salary report',
 
             /*job-subtype.table.edit*/
             'job-subtype.table.edit.title.new': 'New job sub type',

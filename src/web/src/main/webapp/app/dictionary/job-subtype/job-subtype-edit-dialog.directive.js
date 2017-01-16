@@ -26,6 +26,9 @@
                 showModalParams.titleEdit = 'job-subtype.table.edit.title.edit';
                 showModalParams.onShow = function(isNew) {
                     vm.jobTypeRequired = false;
+                    if (isNew) {
+                        vm.jobSubType.useInSalaryReport = true;
+                    }
 //                    angular.element('.form-control')[0].triggerHandler('click')
                 };
 
@@ -42,7 +45,7 @@
                 };
 
                 scope.$watch('vm.jobSubType.jobType', function(newVal, oldVal){
-                    console.log("Search was changed to:"+newVal);
+                    console.log("Search was changed to:" + newVal);
                     vm.jobTypeRequired = false;
                 });
 /*
