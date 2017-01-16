@@ -18,8 +18,11 @@
                 sortable="'name'" filter="{'name': 'text'}">{{row.name}}</td>
             <td class="td_400px" filter="{'jobType.name' : 'job-subtype.view/jobtype.filter.html'}"
                 data-title="'job-subtype.table.column.job-type' | i18n" sortable="'jobType.name'">{{row.jobType.name}}</td>
-            <td class="td_50px" data-title="'job-subtype.table.column.use-in-salary-report' | i18n">
-               <span ng-if="row.useInSalaryReport"><img src="app/pic/yes.png"></span>
+            <td class="td_50px" align="center" data-title="'job-subtype.table.column.use-in-salary-report' | i18n">
+               <span ng-class="{
+                     'glyphicon glyphicon-eye-open' : row.useInSalaryReport,
+                     'glyphicon glyphicon-eye-close' : !row.useInSalaryReport
+                     }"></span>
             </td>
         </tr>
     </table>
