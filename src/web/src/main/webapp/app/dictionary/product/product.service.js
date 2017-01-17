@@ -12,6 +12,7 @@
         service.getById = getById;
         service.update = update;
         service.delete = deleteEntity;
+        service.getForFilter = getForFilter;
         return service;
 
         function getAll(params, handleSuccess) {
@@ -35,6 +36,10 @@
 
         function deleteEntity(ids, handleSuccess) {
             return $http.post(UrlService.url('/api/products/delete'), ids).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+        }
+
+        function getForFilter(handleSuccess) {
+            return $http.post(UrlService.url('/api/products/all')).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
     }

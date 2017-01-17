@@ -21,6 +21,10 @@
             vm.tableParams.reload();
         };
 
+        vm.loadFilterProductNames = Utils.productFilter.loadFilterProductNames;
+        vm.doFilterProduct = Utils.productFilter.doFilterProduct;
+
+
         vm.test = function() {
             $log.info("Start test");
             var items = [
@@ -35,13 +39,20 @@
             ];
             var result = Utils.specialItemsFilter('a d', items);
 
+/*
+            var items = [
+                {id: 1, name: 'Диван Лилия шаговая Д/П М/К Ф/П вар.1'},// false
+                {id: 1, name: 'Диван Лилия шаговая Д/П М/К Ф/П вар.1 метро'}// true
+            ];
+            var result = Utils.specialItemsFilter('див ли ша д м м', items);
+*/
+
+
+
             angular.forEach(result, function(item) {
                 $log.info(item.name);
             });
-
             $log.info("End test");
-
-
         }
 
 

@@ -119,5 +119,13 @@ public class ProductController extends AbstractController {
         return ProductRecord.build(entity);
     }
 
+    @RequestMapping(value = "/all", method = RequestMethod.POST)
+    @ResponseBody
+    @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
+    public List<ProductRecord> getProducts() {
+        return productService.getAll().stream().map(ProductRecord::build).collect(Collectors.toList());
+    }
+
+
 
 }

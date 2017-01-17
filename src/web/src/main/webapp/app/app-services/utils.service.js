@@ -5,8 +5,8 @@
         .module('app')
         .factory('Utils', Utils);
 
-    Utils.$inject = ['$log', 'ALL_APP_ROLES', '$rootScope', 'LocMsg', 'uibDateParser', 'CommonUtils'];
-    function Utils($log, ALL_APP_ROLES, $rootScope, LocMsg, uibDateParser, CommonUtils) {
+    Utils.$inject = ['$log', 'ALL_APP_ROLES', '$rootScope', 'LocMsg', 'uibDateParser', 'CommonUtils', '$injector', '$q'];
+    function Utils($log, ALL_APP_ROLES, $rootScope, LocMsg, uibDateParser, CommonUtils, $injector, $q) {
         var service = {};
         service.refreshEditRemoveButtonEnabled = refreshEditRemoveButtonEnabled;
         service.getCheckedTableRow = getCheckedTableRow;
@@ -27,6 +27,11 @@
         service.getEndWeek = CommonUtils.getEndWeek;
         service.updateDocumentTitle = updateDocumentTitle;
         service.specialItemsFilter = specialItemsFilter;
+
+        service.productFilter = {
+            loadFilterProductNames: loadFilterProductNames,
+            doFilterProduct: doFilterProduct
+        };
         return service;
 
         function refreshEditRemoveButtonEnabled(vm, tableParams) {
@@ -264,21 +269,49 @@
             angular.forEach(items, function(item) {
                 var itemArray = getArray(nameProvider(item));
                 var wordIndex = 0;
-                angular.forEach(strArray, function(strItem) {
+                var matched;
+                for (var strIndex = 0; strIndex < strArray.length; strIndex++) {
+                    var strItem = strArray[strIndex];
+                    matched = false;
                     for (;wordIndex < itemArray.length; wordIndex++) {
                         var itemElement = itemArray[wordIndex];
                         if ((itemElement).toLowerCase().indexOf(('' + strItem).toLowerCase()) == 0) {
+                            wordIndex++;
+                            matched = true;
                             break;
                         }
                     }
-                });
-                if (wordIndex < itemArray.length) {
+                    if (!matched) {
+                        break
+                    }
+                    $log.info('BREAK');
+                }
+                if (matched) {
                     result.push(item);
                 }
             });
             return result;
 
         }
+
+        function loadFilterProductNames() {
+            var deferred = $q.defer();
+            $injector.get('ProductService').getForFilter(function (data) {
+                var res = [];
+                angular.forEach(data, function (e) {
+                    res.push(e.name);
+                });
+                deferred.resolve(res);
+            });
+            return deferred.promise;
+        }
+
+        function doFilterProduct(str, items) {
+            return specialItemsFilter(str, items, function(item) {
+                return item;
+            });
+        }
+
 
     }
 

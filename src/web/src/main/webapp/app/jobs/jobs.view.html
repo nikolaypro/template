@@ -2,6 +2,12 @@
 <script type="text/ng-template" id="jobs.view/date.filter.html">
     <date-picker vm="vm" ng-model="params.filter()[name]"/>
 </script>
+<script type="text/ng-template" id="jobs.view/products.filter.html">
+    <type-ahead-filter vm="vm" ng-model="params.filter()[name]" load-items="vm.loadFilterProductNames"
+                       filter="vm.doFilterProduct" template-url="'uib/template/typeahead/mascot-typeahead-wo-match.html'">
+    </type-ahead-filter>
+</script>
+
 <div class="container">
     <div class="edit-buttons">
         <button class="btn btn-primary btn-sm" ng-click="vm.doShowNewDialog()">{{'common.new' | i18n}}</button>
@@ -20,7 +26,8 @@
                 filter="{number: 'text'}">{{row.number}}
             </td>
             <td class="td_400px" data-title="'job.table.column.product' | i18n" sortable="'product.name'"
-                filter="{'product.name': 'text'}">{{row.product.name}}
+                filter="{'product.name' : 'jobs.view/products.filter.html'}">
+                {{row.product.name}}
             </td>
             <td class="td_400px" data-title="'job.table.column.job-type' | i18n" sortable="'jobType.name'"
                 filter="{'jobType.name': 'text'}">{{row.jobType.name}}

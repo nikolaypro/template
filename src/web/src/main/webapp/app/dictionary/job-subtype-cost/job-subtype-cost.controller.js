@@ -15,22 +15,8 @@
         params.defaultSort = {id: 'asc'};
         params.defaultFilter = {};
 
-        vm.loadFilterProductNames = function() {
-            var deferred = $q.defer();
-            JobSubTypeCostService.getProducts(function (data) {
-                var res = [];
-                angular.forEach(data, function (e) {
-                    res.push(e.name);
-                });
-                deferred.resolve(res);
-            });
-            return deferred.promise;
-        };
-        vm.filterProduct = function(str, items) {
-            return Utils.specialItemsFilter(str, items, function(item) {
-                return item;
-            });
-        };
+        vm.loadFilterProductNames = Utils.productFilter.loadFilterProductNames;
+        vm.doFilterProduct = Utils.productFilter.doFilterProduct;
 
         TableUtils.initTablePage(vm, JobSubTypeCostService, $scope, params);
     }
