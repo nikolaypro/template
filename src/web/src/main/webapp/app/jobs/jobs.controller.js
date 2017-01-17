@@ -12,7 +12,7 @@
         params.deleteConfirmManyMsg = 'job.table.delete.confirm.many';
         params.deleteConfirmMsg = 'job.table.delete.confirm';
         params.loadFromServerForEdit = true;
-        params.defaultSort = {completeDate: 'asc'};
+        params.defaultSort = {number: 'asc'};
         params.defaultFilter = {completeDate: Utils.getCurrDateWOTime(), showTail: vm.showTail};
         TableUtils.initTablePage(vm, JobService, $scope, params);
 
