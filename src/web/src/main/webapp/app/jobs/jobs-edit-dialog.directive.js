@@ -28,6 +28,9 @@
                     if (isNew) {
                         vm.job.completeDate = Utils.getCurrDateWOTime();
                         vm.job.jobType = vm.lastJobTypeSelected;
+                        if (vm.lastNumber != undefined) {
+                            vm.job.number = vm.lastNumber + 1;
+                        }
                         if (vm.lastProductSelected != undefined) {
                             vm.fixedProduct = vm.lastProductSelected;
                         }
@@ -48,6 +51,10 @@
 //                    vm.isShowRequired(vm.editForm.completeDate);
                     return !vm.jobTypeRequired && !vm.productTypeRequired && Utils.parseDate(vm.job.completeDate) != undefined;
                 };
+
+                scope.$watch('vm.job.number', function(newVal, oldVal){
+                    vm.lastNumber = newVal;
+                });
 
                 scope.$watch('vm.job.jobType', function(newVal, oldVal){
                     vm.jobTypeRequired = false;
