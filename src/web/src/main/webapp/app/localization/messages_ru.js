@@ -191,6 +191,7 @@
             'job.table.edit.complete.date.required': 'Дата завершения работы не задана',
             'job.table.show.tail': 'Показать "хвост"',
             'job.table.hide.tail': 'Скрыть "хвост"',
+            'job.table.hide.tail.hint': 'Незаконченные работы с прошлой недели',
 
             'typeahead.fixed.element.hint' : 'Последний выбранный элемент'
         });

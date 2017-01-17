@@ -190,6 +190,7 @@
             'job.table.edit.complete.date.required': 'Complete job data is required',
             'job.table.show.tail': 'Show tail',
             'job.table.hide.tail': 'Hide tail',
+            'job.table.hide.tail.hint': 'Jobs from previous week that not finished',
 
             'typeahead.fixed.element.hint' : 'Use last selected element'
         });
