@@ -85,6 +85,7 @@
 
                 EditDialogUtils.initEditDialog(vm, showModalParams, submitParams);
 
+                vm.filterProduct = Utils.specialItemsFilter;
 
 
                 /*
