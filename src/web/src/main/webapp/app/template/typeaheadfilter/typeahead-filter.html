@@ -7,10 +7,11 @@
            typeahead-template-url="{{templateUrl}}"
             />
     <span class="input-group-btn">
-            <button type="button" class="close edit-buttons titip-primary titip-top-left" style="padding-left: 10px"
+            <button type="button" class="close edit-buttons" style="padding-left: 10px"
                     aria-hidden="true"
-                    ng-click="ngModel = ''">
-                <span class="titip-content">{{'common.filter.clear.tooltip' | i18n}}</span>
+                    ng-click="ngModel = ''"
+                    uib-popover="{{'common.filter.clear.tooltip' | i18n}}" popover-trigger="'mouseenter'">
+                <!--<span class="titip-content">{{'common.filter.clear.tooltip' | i18n}}</span>-->
                 &times;
             </button>
     </span>
