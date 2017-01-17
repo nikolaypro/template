@@ -3,7 +3,7 @@
            uib-typeahead="item as item.name for item in getItems($viewValue)"
            class="form-control" ng-required="true" typeahead-editable="false" typeahead-loading="loadingItems"
            typeahead-min-length="1" autocomplete="off"
-           typeahead-template-url="uib/template/typeahead/mascot-typeahead-match.html"
+           typeahead-template-url="{{templateUrl}}"
            />
     <span class="input-group-btn">
         <button type="button" class="btn btn-default typeaheadTrigger" uib-dropdown-toggle ng-click="getItems()">

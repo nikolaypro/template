@@ -16,13 +16,18 @@
             scope: {
                 vm: '=',
                 loadItems: '=',
-                ngModel: '='
+                ngModel: '=',
+                filter: '=',
+                templateUrl: '='
             },
 //            require:"ngModel",
             link: function(scope, element, attrs, controller) {
                 var vm = scope.vm;
                 var items = null;
                 var filter = function(str, items) {
+                    if (scope.filter != undefined) {
+                        return scope.filter(str, items);
+                    }
                     var result = [];
                     angular.forEach(items, function(item) {
                         if (item.toLowerCase().indexOf(('' + str).toLowerCase()) > -1) {
@@ -31,7 +36,9 @@
                     });
                     return result;
                 };
-
+                if (scope.templateUrl == undefined) {
+                    scope.templateUrl = 'uib/template/typeahead/mascot-typeahead-match.html'
+                }
                 scope.getItems = function (str) {
                     if (items == null) {
                         var deferred = $q.defer();

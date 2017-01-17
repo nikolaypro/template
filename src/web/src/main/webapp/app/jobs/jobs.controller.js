@@ -21,6 +21,29 @@
             vm.tableParams.reload();
         };
 
+        vm.test = function() {
+            $log.info("Start test");
+            var items = [
+                {id: 1, name: 'abc def'},// true
+                {id: 1, name: ' abc def '},// true
+                {id: 1, name: ' abc    def '},// true
+                {id: 1, name: ' abc  gggg  def '},// true
+                {id: 1, name: ' abc  cc ff sfasffd  def '},// true
+                {id: 1, name: ' abc  cc ff sfasffd  edf '},// false
+                {id: 2, name: 'bac def '},// false
+                {id: 3, name: 'bbb bbb'} // false
+            ];
+            var result = Utils.specialItemsFilter('a d', items);
+
+            angular.forEach(result, function(item) {
+                $log.info(item.name);
+            });
+
+            $log.info("End test");
+
+
+        }
+
 
     }
 })();

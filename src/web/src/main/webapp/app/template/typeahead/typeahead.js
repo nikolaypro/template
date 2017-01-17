@@ -18,7 +18,9 @@
                 loadItems: '=',
                 placeHolder: '=',
                 getComboItemPrefix: '=',
-                fixedElement: '='
+                fixedElement: '=',
+                filter: '=',
+                templateUrl: '='
             },
             // require:"ngModel",
             link: function(scope, element, attrs, controller) {
@@ -26,6 +28,9 @@
 //                var formInput = angular.element(element[0].firstChild.firstChild.nextElementSibling).controller("ngModel");
                 // angular.element(element[0].firstChild.firstChild.nextElementSibling).controller("uibTypeahead")
                 var filter = function(str, items) {
+                    if (scope.filter != undefined) {
+                        return scope.filter(str, items);
+                    }
                     var result = [];
                     angular.forEach(items, function(item) {
                         if (typeof str == 'undefined' || (item.name).toLowerCase().indexOf(('' + str).toLowerCase()) > -1) {
@@ -35,6 +40,9 @@
                     // $log.info("Str = " + str + ", Filtered: " + result);
                     return result;
                 };
+                if (scope.templateUrl == undefined) {
+                    scope.templateUrl = 'uib/template/typeahead/mascot-typeahead-match.html'
+                }
                 scope.items = null;
                 scope.getItems = function (str) {
                     if (scope.items == null) {

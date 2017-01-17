@@ -5,8 +5,8 @@
         .module('app')
         .controller('JobSubTypeCostController', JobSubTypeCostController);
 
-    JobSubTypeCostController.$inject = ['JobSubTypeCostService', '$log', 'TableUtils', '$scope', '$q'];
-    function JobSubTypeCostController(JobSubTypeCostService, $log, TableUtils, $scope, $q) {
+    JobSubTypeCostController.$inject = ['JobSubTypeCostService', '$log', 'TableUtils', '$scope', '$q', 'Utils'];
+    function JobSubTypeCostController(JobSubTypeCostService, $log, TableUtils, $scope, $q, Utils) {
         var vm = this;
         var params = {};
         params.deleteConfirmManyMsg = 'job-subtype-cost.table.delete.confirm.many';
@@ -25,6 +25,11 @@
                 deferred.resolve(res);
             });
             return deferred.promise;
+        };
+        vm.filterProduct = function(str, items) {
+            return Utils.specialItemsFilter(str, items, function(item) {
+                return item;
+            });
         };
 
         TableUtils.initTablePage(vm, JobSubTypeCostService, $scope, params);

@@ -26,6 +26,7 @@
         service.getStartWeek = CommonUtils.getStartWeek;
         service.getEndWeek = CommonUtils.getEndWeek;
         service.updateDocumentTitle = updateDocumentTitle;
+        service.specialItemsFilter = specialItemsFilter;
         return service;
 
         function refreshEditRemoveButtonEnabled(vm, tableParams) {
@@ -241,6 +242,42 @@
             if ($rootScope.globals.appVersion != undefined) {
                 document.title += (" ver: " + $rootScope.globals.appVersion);
             }
+        }
+
+        function specialItemsFilter(str, items, nameProvider) {
+            if (typeof str == 'undefined') {
+                return items;
+            }
+
+            if (nameProvider == undefined) {
+                nameProvider = function(item) {
+                    return item.name;
+                }
+            }
+
+            var getArray = function(str) {
+                return str.trim().replace('  ', ' ').split(' ');
+            };
+
+            var strArray = getArray(str);
+            var result = [];
+            angular.forEach(items, function(item) {
+                var itemArray = getArray(nameProvider(item));
+                var wordIndex = 0;
+                angular.forEach(strArray, function(strItem) {
+                    for (;wordIndex < itemArray.length; wordIndex++) {
+                        var itemElement = itemArray[wordIndex];
+                        if ((itemElement).toLowerCase().indexOf(('' + strItem).toLowerCase()) == 0) {
+                            break;
+                        }
+                    }
+                });
+                if (wordIndex < itemArray.length) {
+                    result.push(item);
+                }
+            });
+            return result;
+
         }
 
     }

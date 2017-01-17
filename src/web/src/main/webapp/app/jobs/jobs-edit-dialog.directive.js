@@ -73,6 +73,7 @@
                     minDate: new Date(2016, 1, 1),
                     startingDay: 1
                 };
+                vm.filterProduct = Utils.specialItemsFilter;
             }
         }
     }
