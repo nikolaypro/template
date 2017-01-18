@@ -6,7 +6,6 @@ import com.mascot.server.beans.importdata.ImportProgress;
 import com.mascot.server.beans.importdata.ImportStat;
 import com.mascot.server.model.*;
 import com.mascot.service.controller.AbstractController;
-import com.mascot.service.controller.common.ResultRecord;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -54,9 +53,9 @@ public class Import1cController extends AbstractController {
     @RequestMapping(value = "/progress", method = RequestMethod.POST)
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
-    public ImportProgressRecord getProgress() {
+    public ProgressRecord getProgress() {
         ImportProgress progress = import1cService.getProgress();
-        return progress != null ? ImportProgressRecord.build(progress) : null;
+        return progress != null ? ProgressRecord.build(progress) : null;
     }
 
     private String buildLog(ImportCheckData importCheckData) {

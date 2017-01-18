@@ -1,8 +1,10 @@
 package com.mascot.service.controller.report;
 
 import com.mascot.common.MascotUtils;
+import com.mascot.server.beans.ProgressService;
 import com.mascot.server.beans.report.ReportService;
 import com.mascot.server.beans.report.SalaryReportItem;
+import com.mascot.server.common.ProgressManager;
 import com.mascot.server.model.User;
 import com.mascot.service.controller.AbstractController;
 import com.mascot.service.controller.user.UserRecord;
@@ -23,6 +25,10 @@ public class ReportController extends AbstractController {
     @Inject
     private ReportService reportService;
 
+    @Inject
+    private ProgressService progressService;
+
+
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     @ResponseBody
     public ReportResultRecord createUsers() {
@@ -42,12 +48,20 @@ public class ReportController extends AbstractController {
 
     @RequestMapping(value = "/salary-data", method = RequestMethod.POST)
     @ResponseBody
-    public ReportDataResultRecord createSalaryData(@RequestBody Date date) {
+    public ReportDataResultRecord createSalaryData(@RequestBody SalaryDataRequestData request) {
 //        final ZonedDateTime zoned = ZonedDateTime.parse(date);
-        final ZonedDateTime zoned = MascotUtils.toDefaultZonedDateTime(date);
-        List<SalaryReportItem> salaryItems = reportService.getSalary(MascotUtils.getStartWeek(zoned), MascotUtils.getEndWeek(zoned));
-        List<SalaryReportRecord> records = salaryItems.stream().map(SalaryReportRecord::build).collect(Collectors.toList());
+        final ZonedDateTime zoned = MascotUtils.toDefaultZonedDateTime(request.date);
+        final ZonedDateTime startWeek = MascotUtils.getStartWeek(zoned);
+        final ZonedDateTime endWeek = MascotUtils.getEndWeek(zoned);
+        final ProgressManager progressManager = new ProgressManager(request.progressId, progressService);
+        final List<SalaryReportItem> salaryItems = reportService.getSalary(startWeek, endWeek, progressManager);
+        final List<SalaryReportRecord> records = salaryItems.stream().map(SalaryReportRecord::build).collect(Collectors.toList());
         return new ReportDataResultRecord(records);
+    }
+
+    public static class SalaryDataRequestData {
+        public Date date;
+        public Long progressId;
     }
 
 }

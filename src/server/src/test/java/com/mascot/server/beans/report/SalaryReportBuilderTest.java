@@ -1,6 +1,7 @@
 package com.mascot.server.beans.report;
 
 import com.mascot.TestModelFactory;
+import com.mascot.server.DummyProgressManager;
 import com.mascot.server.model.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -342,7 +343,7 @@ public class SalaryReportBuilderTest {
     }
 
     private SalaryReportBuilder createBuilder() {
-        return new SalaryReportBuilder(() -> jobSubTypeCostList, () -> jobTypeList);
+        return new SalaryReportBuilder(() -> jobSubTypeCostList, () -> jobTypeList, new DummyProgressManager());
     }
 
     private JobType createJobType(long id, String name, int order) {

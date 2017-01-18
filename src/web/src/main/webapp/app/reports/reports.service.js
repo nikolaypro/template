@@ -37,7 +37,7 @@
         }
 
         function reportSalaryData(date, handleSuccess) {
-            return $http.post(UrlService.url('api/reports/salary-data'), date).then(handleSuccess, handleError);
+            return $http.post(UrlService.url('api/reports/salary-data'), {date: date, id: 1}).then(handleSuccess, handleError);
         }
 
         function loadLogFileList(handleSuccess) {

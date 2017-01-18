@@ -2,6 +2,8 @@ package com.mascot.server.beans.report;
 
 import com.mascot.common.MailSender;
 import com.mascot.common.MascotUtils;
+import com.mascot.server.beans.ProgressService;
+import com.mascot.server.common.ProgressManager;
 import com.mascot.server.common.ServerUtils;
 import com.mascot.server.model.*;
 import org.apache.log4j.Logger;
@@ -9,7 +11,6 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -25,10 +26,13 @@ public class SalaryReportBuilder {
     private final Logger logger = Logger.getLogger(getClass());
     private final Supplier<List<JobSubTypeCost>> jobSubTypeCostSupplier;
     private final Supplier<List<JobType>> jobTypeSupplier;
+    private final ProgressManager progress;
 
-    public SalaryReportBuilder(Supplier<List<JobSubTypeCost>> jobSubTypeCostSupplier, Supplier<List<JobType>> jobTypeSupplier) {
+    public SalaryReportBuilder(Supplier<List<JobSubTypeCost>> jobSubTypeCostSupplier, Supplier<List<JobType>> jobTypeSupplier,
+                               ProgressManager progress) {
         this.jobSubTypeCostSupplier = jobSubTypeCostSupplier;
         this.jobTypeSupplier = jobTypeSupplier;
+        this.progress = progress;
     }
     public List<SalaryReportItem> report(Supplier<List<Job>> jobsSupplier, Supplier<List<Job>> tailJobSupplier) {
         return report(jobsSupplier, tailJobSupplier, "Test log");
@@ -38,16 +42,22 @@ public class SalaryReportBuilder {
         final long start = System.currentTimeMillis();
         try {
             StringBuilder log = new StringBuilder(logInfo).append("\n");
+            progress.update("Start get a jobs", 0);
             final List<Job> jobs = jobsSupplier.get();
+            progress.update("Start get a costs", 10);
             final List<JobSubTypeCost> jobSubTypeCosts = jobSubTypeCostSupplier.get();
+            progress.update("Start get a job types", 20);
             final List<JobType> allJobTypes = jobTypeSupplier.get();
+            progress.update("Start get a tail jobs", 22);
             final List<Job> tailJobs = new ArrayList<>(tailJobSupplier.get());
             allJobTypes.sort((e1, e2) -> e1.getOrder() > e2.getOrder() ? 1 : -1);
             jobs.sort(Comparator.comparing(Job::getCompleteDate));
+            progress.update("Start add jobs to log", 29);
             log.append(addJobsLog(jobs));
             log.append(addTailJobsLog(tailJobs));
             log.append("\n **************************************************\n");
             log.append("Start computing:");
+            progress.update("Start computing: jobs size = " + jobs.size(), 30);
             final BiFunction<JobSubType, Product, Optional<JobSubTypeCost>> costFinder = (subType, product) ->
                     jobSubTypeCosts.stream().
                             filter(cost ->
@@ -77,6 +87,7 @@ public class SalaryReportBuilder {
                 });
             });
 
+            progress.update("Start log a computing details", 90);
             log.append(logDetails(jobType2Details));
             log.append(logDetailsGroupsByJobSubType(jobType2Details));
 
@@ -84,11 +95,13 @@ public class SalaryReportBuilder {
 
             exportToFile(log);
 
+            progress.update("Create report", 95);
             return jobType2Details.entrySet().stream().sorted(Comparator.comparing(e -> e.getKey().getOrder())).
                     map(entry -> new SalaryReportItem(entry.getKey(), entry.getValue().cost)).
                     collect(Collectors.toList());
         } finally {
             logger.info("Salary report duration: " + (System.currentTimeMillis() - start) + " msec");
+            progress.finish();
         }
     }
 

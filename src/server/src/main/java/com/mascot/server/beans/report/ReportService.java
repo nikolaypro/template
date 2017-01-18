@@ -1,5 +1,6 @@
 package com.mascot.server.beans.report;
 
+import com.mascot.server.common.ProgressManager;
 import com.mascot.server.model.User;
 
 import java.time.ZonedDateTime;
@@ -15,5 +16,5 @@ public interface ReportService {
 
     List<User> getUsers();
 
-    List<SalaryReportItem> getSalary(ZonedDateTime from, ZonedDateTime to);
+    List<SalaryReportItem> getSalary(ZonedDateTime from, ZonedDateTime to, ProgressManager progressManager);
 }
