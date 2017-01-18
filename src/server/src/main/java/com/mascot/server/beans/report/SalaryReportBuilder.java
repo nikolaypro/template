@@ -43,21 +43,27 @@ public class SalaryReportBuilder {
         try {
             StringBuilder log = new StringBuilder(logInfo).append("\n");
             progress.update("Start get a jobs", 0);
+            doSleep(3);
             final List<Job> jobs = jobsSupplier.get();
             progress.update("Start get a costs", 10);
+            doSleep(3);
             final List<JobSubTypeCost> jobSubTypeCosts = jobSubTypeCostSupplier.get();
             progress.update("Start get a job types", 20);
+            doSleep(3);
             final List<JobType> allJobTypes = jobTypeSupplier.get();
             progress.update("Start get a tail jobs", 22);
+            doSleep(3);
             final List<Job> tailJobs = new ArrayList<>(tailJobSupplier.get());
             allJobTypes.sort((e1, e2) -> e1.getOrder() > e2.getOrder() ? 1 : -1);
             jobs.sort(Comparator.comparing(Job::getCompleteDate));
             progress.update("Start add jobs to log", 29);
+            doSleep(3);
             log.append(addJobsLog(jobs));
             log.append(addTailJobsLog(tailJobs));
             log.append("\n **************************************************\n");
             log.append("Start computing:");
             progress.update("Start computing: jobs size = " + jobs.size(), 30);
+            doSleep(3);
             final BiFunction<JobSubType, Product, Optional<JobSubTypeCost>> costFinder = (subType, product) ->
                     jobSubTypeCosts.stream().
                             filter(cost ->
@@ -88,6 +94,7 @@ public class SalaryReportBuilder {
             });
 
             progress.update("Start log a computing details", 90);
+            doSleep(3);
             log.append(logDetails(jobType2Details));
             log.append(logDetailsGroupsByJobSubType(jobType2Details));
 
@@ -96,11 +103,13 @@ public class SalaryReportBuilder {
             exportToFile(log);
 
             progress.update("Create report", 95);
+            doSleep(3);
             return jobType2Details.entrySet().stream().sorted(Comparator.comparing(e -> e.getKey().getOrder())).
                     map(entry -> new SalaryReportItem(entry.getKey(), entry.getValue().cost)).
                     collect(Collectors.toList());
         } finally {
             logger.info("Salary report duration: " + (System.currentTimeMillis() - start) + " msec");
+            doSleep(3);
             progress.finish();
         }
     }
@@ -281,5 +290,12 @@ public class SalaryReportBuilder {
                 append(", product: ").append(job.getProduct().getName()).append(" (id=").append(job.getProduct().getId()).append(")");
     }
 
+    private void doSleep(int i) {
+        try {
+            Thread.sleep(i * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -20,7 +20,7 @@
         function openReport(url, name, data) {
             var win = window.open('app/app-report/report.html#/' + url + '/' + new Date().getTime(), name);
             if (win == undefined) {
-                Utils.showWarning(LocMsg.get('report.please.enable.popup.window'))
+                Utils.showWarning(LocMsg.get('report.please.enable.popup.window'));
                 return;
             }
             win.user = $rootScope.globals.currentUser;
@@ -36,8 +36,8 @@
             return $http.post(UrlService.url('api/reports/users-data')).then(handleSuccess, handleError);
         }
 
-        function reportSalaryData(date, handleSuccess) {
-            return $http.post(UrlService.url('api/reports/salary-data'), {date: date, id: 1}).then(handleSuccess, handleError);
+        function reportSalaryData(date, progressId, handleSuccess) {
+            return $http.post(UrlService.url('api/reports/salary-data'), {date: date, progressId: progressId}).then(handleSuccess, handleError);
         }
 
         function loadLogFileList(handleSuccess) {

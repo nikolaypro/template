@@ -64,14 +64,29 @@
 
         vm.salaryReport = {
             createReport: function () {
-                ReportsService.reportSalaryData(vm.salaryReport.date, function (data) {
-                    data.data.date = vm.salaryReport.date;
-                    ReportsService.openReport('salary', 'Salary report', data.data);
+                vm.salaryReport.started = true;
+                vm.salaryLogReport.action = function(progressId, onFinishCallback) {
+                    ReportsService.reportSalaryData(vm.salaryReport.date, progressId, function (data) {
+                        onFinishCallback();
+                        data.data.date = vm.salaryReport.date;
+                        ReportsService.openReport('salary', 'Salary report', data.data);
 //                    win.reloadRoute();
 
+                    });
+                };
+/*
+                ProgressService.start(function(progressId) {
+                    ReportsService.reportSalaryData(vm.salaryReport.date, function (data) {
+                        data.data.date = vm.salaryReport.date;
+                        ReportsService.openReport('salary', 'Salary report', data.data);
+//                    win.reloadRoute();
+
+                    });
                 });
+*/
             },
-            date: Utils.getCurrDateWOTime()
+            date: Utils.getCurrDateWOTime(),
+            started: false
         };
 
         vm.salaryLogReport = {

@@ -17,7 +17,7 @@
         }
 
         function startProgress(handleSuccess) {
-            return $http.post(UrlService.url('api/progress/update/start')).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+            return $http.get(UrlService.url('api/progress/start')).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
     }

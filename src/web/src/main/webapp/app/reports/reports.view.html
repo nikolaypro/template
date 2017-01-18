@@ -57,6 +57,12 @@
                    ng-class="{'black-font' : vm.currReport != vm.salaryReport}">{{'report.salary' | i18n}}</a></h4>
             <div ng-show="vm.currReport == vm.salaryReport" class="report-options">
 
+<!--
+                <div>State: asasa{{vm.importState}}</div>
+                <uib-progressbar class="progress-striped" value="vm.importPercent">{{vm.importPercent}}</uib-progressbar>
+-->
+                <progress-bar started="vm.salaryReport.started" action="vm.salaryLogReport.action"></progress-bar>
+
                 <div class="form-group">
                     <date-picker vm="vm.salaryReport" ng-model="vm.salaryReport.date"/>
                 </div>

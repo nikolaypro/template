@@ -30,6 +30,7 @@ public class ProgressServiceImpl extends AbstractMascotService implements Progre
 
     @Override
     public void update(Long id, String state, int value) {
+        logger.info(String.format("Update progress for id = %s: state = %s, value = %s", id, state, value));
         final Progress progress = findProgress(id);
         if (progress == null) {
             return;
@@ -42,6 +43,7 @@ public class ProgressServiceImpl extends AbstractMascotService implements Progre
 
     @Override
     public void update(Long id, int value) {
+        logger.info(String.format("Update progress for id = %s: value = %s", id, value));
         final Progress progress = findProgress(id);
         if (progress == null) {
             return;
@@ -53,6 +55,7 @@ public class ProgressServiceImpl extends AbstractMascotService implements Progre
 
     @Override
     public void inc(Long id, String state, int incValue) {
+        logger.info(String.format("Increment progress for id = %s: state = %s, inc value = %s", id, state, incValue));
         final Progress progress = findProgress(id);
         if (progress == null) {
             return;
@@ -65,6 +68,7 @@ public class ProgressServiceImpl extends AbstractMascotService implements Progre
 
     @Override
     public void inc(Long id, int incValue) {
+        logger.info(String.format("Increment progress for id = %s: inc value = %s", id, incValue));
         final Progress progress = findProgress(id);
         if (progress == null) {
             return;
