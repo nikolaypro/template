@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -34,6 +35,7 @@ public class SalaryReportBuilder {
         this.jobTypeSupplier = jobTypeSupplier;
         this.progress = progress;
     }
+
     public List<SalaryReportItem> report(Supplier<List<Job>> jobsSupplier, Supplier<List<Job>> tailJobSupplier) {
         return report(jobsSupplier, tailJobSupplier, "Test log");
     }
@@ -64,6 +66,10 @@ public class SalaryReportBuilder {
             log.append("Start computing:");
             progress.update("Start computing: jobs size = " + jobs.size(), 30);
             doSleep(3);
+
+            final Map<Job, Job> job2TailJob = computeJob2TailJobMap(jobs, tailJobs);
+            log.append(addMatchedTailJobsLog(job2TailJob, tailJobs));
+
             final BiFunction<JobSubType, Product, Optional<JobSubTypeCost>> costFinder = (subType, product) ->
                     jobSubTypeCosts.stream().
                             filter(cost ->
@@ -73,13 +79,13 @@ public class SalaryReportBuilder {
             final Map<JobType, CostDetails> jobType2Details = new HashMap<>();
             jobs.forEach(job -> {
                 log.append("\n").append(getJobInfo(job));
-                getCompletedJobTypes(job, allJobTypes, tailJobs, log).forEachOrdered(jobType -> {
+                getCompletedJobTypes(job, allJobTypes, job2TailJob, log).forEachOrdered(jobType -> {
 
                     jobType.getJobSubTypes().forEach(subType -> {
 
                         final Optional<JobSubTypeCost> costOptional = costFinder.apply(subType, job.getProduct());
                         costOptional.ifPresent(e ->
-                                        log.append("\n\t - ").append(getCostInfo(e, subType, job.getProduct()))
+                                log.append("\n\t - ").append(getCostInfo(e, subType, job.getProduct()))
                         );
                         costOptional.ifPresent(jobSubTypeCost -> {
                             CostDetails costDetails = jobType2Details.get(jobType);
@@ -95,12 +101,17 @@ public class SalaryReportBuilder {
 
             progress.update("Start log a computing details", 90);
             doSleep(3);
+
             log.append(logDetails(jobType2Details));
-            log.append(logDetailsGroupsByJobSubType(jobType2Details));
+            log.append(logDetailsGroupsByJobSubType(jobType2Details, this::getJobInfo));
+
+            final StringBuilder simpleLog = new StringBuilder(logInfo).append("\n");
+            simpleLog.append(logDetailsGroupsByJobSubType(jobType2Details, this::getShortJobInfo));
 
 //        logger.info(log.toString());
 
-            exportToFile(log);
+            exportToFile(log, "full");
+            exportToFile(simpleLog, "simple");
 
             progress.update("Create report", 95);
             doSleep(3);
@@ -114,7 +125,24 @@ public class SalaryReportBuilder {
         }
     }
 
-    private StringBuilder logDetailsGroupsByJobSubType(Map<JobType, CostDetails> jobType2Details) {
+    static Map<Job, Job> computeJob2TailJobMap(List<Job> jobs, List<Job> tailJobs) {
+        // Create DESC comparator
+        final Comparator<Job> jobComparator = (j1, j2) -> j2.getJobType().getOrder().compareTo(j1.getJobType().getOrder());
+        tailJobs.sort(jobComparator);
+        final Map<Job, Job> result = new HashMap<>();
+        jobs.stream().sorted(jobComparator).forEachOrdered(job -> {
+            final Integer jobOrder = job.getJobType().getOrder();
+            final Optional<Job> tailJobOptional = tailJobs.stream()
+                    .filter(tailJob -> tailJob.getProduct().getId().equals(job.getProduct().getId()) &&
+                            jobOrder > tailJob.getJobType().getOrder())
+                    .findFirst();
+            tailJobOptional.ifPresent(tailJob -> result.put(job, tailJob));
+            tailJobOptional.ifPresent(tailJobs::remove);
+        });
+        return result;
+    }
+
+    private StringBuilder logDetailsGroupsByJobSubType(Map<JobType, CostDetails> jobType2Details, Function<Job, StringBuilder> jobInfo) {
         StringBuilder result = new StringBuilder("\n******************* FINAL RESULT GROUPED BY SUBTYPE ***************************\n");
         jobType2Details.entrySet().stream().
                 sorted(Comparator.comparing(e -> e.getKey().getOrder())).
@@ -122,17 +150,23 @@ public class SalaryReportBuilder {
                     final CostDetails costDetails = entry.getValue();
                     result.append("- [").append(entry.getKey().getName()).append("] summary cost: ").append(costDetails.cost).append("  ----------\n");
                     costDetails.getGroupedByJobSubType().forEach((summaryCost) -> {
-                        result.append("\t").append("sub type: ").append(summaryCost.subType).append(", cost: ").append(summaryCost.summaryCost).append("\n");
+                        result.append("\t").append("sub type: ").append(summaryCost.subType)
+                                .append(", cost: ").append(summaryCost.summaryCost)
+                                .append(", job size: ").append(summaryCost.jobs.size())
+                                .append("\n");
                         summaryCost.jobs.entrySet().stream()
-                                .sorted(Comparator.comparing(jobEntry -> jobEntry.getKey().getNumber()))
-                                .forEachOrdered(jobEntry -> result.append("\t \t - ").append(jobEntry.getValue()).append(" - ")
-                                        .append(getJobInfo(jobEntry.getKey())).append("\n"));
+                                .sorted(Comparator.comparing(jobEntry -> jobEntry.getKey().getProduct().getName().trim()))
+                                .forEachOrdered(jobEntry ->
+                                        result.append("\t \t - ")
+                                                .append(jobEntry.getValue())
+                                                .append(" - ")
+                                                .append(jobInfo.apply(jobEntry.getKey())).append("\n"));
                     });
                 });
         return result;
     }
 
-    private void exportToFile(StringBuilder log) {
+    private void exportToFile(StringBuilder log, String prefix) {
         Path path = ServerUtils.getSalaryReportLogPath();
         if (!path.toFile().exists()) {
             try {
@@ -144,7 +178,7 @@ public class SalaryReportBuilder {
         }
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss-SSS");
         String currDate = LocalDateTime.now().format(dateTimeFormatter);
-        path = path.resolve(currDate + ".log");
+        path = path.resolve(prefix + "_" + currDate + ".log");
 
         Path file;
         try {
@@ -161,20 +195,22 @@ public class SalaryReportBuilder {
         }
     }
 
-    private Stream<JobType> getCompletedJobTypes(Job job, List<JobType> allJobTypes, List<Job> tailJobs, StringBuilder log) {
-        final JobType jobType = job.getJobType();
-        final Product product = job.getProduct();
-
-        boolean jobTypeIsFinal = jobType.getOrder().equals(allJobTypes.get(allJobTypes.size() - 1).getOrder());
-
-        final Optional<Job> tailJob = jobTypeIsFinal ?
-                tailJobs.stream().filter(e -> e.getProduct().getId().equals(product.getId())).findFirst() :
-                Optional.empty();
+    /**
+     * получить выполненные субработы для конкретной работы. Учитывается хвост
+     *
+     * @param job
+     * @param allJobTypes
+     * @param job2TailJob
+     * @param log
+     * @return
+     */
+    private Stream<JobType> getCompletedJobTypes(Job job, List<JobType> allJobTypes, Map<Job, Job> job2TailJob,
+                                                 /*List<Job> tailJobs, */StringBuilder log) {
+        final Optional<Job> tailJob = Optional.ofNullable(job2TailJob.get(job));
         tailJob.ifPresent(e -> logInfoAboutTailJob(log, e));
         final Stream<JobType> sorted = allJobTypes.stream().
-                filter(e -> (!tailJob.isPresent() || e.getOrder() > tailJob.get().getJobType().getOrder()) && e.getOrder() <= jobType.getOrder()).
+                filter(e -> (!tailJob.isPresent() || e.getOrder() > tailJob.get().getJobType().getOrder()) && e.getOrder() <= job.getJobType().getOrder()).
                 sorted(Comparator.comparing(JobType::getOrder));
-        tailJob.ifPresent(tailJobs::remove);
         return sorted;
     }
 
@@ -224,7 +260,7 @@ public class SalaryReportBuilder {
         }
 
         Collection<JobSubTypeSummaryCost> getGroupedByJobSubType() {
-            final Map<JobSubType, JobSubTypeSummaryCost> result = new HashMap<>();
+            final Map<JobSubType, JobSubTypeSummaryCost> result = new TreeMap<>(Comparator.comparing(JobSubType::getName));
             details.forEach((job, map) -> {
                 map.forEach((subType, cost) -> {
                     JobSubTypeSummaryCost jobSubTypeSummaryCost = result.computeIfAbsent(subType, JobSubTypeSummaryCost::new);
@@ -278,6 +314,26 @@ public class SalaryReportBuilder {
         return log;
     }
 
+    private StringBuilder addMatchedTailJobsLog(Map<Job, Job> job2TailJob, List<Job> notMatchedTailJobs) {
+        StringBuilder log = new StringBuilder();
+        log.append("\n---------------------------------------------------------------------------------\n");
+        log.append("Matched ").append(job2TailJob.size()).append(" TAIL jobs:").append("\n");
+        job2TailJob.forEach((job, tailJob) ->
+                log.append("\n\t")
+                        .append(getJobInfo(job))
+                        .append("\n\t\tmatched with tail job")
+                        .append("\n\t")
+                        .append(getJobInfo(tailJob)).append("\n")
+        );
+        if (!notMatchedTailJobs.isEmpty()) {
+            log.append("\n\n\n\nATTENTION ATTENTION ATTENTION !!!!!!!!!!!!\n").append("Exists not matched tail jobs");
+            notMatchedTailJobs.forEach(tailJob -> log.append("\n\t").append(getJobInfo(tailJob)));
+        }
+
+        log.append("\n---------------------------------------------------------------------------------\n");
+        return log;
+    }
+
     private StringBuilder getJobInfo(Job job) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -290,12 +346,21 @@ public class SalaryReportBuilder {
                 append(", product: ").append(job.getProduct().getName()).append(" (id=").append(job.getProduct().getId()).append(")");
     }
 
+    private StringBuilder getShortJobInfo(Job job) {
+        return new StringBuilder().
+                append(job.getNumber()).
+                append("  -  ").append(job.getProduct().getName()).
+                append("  -  ").append(job.getJobType().getName());
+    }
+
     private void doSleep(int i) {
+/*
         try {
             Thread.sleep(i * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+*/
     }
 
 }

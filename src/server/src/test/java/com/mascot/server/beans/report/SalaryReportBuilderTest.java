@@ -7,10 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Николай on 15.11.2016.
@@ -341,6 +338,82 @@ public class SalaryReportBuilderTest {
         Assert.assertEquals(report.get(0).getCost(), expectedCost);
 */
     }
+
+    public void testCreateTailJobsMapSimple() {
+        Job job1 = TestModelFactory.createJob(1, jobType3, product1, 1);
+        Job tailJob = TestModelFactory.createJob(2, jobType2, product1, 2);
+
+        List<Job> tailJobs = list(tailJob);
+        Map<Job, Job> result = SalaryReportBuilder.computeJob2TailJobMap(list(job1), tailJobs);
+        Assert.assertEquals(result.size(), 1);
+        Assert.assertTrue(result.containsKey(job1));
+        Assert.assertEquals(result.get(job1), tailJob);
+        Assert.assertEquals(tailJobs.size(), 0);
+
+        Job job2 = TestModelFactory.createJob(1, jobType2, product1, 1);
+        tailJobs = list(tailJob);
+        result = SalaryReportBuilder.computeJob2TailJobMap(list(job2, job1), tailJobs);
+        Assert.assertEquals(result.size(), 1);
+        Assert.assertTrue(result.containsKey(job1));
+        Assert.assertEquals(result.get(job1), tailJob);
+        Assert.assertEquals(tailJobs.size(), 0);
+
+        tailJobs = list(tailJob);
+        result = SalaryReportBuilder.computeJob2TailJobMap(list(job2), tailJobs);
+        Assert.assertEquals(result.size(), 0);
+        Assert.assertEquals(tailJobs.size(), 1);
+
+    }
+
+    public void testCreateTailJobsMap() {
+        Job job1 = TestModelFactory.createJob(1, jobType3, product1, 1);
+        Job job2 = TestModelFactory.createJob(1, jobType2, product1, 1);
+        Job job3 = TestModelFactory.createJob(1, jobType1, product1, 1);
+
+        Job job4 = TestModelFactory.createJob(1, jobType3, product2, 1);
+        Job job5 = TestModelFactory.createJob(1, jobType2, product2, 1);
+        Job job6 = TestModelFactory.createJob(1, jobType1, product2, 1);
+
+        Job job7 = TestModelFactory.createJob(1, jobType2, product3, 1);
+        Job job8 = TestModelFactory.createJob(1, jobType1, product3, 1);
+
+        Job tailJob1 = TestModelFactory.createJob(2, jobType2, product1, 2);
+        Job tailJob2 = TestModelFactory.createJob(2, jobType1, product1, 2);
+
+        Job tailJob4 = TestModelFactory.createJob(2, jobType2, product2, 2);
+        Job tailJob5 = TestModelFactory.createJob(2, jobType1, product2, 2);
+
+        Job tailJobAbsent = TestModelFactory.createJob(2, jobType2, product3, 2);
+
+        List<Job> tailJobs = list(tailJob1, tailJob2, tailJob4, tailJob5, tailJobAbsent);
+        Map<Job, Job> result = SalaryReportBuilder.computeJob2TailJobMap(list(job1, job2, job3, job4, job5, job6, job7, job8), tailJobs);
+        Assert.assertEquals(result.size(), 4);
+        Assert.assertTrue(result.containsKey(job1));
+        Assert.assertEquals(result.get(job1), tailJob1);
+
+        Assert.assertTrue(result.containsKey(job2));
+        Assert.assertEquals(result.get(job2), tailJob2);
+
+        Assert.assertTrue(result.containsKey(job4));
+        Assert.assertEquals(result.get(job4), tailJob4);
+
+        // My fail because tailJob5 equals tailJob6
+        Assert.assertTrue(result.containsKey(job5));
+        Assert.assertEquals(result.get(job5), tailJob5);
+
+        Assert.assertEquals(tailJobs.size(), 1);
+        Assert.assertEquals(tailJobs.get(0), tailJobAbsent);
+
+    }
+
+    public List<Job> list(Job... jobs) {
+        List<Job> result = new ArrayList<Job>();
+        for (Job job : jobs) {
+            result.add(job);
+        }
+        return result;
+    }
+
 
     private SalaryReportBuilder createBuilder() {
         return new SalaryReportBuilder(() -> jobSubTypeCostList, () -> jobTypeList, new DummyProgressManager());
