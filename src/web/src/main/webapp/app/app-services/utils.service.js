@@ -27,11 +27,15 @@
         service.getEndWeek = CommonUtils.getEndWeek;
         service.updateDocumentTitle = updateDocumentTitle;
         service.specialItemsFilter = specialItemsFilter;
+        service.specialItemsFilterWithSequence = specialItemsFilterWithSequence;
+        service.doAutocompleteProductFilter = doAutocompleteProductFilter;// for
 
+// FOR FILTER COMPONENTS
         service.productFilter = {
             loadFilterProductNames: loadFilterProductNames,
             doFilterProduct: doFilterProduct
         };
+// ----------------------
         return service;
 
         function refreshEditRemoveButtonEnabled(vm, tableParams) {
@@ -249,6 +253,58 @@
             }
         }
 
+        /**
+         * Filter word sequence must be equals item word sequence. For example:
+         * search str: "on th" will not find a string "One Two Three Four Five"
+         * search str: "on tw th" will find a string "One Two Three Four Five"
+         * @param str
+         * @param items
+         * @param nameProvider
+         * @returns {*}
+         */
+        function specialItemsFilterWithSequence(str, items, nameProvider) {
+            if (typeof str == 'undefined') {
+                return items;
+            }
+
+            if (nameProvider == undefined) {
+                nameProvider = function(item) {
+                    return item.name;
+                }
+            }
+
+            var getArray = function(str) {
+                return str.trim().replace('  ', ' ').split(' ');
+            };
+
+            var strArray = getArray(str);
+            var result = [];
+            angular.forEach(items, function(item) {
+                var itemArray = getArray(nameProvider(item));
+                if (strArray.length > itemArray.length) {
+                    return;
+                }
+                for (var strIndex = 0; strIndex < strArray.length; strIndex++) {
+                    var strItem = strArray[strIndex];
+                    var itemElement = itemArray[strIndex];
+                    if ((itemElement).toLowerCase().indexOf(('' + strItem).toLowerCase()) != 0) {
+                        return;
+                    }
+                }
+                result.push(item);
+            });
+            return result;
+        }
+
+
+        /**
+         * Words can be absent. For example:
+         * search str: "on th" will be find a string "One Two Three Four Five"
+         * @param str
+         * @param items
+         * @param nameProvider
+         * @returns {*}
+         */
         function specialItemsFilter(str, items, nameProvider) {
             if (typeof str == 'undefined') {
                 return items;
@@ -291,7 +347,31 @@
                 }
             });
             return result;
+        }
 
+        function standardFilter(str, items, nameProvider) {
+            var result = [];
+            angular.forEach(items, function(item) {
+                if (typeof str == 'undefined' || nameProvider(item).toLowerCase().indexOf(('' + str).toLowerCase()) > -1) {
+                    result.push(item);
+                }
+            });
+            // $log.info("Str = " + str + ", Filtered: " + result);
+            return result;
+        }
+
+        function doAutocompleteProductFilter(str, items, nameProvider) {
+            var type = $rootScope.globals.settings.productAutocompleteType;
+            if (type == 'START_WORD_SEQUENCE') {
+                $log.info("START_WORD_SEQUENCE autocomplete");
+                return specialItemsFilter(str, items, nameProvider);
+            }
+            if (type == 'START_WORD_SEQUENCE_STRONG') {
+                $log.info("START_WORD_SEQUENCE_STRONG autocomplete");
+                return specialItemsFilterWithSequence(str, items, nameProvider);
+            }
+            $log.info("STANDARD autocomplete");
+            return standardFilter(str, items, nameProvider);
         }
 
         function loadFilterProductNames() {
@@ -307,7 +387,7 @@
         }
 
         function doFilterProduct(str, items) {
-            return specialItemsFilter(str, items, function(item) {
+            return doAutocompleteProductFilter(str, items, function(item) {
                 return item;
             });
         }

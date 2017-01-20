@@ -61,7 +61,12 @@
 
         }
 
-        function SetCredentials(username, password, roles, locale, appVersion) {
+        function SetCredentials(username, password, response) {
+            var roles = response.roles;
+            var locale = response.locale;
+            var appVersion = response.appVersion;
+            var productAutocompleteType = response.productAutocompleteType;
+
             var authdata = UserService.base64().encode(UserService.encode_utf8(username) + ':' + UserService.encode_utf8(password));
 
             $rootScope.globals = {
@@ -71,6 +76,9 @@
                     roles: roles,
                     locale: locale,
                     dateFormat: 'yyyy-MM-dd'
+                },
+                settings: {
+                    productAutocompleteType: productAutocompleteType
                 }
             };
 

@@ -85,7 +85,7 @@
 
                 EditDialogUtils.initEditDialog(vm, showModalParams, submitParams);
 
-                vm.filterProduct = Utils.specialItemsFilter;
+                vm.filterProduct = Utils.doAutocompleteProductFilter;
 
 
                 /*

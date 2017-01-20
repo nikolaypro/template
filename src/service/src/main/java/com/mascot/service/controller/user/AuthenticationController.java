@@ -11,6 +11,7 @@ import com.mascot.server.model.User;
 import com.mascot.service.common.CommonUtils;
 import com.mascot.service.controller.AbstractController;
 import com.mascot.service.controller.WebError;
+import com.mascot.service.controller.common.AutocompleteType;
 import com.mascot.service.controller.common.ResultRecord;
 import com.mascot.service.controller.common.TableParams;
 import com.mascot.service.controller.common.TableResult;
@@ -45,6 +46,9 @@ public class AuthenticationController extends AbstractController {
     @Value("${autoLogin.password}")
     private String autoPassword;
 
+    @Value("${productAutocompleteType}")
+    private AutocompleteType productAutocompleteType;
+
     @RequestMapping(path = "/authenticate", method = RequestMethod.POST)
     @ResponseBody
     public LoginUserRecord authenticate(@RequestBody User user) {
@@ -61,7 +65,7 @@ public class AuthenticationController extends AbstractController {
         }
         logger.info("Successfully login: username = " + user.getLogin() +
                 ", roles: [" + StringUtils.collectionToCommaDelimitedString(entityUser.getRoles()) + "]");
-        return LoginUserRecord.build(entityUser, ServerUtils.getAppVersion());
+        return LoginUserRecord.build(entityUser, ServerUtils.getAppVersion(), productAutocompleteType);
     }
 
     @RequestMapping(path = "/autoLogin", method = RequestMethod.POST)
