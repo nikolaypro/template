@@ -65,7 +65,7 @@
         vm.salaryReport = {
             createReport: function () {
                 vm.salaryReport.started = true;
-                vm.salaryLogReport.action = function(progressId, onFinishCallback) {
+                vm.salaryReport.action = function(progressId, onFinishCallback) {
                     ReportsService.reportSalaryData(vm.salaryReport.date, progressId, function (data) {
                         onFinishCallback();
                         data.data.date = vm.salaryReport.date;
@@ -84,6 +84,49 @@
                     });
                 });
 */
+            },
+            date: Utils.getCurrDateWOTime(),
+            started: false
+        };
+
+        vm.salaryReportWithSubTypes = {
+            createReport: function () {
+                vm.salaryReportWithSubTypes.started = true;
+                vm.salaryReportWithSubTypes.action = function(progressId, onFinishCallback) {
+                    ReportsService.reportSalaryWithSubTypesData(vm.salaryReportWithSubTypes.date, progressId, function (data) {
+                        onFinishCallback();
+                        data.data.date = vm.salaryReportWithSubTypes.date;
+                        var plainReport = [];
+                        angular.forEach(data.data.rows, function(jobTypeItem) {
+                            plainReport.push({
+                                name: jobTypeItem.jobType,
+                                cost: jobTypeItem.cost,
+                                isJobType: true
+                            });
+                            angular.forEach(jobTypeItem.subTypes, function(subTypeItem) {
+                                plainReport.push({
+                                    name: subTypeItem.subtype,
+                                    cost: subTypeItem.cost,
+                                    isJobType: false
+                                });
+                            })
+                        });
+                        data.data.rows = plainReport;
+                        ReportsService.openReport('salary-with-subtype', 'Salary report with subtype', data.data);
+//                    win.reloadRoute();
+
+                    });
+                };
+                /*
+                 ProgressService.start(function(progressId) {
+                 ReportsService.reportSalaryData(vm.salaryReport.date, function (data) {
+                 data.data.date = vm.salaryReport.date;
+                 ReportsService.openReport('salary', 'Salary report', data.data);
+                 //                    win.reloadRoute();
+
+                 });
+                 });
+                 */
             },
             date: Utils.getCurrDateWOTime(),
             started: false

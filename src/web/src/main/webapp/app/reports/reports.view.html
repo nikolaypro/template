@@ -61,13 +61,37 @@
                 <div>State: asasa{{vm.importState}}</div>
                 <uib-progressbar class="progress-striped" value="vm.importPercent">{{vm.importPercent}}</uib-progressbar>
 -->
-                <progress-bar started="vm.salaryReport.started" action="vm.salaryLogReport.action"></progress-bar>
+                <progress-bar started="vm.salaryReport.started" action="vm.salaryReport.action"></progress-bar>
 
                 <div class="form-group">
                     <date-picker vm="vm.salaryReport" ng-model="vm.salaryReport.date"/>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary btn-sm" ng-click="vm.salaryReport.createReport()">
+                        {{'report.create' | i18n}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4><a href="" ng-click="vm.currReport = vm.currReport != vm.salaryReportWithSubTypes ? vm.salaryReportWithSubTypes : '-1'"
+                   ng-class="{'black-font' : vm.currReport != vm.salaryReportWithSubTypes}">{{'report.salary.with.subtypes' | i18n}}</a></h4>
+            <div ng-show="vm.currReport == vm.salaryReportWithSubTypes" class="report-options">
+
+                <!--
+                                <div>State: asasa{{vm.importState}}</div>
+                                <uib-progressbar class="progress-striped" value="vm.importPercent">{{vm.importPercent}}</uib-progressbar>
+                -->
+                <progress-bar started="vm.salaryReportWithSubTypes.started" action="vm.salaryReportWithSubTypes.action"></progress-bar>
+
+                <div class="form-group">
+                    <date-picker vm="vm.salaryReportWithSubTypes" ng-model="vm.salaryReportWithSubTypes.date"/>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-sm" ng-click="vm.salaryReportWithSubTypes.createReport()">
                         {{'report.create' | i18n}}
                     </button>
                 </div>

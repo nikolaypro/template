@@ -100,6 +100,8 @@
             'report.salary.job.type.column' : 'Job type',
             'report.salary.cost.column' : 'Summary cost',
 
+            'report.salary.with.subtypes' : 'Salary report with subtypes',
+
             'report.please.enable.popup.window' : 'Unable open a new window (tab) for report. Please check a blocking window for your browser',
 
             /*product.table*/

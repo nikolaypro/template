@@ -23,6 +23,11 @@
                 templateUrl: 'salary/salary-show-report.view.html',
                 controllerAs: 'vm'
             })
+            .when('/salary-with-subtype/:unique', {
+                controller: 'SalaryWithSubtypeShowReportController',
+                templateUrl: 'salary-with-subtype/salary-with-subtype-show-report.view.html',
+                controllerAs: 'vm'
+            })
             .when('/salary-log/:unique', {
                 controller: 'SalaryShowLogReportController',
                 templateUrl: 'salary/salary-show-log-report.view.html',

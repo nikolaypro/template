@@ -143,6 +143,21 @@ public class ReportServiceImpl extends AbstractMascotService implements ReportSe
         );
     }
 
+    @Override
+    public List<SalaryReportWithSubTypeItem> getSalaryWithSubType(ZonedDateTime from, ZonedDateTime to, ProgressManager progressManager) {
+        final SalaryReportBuilder builder = new SalaryReportBuilder(
+                () -> jobSubTypeCostService.getAllWithDeleted(true),
+                jobTypeService::getAllWithDeleted,
+                progressManager);
+        final ZonedDateTime prevWeekFrom = MascotUtils.getStartWeek(from.minusDays(1));
+        final ZonedDateTime prevWeekTo = MascotUtils.getEndWeek(from.minusDays(1));
+        return builder.reportWithSubType(
+                () -> getJobs(from, to),
+                () -> getTailJobs(prevWeekFrom, prevWeekTo),
+                "Report period: " + from + " - " + to
+        );
+    }
+
     private List<Job> getJobs(ZonedDateTime from, ZonedDateTime to) {
         final long start = System.currentTimeMillis();
         try {

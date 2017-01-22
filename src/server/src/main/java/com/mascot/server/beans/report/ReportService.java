@@ -17,4 +17,6 @@ public interface ReportService {
     List<User> getUsers();
 
     List<SalaryReportItem> getSalary(ZonedDateTime from, ZonedDateTime to, ProgressManager progressManager);
+
+    List<SalaryReportWithSubTypeItem> getSalaryWithSubType(ZonedDateTime from, ZonedDateTime to, ProgressManager progressManager);
 }

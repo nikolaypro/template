@@ -4,6 +4,7 @@ import com.mascot.common.MascotUtils;
 import com.mascot.server.beans.ProgressService;
 import com.mascot.server.beans.report.ReportService;
 import com.mascot.server.beans.report.SalaryReportItem;
+import com.mascot.server.beans.report.SalaryReportWithSubTypeItem;
 import com.mascot.server.common.ProgressManager;
 import com.mascot.server.model.User;
 import com.mascot.service.controller.AbstractController;
@@ -55,7 +56,24 @@ public class ReportController extends AbstractController {
         final ZonedDateTime endWeek = MascotUtils.getEndWeek(zoned);
         final ProgressManager progressManager = new ProgressManager(request.progressId, progressService);
         final List<SalaryReportItem> salaryItems = reportService.getSalary(startWeek, endWeek, progressManager);
-        final List<SalaryReportRecord> records = salaryItems.stream().map(SalaryReportRecord::build).collect(Collectors.toList());
+        final List<SalaryReportRecord> records = salaryItems.stream()
+                .map(SalaryReportRecord::build)
+                .collect(Collectors.toList());
+        return new ReportDataResultRecord(records);
+    }
+
+    @RequestMapping(value = "/salary-data-subtype", method = RequestMethod.POST)
+    @ResponseBody
+    public ReportDataResultRecord createSalaryDataWithSubtype(@RequestBody SalaryDataRequestData request) {
+//        final ZonedDateTime zoned = ZonedDateTime.parse(date);
+        final ZonedDateTime zoned = MascotUtils.toDefaultZonedDateTime(request.date);
+        final ZonedDateTime startWeek = MascotUtils.getStartWeek(zoned);
+        final ZonedDateTime endWeek = MascotUtils.getEndWeek(zoned);
+        final ProgressManager progressManager = new ProgressManager(request.progressId, progressService);
+        final List<SalaryReportWithSubTypeItem> salaryItems = reportService.getSalaryWithSubType(startWeek, endWeek, progressManager);
+        final List<SalaryReportWithSubTypeRecord> records = salaryItems.stream()
+                .map(SalaryReportWithSubTypeRecord::buildWithSubTypes)
+                .collect(Collectors.toList());
         return new ReportDataResultRecord(records);
     }
 
