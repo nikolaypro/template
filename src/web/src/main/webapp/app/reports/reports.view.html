@@ -35,34 +35,12 @@
         </div>
     </div>
 
-    <!--
-        <div class="row">
-            <div class="col-md-6">
-                <h4><a href="" ng-click="vm.currReport = vm.currReport != vm.tmpReport ? vm.tmpReport : '-1'"
-                       ng-class="{'black-font' : vm.currReport != vm.tmpReport}">Tmp report</a></h4>
-                <div ng-show="vm.currReport == vm.tmpReport" class="report-options">
-                    <div><from-to-date-report-section info="vm.tmpReport"/></div>
-                    <div class="form-group">
-                        <button class="btn btn-primary btn-sm" ng-click="vm.tmpReport.createReport()">
-                            {{'report.create' | i18n}}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    -->
     <div class="row">
         <div class="col-md-6">
             <h4><a href="" ng-click="vm.currReport = vm.currReport != vm.salaryReport ? vm.salaryReport : '-1'"
                    ng-class="{'black-font' : vm.currReport != vm.salaryReport}">{{'report.salary' | i18n}}</a></h4>
             <div ng-show="vm.currReport == vm.salaryReport" class="report-options">
-
-<!--
-                <div>State: asasa{{vm.importState}}</div>
-                <uib-progressbar class="progress-striped" value="vm.importPercent">{{vm.importPercent}}</uib-progressbar>
--->
                 <progress-bar started="vm.salaryReport.started" action="vm.salaryReport.action"></progress-bar>
-
                 <div class="form-group">
                     <date-picker vm="vm.salaryReport" ng-model="vm.salaryReport.date"/>
                 </div>
@@ -75,16 +53,13 @@
         </div>
     </div>
 
+<!--
     <div class="row">
         <div class="col-md-6">
             <h4><a href="" ng-click="vm.currReport = vm.currReport != vm.salaryReportWithSubTypes ? vm.salaryReportWithSubTypes : '-1'"
                    ng-class="{'black-font' : vm.currReport != vm.salaryReportWithSubTypes}">{{'report.salary.with.subtypes' | i18n}}</a></h4>
             <div ng-show="vm.currReport == vm.salaryReportWithSubTypes" class="report-options">
 
-                <!--
-                                <div>State: asasa{{vm.importState}}</div>
-                                <uib-progressbar class="progress-striped" value="vm.importPercent">{{vm.importPercent}}</uib-progressbar>
-                -->
                 <progress-bar started="vm.salaryReportWithSubTypes.started" action="vm.salaryReportWithSubTypes.action"></progress-bar>
 
                 <div class="form-group">
@@ -98,6 +73,7 @@
             </div>
         </div>
     </div>
+-->
 
     <div class="row" ng-show="vm.isCurrentAdminRole()">
         <div class="col-md-6">
@@ -111,8 +87,6 @@
                         </a>
                     </li>
                 </div>
-
-                <!--<div class="form-group"><date-picker vm="vm.salaryLogReport" ng-model="vm.salaryLogReport.date"/></div>-->
                 <div class="form-group">
                     <button class="btn btn-primary btn-sm" ng-click="vm.salaryLogReport.showLogFiles()">
                         Show logs files

@@ -90,6 +90,7 @@
             'report.create' : 'Создать отчет',
             'report.date.from' : 'От',
             'report.date.to' : 'До',
+            'report.create.date' : 'Отчет был создан: {0}',
 
             'report.users.full_name.column' : 'Имя',
             'report.users.login.column' : 'Логин',

@@ -5,8 +5,8 @@
         .module('app')
         .factory('ReportsService', ReportsService);
 
-    ReportsService.$inject = ['$http', 'UrlService', '$rootScope', 'Utils', 'LocMsg'];
-    function ReportsService($http, UrlService, $rootScope, Utils, LocMsg) {
+    ReportsService.$inject = ['$http', 'UrlService', '$rootScope', 'Utils', 'LocMsg', '$filter'];
+    function ReportsService($http, UrlService, $rootScope, Utils, LocMsg, $filter) {
         var service = {};
 
         service.openReport = openReport;
@@ -19,14 +19,27 @@
         return service;
 
         function openReport(url, name, data) {
-            var win = window.open('app/app-report/report.html#/' + url + '/' + new Date().getTime(), name);
+            var win = window.open('app/app-report/report.html#/' + url + '/' + new Date().getTime(), name + "_" + new Date().getTime());
             if (win == undefined) {
                 Utils.showWarning(LocMsg.get('report.please.enable.popup.window'));
                 return;
             }
             win.user = $rootScope.globals.currentUser;
             win.data = data;
+            win.data.creationDate = $filter('date')(new Date(), 'yyyy-MM-dd hh:mm:ss');
+            setTimeout(function() {
+                setTitle(win, name + ", created:  " + win.creationDate);
+            }, 1000);
+        }
 
+        function setTitle(win, title) {
+            if(win.document) { // if loaded
+                win.document.title = title; // set title
+            } else { // if not loaded yet
+                setTimeout(function() {
+                    setTitle(title);
+                }, 100);
+            }
         }
 
         function reportUsers(handleSuccess) {

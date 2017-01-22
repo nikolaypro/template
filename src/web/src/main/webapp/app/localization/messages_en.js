@@ -89,6 +89,7 @@
             'report.create' : 'Create report',
             'report.date.from' : 'From',
             'report.date.to' : 'To',
+            'report.create.date' : 'Data creation: {0}',
 
             'report.users.full_name.column' : 'Name',
             'report.users.login.column' : 'Login',
@@ -101,6 +102,7 @@
             'report.salary.cost.column' : 'Summary cost',
 
             'report.salary.with.subtypes' : 'Salary report with subtypes',
+            'report.name.salary.with.subtypes' : 'Salary report with subtypes',
 
             'report.please.enable.popup.window' : 'Unable open a new window (tab) for report. Please check a blocking window for your browser',
 
