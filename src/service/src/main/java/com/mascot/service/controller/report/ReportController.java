@@ -70,7 +70,7 @@ public class ReportController extends AbstractController {
         final ZonedDateTime zoned = MascotUtils.toDefaultZonedDateTime(request.date);
         final ZonedDateTime startWeek = MascotUtils.getStartWeek(zoned);
         final ZonedDateTime endWeek = MascotUtils.getEndWeek(zoned);
-        final ProgressManager progressManager = new ProgressManager(request.progressId, progressService);
+        final ProgressManager progressManager = new SimpleProgressManager(request.progressId, progressService);
         final List<SalaryReportWithSubTypeItem> salaryItems = reportService.getSalaryWithSubType(startWeek, endWeek, progressManager);
         final List<SalaryReportWithSubTypeRecord> records = salaryItems.stream()
                 .map(SalaryReportWithSubTypeRecord::buildWithSubTypes)

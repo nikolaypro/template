@@ -23,6 +23,8 @@ import java.util.Map;
 public class JobServiceImpl extends AbstractMascotService implements JobService {
     private static final String COMPLETE_DATE_FILTER_NAME = "completeDate";
     public static final String SHOW_TAIL_PARAM_NAME = "showTail";
+    private static final String NUMBER_NAME = "number";
+    private static final String WHERE_STR = " where ";
 
     @Override
     public BeanTableResult<Job> getList(int start, int count, Map<String, String> orderBy, Map<String, String> filter) {
@@ -45,9 +47,19 @@ public class JobServiceImpl extends AbstractMascotService implements JobService 
                     params.put("prevWeekStartDate", prevWeekStartDate);
                 }
 
-                where = " where " + where;
+                where = WHERE_STR + where;
             }
             filter.remove(SHOW_TAIL_PARAM_NAME);
+
+            // Set Number filter
+            final Integer numberFilter = getNumberFilter(filter);
+            if (numberFilter != null) {
+                where += where.isEmpty() ? WHERE_STR : " and ";
+                where += "e.number = :number";
+                params.put("number", numberFilter);
+                filter.remove(NUMBER_NAME);
+            }
+
             return getResult("select distinct e from Job e " +
                             "left join fetch e.jobType jst " +
                             "left join fetch e.product" + where,
@@ -64,6 +76,18 @@ public class JobServiceImpl extends AbstractMascotService implements JobService 
         }
         String dateStr = filter.get(COMPLETE_DATE_FILTER_NAME);
         return ZonedDateTime.parse(dateStr);
+    }
+
+    private Integer getNumberFilter(Map<String, String> filter) {
+        if (filter != null && filter.containsKey(NUMBER_NAME)) {
+            String numberStr = filter.get(NUMBER_NAME);
+            try {
+                return Integer.parseInt(numberStr);
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }
+        return null;
     }
 
     private boolean isShowTail(Map<String, String> filter) {
