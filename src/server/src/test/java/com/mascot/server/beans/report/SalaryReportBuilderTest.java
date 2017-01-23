@@ -397,7 +397,6 @@ public class SalaryReportBuilderTest {
         Assert.assertTrue(result.containsKey(job4));
         Assert.assertEquals(result.get(job4), tailJob4);
 
-        // My fail because tailJob5 equals tailJob6
         Assert.assertTrue(result.containsKey(job5));
         Assert.assertEquals(result.get(job5), tailJob5);
 

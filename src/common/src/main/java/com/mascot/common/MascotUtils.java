@@ -119,5 +119,10 @@ public class MascotUtils {
         return o1.equals(o2);
     }
 
+    public static boolean equalsOrBothNull(Object o1, Object o2) {
+        return o1 == null && o2 == null || o1 == o2 || o1 != null && o1.equals(o2);
+
+        //        return o2.equals(o1);
+    }
 
 }

@@ -6,6 +6,7 @@ import com.mascot.server.beans.report.ReportService;
 import com.mascot.server.beans.report.SalaryReportItem;
 import com.mascot.server.beans.report.SalaryReportWithSubTypeItem;
 import com.mascot.server.common.ProgressManager;
+import com.mascot.server.common.SimpleProgressManager;
 import com.mascot.server.model.User;
 import com.mascot.service.controller.AbstractController;
 import com.mascot.service.controller.user.UserRecord;
@@ -54,7 +55,7 @@ public class ReportController extends AbstractController {
         final ZonedDateTime zoned = MascotUtils.toDefaultZonedDateTime(request.date);
         final ZonedDateTime startWeek = MascotUtils.getStartWeek(zoned);
         final ZonedDateTime endWeek = MascotUtils.getEndWeek(zoned);
-        final ProgressManager progressManager = new ProgressManager(request.progressId, progressService);
+        final ProgressManager progressManager = new SimpleProgressManager(request.progressId, progressService);
         final List<SalaryReportItem> salaryItems = reportService.getSalary(startWeek, endWeek, progressManager);
         final List<SalaryReportRecord> records = salaryItems.stream()
                 .map(SalaryReportRecord::build)
