@@ -28,7 +28,7 @@
             win.data = data;
             win.data.creationDate = $filter('date')(new Date(), 'yyyy-MM-dd hh:mm:ss');
             setTimeout(function() {
-                setTitle(win, name + ", created:  " + win.creationDate);
+                setTitle(win, name + ", created:  " + win.data.creationDate);
             }, 1000);
         }
 
