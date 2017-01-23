@@ -10,11 +10,17 @@
         var vm = this;
         vm.useInSalaryReportFilterData = [
             {
+                id: null,
+                title: ''
+            },
+            {
                 id: true,
-                title: $filter('i18n')("job-subtype.table.filter.use-in-salary-report")},
+                title: $filter('i18n')("job-subtype.table.filter.use-in-salary-report")
+            },
             {
                 id: false,
-                title: $filter('i18n')("job-subtype.table.filter.not-use-in-salary-report")}
+                title: $filter('i18n')("job-subtype.table.filter.not-use-in-salary-report")
+            }
             ];
         var params = {};
         params.deleteConfirmManyMsg = 'job-subtype.table.delete.confirm.many';

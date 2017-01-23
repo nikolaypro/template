@@ -34,7 +34,12 @@ public class JobSubTypeServiceImpl extends AbstractMascotService implements JobS
     }
 
     private BiFunction<String, String, Object> getFilterCorrector() {
-        return (key, value) -> key.equals("useInSalaryReport") ? "e." + key + " = " + value : null;
+        return (key, value) ->
+                key.equals("useInSalaryReport") ?
+                value != null ?
+                        "e." + key + " = " + value :
+                        "" :
+                null;
     }
 
     @Override

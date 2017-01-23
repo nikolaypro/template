@@ -60,13 +60,14 @@ public class MascotUtils {
                     alias + "." + key + " like '%" + value + "%'";
         };
 
+        final String prefix = "where ";
         if (filter != null && !filter.isEmpty()) {
             filterByStr = filter.entrySet().
-                    stream().reduce(new StringJoiner(" and ", "where ", ""),
+                    stream().reduce(new StringJoiner(" and ", prefix, ""),
                     (x, y) -> x.add(filterElement.apply(y.getKey(), y.getValue())),
                     StringJoiner::merge).toString();
         }
-        return filterByStr;
+        return filterByStr.equals(prefix) ? "" : filterByStr;
     }
 
     public static String buildCommaSeparatedString(String... list) {
