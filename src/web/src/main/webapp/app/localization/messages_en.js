@@ -104,6 +104,9 @@
             'report.salary.with.subtypes' : 'Salary report with subtypes',
             'report.name.salary.with.subtypes' : 'Salary report with subtypes',
 
+            'report.salary.with.group' : 'Grouped salary report',
+            'report.name.salary.with.group' : 'Grouped salary report',
+
             'report.please.enable.popup.window' : 'Unable open a new window (tab) for report. Please check a blocking window for your browser',
 
             /*product.table*/

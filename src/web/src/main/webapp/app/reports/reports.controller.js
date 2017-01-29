@@ -132,6 +132,38 @@
             started: false
         };
 
+        vm.salaryReportWithGroup = {
+            createReport: function () {
+                vm.salaryReportWithGroup.started = true;
+                vm.salaryReportWithGroup.action = function(progressId, onFinishCallback) {
+                    ReportsService.reportSalaryWithGroupData(vm.salaryReportWithGroup.date, progressId, function (data) {
+                        onFinishCallback();
+                        data.data.date = vm.salaryReportWithGroup.date;
+                        var plainReport = [];
+                        angular.forEach(data.data.rows, function(groupItem) {
+                            angular.forEach(groupItem.subTypes, function(subTypeItem) {
+                                plainReport.push({
+                                    name: subTypeItem.subtype,
+                                    cost: subTypeItem.cost,
+                                    isGroup: false
+                                });
+                            });
+                            plainReport.push({
+                                cost: groupItem.groupCost,
+                                isGroup: true
+                            });
+                        });
+                        data.data.rows = plainReport;
+                        ReportsService.openReport('salary-with-group', 'Salary report with group', data.data);
+
+                    });
+                };
+            },
+            date: Utils.getCurrDateWOTime(),
+            started: false
+        };
+
+
         vm.salaryLogReport = {
             showLogFiles: function () {
                 ReportsService.loadLogFileList(function (data) {

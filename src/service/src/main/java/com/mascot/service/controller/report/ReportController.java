@@ -3,6 +3,7 @@ package com.mascot.service.controller.report;
 import com.mascot.common.MascotUtils;
 import com.mascot.server.beans.ProgressService;
 import com.mascot.server.beans.report.ReportService;
+import com.mascot.server.beans.report.SalaryReportGroupItem;
 import com.mascot.server.beans.report.SalaryReportItem;
 import com.mascot.server.beans.report.SalaryReportWithSubTypeItem;
 import com.mascot.server.common.ProgressManager;
@@ -74,6 +75,21 @@ public class ReportController extends AbstractController {
         final List<SalaryReportWithSubTypeItem> salaryItems = reportService.getSalaryWithSubType(startWeek, endWeek, progressManager);
         final List<SalaryReportWithSubTypeRecord> records = salaryItems.stream()
                 .map(SalaryReportWithSubTypeRecord::buildWithSubTypes)
+                .collect(Collectors.toList());
+        return new ReportDataResultRecord(records);
+    }
+
+    @RequestMapping(value = "/salary-grouped", method = RequestMethod.POST)
+    @ResponseBody
+    public ReportDataResultRecord createSalaryDataGrouped(@RequestBody SalaryDataRequestData request) {
+//        final ZonedDateTime zoned = ZonedDateTime.parse(date);
+        final ZonedDateTime zoned = MascotUtils.toDefaultZonedDateTime(request.date);
+        final ZonedDateTime startWeek = MascotUtils.getStartWeek(zoned);
+        final ZonedDateTime endWeek = MascotUtils.getEndWeek(zoned);
+        final ProgressManager progressManager = new SimpleProgressManager(request.progressId, progressService);
+        final List<SalaryReportGroupItem> salaryItems = reportService.getSalaryGrouped(startWeek, endWeek, progressManager);
+        final List<SalaryReportGroupedRecord> records = salaryItems.stream()
+                .map(SalaryReportGroupedRecord::build)
                 .collect(Collectors.toList());
         return new ReportDataResultRecord(records);
     }

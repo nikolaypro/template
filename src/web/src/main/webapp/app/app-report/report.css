@@ -1,3 +1,7 @@
 .nested-td {
     padding-left: 20px;
 }
+
+.summary-cost-td {
+    font-weight: bold
+}

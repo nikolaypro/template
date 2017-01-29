@@ -18,6 +18,9 @@ public class JobSubType extends ExternalEntity {
     @Column(name = "use_in_salary_report")
     private Boolean useInSalaryReport = true;
 
+    @Column(name = "report_group")
+    private Integer reportGroup;
+
     public String getName() {
         return name;
     }
@@ -25,7 +28,6 @@ public class JobSubType extends ExternalEntity {
     public void setName(String name) {
         this.name = name;
     }
-
 
     @Override
     public String toString() {
@@ -46,6 +48,14 @@ public class JobSubType extends ExternalEntity {
 
     public void setUseInSalaryReport(Boolean useInSalaryReport) {
         this.useInSalaryReport = useInSalaryReport;
+    }
+
+    public Integer getReportGroup() {
+        return reportGroup;
+    }
+
+    public void setReportGroup(Integer reportGroup) {
+        this.reportGroup = reportGroup;
     }
 }
 

@@ -75,6 +75,26 @@
     </div>
 -->
 
+    <div class="row">
+        <div class="col-md-6">
+            <h4><a href="" ng-click="vm.currReport = vm.currReport != vm.salaryReportWithGroup ? vm.salaryReportWithGroup : '-1'"
+                   ng-class="{'black-font' : vm.currReport != vm.salaryReportWithGroup}">{{'report.salary.with.group' | i18n}}</a></h4>
+            <div ng-show="vm.currReport == vm.salaryReportWithGroup" class="report-options">
+
+                <progress-bar started="vm.salaryReportWithGroup.started" action="vm.salaryReportWithGroup.action"></progress-bar>
+
+                <div class="form-group">
+                    <date-picker vm="vm.salaryReportWithGroup" ng-model="vm.salaryReportWithGroup.date"/>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-sm" ng-click="vm.salaryReportWithGroup.createReport()">
+                        {{'report.create' | i18n}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row" ng-show="vm.isCurrentAdminRole()">
         <div class="col-md-6">
             <h4><a href="" ng-click="vm.currReport = vm.currReport != vm.salaryLogReport ? vm.salaryLogReport : '-1'"

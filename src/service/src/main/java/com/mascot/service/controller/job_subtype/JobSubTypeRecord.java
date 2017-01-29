@@ -12,6 +12,7 @@ public class JobSubTypeRecord {
     public String name;
     public Boolean useInSalaryReport;
     public JobTypeRecord jobType;
+    public Integer groupNumber;
 
     public static JobSubTypeRecord build(JobSubType subType) {
         JobSubTypeRecord result = new JobSubTypeRecord();
@@ -19,6 +20,7 @@ public class JobSubTypeRecord {
         result.name = subType.getName();
         result.useInSalaryReport = subType.getUseInSalaryReport();
         result.jobType = JobTypeRecord.build(subType.getJobType());
+        result.groupNumber = subType.getReportGroup();
         return result;
     }
 

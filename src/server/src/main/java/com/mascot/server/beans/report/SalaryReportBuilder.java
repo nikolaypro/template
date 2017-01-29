@@ -42,7 +42,7 @@ public class SalaryReportBuilder {
     public List<SalaryReportItem> report(Supplier<List<Job>> jobsSupplier, Supplier<List<Job>> tailJobSupplier, String logInfo) {
         final long start = System.currentTimeMillis();
         try {
-            final Map<JobType, CostDetails> jobType2Details = buildReportData(jobsSupplier, tailJobSupplier, logInfo);
+            final Map<JobType, JobTypeCostDetails> jobType2Details = buildReportData(jobsSupplier, tailJobSupplier, logInfo);
             return jobType2Details.entrySet().stream().sorted(Comparator.comparing(e -> e.getKey().getOrder())).
                     map(entry -> new SalaryReportItem(entry.getKey(), entry.getValue().cost)).
                     collect(Collectors.toList());
@@ -56,10 +56,32 @@ public class SalaryReportBuilder {
     public List<SalaryReportWithSubTypeItem> reportWithSubType(Supplier<List<Job>> jobsSupplier, Supplier<List<Job>> tailJobSupplier, String logInfo) {
         final long start = System.currentTimeMillis();
         try {
-            final Map<JobType, CostDetails> jobType2Details = buildReportData(jobsSupplier, tailJobSupplier, logInfo);
+            final Map<JobType, JobTypeCostDetails> jobType2Details = buildReportData(jobsSupplier, tailJobSupplier, logInfo);
             return jobType2Details.entrySet().stream().sorted(Comparator.comparing(e -> e.getKey().getOrder())).
                     map(entry -> new SalaryReportWithSubTypeItem(entry.getKey(), entry.getValue().cost, createSalarySubTypeItems(entry.getValue().getGroupedByJobSubType()))).
                     collect(Collectors.toList());
+        } finally {
+            logger.info("Salary report duration: " + (System.currentTimeMillis() - start) + " msec");
+            doSleep(3);
+            progress.finish();
+        }
+    }
+
+    public List<SalaryReportGroupItem> reportGroup(Supplier<List<Job>> jobsSupplier, Supplier<List<Job>> tailJobSupplier, String logInfo) {
+        final long start = System.currentTimeMillis();
+        try {
+            final Map<JobType, JobTypeCostDetails> jobType2Details = buildReportData(jobsSupplier, tailJobSupplier, logInfo);
+            final List<JobSubTypeSummaryCost> subType2Cost = jobType2Details.entrySet().stream()
+                    .flatMap(e -> e.getValue().getGroupedByJobSubType().stream())
+                    .sorted(Comparator.comparing(e -> e.subType.getName()))
+                    .collect(Collectors.toList());
+            final Map<Integer, SalaryReportGroupItem> result = new HashMap<>();
+            subType2Cost.stream().forEachOrdered(e -> {
+                SalaryReportGroupItem item = result.computeIfAbsent(e.getReportGroup(), e1 -> new SalaryReportGroupItem(e.getReportGroup()));
+                item.addSubType(e.subType, e.summaryCost);
+            });
+
+            return result.values().stream().sorted(Comparator.comparing(SalaryReportGroupItem::getGroup)).collect(Collectors.toList());
         } finally {
             logger.info("Salary report duration: " + (System.currentTimeMillis() - start) + " msec");
             doSleep(3);
@@ -74,7 +96,7 @@ public class SalaryReportBuilder {
                 .collect(Collectors.toList());
     }
 
-    private Map<JobType, CostDetails> buildReportData(Supplier<List<Job>> jobsSupplier, Supplier<List<Job>> tailJobSupplier, String logInfo) {
+    private Map<JobType, JobTypeCostDetails> buildReportData(Supplier<List<Job>> jobsSupplier, Supplier<List<Job>> tailJobSupplier, String logInfo) {
         StringBuilder log = new StringBuilder(logInfo).append("\n");
         progress.update("Start get a jobs", 0);
         doSleep(3);
@@ -108,7 +130,7 @@ public class SalaryReportBuilder {
                                 cost.getJobSubType().getId().equals(subType.getId()) && cost.getProduct().getId().equals(product.getId()))
                         .findFirst();
 
-        final Map<JobType, CostDetails> jobType2Details = new HashMap<>();
+        final Map<JobType, JobTypeCostDetails> jobType2Details = new HashMap<>();
         jobs.forEach(job -> {
             log.append("\n").append(getJobInfo(job));
             getCompletedJobTypes(job, allJobTypes, job2TailJob, log).forEachOrdered(jobType -> {
@@ -120,11 +142,11 @@ public class SalaryReportBuilder {
                             log.append("\n\t - ").append(getCostInfo(e, subType, job.getProduct()))
                     );
                     costOptional.ifPresent(jobSubTypeCost -> {
-                        CostDetails costDetails = jobType2Details.get(jobType);
-                        if (costDetails == null) {
-                            jobType2Details.put(jobType, costDetails = new CostDetails());
+                        JobTypeCostDetails jobTypeCostDetails = jobType2Details.get(jobType);
+                        if (jobTypeCostDetails == null) {
+                            jobType2Details.put(jobType, jobTypeCostDetails = new JobTypeCostDetails());
                         }
-                        final Double newCostValue = costDetails.changeCost(jobSubTypeCost.getCost(), job, subType);
+                        final Double newCostValue = jobTypeCostDetails.changeCost(jobSubTypeCost.getCost(), job, subType);
                         log.append(logNewCostValue(jobType, newCostValue));
                     });
                 });
@@ -167,14 +189,14 @@ public class SalaryReportBuilder {
         return result;
     }
 
-    private StringBuilder logDetailsGroupsByJobSubType(Map<JobType, CostDetails> jobType2Details, Function<Job, StringBuilder> jobInfo) {
+    private StringBuilder logDetailsGroupsByJobSubType(Map<JobType, JobTypeCostDetails> jobType2Details, Function<Job, StringBuilder> jobInfo) {
         StringBuilder result = new StringBuilder("\n******************* FINAL RESULT GROUPED BY SUBTYPE ***************************\n");
         jobType2Details.entrySet().stream().
                 sorted(Comparator.comparing(e -> e.getKey().getOrder())).
                 forEachOrdered(entry -> {
-                    final CostDetails costDetails = entry.getValue();
-                    result.append("- [").append(entry.getKey().getName()).append("] summary cost: ").append(costDetails.cost).append("  ----------\n");
-                    costDetails.getGroupedByJobSubType().forEach((summaryCost) -> {
+                    final JobTypeCostDetails jobTypeCostDetails = entry.getValue();
+                    result.append("- [").append(entry.getKey().getName()).append("] summary cost: ").append(jobTypeCostDetails.cost).append("  ----------\n");
+                    jobTypeCostDetails.getGroupedByJobSubType().forEach((summaryCost) -> {
                         result.append("\t").append("sub type: ").append(summaryCost.subType)
                                 .append(", cost: ").append(summaryCost.summaryCost)
                                 .append(", job size: ").append(summaryCost.jobs.size())
@@ -250,14 +272,14 @@ public class SalaryReportBuilder {
                 append(newCostValue);
     }
 
-    private StringBuilder logDetails(Map<JobType, CostDetails> jobSubTypeCosts) {
+    private StringBuilder logDetails(Map<JobType, JobTypeCostDetails> jobSubTypeCosts) {
         StringBuilder result = new StringBuilder("\n******************* FINAL RESULT ***************************\n");
         jobSubTypeCosts.entrySet().stream().
                 sorted(Comparator.comparing(e -> e.getKey().getOrder())).
                 forEachOrdered(entry -> {
-                    final CostDetails costDetails = entry.getValue();
-                    result.append("- [").append(entry.getKey().getName()).append("] summary cost: ").append(costDetails.cost).append("  ----------\n");
-                    costDetails.details.forEach((job, jobDetails) -> {
+                    final JobTypeCostDetails jobTypeCostDetails = entry.getValue();
+                    result.append("- [").append(entry.getKey().getName()).append("] summary cost: ").append(jobTypeCostDetails.cost).append("  ----------\n");
+                    jobTypeCostDetails.details.forEach((job, jobDetails) -> {
                         result.append("\t ").append(getJobInfo(job)).append("\n");
                         jobDetails.forEach((subType, cost) -> {
                             result.append("\t\t - ").append(subType.getName()).append(" (cost = ").append(cost).append(")\n");
@@ -267,7 +289,7 @@ public class SalaryReportBuilder {
         return result;
     }
 
-    private class CostDetails {
+    private class JobTypeCostDetails {
         private Map<Job, Map<JobSubType, Double>> details = new HashMap<>();
         private Double cost = 0.0;
 
@@ -308,6 +330,10 @@ public class SalaryReportBuilder {
         void addJob(Job job, Double cost) {
             jobs.put(job, cost);
             summaryCost += cost;
+        }
+
+        Integer getReportGroup() {
+            return subType.getReportGroup();
         }
     }
 

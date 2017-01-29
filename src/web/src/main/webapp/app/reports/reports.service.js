@@ -14,6 +14,7 @@
         service.reportUsersData = reportUsersData;
         service.reportSalaryData = reportSalaryData;
         service.reportSalaryWithSubTypesData = reportSalaryWithSubTypesData;
+        service.reportSalaryWithGroupData = reportSalaryWithGroupData;
         service.loadLogFileList = loadLogFileList;
         service.loadLogFile = loadLogFile;
         return service;
@@ -58,7 +59,6 @@
             return $http.post(UrlService.url('api/reports/salary-data-subtype'), {date: date, progressId: progressId}).then(handleSuccess, handleError);
         }
 
-
         function loadLogFileList(handleSuccess) {
             return $http.post(UrlService.url('api/administration/salary-logs')).then(handleSuccess, handleError);
         }
@@ -67,6 +67,9 @@
             return $http.post(UrlService.url('api/administration/salary-load-log'), fileName).then(handleSuccess, handleError);
         }
 
+        function reportSalaryWithGroupData(date, progressId, handleSuccess) {
+            return $http.post(UrlService.url('api/reports/salary-grouped'), {date: date, progressId: progressId}).then(handleSuccess, handleError);
+        }
 
         function handleError(response) {
 //            FlashService.Error(response.data.error);
