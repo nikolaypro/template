@@ -27,6 +27,11 @@
                     vm.productTypeRequired = false;
                     if (isNew) {
                         vm.job.completeDate = Utils.getCurrDateWOTime();
+                        if (vm.lastCompleteDate != undefined) {
+                            vm.job.completeDate = vm.lastCompleteDate != undefined ?
+                                vm.lastCompleteDate :
+                                Utils.getCurrDateWOTime();
+                        }
                         vm.job.jobType = vm.lastJobTypeSelected;
                         if (vm.lastNumber != undefined) {
                             vm.job.number = vm.lastNumber + 1;
@@ -54,6 +59,10 @@
 
                 scope.$watch('vm.job.number', function(newVal, oldVal){
                     vm.lastNumber = newVal;
+                });
+
+                scope.$watch('vm.job.completeDate', function(newVal, oldVal){
+                    vm.lastCompleteDate = newVal;
                 });
 
                 scope.$watch('vm.job.jobType', function(newVal, oldVal){
