@@ -169,7 +169,7 @@
         }
 
         function isCurrentAdminRole() {
-            return $rootScope.globals.currentUser.roles.indexOf(ALL_APP_ROLES.admin) != -1;
+            return $rootScope.globals.currentUser != undefined && $rootScope.globals.currentUser.roles.indexOf(ALL_APP_ROLES.admin) != -1;
         }
 
         function getEnabledMenu () {

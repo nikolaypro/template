@@ -129,7 +129,8 @@
                  */
             },
             date: Utils.getCurrDateWOTime(),
-            started: false
+            started: false,
+            enabled: $rootScope.globals.settings.salaryReportWithSubTypesEnabled
         };
 
         vm.salaryReportWithGroup = {

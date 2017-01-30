@@ -100,7 +100,7 @@
             'report.name.salary' : 'Отчет о выполненных работах за неделю',
             'report.salary.title.period' : 'Период: {0} - {1}',
             'report.salary.job.type.column' : 'Тип работы',
-            'report.salary.cost.column' : 'Суммарная стоимость',
+            'report.salary.cost.column' : 'Суммарная стоимость (руб)',
 
             'report.salary.with.subtypes' : 'Отчет о выполненных работах за неделю с подвидами работ',
             'report.name.salary.with.subtypes' : 'Отчет о выполненных работах за неделю с подвидами работ',

@@ -53,8 +53,7 @@
         </div>
     </div>
 
-<!--
-    <div class="row">
+    <div class="row" ng-if="vm.salaryReportWithSubTypes.enabled">
         <div class="col-md-6">
             <h4><a href="" ng-click="vm.currReport = vm.currReport != vm.salaryReportWithSubTypes ? vm.salaryReportWithSubTypes : '-1'"
                    ng-class="{'black-font' : vm.currReport != vm.salaryReportWithSubTypes}">{{'report.salary.with.subtypes' | i18n}}</a></h4>
@@ -73,7 +72,7 @@
             </div>
         </div>
     </div>
--->
+
     <div class="row" ng-if="vm.salaryReportWithGroup.enabled">
         <div class="col-md-6">
             <h4><a href="" ng-click="vm.currReport = vm.currReport != vm.salaryReportWithGroup ? vm.salaryReportWithGroup : '-1'"
