@@ -49,6 +49,9 @@ public class AuthenticationController extends AbstractController {
     @Value("${productAutocompleteType}")
     private AutocompleteType productAutocompleteType;
 
+    @Value("${report-group.enabled}")
+    private Boolean reportGroupEnabled;
+
     @RequestMapping(path = "/authenticate", method = RequestMethod.POST)
     @ResponseBody
     public LoginUserRecord authenticate(@RequestBody User user) {
@@ -65,7 +68,7 @@ public class AuthenticationController extends AbstractController {
         }
         logger.info("Successfully login: username = " + user.getLogin() +
                 ", roles: [" + StringUtils.collectionToCommaDelimitedString(entityUser.getRoles()) + "]");
-        return LoginUserRecord.build(entityUser, ServerUtils.getAppVersion(), productAutocompleteType);
+        return LoginUserRecord.build(entityUser, ServerUtils.getAppVersion(), productAutocompleteType, reportGroupEnabled);
     }
 
     @RequestMapping(path = "/autoLogin", method = RequestMethod.POST)

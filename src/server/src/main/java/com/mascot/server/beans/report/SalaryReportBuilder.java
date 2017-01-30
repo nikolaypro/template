@@ -81,7 +81,7 @@ public class SalaryReportBuilder {
                 item.addSubType(e.subType, e.summaryCost);
             });
 
-            return result.values().stream().sorted(Comparator.comparing(SalaryReportGroupItem::getGroup)).collect(Collectors.toList());
+            return result.values().stream().sorted(Comparator.comparing(e -> e.getGroup() != null ? e.getGroup() : Integer.MAX_VALUE)).collect(Collectors.toList());
         } finally {
             logger.info("Salary report duration: " + (System.currentTimeMillis() - start) + " msec");
             doSleep(3);

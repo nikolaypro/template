@@ -153,6 +153,8 @@
             'job-subtype.table.edit.job-type': 'Вид работы',
             'job-subtype.table.edit.use-in-salary-report': 'Использовать в расчете зарплаты',
             'job-subtype.table.edit.use-in-salary-report.hint': 'Использовать в расчете зарплаты',
+            'job-subtype.table.edit.report-group': 'Группа в отчете',
+            'job-subtype.table.edit.report-group.hint': 'Группа в отчете зарплаты',
 
             /*job-subtype-cost.table*/
             'job-subtype-cost.table.column.job-type' : 'Вид работы',

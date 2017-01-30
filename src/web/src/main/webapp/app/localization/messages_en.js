@@ -152,6 +152,8 @@
             'job-subtype.table.edit.job-type': 'Job type',
             'job-subtype.table.edit.use-in-salary-report': 'Use in salary report',
             'job-subtype.table.edit.use-in-salary-report.hint': 'Use in salary report',
+            'job-subtype.table.edit.report-group': 'Report group',
+            'job-subtype.table.edit.report-group.hint': 'Group for salary report',
 
              /*job-subtype-cost.table*/
             'job-subtype-cost.table.column.job-type' : 'Job type',

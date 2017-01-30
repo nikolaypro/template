@@ -9,8 +9,9 @@ import com.mascot.service.controller.common.AutocompleteType;
 public class LoginUserRecord extends UserRecord {
     public String appVersion;
     public AutocompleteType productAutocompleteType;
+    public Boolean reportGroupEnabled;
 
-    public static LoginUserRecord build(User user, String appVersion, AutocompleteType productAutocompleteType) {
+    public static LoginUserRecord build(User user, String appVersion, AutocompleteType productAutocompleteType, Boolean reportGroupEnabled) {
         if (user == null) {
             return null;
         }
@@ -25,6 +26,7 @@ public class LoginUserRecord extends UserRecord {
         result.locale = userRecord.locale;
         result.appVersion = appVersion;
         result.productAutocompleteType = productAutocompleteType;
+        result.reportGroupEnabled = reportGroupEnabled;
 
         return result;
     }

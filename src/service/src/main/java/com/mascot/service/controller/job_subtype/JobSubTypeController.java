@@ -85,6 +85,7 @@ public class JobSubTypeController extends AbstractController {
             throw new IllegalStateException("Not found job type with id = '" + record.jobType.id + "'");
         }
         entity.setJobType(jobType);
+        entity.setReportGroup(record.reportGroup);
 
         jobSubTypeService.update(entity);
 

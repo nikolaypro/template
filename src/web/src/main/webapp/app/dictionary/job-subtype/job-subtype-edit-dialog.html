@@ -23,6 +23,12 @@
                         {{'job-subtype.table.edit.use-in-salary-report' | i18n}}
                     </label>
             </div>
+            <div class="form-group" ng-if="vm.reportGroupEnabled">
+                <label for="reportGroup">{{'job-subtype.table.edit.report-group' | i18n}}</label>
+                <input type="number" class="form-control" id="reportGroup" name="reportGroup"
+                       placeholder="{{'job-subtype.table.edit.report-group.hint' | i18n}}"
+                       ng-model="vm.jobSubType.reportGroup" ng-required="false"/>
+            </div>
         </modal>
     </form>
 </fieldset>

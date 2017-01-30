@@ -5,9 +5,9 @@
         .module('app')
         .directive('jobSubTypeEditDialog', JobSubTypeEditDialog);
 
-    JobSubTypeEditDialog.$inject = ['JobSubTypeService', 'EditDialogUtils'];
+    JobSubTypeEditDialog.$inject = ['JobSubTypeService', 'EditDialogUtils', '$rootScope'];
 
-    function JobSubTypeEditDialog(JobSubTypeService, EditDialogUtils) {
+    function JobSubTypeEditDialog(JobSubTypeService, EditDialogUtils, $rootScope) {
         return {
             templateUrl: 'app/dictionary/job-subtype/job-subtype-edit-dialog.html',
             restrict: 'E',
@@ -18,6 +18,8 @@
             },
             link: function(scope, element, attrs, tabsCtrl) {
                 var vm = scope.vm;
+                vm.reportGroupEnabled = $rootScope.globals.settings.reportGroupEnabled;
+
 
                 // Configure show modal
                 var showModalParams = {};
