@@ -89,6 +89,38 @@ public class SalaryReportBuilder {
         }
     }
 
+    public List<SalaryInvestigationSubTypeItem> reportInvestigation(Supplier<List<Job>> jobsSupplier, Supplier<List<Job>> tailJobSupplier, String logInfo) {
+        final long start = System.currentTimeMillis();
+        try {
+            final Map<JobType, JobTypeCostDetails> jobType2Details = buildReportData(jobsSupplier, tailJobSupplier, logInfo);
+            final List<JobSubTypeSummaryCost> subType2Cost = jobType2Details.entrySet().stream()
+                    .flatMap(e -> e.getValue().getGroupedByJobSubType().stream())
+                    .sorted(Comparator.comparing(e -> e.subType.getName()))
+                    .collect(Collectors.toList());
+
+            return subType2Cost.stream()
+                    .map(e -> new SalaryInvestigationSubTypeItem(new SalarySubTypeItem(e.subType, e.summaryCost), convertToInvestigationJobs(e.jobs)))
+                    .collect(Collectors.toList());
+        } finally {
+            logger.info("Salary report duration: " + (System.currentTimeMillis() - start) + " msec");
+            doSleep(3);
+            progress.finish();
+        }
+    }
+
+    private List<SalaryInversigationJobItem> convertToInvestigationJobs(Map<Job, Double> jobs) {
+        final Map<Product, SalaryInversigationJobItem> result = new HashMap<>();
+        jobs.entrySet().forEach(entry -> {
+            final Product product = entry.getKey().getProduct();
+            final Double cost = entry.getValue();
+            final SalaryInversigationJobItem item = result.computeIfAbsent(product, j -> new SalaryInversigationJobItem(product, cost, 0));
+            item.incCount();
+        });
+
+        return result.values().stream().sorted(Comparator.comparing(e -> e.getProduct().getName())).collect(Collectors.toList());
+    }
+
+
     private List<SalarySubTypeItem> createSalarySubTypeItems(Collection<JobSubTypeSummaryCost> groupedByJobSubType) {
         return groupedByJobSubType.stream()
                 .map(e -> new SalarySubTypeItem(e.subType, e.summaryCost))

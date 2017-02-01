@@ -11,9 +11,11 @@ public class LoginUserRecord extends UserRecord {
     public AutocompleteType productAutocompleteType;
     public Boolean reportGroupEnabled;
     public Boolean salaryReportWithSubTypesEnabled;
+    public Boolean salaryReportInvestigationEnabled;
 
     public static LoginUserRecord build(User user, String appVersion, AutocompleteType productAutocompleteType,
-                                        Boolean reportGroupEnabled, Boolean salaryReportWithSubTypesEnabled) {
+                                        Boolean reportGroupEnabled, Boolean salaryReportWithSubTypesEnabled,
+                                        Boolean salaryReportInvestigationEnabled) {
         if (user == null) {
             return null;
         }
@@ -30,6 +32,7 @@ public class LoginUserRecord extends UserRecord {
         result.productAutocompleteType = productAutocompleteType;
         result.reportGroupEnabled = reportGroupEnabled;
         result.salaryReportWithSubTypesEnabled = salaryReportWithSubTypesEnabled;
+        result.salaryReportInvestigationEnabled = salaryReportInvestigationEnabled;
 
         return result;
     }

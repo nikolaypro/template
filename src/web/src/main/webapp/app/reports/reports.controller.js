@@ -163,8 +163,43 @@
             date: Utils.getCurrDateWOTime(),
             started: false,
             enabled: $rootScope.globals.settings.reportGroupEnabled
-    };
+        };
 
+        vm.salaryReportInvestigation = {
+            createReport: function () {
+                vm.salaryReportInvestigation.started = true;
+                vm.salaryReportInvestigation.action = function(progressId, onFinishCallback) {
+                    ReportsService.reportSalaryInvestigationData(vm.salaryReportInvestigation.date, progressId, function (data) {
+                        onFinishCallback();
+                        data.data.date = vm.salaryReportInvestigation.date;
+                        var plainReport = [];
+                        angular.forEach(data.data.rows, function(subTypeItem) {
+                            plainReport.push({
+                                name: subTypeItem.subType.subtype,
+                                cost: subTypeItem.subType.cost,
+                                count: subTypeItem.jobCount,
+                                isSubType: true
+                            });
+                            angular.forEach(subTypeItem.jobs, function(jobItem) {
+                                plainReport.push({
+                                    name: jobItem.product,
+                                    subTypeCost: jobItem.subTypeCost,
+                                    count: jobItem.count,
+                                    cost: jobItem.subTypeCost * jobItem.count,
+                                    isSubType: false
+                                });
+                            });
+                        });
+                        data.data.rows = plainReport;
+                        ReportsService.openReport('salary-investigation', 'Salary report for investigation', data.data);
+
+                    });
+                };
+            },
+            date: Utils.getCurrDateWOTime(),
+            started: false,
+            enabled: $rootScope.globals.settings.salaryReportInvestigationEnabled
+        };
 
         vm.salaryLogReport = {
             showLogFiles: function () {

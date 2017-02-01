@@ -100,12 +100,20 @@
             'report.salary.title.period' : 'Period: {0} - {1}',
             'report.salary.job.type.column' : 'Job type',
             'report.salary.cost.column' : 'Summary cost',
+            'report.salary.count.column' : 'Count',
+            'report.salary.product.cost.column' : 'Cost per product',
 
             'report.salary.with.subtypes' : 'Salary report with subtypes',
             'report.name.salary.with.subtypes' : 'Salary report with subtypes',
 
             'report.salary.with.group' : 'Grouped salary report',
             'report.name.salary.with.group' : 'Grouped salary report',
+
+            'report.salary.investigation' : 'Salary investigation report',
+            'report.name.salary.investigation' : 'Salary investigation report',
+            'report.salary.product.count' : 'product count',
+            'report.salary.investigation.job.type.column' : 'Job sub type / product name',
+
 
             'report.please.enable.popup.window' : 'Unable open a new window (tab) for report. Please check a blocking window for your browser',
 

@@ -33,6 +33,11 @@
                 templateUrl: 'salary-with-group/salary-with-group-show-report.view.html',
                 controllerAs: 'vm'
             })
+            .when('/salary-investigation/:unique', {
+                controller: 'SalaryInvestigationShowReportController',
+                templateUrl: 'salary-investigation/salary-investigation-show-report.view.html',
+                controllerAs: 'vm'
+            })
             .when('/salary-log/:unique', {
                 controller: 'SalaryShowLogReportController',
                 templateUrl: 'salary/salary-show-log-report.view.html',

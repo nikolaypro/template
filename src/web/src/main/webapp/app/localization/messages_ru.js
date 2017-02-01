@@ -101,12 +101,19 @@
             'report.salary.title.period' : 'Период: {0} - {1}',
             'report.salary.job.type.column' : 'Тип работы',
             'report.salary.cost.column' : 'Суммарная стоимость (руб)',
+            'report.salary.count.column' : 'Количество',
+            'report.salary.product.cost.column' : 'Ст-ть 1 изд-я',
 
             'report.salary.with.subtypes' : 'Отчет о выполненных работах за неделю с подвидами работ',
             'report.name.salary.with.subtypes' : 'Отчет о выполненных работах за неделю с подвидами работ',
 
             'report.salary.with.group' : 'Отчет о выполненных работах за неделю группированный',
             'report.name.salary.with.group' : 'Отчет о выполненных работах за неделю группированный',
+
+            'report.salary.investigation' : 'Отчет для исследования расчета зарплаты',
+            'report.name.salary.investigation' : 'Отчет для исследования расчета зарплаты',
+            'report.salary.product.count' : 'кол-во изделий',
+            'report.salary.investigation.job.type.column' : 'Подтип работы / изделие',
 
             'report.please.enable.popup.window' : 'Невозможно открыть новое окно (вкладку) для отчета. Возможно, запрещен показ высплывающих окон. Разрешите, пожалуйста, высплывающие окна для данного сайта.',
 
