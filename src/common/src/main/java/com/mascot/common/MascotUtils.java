@@ -64,7 +64,10 @@ public class MascotUtils {
         if (filter != null && !filter.isEmpty()) {
             filterByStr = filter.entrySet().
                     stream().reduce(new StringJoiner(" and ", prefix, ""),
-                    (x, y) -> x.add(filterElement.apply(y.getKey(), y.getValue())),
+                    (x, y) -> {
+                        String apply = filterElement.apply(y.getKey(), y.getValue());
+                        return isEmpty(apply) ? x : x.add(apply);
+                    },
                     StringJoiner::merge).toString();
         }
         return filterByStr.equals(prefix) ? "" : filterByStr;
