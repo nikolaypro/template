@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -81,7 +82,19 @@ public class JobController extends AbstractController {
     @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public ResultRecord update(@RequestBody JobRecord record) {
         logger.info("Job : jobType = " + record.jobType + ", product: " + record.product + ", number: " +
-                record.number +  ", complete date: " + record.completeDate + " ,id = " + record.id);
+                record.number +  ", complete date: " + record.completeDate + " ,id = " + record.id + ", count: " + record.count);
+        if (record.id == null && record.count != null) {
+            IntStream.range(0, record.count).forEach(i -> {
+                updateSingle(record);
+                record.number++;
+            });
+            return ResultRecord.success();
+        } else {
+            return updateSingle(record);
+        }
+    }
+
+    private ResultRecord updateSingle(@RequestBody JobRecord record) {
         final Job entity;
         if (record.id == null) {
             entity = new Job();

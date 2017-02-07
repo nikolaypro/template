@@ -208,6 +208,9 @@
             'job.table.show.tail': 'Показать "хвост"',
             'job.table.hide.tail': 'Скрыть "хвост"',
             'job.table.hide.tail.hint': 'Незаконченные работы с прошлой недели',
+            'job.table.edit.count': 'Количество',
+            'job.table.edit.count.hint': 'Количество',
+            'job.table.edit.count.required': 'Не задано количество',
 
             'typeahead.fixed.element.hint' : 'Последний выбранный элемент'
         });

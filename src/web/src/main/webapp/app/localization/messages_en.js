@@ -208,6 +208,9 @@
             'job.table.show.tail': 'Show tail',
             'job.table.hide.tail': 'Hide tail',
             'job.table.hide.tail.hint': 'Jobs from previous week that not finished',
+            'job.table.edit.count': 'Count',
+            'job.table.edit.count.hint': 'Job count',
+            'job.table.edit.count.required': 'Job count required',
 
             'typeahead.fixed.element.hint' : 'Use last selected element'
         });

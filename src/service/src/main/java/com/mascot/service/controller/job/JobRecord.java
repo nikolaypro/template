@@ -17,6 +17,7 @@ public class JobRecord {
     public Date completeDate;
     public Boolean tail;
     public Boolean forNextWeekTail;
+    public Integer count;
 
     public static JobRecord build(Job job) {
         JobRecord result = new JobRecord();

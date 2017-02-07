@@ -52,6 +52,13 @@
                 <div ng-if="vm.isShowRequired(vm.editForm.completeDate)" class="help-block">{{'job.table.edit.complete.date.required' | i18n}}</div>
 -->
             </div>
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.count) }"
+                ng-if="vm.job.id == null">
+                <label for="count">{{'job.table.edit.count' | i18n}}</label>
+                <input type="count" class="form-control" id="count" name="count" placeholder="{{'job.table.edit.count.hint' | i18n}}"
+                       ng-model="vm.job.count" ng-required="true"/>
+                <div ng-if="vm.isShowRequired(vm.editForm.count)" class="help-block">{{'job.table.edit.count.required' | i18n}}</div>
+            </div>
 
         </modal>
     </form>

@@ -26,6 +26,7 @@
                     vm.jobTypeRequired = false;
                     vm.productTypeRequired = false;
                     if (isNew) {
+                        vm.job.count = 1;
                         vm.job.completeDate = Utils.getCurrDateWOTime();
                         if (vm.lastCompleteDate != undefined) {
                             vm.job.completeDate = vm.lastCompleteDate != undefined ?
@@ -44,7 +45,13 @@
 
                 // Configure submit
                 var submitParams = {};
-                submitParams.submit = JobService.update;
+                submitParams.submit = function update(entity, handleSuccess) {
+                    vm.lastNumber = entity.number;
+                    if (entity.count != undefined) {
+                        vm.lastNumber += (entity.count - 1);
+                    }
+                   return JobService.update(entity, handleSuccess);
+                };
                 submitParams.getEntity = function() {
                     return vm.job;
                 };
@@ -57,9 +64,11 @@
                     return !vm.jobTypeRequired && !vm.productTypeRequired && Utils.parseDate(vm.job.completeDate) != undefined;
                 };
 
+/*
                 scope.$watch('vm.job.number', function(newVal, oldVal){
                     vm.lastNumber = newVal;
                 });
+*/
 
                 scope.$watch('vm.job.completeDate', function(newVal, oldVal){
                     vm.lastCompleteDate = newVal;
