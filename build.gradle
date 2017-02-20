@@ -12,7 +12,7 @@ javascript.source {
         js {
             srcDir "src/web/src/main/webapp/app/"
             include "**/*.js"
-            exclude "app.js"
+//            exclude "app.js"
         }
     }
 }
@@ -211,10 +211,16 @@ gradle.taskGraph.whenReady {taskGraph ->
 }
 
 // Combine JS files
-task combine(type: com.eriwen.gradle.js.tasks.CombineJsTask) {
+task combineJsToSingle(type: com.eriwen.gradle.js.tasks.CombineJsTask) {
     source = javascript.source.dev.js.files
     dest = "src/web/src/main/webapp/app/app-all.js"
 }
+
+/*
+minifyJs {
+    source = combineJsSource
+}
+*/
 
 //  ------------------ LIQUIBASE ----------------------
 configurations {
