@@ -1,1 +1,1 @@
-create database furniture_db
+create database furniture_site_db

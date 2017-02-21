@@ -7,7 +7,7 @@
 
     MainController.$inject = ["$location", "Utils"];
     function MainController($location, Utils) {
-        $location.path('/' + Utils.getEnabledMenu()[0])
+        // $location.path('/' + Utils.getEnabledMenu()[0])
     }
 
 })();

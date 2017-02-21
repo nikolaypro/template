@@ -31,22 +31,10 @@
               maxActive="20"
               maxIdle="2"
               maxWait="5000"
-              name="jdbc/MascotDS"
+              name="jdbc/MascotDSSite"
               username="root"
               password="root"
               type="javax.sql.DataSource"
-              url="jdbc:mysql://localhost:3306/furniture_db"
+              url="jdbc:mysql://localhost:3306/furniture_site_db"
               />
-
-    <Resource driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-              maxActive="20"
-              maxIdle="2"
-              maxWait="5000"
-              name="jdbc/MascotMSDS"
-              username="root"
-              password="root"
-              type="javax.sql.DataSource"
-              url="jdbc:sqlserver://192.0.2.134:1433;databaseName=dev_Nikolay_core_develop;integratedSecurity=false;sendStringParametersAsUnicode=false"
-            />
-
 </Context>

@@ -22,51 +22,30 @@
             </a>
         </li>
 -->
-            <li ng-class="isActive('jobs') ? 'active' : ''" ng-show="$.inArray('jobs', enabledMenu) > -1">
-                <a href="#/jobs">{{'top.menu.jobs' | i18n}}</a>
+            <li ng-class="isActive('home') ? 'active' : ''" ng-show="$.inArray('home', enabledMenu) > -1">
+                <a href="#">{{'top.menu.home' | i18n}}</a>
             </li>
-            <li ng-class="isActive('users') ? 'active' : ''" ng-show="$.inArray('users', enabledMenu) > -1">
-                <a href="#/users">{{'top.menu.users' | i18n}}</a>
+            <li ng-class="isActive('orders') ? 'active' : ''" ng-show="$.inArray('orders', enabledMenu) > -1">
+                <a href="#/orders">{{'top.menu.orders' | i18n}}</a>
             </li>
             <li ng-class="
-                isActive('products') ||
-                isActive('job-types') ||
-                isActive('job-subtypes') ||
-                isActive('job-subtype-costs')
-            ? 'active' : ''" ng-show="$.inArray('dictionary', enabledMenu) != -1" class="dropdown">
-                <a ng-show="$.inArray('dictionary', enabledMenu) != -1" href="" class="dropdown-toggle"
+                isActive('new_product') ||
+                isActive('new_cloth')
+            ? 'active' : ''" ng-show="$.inArray('new_order', enabledMenu) != -1" class="dropdown">
+                <a ng-show="$.inArray('new_order', enabledMenu) != -1" href="" class="dropdown-toggle"
                    data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    {{'top.menu.dictionary' | i18n}} <span class="caret"></span>
+                    {{'top.menu.new_order' | i18n}} <span class="caret"></span>
                 </a>
-                <ul ng-show="$.inArray('dictionary', enabledMenu) != -1" class="dropdown-menu">
-                    <li ng-class="isActive('products') ? 'active' : ''" ng-show="$.inArray('products', enabledMenu) != -1">
-                        <a href="#/products">{{'top.menu.product.type' | i18n}}</a>
+                <ul ng-show="$.inArray('new_order', enabledMenu) != -1" class="dropdown-menu">
+                    <li ng-class="isActive('new_product') ? 'active' : ''" ng-show="$.inArray('new_product', enabledMenu) != -1">
+                        <a href="#/new_product">{{'top.menu.new_product' | i18n}}</a>
                     </li>
-                    <li ng-class="isActive('job-types') ? 'active' : ''" ng-show="$.inArray('job-types', enabledMenu) != -1">
-                        <a href="#/job-types">{{'top.menu.job.type' | i18n}}</a>
-                    </li>
-                    <li ng-class="isActive('job-subtypes') ? 'active' : ''" ng-show="$.inArray('job-subtypes', enabledMenu) != -1">
-                        <a href="#job-subtypes">{{'top.menu.job.sub.type' | i18n}}</a>
-                    </li>
-                    <li ng-class="isActive('job-subtype-costs') ? 'active' : ''" ng-show="$.inArray('job-subtype-costs', enabledMenu) != -1">
-                        <a href="#job-subtype-costs">{{'top.menu.job.price' | i18n}}</a>
+                    <li ng-class="isActive('new_cloth') ? 'active' : ''" ng-show="$.inArray('new_cloth', enabledMenu) != -1">
+                        <a href="#/new_cloth">{{'top.menu.new_cloth' | i18n}}</a>
                     </li>
                 </ul>
             </li>
 
-            <li ng-class="isActive('reports') ? 'active' : ''" ng-show="$.inArray('reports', enabledMenu) > -1">
-                <a href="#/reports">{{'top.menu.reports' | i18n}}</a>
-            </li>
-
-            <li ng-class="isActive('home') ? 'active' : ''" ng-show="$.inArray('home', enabledMenu) > -1">
-                <a href="#">Home</a>
-            </li>
-            <li ng-class="isActive('about') ? 'active' : ''" ng-show="$.inArray('about', enabledMenu) != -1">
-                <a href="#">About</a>
-            </li>
-            <li ng-class="isActive('contact') ? 'active' : ''" ng-show="$.inArray('contact', enabledMenu) != -1">
-                <a ng-href="#/contact">Contact</a>
-            </li>
             <li ng-class="isActive('dropdown') ? 'active' : ''" ng-show="$.inArray('dropdown', enabledMenu) != -1" class="dropdown">
                 <a ng-show="$.inArray('dropdown', enabledMenu) != -1" href="" class="dropdown-toggle"
                     data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

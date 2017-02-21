@@ -34,26 +34,10 @@
         <property name="jpaDialect" ref="jpaDialect" />
     </bean>
 
-    <bean id="msEntityManagerFactory"
-          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
-        <property name="persistenceUnitName" value="templateMSPersistenceUnit" />
-        <property name="dataSource" ref="msDataSource" />
-        <property name="jpaVendorAdapter" ref="jpaMSVendorAdapter" />
-        <property name="jpaDialect" ref="jpaDialect" />
-    </bean>
-
     <bean id="jpaVendorAdapter"
           class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="database" value="HSQL" />
         <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
-    </bean>
-
-    <bean id="jpaMSVendorAdapter"
-          class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-        <property name="database" value="HSQL" />
-        <!--<property name="databasePlatform" value="org.hibernate.dialect.SQLServer2008Dialect" />-->
-        <property name="databasePlatform" value="com.mascot.common.MascotSqlServerDialect" />
     </bean>
 
     <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
@@ -64,28 +48,17 @@
         <property name="jpaDialect" ref="jpaDialect" />
     </bean>
 
-    <bean id="msTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="msEntityManagerFactory" />
-        <property name="dataSource" ref="msDataSource" />
-        <property name="jpaDialect" ref="jpaDialect" />
-    </bean>
-
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <!--For use proxy--><!--<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>-->
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="jdbc/MascotDS"/>
-        <property name="resourceRef" value="true"/>
-    </bean>
-
-    <bean id="msDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="jdbc/MascotMSDS"/>
+        <property name="jndiName" value="jdbc/MascotDSSite"/>
         <property name="resourceRef" value="true"/>
     </bean>
 
     <bean id="serverProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations">
             <list>
-                <value>file:${catalina.home}/conf/app/app.properties</value>
+                <value>file:${catalina.home}/conf/app/app-site.properties</value>
             </list>
         </property>
     </bean>
@@ -93,47 +66,5 @@
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="properties" ref="serverProperties"/>
     </bean>
-
-<!--
-    <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-        <property name="prefixJson" value="false"/>
-        <property name="supportedMediaTypes" value="application/json"/>
-    </bean>
--->
-
-<!--
-    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="java:comp/env/jdbc/MascotDS"/>
-        <property name="resourceRef" value="true"/>
-    </bean>
-
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-          lazy-init="false">
-        &lt;!&ndash;<property name="persistenceXmlLocation" value="file:${cuba.dataDir}/persistence.xml"/>&ndash;&gt;
-        <property name="dataSource" ref="dataSource"/>
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
-        </property>
-    </bean>
-
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
--->
-
-    <!--<tx:annotation-driven order="10"/>-->
-
-    <!--
-        <bean
-                class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-            <property name="prefix">
-                <value>/WEB-INF/pages/</value>
-            </property>
-            <property name="suffix">
-                <value>.jsp</value>
-            </property>
-        </bean>
-    -->
 
 </beans>

@@ -5,16 +5,11 @@
     <include file="1.0/2015-12-17-init.xml" relativeToChangelogFile="true"/>
     <include file="1.0/2015-12-21-authentication.xml" relativeToChangelogFile="true"/>
     <include file="1.0/2016-09-12-add-user-locale.xml" relativeToChangelogFile="true"/>
-    <include file="1.0/2016-10-19-add-product.xml" relativeToChangelogFile="true"/>
     <include file="1.0/2016-10-27-add-default-user.xml" relativeToChangelogFile="true"/>
-    <include file="1.0/2016-add-job-type.xml" relativeToChangelogFile="true"/>
-    <include file="1.0/2016-10-25-add-job-subtype.xml" relativeToChangelogFile="true"/>
-    <include file="1.0/2016-10-31-add-job-subtype-cost.xml" relativeToChangelogFile="true"/>
-    <include file="1.0/2016-11-07-add-job.xml" relativeToChangelogFile="true"/>
-    <include file="1.0/2016-12-05-add-external-columns.xml" relativeToChangelogFile="true"/>
-    <include file="1.0/2016-12-27-add-complete-date-index.xml" relativeToChangelogFile="true"/>
-    <include file="1.0/2017-01-15-add-use_in_salary_report.xml" relativeToChangelogFile="true"/>
-    <include file="1.0/2017-01-15-modify_number_type.xml" relativeToChangelogFile="true"/>
     <include file="1.0/2017-01-18-add-progress.xml" relativeToChangelogFile="true"/>
-    <include file="1.0/2017-01-29-add-report_group.xml" relativeToChangelogFile="true"/>
+
+    <include file="1.0/2017-02-21-add-product.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2017-02-21-add-cloth.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2017-02-21-add-order.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2017-02-21-add-order-line.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

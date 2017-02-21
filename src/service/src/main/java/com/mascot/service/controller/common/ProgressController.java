@@ -1,12 +1,8 @@
 package com.mascot.service.controller.common;
 
 import com.mascot.server.beans.ProgressService;
-import com.mascot.server.model.Job;
-import com.mascot.server.model.Progress;
 import com.mascot.server.model.Role;
 import com.mascot.service.controller.AbstractController;
-import com.mascot.service.controller.admin.ProgressRecord;
-import com.mascot.service.controller.job.JobRecord;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 

@@ -5,12 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * Created by Nikolay on 19.10.2016.
+ * Created by Nikolay on 21.02.2017.
  */
 @Entity
-@Table(name = "product")
-public class Product extends IdentifiedDeleted {
-
+@Table(name = "cloth")
+public class Cloth extends IdentifiedDeleted {
     @Column
     private String name;
 
@@ -37,5 +36,4 @@ public class Product extends IdentifiedDeleted {
     public String toString() {
         return name;
     }
-
 }

@@ -1,1 +1,1 @@
-drop database furniture_db
+drop database furniture_site_db

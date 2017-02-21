@@ -144,23 +144,19 @@
             switch (role) {
                 case ALL_APP_ROLES.admin:
                     return [
-                        'users',
-                        'reports',
-                        'dictionary',
-                        'products',
-                        'job-types',
-                        'job-subtypes',
-                        'job-subtype-costs'
+                        'orders',
+                        'new_order',
+                        'new_product',
+                        'new_cloth',
+                        'home'
                     ];
                 case ALL_APP_ROLES.regular:
                     return [
-                        'jobs',
-                        'reports',
-                        'dictionary',
-                        'products',
-                        'job-types',
-                        'job-subtypes',
-                        'job-subtype-costs'
+                        'orders',
+                        'new_order',
+                        'new_product',
+                        'new_cloth',
+                        'home'
                     ];
                 default:
                     alert('Unknown role: "' + role + '"');

@@ -59,15 +59,10 @@
                 controllerAs: 'vm'
             })
 
-            .when('/contact', {
-                controller: 'ContactController',
-                templateUrl: 'app/contact/contact.view.html',
-                controllerAs: 'vm'
-            })
-
-            .when('/users', {
-                controller: 'UsersController',
-                templateUrl: 'app/users/users.view.html',
+            .when('/home', {
+                controller: 'MainController',
+//                templateUrl: 'home/home.view.html',
+                templateUrl: 'app/main/main.view.html',
                 controllerAs: 'vm'
             })
 
@@ -77,51 +72,9 @@
                 controllerAs: 'vm'
             })
 
-            .when('/job-types', {
-                controller: 'JobTypeController',
-                templateUrl: 'app/dictionary/job-type/job-type.view.html',
-                controllerAs: 'vm'
-            })
-
-            .when('/job-subtypes', {
-                controller: 'JobSubTypeController',
-                templateUrl: 'app/dictionary/job-subtype/job-subtype.view.html',
-                controllerAs: 'vm'
-            })
-
-            .when('/job-subtype-costs', {
-                controller: 'JobSubTypeCostController',
-                templateUrl: 'app/dictionary/job-subtype-cost/job-subtype-cost.view.html',
-                controllerAs: 'vm'
-            })
-
-            .when('/jobs', {
-                controller: 'JobController',
-                templateUrl: 'app/jobs/jobs.view.html',
-                controllerAs: 'vm'
-            })
-
-            .when('/reports', {
-                controller: 'ReportsController',
-                templateUrl: 'app/reports/reports.view.html',
-                controllerAs: 'vm'
-            })
-
             .when('/login', {
                 controller: 'LoginController',
                 templateUrl: 'app/login/login.view.html',
-                controllerAs: 'vm'
-            })
-
-            .when('/register', {
-                controller: 'RegisterController',
-                templateUrl: 'app/register/register.view.html',
-                controllerAs: 'vm'
-            })
-
-            .when('/import', {
-                controller: 'Import1cController',
-                templateUrl: 'app/admin/import-1c.html',
                 controllerAs: 'vm'
             })
 
