@@ -5,9 +5,9 @@
         .module('app')
         .directive('mainTopMenu', MainTopMenu);
 
-    MainTopMenu.$inject = ['$rootScope', '$location', 'ALL_APP_ROLES', 'Utils', 'LocMsg'];
+    MainTopMenu.$inject = ['$rootScope', '$location', 'ALL_APP_ROLES', 'Utils', 'LocMsg', '$sce'];
 
-    function MainTopMenu($rootScope, $location, ALL_APP_ROLES, Utils, LocMsg) {
+    function MainTopMenu($rootScope, $location, ALL_APP_ROLES, Utils, LocMsg, $sce) {
 
         var getSelectedMenu = function($location) {
             var patch = $location.$$path;
@@ -39,6 +39,7 @@
                 $scope.$ = $;
                 $scope.enabledMenu = Utils.getEnabledMenu();
                 $scope.userName = $rootScope.globals.currentUser.username;
+                $scope.userFullName = $rootScope.globals.currentUser.fullName;
                 $scope.userRoles = formatRoles($rootScope.globals.currentUser.roles);
                 var vm = $scope;
                 $scope.logout = function() {
@@ -52,6 +53,8 @@
                 $scope.isActive = function(menuItem) {
                     return menuItem == getSelectedMenu($location);
                 };
+                // $scope.htmlPopover = $sce.trustAsHtml('<b style="color: red">I can</b> have <div class="label label-success">HTML</div> content');
+                $scope.htmlPopover = $sce.trustAsHtml('<b style="color: red">I can</b> have <div class="label label-success">HTML</div> content');
             }]
 
         }

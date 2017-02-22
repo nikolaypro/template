@@ -76,18 +76,25 @@
             <li><a href="../navbar-static-top/">Static top</a></li>
             <li class=""><a href="../navbar-fixed-top/">Fixed top</a></li>
 -->
+            <script type="text/ng-template" id="topMenuUserInformation.html">
+                <li>
+                    <div class="row">
+                        <div class="col-md-5">{{"top.menu.user.details.name" | i18n}}:</div> <div class="col-md-3"><b>{{userFullName}}AAAAAAAAAAAAAAAAAAA</b></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">{{"top.menu.user.details.roles" | i18n}}:</div> <div class="col-md-3"><b>{{userRoles}}</b></div>
+                    </div>
+                </li>
+            </script>
 
-            <li class="top_menu_user_detail titip-primary titip-bottom titip-wrapped-large">
+            <li popover-placement="bottom-right"
+                class="top_menu_user_detail"
+                popover-trigger="'mouseenter'"
+                uib-popover-template="'topMenuUserInformation.html'"
+            >
                 {{userName}}
-                <span class="titip-content">
-                    <div class="row">
-                        <div class="col-md-4">{{'top.menu.user.details.name' | i18n}}:</div> <div class="col-xs-2"><b>{{userName}}</b></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">{{'top.menu.user.details.roles' | i18n}}:</div> <div class="col-xs-2"><b>{{userRoles}}</b></div>
-                    </div>
-                </span>
             </li>
+
 
 <!--
             Example for simple bootsrap tooltip
