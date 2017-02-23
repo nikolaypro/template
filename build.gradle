@@ -190,7 +190,7 @@ task release(type: Zip, dependsOn: [cleanReleaseDir, releasePrepareWar, releaseP
 
 task buildAndRelease(type: Zip, dependsOn: [serviceProject.build, webProject.build, release]) {
     group = "build"
-    archivesBaseName = 'furniture'
+    archivesBaseName = 'furniture-site'
     destinationDir = new File('releases')
     from releaseTmpDir
     into 'release'
