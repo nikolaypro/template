@@ -153,3 +153,7 @@ body, html {
 .button-divider {
     padding-right: 30px;
 }
+
+.ng-table.no-pager + div .ng-table-pager {
+    display: none!important;
+}
