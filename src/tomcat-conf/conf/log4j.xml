@@ -23,6 +23,8 @@
         <param name="File" value="../logs/server.log"/>
         <param name="Append" value="false"/>
         <param name="Threshold" value="DEBUG"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxFilesCount" value="500"/>
 
         <!-- Rollover at midnight each day -->
         <param name="DatePattern" value="'.'yyyy-MM-dd"/>
@@ -47,6 +49,8 @@
         <param name="File" value="../logs/http/http.log"/>
         <param name="Append" value="false"/>
         <param name="Threshold" value="INFO"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxFilesCount" value="500"/>
 
         <!-- Rollover at midnight each day -->
         <param name="DatePattern" value="'.'yyyy-MM-dd"/>
@@ -71,6 +75,8 @@
         <param name="File" value="../logs/email/email.log"/>
         <param name="Append" value="false"/>
         <param name="Threshold" value="INFO"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxFilesCount" value="500"/>
 
         <!-- Rollover at midnight each day -->
         <param name="DatePattern" value="'.'yyyy-MM-dd"/>
