@@ -5,8 +5,8 @@
         .module('app')
         .controller('OrderProductController', OrderProductController);
 
-    OrderProductController.$inject = ['OrderService', '$log', 'TableUtils', '$scope', 'Utils'];
-    function OrderProductController(OrderService, $log, TableUtils, $scope, Utils) {
+    OrderProductController.$inject = ['OrderProductService', '$log', 'TableUtils', '$scope', 'Utils'];
+    function OrderProductController(OrderProductService, $log, TableUtils, $scope, Utils) {
         var vm = this;
         vm.isNew = false;
         var params = {};
@@ -71,7 +71,7 @@
                 lines: vm.testOrderLines
             };
 /*
-            OrderService.getById(function(data) {
+            OrderProductService.getById(function(data) {
                 vm.order = data;
             });
 */

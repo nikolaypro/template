@@ -15,7 +15,8 @@
                 <label for="mainCloth">{{'order.product.table.edit.main.cloth' | i18n}}</label>
                 <type-ahead id="mainCloth" ng-model="vm.orderLine.mainCloth" load-items="vm.loadMainCloth"
                             place-holder="'order.product.table.edit.main.cloth'"
-                            filter="vm.filterCloth" template-url="'uib/template/typeahead/mascot-typeahead-wo-match.html'"/>
+                            filter="vm.filterCloth" template-url="'uib/template/typeahead/mascot-typeahead-wo-match.html'"
+                            ng-disabled="vm.orderLine.product == undefined"/>
             </div>
             <div class="form-group" ng-class="{ 'has-error': vm.mainClothRequired}">
                 <div ng-if="vm.mainClothRequired" class="help-block">{{'order.product.table.edit.main.cloth.required' | i18n}}</div>
@@ -25,7 +26,8 @@
                 <label for="compCloth1">{{'order.product.table.edit.comp.cloth.1' | i18n}}</label>
                 <type-ahead id="compCloth1" ng-model="vm.orderLine.compCloth1" load-items="vm.loadCompCloth1"
                             place-holder="'order.product.table.edit.comp.cloth.1'"
-                            filter="vm.filterCloth" template-url="'uib/template/typeahead/mascot-typeahead-wo-match.html'"/>
+                            filter="vm.filterCloth" template-url="'uib/template/typeahead/mascot-typeahead-wo-match.html'"
+                            ng-disabled="vm.orderLine.product == undefined"/>
             </div>
             <div class="form-group" ng-class="{ 'has-error': vm.compCloth1Required}">
                 <div ng-if="vm.compCloth1Required" class="help-block">{{'order.product.table.edit.comp.cloth.1.required' | i18n}}</div>
@@ -35,7 +37,8 @@
                 <label for="compCloth2">{{'order.product.table.edit.comp.cloth.2' | i18n}}</label>
                 <type-ahead id="compCloth2" ng-model="vm.orderLine.compCloth2" load-items="vm.loadCompCloth2"
                             place-holder="'order.product.table.edit.comp.cloth.2'"
-                            filter="vm.filterCloth" template-url="'uib/template/typeahead/mascot-typeahead-wo-match.html'"/>
+                            filter="vm.filterCloth" template-url="'uib/template/typeahead/mascot-typeahead-wo-match.html'"
+                            ng-disabled="vm.orderLine.product == undefined"/>
             </div>
             <div class="form-group" ng-class="{ 'has-error': vm.compCloth2Required}">
                 <div ng-if="vm.compCloth2Required" class="help-block">{{'order.product.table.edit.comp.cloth.2.required' | i18n}}</div>
@@ -45,7 +48,7 @@
                  ng-if="vm.job.id == null">
                 <label for="count">{{'order.product.table.edit.count' | i18n}}</label>
                 <input type="count" class="form-control" id="count" name="count" placeholder="{{'order.product.table.edit.count.hint' | i18n}}"
-                       ng-model="vm.order.count" ng-required="true"/>
+                       ng-model="vm.orderLine.count" ng-required="true"/>
                 <div ng-if="vm.isShowRequired(vm.editForm.count)" class="help-block">{{'order.product.table.edit.count.required' | i18n}}</div>
             </div>
 

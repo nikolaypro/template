@@ -5,9 +5,9 @@
         .module('app')
         .directive('orderProductEditDialog', OrderProductEditDialog);
 
-    OrderProductEditDialog.$inject = ['OrderService', '$log', 'EditDialogUtils', 'Utils'];
+    OrderProductEditDialog.$inject = ['OrderProductService', '$log', 'EditDialogUtils', 'Utils'];
 
-    function OrderProductEditDialog(OrderService, $log, EditDialogUtils, Utils) {
+    function OrderProductEditDialog(OrderProductService, $log, EditDialogUtils, Utils) {
         return {
             templateUrl: 'app/order/product/order-product-edit-dialog.html',
             restrict: 'E',
@@ -33,7 +33,7 @@
                 // Configure submit
                 var submitParams = {};
                 submitParams.submit = function update(entity, handleSuccess) {
-                    if (isNew) {
+                    if (vm.isNew) {
                         vm.orderLines.list.push(entity);
                     }
                     handleSuccess({success: true});
@@ -52,15 +52,15 @@
                     return !vm.productTypeRequired && !vm.mainClothRequired && !vm.compCloth1Required && !vm.compCloth2Required;
                 };
 
-                vm.loadProducts = OrderService.getProducts;
+                vm.loadProducts = OrderProductService.getProducts;
                 vm.loadMainCloth = function(callback) {
-                    return OrderService.getMainCloth(vm.orderLine.product, callback);
+                    return OrderProductService.getMainCloth(vm.orderLine.product.id, callback);
                 };
                 vm.loadCompCloth1 = function(callback) {
-                    return OrderService.getCompCloth1(vm.orderLine.product, callback);
+                    return OrderProductService.getCompCloth1(vm.orderLine.product.id, callback);
                 };
                 vm.loadCompCloth2 = function(callback) {
-                    return OrderService.getCompCloth2(vm.orderLine.product, callback);
+                    return OrderProductService.getCompCloth2(vm.orderLine.product.id, callback);
                 };
 
                 EditDialogUtils.initEditDialog(vm, showModalParams, submitParams);

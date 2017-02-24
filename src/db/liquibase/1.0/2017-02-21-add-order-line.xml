@@ -2,15 +2,15 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="Nikolay" id="create order_line table">
+    <changeSet author="Nikolay" id="create order_product_line table">
         <preConditions>
             <not>
-                <tableExists tableName="order_line"/>
+                <tableExists tableName="order_product_line"/>
             </not>
         </preConditions>
-        <createTable tableName="order_line">
+        <createTable tableName="order_product_line">
             <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="order_line_id_PK"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="order_product_line_id_PK"/>
             </column>
             <column name="order_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -38,24 +38,58 @@
             </column>
 
         </createTable>
-        <addForeignKeyConstraint baseTableName="order_line" baseColumnNames="order_id"
-                                 constraintName="order_line_to_order_FK"
+        <addForeignKeyConstraint baseTableName="order_product_line" baseColumnNames="order_id"
+                                 constraintName="order_product_line_to_order_FK"
                                  referencedTableName="t_order"
                                  referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="order_line" baseColumnNames="product_id"
-                                 constraintName="order_line_to_product_FK"
+        <addForeignKeyConstraint baseTableName="order_product_line" baseColumnNames="product_id"
+                                 constraintName="order_product_line_to_product_FK"
                                  referencedTableName="product"
                                  referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="order_line" baseColumnNames="main_cloth_id"
-                                 constraintName="order_line_to_main_cloth_id_FK"
+        <addForeignKeyConstraint baseTableName="order_product_line" baseColumnNames="main_cloth_id"
+                                 constraintName="order_product_line_to_main_cloth_id_FK"
                                  referencedTableName="cloth"
                                  referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="order_line" baseColumnNames="comp_1_cloth_id"
-                                 constraintName="order_line_to_comp_1_cloth_id_FK"
+        <addForeignKeyConstraint baseTableName="order_product_line" baseColumnNames="comp_1_cloth_id"
+                                 constraintName="order_product_line_to_comp_1_cloth_id_FK"
                                  referencedTableName="cloth"
                                  referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="order_line" baseColumnNames="comp_2_cloth_id"
-                                 constraintName="order_line_to_comp_2_cloth_id_FK"
+        <addForeignKeyConstraint baseTableName="order_product_line" baseColumnNames="comp_2_cloth_id"
+                                 constraintName="order_product_line_to_comp_2_cloth_id_FK"
+                                 referencedTableName="cloth"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet author="Nikolay" id="create order_cloth_line table">
+        <preConditions>
+            <not>
+                <tableExists tableName="order_cloth_line"/>
+            </not>
+        </preConditions>
+        <createTable tableName="order_cloth_line">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="order_cloth_line_id_PK"/>
+            </column>
+            <column name="order_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cloth_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="count" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cost" type="double">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+        <addForeignKeyConstraint baseTableName="order_cloth_line" baseColumnNames="order_id"
+                                 constraintName="order_cloth_line_to_order_FK"
+                                 referencedTableName="t_order"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="order_cloth_line" baseColumnNames="cloth_id"
+                                 constraintName="order_cloth_line_to_cloth_id_FK"
                                  referencedTableName="cloth"
                                  referencedColumnNames="id"/>
     </changeSet>

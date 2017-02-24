@@ -28,8 +28,11 @@ public class Order extends Identified {
     @Column(name = "cost")
     private Double cost;
 
-    @OneToMany(targetEntity = OrderLine.class, fetch = FetchType.LAZY, mappedBy = "order")
-    private Set<OrderLine> lines;
+    @OneToMany(targetEntity = OrderProductLine.class, fetch = FetchType.LAZY, mappedBy = "order")
+    private Set<OrderProductLine> productLines;
+
+    @OneToMany(targetEntity = OrderClothLine.class, fetch = FetchType.LAZY, mappedBy = "order")
+    private Set<OrderClothLine> clothLines;
 
     public OrderType getType() {
         return type;
@@ -45,14 +48,6 @@ public class Order extends Identified {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
-    }
-
-    public Set<OrderLine> getLines() {
-        return lines;
-    }
-
-    public void setLines(Set<OrderLine> lines) {
-        this.lines = lines;
     }
 
     public Date getModifyDate() {
@@ -85,5 +80,21 @@ public class Order extends Identified {
 
     public void setCost(Double cost) {
         this.cost = cost;
+    }
+
+    public Set<OrderProductLine> getProductLines() {
+        return productLines;
+    }
+
+    public void setProductLines(Set<OrderProductLine> productLines) {
+        this.productLines = productLines;
+    }
+
+    public Set<OrderClothLine> getClothLines() {
+        return clothLines;
+    }
+
+    public void setClothLines(Set<OrderClothLine> clothLines) {
+        this.clothLines = clothLines;
     }
 }

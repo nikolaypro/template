@@ -9,7 +9,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "cloth")
-public class Cloth extends IdentifiedDeleted {
+public class Cloth extends IdentifiedDeleted implements Named{
     @Column
     private String name;
 

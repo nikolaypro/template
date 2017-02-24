@@ -8,7 +8,8 @@
         <class>com.mascot.server.model.Product</class>
         <class>com.mascot.server.model.Cloth</class>
         <class>com.mascot.server.model.Order</class>
-        <class>com.mascot.server.model.OrderLine</class>
+        <class>com.mascot.server.model.OrderProductLine</class>
+        <class>com.mascot.server.model.OrderClothLine</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="validate"/>

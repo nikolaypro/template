@@ -3,10 +3,10 @@
 
     angular
         .module('app')
-        .factory('OrderService', OrderService);
+        .factory('OrderProductService', OrderProductService);
 
-    OrderService.$inject = ['$http', 'UrlService', 'Utils'];
-    function OrderService($http, UrlService, Utils) {
+    OrderProductService.$inject = ['$http', 'UrlService', 'Utils'];
+    function OrderProductService($http, UrlService, Utils) {
         var service = {};
         service.getAll = getAll;
         service.getById = getById;
@@ -43,19 +43,19 @@
         }
 
         function getProducts(handleSuccess) {
-            return $http.post(UrlService.url('api/order/products')).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+            return $http.post(UrlService.url('api/order-product/products')).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
         function getMainCloth(productId, handleSuccess) {
-            return $http.post(UrlService.url('api/order/main-clothes'), productId).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+            return $http.post(UrlService.url('api/order-product/main-clothes'), productId).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
         function getCompCloth1(productId, handleSuccess) {
-            return $http.post(UrlService.url('api/order/comp-clothes-1'), productId).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+            return $http.post(UrlService.url('api/order-product/comp-clothes-1'), productId).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
         function getCompCloth2(productId, handleSuccess) {
-            return $http.post(UrlService.url('api/order/comp-clothes-2'), productId).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+            return $http.post(UrlService.url('api/order-product/comp-clothes-2'), productId).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
     }
 
