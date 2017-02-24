@@ -51,6 +51,7 @@
     function TableUtils($log, Utils, NgTableParams, ngTableEventsChannel, LocMsg) {
         var service = {};
         service.initTablePage = initTablePage;
+        service.asTableDataSource = asTableDataSource;
         return service;
 
         function initTablePage(vm, Service, $scope, params) {
@@ -139,8 +140,14 @@
                         });
                     }}
             );
-
-
         }
+
+        function asTableDataSource(list) {
+            return {
+                list: list,
+                total: list.length
+            }
+        }
+
     }
 })();
