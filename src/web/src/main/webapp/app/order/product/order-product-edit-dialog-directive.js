@@ -45,8 +45,10 @@
                 // Configure submit
                 var submitParams = {};
                 submitParams.submit = function update(entity, handleSuccess) {
-                    if (entity.id == undefined) {
+                    if (vm.initialEntity == undefined) {
                         scope.lines.push(entity);
+                    } else {
+                        angular.copy(entity, vm.initialEntity);
                     }
                     handleSuccess({success: true});
                 };

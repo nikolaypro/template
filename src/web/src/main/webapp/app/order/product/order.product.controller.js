@@ -51,6 +51,7 @@
 
         var orderLineService = {
             getAll: function(params, handleSuccess) {
+                TableUtils.unCheckTableRows(vm.order.lines);
                 handleSuccess(TableUtils.asTableDataSource(vm.order.lines));
             },
             getById: function(id, handleSuccess) {},
