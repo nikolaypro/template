@@ -66,6 +66,15 @@
                 EditDialogUtils.initEditDialog(vm, showModalParams, submitParams);
                 vm.filterProduct = Utils.doAutocompleteProductFilter;
                 vm.filterCloth = Utils.doAutocompleteProductFilter;
+
+                scope.$watch('vm.orderLine.product', function(newVal, oldVal){
+                    if (vm.orderLine != undefined && oldVal != undefined && newVal == undefined) {
+                        vm.orderLine.mainCloth = undefined;
+                        vm.orderLine.compCloth1 = undefined;
+                        vm.orderLine.compCloth2 = undefined;
+                    }
+                });
+
             }
         }
     }
