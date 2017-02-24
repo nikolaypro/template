@@ -20,7 +20,8 @@
                 getComboItemPrefix: '=',
                 fixedElement: '=',
                 filter: '=',
-                templateUrl: '='
+                templateUrl: '=',
+                ngDisabled: '='
             },
             // require:"ngModel",
             link: function(scope, element, attrs, controller) {

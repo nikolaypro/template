@@ -4,9 +4,11 @@
            class="form-control" ng-required="true" typeahead-editable="false" typeahead-loading="loadingItems"
            typeahead-min-length="1" autocomplete="off"
            typeahead-template-url="{{templateUrl}}"
+           ng-disabled="ngDisabled"
            />
     <span class="input-group-btn">
-        <button type="button" class="btn btn-default typeaheadTrigger" uib-dropdown-toggle ng-click="getItems()">
+        <button type="button" class="btn btn-default typeaheadTrigger" uib-dropdown-toggle ng-click="getItems()"
+                ng-disabled="ngDisabled">
             &nbsp;<span class="caret"></span>&nbsp;
         </button>
     </span>
