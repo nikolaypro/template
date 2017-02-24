@@ -88,6 +88,7 @@
                     vm[params.entityName] = {};
                     vm.title = LocMsg.get(params.titleNew);
                 } else {
+                    vm.initialEntity = entity;
                     vm[params.entityName] = angular.copy(entity);
                     vm.title = LocMsg.get(params.titleEdit);
                 }
