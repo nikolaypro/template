@@ -12,20 +12,19 @@
         var params = {};
         params.loadFromServerForEdit = false;
 
-        vm.testOrderLines = {
-            list: [
+        vm.testOrderLines = [
             {
                 product: {
-                    name: "Product 1"
+                    name: "Product T 1"
                 },
                 mainCloth: {
-                    name: "Main cloth 1"
+                    name: "Main cloth T 1"
                 },
                 compCloth1: {
-                    name: "Comp 1 cloth 1"
+                    name: "Comp 1 cloth T 1"
                 },
                 compCloth2: {
-                    name: "Comp 2 cloth 1"
+                    name: "Comp 2 cloth T 1"
                 },
                 stitchingType: "Standard",
                 count: 2,
@@ -33,29 +32,31 @@
             },
             {
                 product: {
-                    name: "Product 2"
+                    name: "Product T 2"
                 },
                 mainCloth: {
-                    name: "Main cloth 2"
+                    name: "Main cloth T 2"
                 },
                 compCloth1: {
-                    name: "Comp 1 cloth 2"
+                    name: "Comp 1 cloth T 2"
                 },
                 compCloth2: {
-                    name: "Comp 2 cloth 2"
+                    name: "Comp 2 cloth T 2"
                 },
                 stitchingType: "Dark",
                 count: 3,
                 cost: 30.85
             }
-        ], total: 100};
+        ];
 
         var orderLineService = {
             getAll: function(params, handleSuccess) {
-                handleSuccess(vm.order.lines);
+                handleSuccess(TableUtils.asTableDataSource(vm.order.lines));
             },
             getById: function(id, handleSuccess) {},
-            update: function(entity, handleSuccess) {},
+            update: function(entity, handleSuccess) {
+                vm.order.lines.push(entity)
+            },
             delete: function(ids, handleSuccess) {}
         };
 
@@ -71,6 +72,7 @@
                 lines: vm.testOrderLines
             };
 /*
+show long
             OrderProductService.getById(function(data) {
                 vm.order = data;
             });

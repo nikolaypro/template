@@ -12,7 +12,8 @@
             templateUrl: 'app/order/product/order-product-edit-dialog.html',
             restrict: 'E',
             scope: {
-                vm: '=info'
+                vm: '=info',
+                lines: '='
             },
             link: function(scope, element, attrs, tabsCtrl) {
                 var vm = scope.vm;
@@ -33,8 +34,8 @@
                 // Configure submit
                 var submitParams = {};
                 submitParams.submit = function update(entity, handleSuccess) {
-                    if (vm.isNew) {
-                        vm.orderLines.list.push(entity);
+                    if (entity.id == undefined) {
+                        scope.lines.push(entity);
                     }
                     handleSuccess({success: true});
                 };
