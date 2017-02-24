@@ -11,6 +11,29 @@
         <button class="btn btn-primary btn-sm" ng-click="vm.doShowNewDialog()">{{'order.product.table.append.button' | i18n}}</button>
         <button class="btn btn-primary btn-sm" ng-disabled="vm.editDisabled" ng-click="vm.doShowEditDialog()">{{'common.edit' | i18n}}</button>
         <button class="btn btn-primary btn-sm" ng-disabled="vm.removeDisabled" ng-click="vm.doRemove()">{{'order.product.table.remove.button' | i18n}}</button>
+        <span class="button-divider"></span>
+
+        <div class="btn-group">
+            <button class="btn btn-danger btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                {{'order.table.save.order' | i18n}}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#" ng-click="vm.saveOrderOnly()">{{'order.table.save-order-only' | i18n}}</a></li>
+                <li><a href="#" ng-click="vm.saveOrderAndSend()">{{'order.table.save-order.and.send' | i18n}}</a></li>
+            </ul>
+        </div>
+
+<!--
+        <button class="btn btn-primary btn-lg" ng-click="vm.saveOrderOnly()"
+                uib-popover="{{'order.table.save-order-only.hint' | i18n}}" popover-trigger="'mouseenter'">
+            {{'order.table.save-order-only' | i18n}}
+        </button>
+        <button class="btn btn-primary btn-sm" ng-click="vm.saveOrderAndSend()"
+                uib-popover="{{'order.table.save-order.and.send.hint' | i18n}}" popover-trigger="'mouseenter'">
+            {{'order.table.save-order.and.send' | i18n}}
+        </button>
+-->
     </div>
     <table ng-table="vm.tableParams" class="no-pager table table-condensed table-bordered table-hover"
            ng-class="{tableRowLoading: vm.tableLoading}">

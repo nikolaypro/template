@@ -36,7 +36,7 @@
         }
 
         function update(entity, handleSuccess) {
-            return $http.post(UrlService.url('api/jobs/update'), entity).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+            return $http.post(UrlService.url('api/order-product/update'), entity).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
         function deleteEntity(ids, handleSuccess) {

@@ -52,7 +52,7 @@
             'order.product.table.remove.button' : 'Убрать товар из заявки',
             'order.product.table.append.button' : 'Добавить товар',
             'order.product.table.edit.title.new' : 'Добавление товара в заявку',
-            'order.product.table.edit.title.edit' : 'Редактирование товара в заявке',
+            'order.product.table.edit.title.edit' : 'Изменение товара в заявке',
             'order.product.table.edit.product' : 'Товар',
             'order.product.table.edit.product.required' : 'Необходимо указать товар',
             'order.product.table.edit.main.cloth' : 'Основная ткань',
@@ -68,6 +68,12 @@
             'stitching.STANDARD' : 'Стандарт',
             'stitching.LIGHT' : 'Светлая',
             'stitching.DARK' : 'Темная',
+            'order.table.save-order-only' : 'Записать без отправки',
+            'order.table.save-order-only.hint' : 'Записать заявку с целью дальнейшего изменения, но не отправлять',
+            'order.table.save-order.and.send' : 'Записать и отправить',
+            'order.table.save-order.and.send.hint' : 'Записать заявку и отправить',
+            'order.table.save.order' : 'Сохранить',
+
 
         });
 

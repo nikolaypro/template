@@ -68,6 +68,10 @@
             'stitching.STANDARD' : 'Standard',
             'stitching.LIGHT' : 'Light',
             'stitching.DARK' : 'Dark',
+            'order.table.save-order-only' : 'Save wo send',
+            'order.table.save-order-only.hint' : 'Save order but not send',
+            'order.table.save-order.and.send' : 'Save and send',
+            'order.table.save-order.and.send.hint' : 'Save order and send',
 
 
         });

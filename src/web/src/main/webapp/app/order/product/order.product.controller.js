@@ -8,9 +8,12 @@
     OrderProductController.$inject = ['OrderProductService', '$log', 'TableUtils', '$scope', 'Utils'];
     function OrderProductController(OrderProductService, $log, TableUtils, $scope, Utils) {
         var vm = this;
-        vm.isNew = false;
+        vm.isNew = true;
         var params = {};
         params.loadFromServerForEdit = false;
+        params.getIdsForDelete = function(rows) {
+            return rows;
+        };
 
         vm.testOrderLines = [
             {
@@ -58,7 +61,22 @@
             update: function(entity, handleSuccess) {
                 vm.order.lines.push(entity)
             },
-            delete: function(ids, handleSuccess) {}
+            delete: function(ids, handleSuccess) {
+                var result = [];
+
+                angular.forEach(vm.order.lines, function(e) {
+                    var contains = false;
+                    angular.forEach(ids, function(id) {
+                        contains = contains || e == id;
+                    });
+                    if (!contains) {
+                        result.push(e);
+                    }
+                });
+                vm.order.lines = result;
+                handleSuccess({success: true})
+
+            }
         };
 
         TableUtils.initTablePage(vm, orderLineService, $scope, params);
@@ -78,6 +96,12 @@ show long
                 vm.order = data;
             });
 */
+        }
+
+        vm.saveOrderOnly = function() {
+            OrderProductService.update(vm.order, function(data) {
+                $log.info("result = " + data.success);
+            })
         }
 
     }
