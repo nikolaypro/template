@@ -157,3 +157,9 @@ body, html {
 .ng-table.no-pager + div .ng-table-pager {
     display: none!important;
 }
+
+.order_info {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: bold
+}

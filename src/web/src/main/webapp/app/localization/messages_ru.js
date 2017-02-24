@@ -8,7 +8,7 @@
 
             /*common*/
             'common.new' : 'Создать',
-            'common.edit' : 'Редактировать',
+            'common.edit' : 'Изменить',
             'common.remove' : 'Удалить',
             'common.save' : 'Сохранить',
             'common.cancel' : 'Отмена',
@@ -23,7 +23,7 @@
             'common.filter.hide' : 'Скрыть фильтры',
             'common.filter.show' : 'Показать фильтр',
             'common.filter.clear.tooltip' : 'Очистить фильтр',
-            'common.document.title' : 'Система недельного расчета стоимости выполненных работ',
+            'common.document.title' : 'Портал приема заказов',
             'typeahead.fixed.element.hint' : 'Последний выбранный элемент',
 
             'calendar.current.day' : 'Сегодня',
@@ -33,14 +33,37 @@
             'top.menu.orders' : 'Список заказов',
             'top.menu.new_order' : 'Новая заявка',
             'top.menu.new_product' : 'Новaя заявка на мебель',
-            'top.menu.new_cloth' : 'Новая заявка на ткани',
+            'top.menu.new_cloth' : 'Новая заявка на ткань',
             'top.menu.app.name' : 'Портал приема заказов',
             'top.menu.home' : 'Главная',
 
             /*top.menu.user.details*/
             'top.menu.user.details.name' : 'Пользователь',
-            'top.menu.user.details.roles' : 'Роли'
+            'top.menu.user.details.roles' : 'Роли',
 
+            /*order.product.table*/
+            'order.product.table.column.product' : 'Товар',
+            'order.product.table.column.cloth-main' : 'Ткань основная',
+            'order.product.table.column.cloth-comp-1' : 'Ткань комп 1',
+            'order.product.table.column.cloth-comp-2' : 'Ткань комп 2',
+            'order.product.table.column.stitching.type' : 'Строчка',
+            'order.product.table.column.count' : 'Кол-во',
+            'order.product.table.column.cost' : 'Цена',
+            'order.product.table.remove.button' : 'Убрать товар из заявки',
+            'order.product.table.append.button' : 'Добавить товар',
+            'order.product.table.edit.title.new' : 'Добавление товара в заявку',
+            'order.product.table.edit.title.edit' : 'Редактирование товара в заявке',
+            'order.product.table.edit.product' : 'Товар',
+            'order.product.table.edit.product.required' : 'Необходимо указать товар',
+            'order.product.table.edit.main.cloth' : 'Основная ткань',
+            'order.product.table.edit.main.cloth.required' : 'Необходимо указать основную ткань',
+            'order.product.table.edit.comp.cloth.1' : 'Ткань комп 1',
+            'order.product.table.edit.comp.cloth.1.required' : 'Требуется указать ткань комп 1',
+            'order.product.table.edit.comp.cloth.2' : 'Ткань комп 2',
+            'order.product.table.edit.comp.cloth.2.required' : 'Требуется указать ткань комп 2',
+            'order.product.table.edit.count' : 'Количество',
+            'order.product.table.edit.count.hint' : 'Количество товара',
+            'order.product.table.edit.count.required' : 'Необходимо указать количество товара',
 
         });
 

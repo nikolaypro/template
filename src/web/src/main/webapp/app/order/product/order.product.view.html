@@ -1,0 +1,44 @@
+<main-top-menu xmlns="http://java.sun.com/jsf/html"></main-top-menu>
+<div class="container">
+    <div ng-if = "!vm.isNew">
+        <p>Заявка № {{vm.order.id}}</p>
+    </div>
+
+    <div ng-if = "vm.isNew">
+        <p>Новая заявка</p>
+    </div>
+    <div class="edit-buttons">
+        <button class="btn btn-primary btn-sm" ng-click="vm.doShowNewDialog()">{{'order.product.table.append.button' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-disabled="vm.editDisabled" ng-click="vm.doShowEditDialog()">{{'common.edit' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-disabled="vm.removeDisabled" ng-click="vm.doRemove()">{{'order.product.table.remove.button' | i18n}}</button>
+    </div>
+    <table ng-table="vm.tableParams" class="no-pager table table-condensed table-bordered table-hover"
+           ng-class="{tableRowLoading: vm.tableLoading}">
+        <tr ng-repeat="row in $data track by $index">
+            <td class="table-row-check"><input type="checkbox" ng-change="vm.onRowChecked()" ng-model="row.row_checked"/></td>
+            <td class="td_400px" data-title="'order.product.table.column.product' | i18n">
+                {{row.product.name}}
+            </td>
+            <td class="td_400px" data-title="'order.product.table.column.cloth-main' | i18n">
+                {{row.mainCloth.name}}
+            </td>
+            <td class="td_400px" data-title="'order.product.table.column.cloth-comp-1' | i18n">
+                {{row.compCloth1.name}}
+            </td>
+            <td class="td_400px" data-title="'order.product.table.column.cloth-comp-2' | i18n">
+                {{row.compCloth2.name}}
+            </td>
+            <td data-title="'order.product.table.column.stitching.type' | i18n">
+                {{row.stitchingType}}
+            </td>
+            <td data-title="'order.product.table.column.count' | i18n">
+                {{row.count}}
+            </td>
+            <td data-title="'order.product.table.column.cost' | i18n">
+                {{row.cost}}
+            </td>
+        </tr>
+    </table>
+    <table-loading vm="vm"></table-loading>
+    <order-product-edit-dialog info="vm"/>
+</div>

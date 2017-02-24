@@ -21,7 +21,7 @@
         </li>
 -->
             <li ng-class="isActive('home') ? 'active' : ''" ng-show="$.inArray('home', enabledMenu) > -1">
-                <a href="#">{{'top.menu.home' | i18n}}</a>
+                <a href="#/home">{{'top.menu.home' | i18n}}</a>
             </li>
             <li ng-class="isActive('orders') ? 'active' : ''" ng-show="$.inArray('orders', enabledMenu) > -1">
                 <a href="#/orders">{{'top.menu.orders' | i18n}}</a>
@@ -79,7 +79,7 @@
             <script type="text/ng-template" id="topMenuUserInformation.html">
                 <li>
                     <div class="row">
-                        <div class="col-md-5">{{"top.menu.user.details.name" | i18n}}:</div> <div class="col-md-3"><b>{{userFullName}}AAAAAAAAAAAAAAAAAAA</b></div>
+                        <div class="col-md-5">{{"top.menu.user.details.name" | i18n}}:</div> <div class="col-md-3"><b>{{userFullName}}</b></div>
                     </div>
                     <div class="row">
                         <div class="col-md-5">{{"top.menu.user.details.roles" | i18n}}:</div> <div class="col-md-3"><b>{{userRoles}}</b></div>

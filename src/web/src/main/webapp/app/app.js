@@ -58,26 +58,27 @@
                 templateUrl: 'app/main/main.view.html',
                 controllerAs: 'vm'
             })
-
+            .when('/login', {
+                controller: 'LoginController',
+                templateUrl: 'app/login/login.view.html',
+                controllerAs: 'vm'
+            })
             .when('/home', {
                 controller: 'MainController',
 //                templateUrl: 'home/home.view.html',
                 templateUrl: 'app/main/main.view.html',
                 controllerAs: 'vm'
             })
-
             .when('/products', {
                 controller: 'ProductsController',
                 templateUrl: 'app/dictionary/product/product.view.html',
                 controllerAs: 'vm'
             })
-
-            .when('/login', {
-                controller: 'LoginController',
-                templateUrl: 'app/login/login.view.html',
+            .when('/new_product', {
+                controller: 'OrderProductController',
+                templateUrl: 'app/order/product/order.product.view.html',
                 controllerAs: 'vm'
             })
-
             .otherwise({ redirectTo: '/login' });
 
         $httpProvider.interceptors.push('httpInterceptor');
