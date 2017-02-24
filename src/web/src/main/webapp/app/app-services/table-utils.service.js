@@ -52,6 +52,7 @@
         var service = {};
         service.initTablePage = initTablePage;
         service.asTableDataSource = asTableDataSource;
+        service.unCheckTableRows = unCheckTableRows;
         return service;
 
         function initTablePage(vm, Service, $scope, params) {
@@ -148,6 +149,14 @@
                 total: list.length
             }
         }
+
+        function unCheckTableRows(list) {
+            angular.forEach(list, function (row) {
+                row.row_checked = false;
+            });
+        }
+
+
 
     }
 })();
