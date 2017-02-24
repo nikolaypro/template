@@ -18,6 +18,16 @@
             link: function(scope, element, attrs, tabsCtrl) {
                 var vm = scope.vm;
 
+                function loadStitchingTypes() {
+                    OrderProductService.loadStitchingTypes(function (data) {
+                        vm.stitchingTypes = data;
+                        if (vm.orderLine.stitchingType == undefined) {
+                            vm.orderLine.stitchingType = vm.stitchingTypes[0];
+                        }
+                        vm.StitchingTypesLoaded = true;
+                    });
+                }
+
                 // Configure show modal
                 var showModalParams = {};
                 showModalParams.entityName = 'orderLine';
@@ -29,6 +39,7 @@
                     if (isNew) {
                         vm.orderLine.count = 1;
                     }
+                    loadStitchingTypes()
                 };
 
                 // Configure submit
@@ -47,10 +58,13 @@
                     vm.mainClothRequired = typeof vm.orderLine.mainCloth == 'undefined';
                     vm.compCloth1Required = typeof vm.orderLine.compCloth1 == 'undefined';
                     vm.compCloth2Required = typeof vm.orderLine.compCloth2 == 'undefined';
-
                     vm.isShowRequired(vm.editForm.count);
+                    vm.countWrong = false;
+                    if (vm.orderLine.count != undefined) {
+                        vm.countWrong = vm.orderLine.count < 1;
+                    }
 
-                    return !vm.productTypeRequired && !vm.mainClothRequired && !vm.compCloth1Required && !vm.compCloth2Required;
+                    return !vm.countWrong && !vm.productTypeRequired && !vm.mainClothRequired && !vm.compCloth1Required && !vm.compCloth2Required;
                 };
 
                 vm.loadProducts = OrderProductService.getProducts;
@@ -75,7 +89,6 @@
                         vm.orderLine.compCloth2 = undefined;
                     }
                 });
-
             }
         }
     }

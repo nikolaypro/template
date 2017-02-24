@@ -64,6 +64,10 @@
             'order.product.table.edit.count' : 'Количество',
             'order.product.table.edit.count.hint' : 'Количество товара',
             'order.product.table.edit.count.required' : 'Необходимо указать количество товара',
+            'order.product.table.edit.stitching' : 'Строчка',
+            'stitching.STANDARD' : 'Стандарт',
+            'stitching.LIGHT' : 'Светлая',
+            'stitching.DARK' : 'Темная',
 
         });
 

@@ -16,6 +16,7 @@
         service.getMainCloth = getMainCloth;
         service.getCompCloth1 = getCompCloth1;
         service.getCompCloth2 = getCompCloth2;
+        service.loadStitchingTypes = loadStitchingTypes;
         return service;
 
         function getAll(params, handleSuccess) {
@@ -57,6 +58,11 @@
         function getCompCloth2(productId, handleSuccess) {
             return $http.post(UrlService.url('api/order-product/comp-clothes-2'), productId).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
+
+        function loadStitchingTypes(handleSuccess) {
+            return $http.post(UrlService.url('api/order-product/stitching-types')).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+        }
+
     }
 
 })();

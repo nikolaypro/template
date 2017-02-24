@@ -64,6 +64,10 @@
             'order.product.table.edit.count' : 'Count',
             'order.product.table.edit.count.hint' : 'Product count',
             'order.product.table.edit.count.required' : 'Product count required',
+            'order.product.table.edit.stitching' : 'Stitching',
+            'stitching.STANDARD' : 'Standard',
+            'stitching.LIGHT' : 'Light',
+            'stitching.DARK' : 'Dark',
 
 
         });

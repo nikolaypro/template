@@ -3,6 +3,7 @@ package com.mascot.service.controller.order.product;
 import com.mascot.server.beans.DictionaryService;
 import com.mascot.server.beans.UserService;
 import com.mascot.server.model.Role;
+import com.mascot.server.model.StitchingType;
 import com.mascot.service.controller.AbstractController;
 import com.mascot.service.controller.common.DictionaryRecord;
 import com.mascot.service.controller.common.ResultRecord;
@@ -10,8 +11,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by Николай on 24.02.2017.
@@ -137,6 +140,25 @@ public class OrderProductController extends AbstractController {
     @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public List<DictionaryRecord> getCompClothes2(@RequestBody Long productId) {
         return dictionaryService.getCompClothes2(productId).stream().map(DictionaryRecord::new).collect(Collectors.toList());
+    }
+
+    @RequestMapping(value = "/stitching-types", method = RequestMethod.POST)
+    @ResponseBody
+    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    public String[] getLocales() {
+        logger.info("Get stitching");
+        List<String> result = Arrays.stream(StitchingType.values()).map(Enum::name).collect(Collectors.toList());
+        return result.toArray(new String[result.size()]);
+
+/*
+        final List<String> locales = Stream.of(Locale.getAvailableLocales()).
+                filter(locale -> Arrays.binarySearch(allowed, locale.getLanguage()) >= 0).
+                map(locale -> locale.toString()).
+                collect(Collectors.toList());
+        final List<Locale> locales2 = Stream.of(Locale.getAvailableLocales()).
+                filter(locale -> Arrays.binarySearch(allowed, locale.getLanguage()) >= 0).
+                collect(Collectors.toList());
+*/
     }
 
 }

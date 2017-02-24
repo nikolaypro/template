@@ -44,12 +44,22 @@
                 <div ng-if="vm.compCloth2Required" class="help-block">{{'order.product.table.edit.comp.cloth.2.required' | i18n}}</div>
             </div>
 
-            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.count) }"
+            <div class="form-group glyphicon-asterisk">
+                <label for="Stitching">{{'order.product.table.edit.stitching' | i18n}}</label>
+                <select class="form-control" id="Stitching" ng-disabled="!vm.StitchingTypesLoaded" ng-model="vm.orderLine.stitchingType">
+                    <option ng-repeat="row in vm.stitchingTypes" value="{{row}}">{{'stitching.' + row | i18n}}</option>
+                </select>
+            </div>
+
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.count) || vm.countWrong }"
                  ng-if="vm.job.id == null">
                 <label for="count">{{'order.product.table.edit.count' | i18n}}</label>
-                <input type="count" class="form-control" id="count" name="count" placeholder="{{'order.product.table.edit.count.hint' | i18n}}"
+                <input type="number" class="form-control" id="count" name="count" placeholder="{{'order.product.table.edit.count.hint' | i18n}}"
                        ng-model="vm.orderLine.count" ng-required="true"/>
-                <div ng-if="vm.isShowRequired(vm.editForm.count)" class="help-block">{{'order.product.table.edit.count.required' | i18n}}</div>
+                    <div ng-if="vm.isShowRequired(vm.editForm.count)" class="help-block">{{'order.product.table.edit.count.required' | i18n}}</div>
+                <div class="form-group" ng-class="{ 'has-error': vm.countWrong}">
+                    <div ng-if="vm.countWrong" class="help-block">{{'order.product.table.edit.count.required' | i18n}}</div>
+                </div>
             </div>
 
         </modal>

@@ -26,7 +26,7 @@
                 compCloth2: {
                     name: "Comp 2 cloth T 1"
                 },
-                stitchingType: "Standard",
+                stitchingType: "STANDARD",
                 count: 2,
                 cost: 20.45
             },
@@ -43,7 +43,7 @@
                 compCloth2: {
                     name: "Comp 2 cloth T 2"
                 },
-                stitchingType: "Dark",
+                stitchingType: "LIGHT",
                 count: 3,
                 cost: 30.85
             }
