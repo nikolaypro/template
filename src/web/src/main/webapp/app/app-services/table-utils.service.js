@@ -94,17 +94,17 @@
                 $log.info('do remove');
                 var rows = Utils.getCheckedTableRows(vm.tableParams);
                 if (rows.length == 0) {
-                    BootstrapDialog.warning("Select product to delete please");
+                    BootstrapDialog.warning("Select entity to delete please");
                     return;
                 }
-                var confMsg = rows.length > 1 ?
-                    LocMsg.get(params.deleteConfirmManyMsg, rows.length):
-                    LocMsg.get(params.deleteConfirmMsg);
-
-                Utils.showConfirm("Info", confMsg, function(dialogRef) {
-                    var ids = Utils.getIds(rows);
+                function remove(dialogRef) {
+                    var ids = params.getIdsForDelete != undefined ?
+                        params.getIdsForDelete(rows) :
+                        Utils.getIds(rows);
                     Service.delete(ids, function (data) {
-                        dialogRef.close();
+                        if (dialogRef != undefined) {
+                            dialogRef.close();
+                        }
                         Utils.refreshEditRemoveButtonEnabled(vm);
                         if (data.success) {
                             $log.info("Success");
@@ -115,7 +115,17 @@
                             Utils.showWarning("Unable delete: Error message: '" + data.message + "'");
                         }
                     });
-                });
+                }
+
+                if (params.deleteConfirmMsg == undefined) {
+                    remove();
+                } else {
+                    var confMsg = rows.length > 1 ?
+                        LocMsg.get(params.deleteConfirmManyMsg, rows.length) :
+                        LocMsg.get(params.deleteConfirmMsg);
+
+                    Utils.showConfirm("Info", confMsg, remove);
+                }
             };
 
             var superParams = params;
