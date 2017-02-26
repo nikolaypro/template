@@ -1,11 +1,15 @@
 package com.mascot.server.beans;
 
+import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.model.Order;
+import com.mascot.server.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Николай on 25.02.2017.
@@ -36,5 +40,10 @@ public class OrderServiceImpl extends AbstractMascotService implements OrderServ
     @Override
     public void update(Order entity) {
         super.update(entity);
+    }
+
+    @Override
+    public BeanTableResult<Order> getList(int startIndex, int count, Map<String, String> orderBy, Map<String, String> filter) {
+        return super.getResult("select e from Order e", "select count(e) from Order e", startIndex, count, orderBy, new HashMap(), filter);
     }
 }

@@ -15,7 +15,8 @@
         <span class="button-divider"></span>
 
         <div class="btn-group">
-            <button class="btn btn-danger btn-sm dropdown-toggle" type="button" data-toggle="dropdown" ng-show="vm.isEditable()">
+            <button class="btn btn-danger btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                    ng-show="vm.isEditable() && vm.order != undefined && vm.order.lines != undefined && vm.order.lines.length > 0">
                 {{'order.table.save.order' | i18n}}
                 <span class="caret"></span>
             </button>

@@ -1,0 +1,41 @@
+<main-top-menu xmlns="http://java.sun.com/jsf/html"></main-top-menu>
+<div class="container">
+    <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-hover"
+           ng-class="{tableRowLoading: vm.tableLoading}">
+        <tr ng-repeat="row in $data track by $index">
+            <td data-title="'orders.table.column.id' | i18n">
+                {{row.id}}
+            </td>
+            <td data-title="'orders.table.column.creation.date' | i18n">
+                {{row.creationDate | date: vm.dateFormat}}
+            </td>
+            <td data-title="'orders.table.column.modify.date' | i18n">
+                {{row.modifyDate | date: vm.dateFormat}}
+            </td>
+            <td data-title="'orders.table.column.cost' | i18n">
+                {{row.cost}}
+            </td>
+            <td data-title="'orders.table.column.status' | i18n">
+                {{(row.send ? 'order.table.order.status.sent' : 'order.table.order.status.not.sent')  | i18n}}
+            </td>
+            <td data-title="'orders.table.column.type' | i18n">
+                {{("order.type." + row.type) | i18n}}
+            </td>
+            <td class="td_50px">
+                <button class="btn btn-primary btn-xs" ng-click="vm.showOrder(row.id, row.type)">
+                    {{(row.send ? 'orders.table.order.view' : 'orders.table.order.edit') | i18n}}
+                </button>
+            </td>
+
+        </tr>
+    </table>
+    <table-loading vm="vm"></table-loading>
+
+<!--
+    <td class="td_400px" data-title="'job-subtype-cost.table.column.job-subtype' | i18n"
+        filter="{'jobSubType.name': 'text'}"
+        sortable="'jobSubType.name'">{{row.jobSubType.name}}
+    </td>
+-->
+
+</div>

@@ -77,8 +77,17 @@
             'order.table.order.top.title.new' : 'New order',
             'order.table.order.status.sent' : 'sent',
             'order.table.order.status.not.sent' : 'not send',
-            'order.table.order.top.title.status' : 'Status:'
+            'order.table.order.top.title.status' : 'Status:',
 
+            /*orders.table*/
+            'order.type.PRODUCT' : 'Product',
+            'stitching.CLOTH' : 'Cloth',
+            'orders.table.column.id' : '№',
+            'orders.table.column.creation.date' : 'Creation date',
+            'orders.table.column.modify.date' : 'Modify date',
+            'orders.table.column.cost' : 'Cost',
+            'orders.table.column.status' : 'Status',
+            'orders.table.column.type' : 'Order type',
         });
 
 })();

@@ -1,6 +1,7 @@
 package com.mascot.server.model;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Set;
 
@@ -108,5 +109,9 @@ public class Order extends Identified {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Boolean isSend() {
+        return Arrays.asList(OrderStatus.SEND, OrderStatus.SENT).contains(status);
     }
 }

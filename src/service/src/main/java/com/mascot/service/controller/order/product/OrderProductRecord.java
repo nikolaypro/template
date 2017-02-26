@@ -24,7 +24,7 @@ public class OrderProductRecord {
         OrderProductRecord result = new OrderProductRecord();
         result.id = entity.getId();
         result.cost = entity.getCost();
-        result.send = Arrays.asList(OrderStatus.SEND, OrderStatus.SENT).contains(entity.getStatus());
+        result.send = entity.isSend();
         result.lines = entity.getProductLines().stream()
                 .sorted(Comparator.comparingLong(Identified::getId))
                 .map(OrderProductLineRecord::build)

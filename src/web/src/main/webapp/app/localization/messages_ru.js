@@ -77,7 +77,19 @@
             'order.table.order.top.title.new' : 'Новая заявка',
             'order.table.order.status.sent' : 'отправлена',
             'order.table.order.status.not.sent' : 'не отправлена',
-            'order.table.order.top.title.status' : 'Статус:'
+            'order.table.order.top.title.status' : 'Статус:',
+
+            /*orders.table*/
+            'order.type.PRODUCT' : 'Мебель',
+            'order.type.CLOTH' : 'Ткань',
+            'orders.table.column.id' : '№',
+            'orders.table.column.creation.date' : 'Дата создания',
+            'orders.table.column.modify.date' : 'Дата изменения',
+            'orders.table.column.cost' : 'Сумма',
+            'orders.table.column.status' : 'Статус',
+            'orders.table.column.type' : 'Тип заказа',
+            'orders.table.order.view' : 'Просмотр',
+            'orders.table.order.edit' : 'Редактировать',
         });
 
 })();

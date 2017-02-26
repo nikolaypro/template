@@ -213,6 +213,9 @@ public class OrderProductController extends AbstractController {
             logger.warn("Order with id = '" + id + "' not found");
             throw new IllegalStateException("Unable find order. May be it was deleted");
         }
+        if (!entity.getUser().getId().equals(userService.getCurrentUserId())) {
+            throw new IllegalStateException("Unable show order for another user");
+        }
         return OrderProductRecord.build(entity);
     }
 

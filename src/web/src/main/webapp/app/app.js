@@ -74,6 +74,11 @@
                 templateUrl: 'app/dictionary/product/product.view.html',
                 controllerAs: 'vm'
             })
+            .when('/orders', {
+                controller: 'OrdersController',
+                templateUrl: 'app/order/orders.view.html',
+                controllerAs: 'vm'
+            })
             .when('/new_product', {
                 controller: 'OrderProductController',
                 templateUrl: 'app/order/product/order.product.view.html',
