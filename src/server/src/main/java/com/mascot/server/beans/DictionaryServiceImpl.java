@@ -4,6 +4,7 @@ import com.mascot.server.model.Cloth;
 import com.mascot.server.model.Product;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 
 /**
@@ -30,5 +31,23 @@ public class DictionaryServiceImpl extends AbstractMascotService implements Dict
     @Override
     public List<Cloth> getCompClothes2(Long productId) {
         return em.createQuery("select e from Cloth e where e.deleted <> :deleted").setParameter("deleted", true).getResultList();
+    }
+
+    @Override
+    public Product findProduct(Long productId) {
+        try {
+            return (Product) em.createQuery("select e from Product e where e.id = :id").setParameter("id", productId).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Cloth findCloth(Long clothId) {
+        try {
+            return (Cloth) em.createQuery("select e from Cloth e where e.id = :id").setParameter("id", clothId).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

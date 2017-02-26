@@ -14,6 +14,7 @@ public class OrderProductLineRecord {
     public DictionaryRecord compCloth2;
     public Integer count;
     public Double cost;
+    public String stitchingType;
 
     public static OrderProductLineRecord build(OrderProductLine line) {
         OrderProductLineRecord result = new OrderProductLineRecord();
@@ -24,6 +25,7 @@ public class OrderProductLineRecord {
         result.compCloth2 = new DictionaryRecord(line.getCompCloth2());
         result.count = line.getCount();
         result.cost = line.getCost();
+        result.stitchingType = line.getStitchingType().name();
         return result;
     }
 

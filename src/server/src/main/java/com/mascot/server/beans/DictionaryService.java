@@ -19,4 +19,8 @@ public interface DictionaryService {
     List<Cloth> getCompClothes1(Long productId);
 
     List<Cloth> getCompClothes2(Long productId);
+
+    Product findProduct(Long productId);
+
+    Cloth findCloth(Long clothId);
 }

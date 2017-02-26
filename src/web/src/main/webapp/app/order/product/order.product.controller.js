@@ -5,10 +5,10 @@
         .module('app')
         .controller('OrderProductController', OrderProductController);
 
-    OrderProductController.$inject = ['OrderProductService', '$log', 'TableUtils', '$scope', 'Utils'];
-    function OrderProductController(OrderProductService, $log, TableUtils, $scope, Utils) {
+    OrderProductController.$inject = ['OrderProductService', '$log', 'TableUtils', '$scope', 'Utils', '$location'];
+    function OrderProductController(OrderProductService, $log, TableUtils, $scope, Utils, $location) {
         var vm = this;
-        vm.isNew = true;
+        vm.isNew = $location.search().id == undefined;
         var params = {};
         params.loadFromServerForEdit = false;
         params.getIdsForDelete = function(rows) {
@@ -54,6 +54,9 @@
 
         var orderLineService = {
             getAll: function(params, handleSuccess) {
+                if (vm.order == undefined) {
+                    return;
+                }
                 TableUtils.unCheckTableRows(vm.order.lines);
                 handleSuccess(TableUtils.asTableDataSource(vm.order.lines));
             },
@@ -86,23 +89,47 @@
                 lines: []
             };
         } else {
+/*
             vm.order = {
-                id: 4321,
+                id: $location.search().id,
                 lines: vm.testOrderLines
             };
-/*
-show long
-            OrderProductService.getById(function(data) {
-                vm.order = data;
-            });
 */
+//show long
+            OrderProductService.getById($location.search().id, function(data) {
+                vm.order = data;
+                vm.tableParams.reload();
+            });
         }
 
         vm.saveOrderOnly = function() {
+            vm.order.send = false;
+            vm.order.cost = -11111;
+            angular.forEach(vm.order.lines, function(e) {
+                e.cost = -11;
+            });
             OrderProductService.update(vm.order, function(data) {
-                $log.info("result = " + data.success);
+                if (data != undefined) {
+                    $location.path('order-product').search({id: data});
+                }
             })
-        }
+        };
+        vm.saveOrderAndSend = function() {
+            vm.order.send = true;
+            vm.order.cost = -11111;
+            angular.forEach(vm.order.lines, function(e) {
+                e.cost = -11;
+            });
+            OrderProductService.update(vm.order, function(data) {
+                if (data != undefined) {
+                    $location.path('order-product').search({id: data});
+                }
+            })
+        };
+
+        vm.isEditable = function() {
+            return vm.isNew || vm.order != undefined && !vm.order.send;
+        };
 
     }
 })();

@@ -79,6 +79,11 @@
                 templateUrl: 'app/order/product/order.product.view.html',
                 controllerAs: 'vm'
             })
+            .when('/order-product', {
+                controller: 'OrderProductController',
+                templateUrl: 'app/order/product/order.product.view.html',
+                controllerAs: 'vm'
+            })
             .otherwise({ redirectTo: '/login' });
 
         $httpProvider.interceptors.push('httpInterceptor');

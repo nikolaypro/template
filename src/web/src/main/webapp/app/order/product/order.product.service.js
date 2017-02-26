@@ -32,7 +32,7 @@
         }
 
         function getById(id, handleSuccess) {
-            return $http.get(UrlService.url('api/jobs/id/' + id)).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+            return $http.get(UrlService.url('api/order-product/id/' + id)).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
         function update(entity, handleSuccess) {

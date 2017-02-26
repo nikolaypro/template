@@ -22,13 +22,17 @@ public class Order extends Identified {
     @Column(name = "send_date")
     private Date sendDate;
 
-    @Column(name = "sent")
-    private Boolean sent;
+    @Column(name = "status")
+    private OrderStatus status;
 
     @Column(name = "cost")
     private Double cost;
 
-    @OneToMany(targetEntity = OrderProductLine.class, fetch = FetchType.LAZY, mappedBy = "order")
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(targetEntity = OrderProductLine.class, fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderProductLine> productLines;
 
     @OneToMany(targetEntity = OrderClothLine.class, fetch = FetchType.LAZY, mappedBy = "order")
@@ -66,14 +70,6 @@ public class Order extends Identified {
         this.sendDate = sendDate;
     }
 
-    public Boolean getSent() {
-        return sent;
-    }
-
-    public void setSent(Boolean sent) {
-        this.sent = sent;
-    }
-
     public Double getCost() {
         return cost;
     }
@@ -96,5 +92,21 @@ public class Order extends Identified {
 
     public void setClothLines(Set<OrderClothLine> clothLines) {
         this.clothLines = clothLines;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

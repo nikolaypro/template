@@ -1,20 +1,22 @@
 <main-top-menu xmlns="http://java.sun.com/jsf/html"></main-top-menu>
 <div class="container">
-    <div ng-if = "!vm.isNew">
+    <div ng-if="!vm.isNew">
         <p>Заявка № {{vm.order.id}}</p>
+        Статус: <b>{{vm.order.send ? "отправлено" : "не отправлено"}}</b>
     </div>
 
-    <div ng-if = "vm.isNew">
+    <div ng-if="vm.isNew">
         <p>Новая заявка</p>
+        {{$location.search().id}}
     </div>
     <div class="edit-buttons">
-        <button class="btn btn-primary btn-sm" ng-click="vm.doShowNewDialog()">{{'order.product.table.append.button' | i18n}}</button>
-        <button class="btn btn-primary btn-sm" ng-disabled="vm.editDisabled" ng-click="vm.doShowEditDialog()">{{'common.edit' | i18n}}</button>
-        <button class="btn btn-primary btn-sm" ng-disabled="vm.removeDisabled" ng-click="vm.doRemove()">{{'order.product.table.remove.button' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-show="vm.isEditable()" ng-disabled="vm.order == undefined" ng-click="vm.doShowNewDialog()">{{'order.product.table.append.button' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-show="vm.isEditable()" ng-disabled="vm.editDisabled" ng-click="vm.doShowEditDialog()">{{'common.edit' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-show="vm.isEditable()" ng-disabled="vm.removeDisabled" ng-click="vm.doRemove()">{{'order.product.table.remove.button' | i18n}}</button>
         <span class="button-divider"></span>
 
         <div class="btn-group">
-            <button class="btn btn-danger btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+            <button class="btn btn-danger btn-sm dropdown-toggle" type="button" data-toggle="dropdown" ng-show="vm.isEditable()">
                 {{'order.table.save.order' | i18n}}
                 <span class="caret"></span>
             </button>
