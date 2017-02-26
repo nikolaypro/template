@@ -1,13 +1,12 @@
 <main-top-menu xmlns="http://java.sun.com/jsf/html"></main-top-menu>
 <div class="container">
     <div ng-if="!vm.isNew">
-        <p>Заявка № {{vm.order.id}}</p>
-        Статус: <b>{{vm.order.send ? "отправлено" : "не отправлено"}}</b>
+        <p>{{'order.table.order.top.title.exists' | i18n}} {{vm.order.id}}</p>
+        {{'order.table.order.top.title.status' | i18n}} <b>{{(vm.order.send ? 'order.table.order.status.sent' : 'order.table.order.status.not.sent')  | i18n}}</b>
     </div>
 
     <div ng-if="vm.isNew">
-        <p>Новая заявка</p>
-        {{$location.search().id}}
+        <p>{{'order.table.order.top.title.new' | i18n}}</p>
     </div>
     <div class="edit-buttons">
         <button class="btn btn-primary btn-sm" ng-show="vm.isEditable()" ng-disabled="vm.order == undefined" ng-click="vm.doShowNewDialog()">{{'order.product.table.append.button' | i18n}}</button>
@@ -65,5 +64,5 @@
         </tr>
     </table>
     <table-loading vm="vm"></table-loading>
-    <order-product-edit-dialog info="vm" lines="vm.order.lines"/>
+    <order-product-edit-dialog info="vm" lines="vm.order.lines"></order-product-edit-dialog>
 </div>

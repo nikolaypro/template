@@ -72,7 +72,12 @@
             'order.table.save-order-only.hint' : 'Save order but not send',
             'order.table.save-order.and.send' : 'Save and send',
             'order.table.save-order.and.send.hint' : 'Save order and send',
-
+            'order.table.save.order' : 'Save',
+            'order.table.order.top.title.exists' : 'Order №',
+            'order.table.order.top.title.new' : 'New order',
+            'order.table.order.status.sent' : 'sent',
+            'order.table.order.status.not.sent' : 'not send',
+            'order.table.order.top.title.status' : 'Status:'
 
         });
 

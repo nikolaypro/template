@@ -73,8 +73,11 @@
             'order.table.save-order.and.send' : 'Записать и отправить',
             'order.table.save-order.and.send.hint' : 'Записать заявку и отправить',
             'order.table.save.order' : 'Сохранить',
-
-
+            'order.table.order.top.title.exists' : 'Заявка №',
+            'order.table.order.top.title.new' : 'Новая заявка',
+            'order.table.order.status.sent' : 'отправлена',
+            'order.table.order.status.not.sent' : 'не отправлена',
+            'order.table.order.top.title.status' : 'Статус:'
         });
 
 })();
