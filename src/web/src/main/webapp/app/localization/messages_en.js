@@ -65,6 +65,22 @@
             'order.product.table.edit.count.hint' : 'Product count',
             'order.product.table.edit.count.required' : 'Product count required',
             'order.product.table.edit.stitching' : 'Stitching',
+
+            /*order.cloth.table*/
+            'order.cloth.table.column.cloth.name' : 'Cloth',
+            'order.cloth.table.column.count' : 'Count',
+            'order.cloth.table.column.cost' : 'Cost',
+            'order.cloth.table.edit.cloth' : 'Cloth',
+            'order.cloth.table.edit.cloth.required' : 'Cloth required',
+            'order.cloth.table.edit.count' : 'Count',
+            'order.cloth.table.edit.count.hint' : 'Cloth count',
+            'order.cloth.table.edit.count.required' : 'Count required',
+            'order.cloth.table.edit.title.new' : 'Append cloth to order',
+            'order.cloth.table.edit.title.edit' : 'Change cloth in order',
+            'order.cloth.table.append.button' : 'Append cloth',
+            'order.cloth.table.remove.button' : 'Remove from order',
+
+            /*orders.table*/
             'stitching.STANDARD' : 'Standard',
             'stitching.LIGHT' : 'Light',
             'stitching.DARK' : 'Dark',
@@ -78,8 +94,6 @@
             'order.table.order.status.sent' : 'sent',
             'order.table.order.status.not.sent' : 'not send',
             'order.table.order.top.title.status' : 'Status:',
-
-            /*orders.table*/
             'order.type.PRODUCT' : 'Product',
             'stitching.CLOTH' : 'Cloth',
             'orders.table.column.id' : '№',

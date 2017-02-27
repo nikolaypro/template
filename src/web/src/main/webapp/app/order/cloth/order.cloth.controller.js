@@ -5,49 +5,24 @@
         .module('app')
         .controller('OrderClothController', OrderClothController);
 
-    OrderClothController.$inject = ['OrderClothController', '$log', 'TableUtils', '$scope', 'Utils', '$location'];
+    OrderClothController.$inject = ['OrderClothService', '$log', 'TableUtils', '$scope', 'Utils', '$location'];
     function OrderClothController(OrderClothService, $log, TableUtils, $scope, Utils, $location) {
         var vm = this;
         vm.isNew = $location.search().id == undefined;
         var params = {};
-/*
-        params.loadFromServerForEdit = false;
-        params.getIdsForDelete = function(rows) {
-            return rows;
-        };
-
-        var orderLineService = {
-            getAll: function(params, handleSuccess) {
+        var rowsProvider = {
+            getRows: function() {
                 if (vm.order == undefined) {
-                    return;
+                    return undefined;
                 }
-                TableUtils.unCheckTableRows(vm.order.lines);
-                handleSuccess(TableUtils.asTableDataSource(vm.order.lines));
+                return vm.order.lines;
             },
-            getById: function(id, handleSuccess) {},
-            update: function(entity, handleSuccess) {
-                vm.order.lines.push(entity)
-            },
-            delete: function(ids, handleSuccess) {
-                var result = [];
-
-                angular.forEach(vm.order.lines, function(e) {
-                    var contains = false;
-                    angular.forEach(ids, function(id) {
-                        contains = contains || e == id;
-                    });
-                    if (!contains) {
-                        result.push(e);
-                    }
-                });
-                vm.order.lines = result;
-                handleSuccess({success: true})
-
+            setRows: function(rows) {
+                vm.order.lines = rows;
             }
         };
 
-        TableUtils.initTablePage(vm, orderLineService, $scope, params);
-*/
+        TableUtils.initInMemoryTablePage(vm, $scope, params, rowsProvider);
 
         if (vm.isNew) {
             vm.order = {
@@ -78,7 +53,7 @@
             angular.forEach(vm.order.lines, function(e) {
                 e.cost = -11;
             });
-            OrderProductService.update(vm.order, function(data) {
+            OrderClothService.update(vm.order, function(data) {
                 if (data != undefined) {
                     $location.path('order-cloth').search({id: data});
                 }

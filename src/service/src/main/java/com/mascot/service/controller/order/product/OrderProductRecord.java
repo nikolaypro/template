@@ -3,6 +3,7 @@ package com.mascot.service.controller.order.product;
 import com.mascot.server.model.Identified;
 import com.mascot.server.model.Order;
 import com.mascot.server.model.OrderStatus;
+import com.mascot.service.controller.order.OrderBaseRecord;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,18 +14,11 @@ import java.util.stream.Collectors;
 /**
  * Created by Николай on 24.02.2017.
  */
-public class OrderProductRecord {
-    public Long id;
-//    public Boolean sent;
-    public Boolean send;
-    public Double cost;
-    public List<OrderProductLineRecord> lines;
+public class OrderProductRecord extends OrderBaseRecord<OrderProductLineRecord> {
 
     public static OrderProductRecord build(Order entity) {
         OrderProductRecord result = new OrderProductRecord();
-        result.id = entity.getId();
-        result.cost = entity.getCost();
-        result.send = entity.isSend();
+        result.fill(entity);
         result.lines = entity.getProductLines().stream()
                 .sorted(Comparator.comparingLong(Identified::getId))
                 .map(OrderProductLineRecord::build)

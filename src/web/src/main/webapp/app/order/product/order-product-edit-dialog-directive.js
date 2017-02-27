@@ -34,8 +34,11 @@
                 showModalParams.titleNew = 'order.product.table.edit.title.new';
                 showModalParams.titleEdit = 'order.product.table.edit.title.edit';
                 showModalParams.onShow = function(isNew) {
-                    vm.jobTypeRequired = false;
                     vm.productTypeRequired = false;
+                    vm.mainClothRequired = false;
+                    vm.compCloth1Required = false;
+                    vm.compCloth2Required = false;
+                    vm.countWrong = false;
                     if (isNew) {
                         vm.orderLine.count = 1;
                     }

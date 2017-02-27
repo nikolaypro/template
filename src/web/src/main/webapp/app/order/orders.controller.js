@@ -10,7 +10,7 @@
         var vm = this;
         vm.dateFormat = Utils.getDateFormat();
         var params = {};
-        params.defaultSort = {id: 'asc'};
+        params.defaultSort = {id: 'desc'};
         params.defaultFilter = {};
         TableUtils.initTablePage(vm, OrdersService, $scope, params);
         vm.showOrder = function(id, type) {

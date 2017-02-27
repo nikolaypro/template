@@ -1,0 +1,26 @@
+<fieldset ng-disabled="vm.disableForm" disabled="vm.disableForm">
+    <form role="form" name="vm.editForm" >
+        <modal visible="vm.showDialogFlag" info="vm">
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.clothRequired}">
+                <label for="cloth">{{'order.cloth.table.edit.cloth' | i18n}}</label>
+                <type-ahead id="cloth" ng-model="vm.orderLine.cloth" load-items="vm.loadClothes"
+                            place-holder="'order.cloth.table.edit.cloth'"
+                            filter="vm.filterCloth" template-url="'uib/template/typeahead/mascot-typeahead-wo-match.html'"/>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': vm.clothRequired}">
+                <div ng-if="vm.clothRequired" class="help-block">{{'order.cloth.table.edit.cloth.required' | i18n}}</div>
+            </div>
+
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.count) || vm.countWrong }">
+                <label for="count">{{'order.cloth.table.edit.count' | i18n}}</label>
+                <input type="number" class="form-control" id="count" name="count" placeholder="{{'order.cloth.table.edit.count.hint' | i18n}}"
+                       ng-model="vm.orderLine.count" ng-required="true"/>
+                <div ng-if="vm.isShowRequired(vm.editForm.count)" class="help-block">{{'order.cloth.table.edit.count.required' | i18n}}</div>
+                <div class="form-group" ng-class="{ 'has-error': vm.countWrong}">
+                    <div ng-if="vm.countWrong" class="help-block">{{'order.cloth.table.edit.count.required' | i18n}}</div>
+                </div>
+            </div>
+
+        </modal>
+    </form>
+</fieldset>

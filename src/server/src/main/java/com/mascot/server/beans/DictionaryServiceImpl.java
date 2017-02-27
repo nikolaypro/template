@@ -50,4 +50,9 @@ public class DictionaryServiceImpl extends AbstractMascotService implements Dict
             return null;
         }
     }
+
+    @Override
+    public List<Cloth> getClothes() {
+        return em.createQuery("select e from Cloth e where e.deleted <> :deleted").setParameter("deleted", true).getResultList();
+    }
 }

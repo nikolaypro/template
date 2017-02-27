@@ -6,7 +6,7 @@ import com.mascot.server.beans.UserService;
 import com.mascot.server.model.*;
 import com.mascot.service.controller.AbstractController;
 import com.mascot.service.controller.common.DictionaryRecord;
-import com.mascot.service.controller.common.ResultRecord;
+import com.mascot.service.controller.order.OrderEntityProvider;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,6 +63,7 @@ public class OrderProductController extends AbstractController {
         final User user = userService.getCurrentUser();
         String orderInfo = getOrderLogInfo(record, user);
         logger.info(String.format("Order (id = %s): %s", record.id, orderInfo));
+/*
         final Order entity;
         if (record.id == null) {
             entity = new Order();
@@ -82,8 +83,10 @@ public class OrderProductController extends AbstractController {
         }
         entity.setUser(user);
         entity.setCost(record.cost);
-        entity.setType(OrderType.PRODUCT);
         entity.setStatus(record.send ? OrderStatus.SEND : OrderStatus.ON_HOLD);
+*/
+        final Order entity = OrderEntityProvider.getAndFillEntity(record, user, orderService);
+        entity.setType(OrderType.PRODUCT);
 
         List<OrderProductLine> entityLines = new ArrayList<>();
         record.lines.forEach(line -> {

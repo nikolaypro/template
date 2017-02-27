@@ -51,8 +51,7 @@
                 </select>
             </div>
 
-            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.count) || vm.countWrong }"
-                 ng-if="vm.job.id == null">
+            <div class="form-group glyphicon-asterisk" ng-class="{ 'has-error': vm.isShowRequired(vm.editForm.count) || vm.countWrong }">
                 <label for="count">{{'order.product.table.edit.count' | i18n}}</label>
                 <input type="number" class="form-control" id="count" name="count" placeholder="{{'order.product.table.edit.count.hint' | i18n}}"
                        ng-model="vm.orderLine.count" ng-required="true"/>

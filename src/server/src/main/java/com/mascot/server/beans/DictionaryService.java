@@ -23,4 +23,6 @@ public interface DictionaryService {
     Product findProduct(Long productId);
 
     Cloth findCloth(Long clothId);
+
+    List<Cloth> getClothes();
 }

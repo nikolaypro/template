@@ -25,45 +25,6 @@
 
         TableUtils.initInMemoryTablePage(vm, $scope, params, rowsProvider);
 
-/*
-        params.loadFromServerForEdit = false;
-        params.getIdsForDelete = function(rows) {
-            return rows;
-        };
-
-        var orderLineService = {
-            getAll: function(params, handleSuccess) {
-                if (vm.order == undefined) {
-                    return;
-                }
-                TableUtils.unCheckTableRows(vm.order.lines);
-                handleSuccess(TableUtils.asTableDataSource(vm.order.lines));
-            },
-            getById: function(id, handleSuccess) {},
-            update: function(entity, handleSuccess) {
-                vm.order.lines.push(entity)
-            },
-            delete: function(ids, handleSuccess) {
-                var result = [];
-
-                angular.forEach(vm.order.lines, function(e) {
-                    var contains = false;
-                    angular.forEach(ids, function(id) {
-                        contains = contains || e == id;
-                    });
-                    if (!contains) {
-                        result.push(e);
-                    }
-                });
-                vm.order.lines = result;
-                handleSuccess({success: true})
-
-            }
-        };
-
-        TableUtils.initTablePage(vm, orderLineService, $scope, params);
-*/
-
         if (vm.isNew) {
             vm.order = {
                 lines: []

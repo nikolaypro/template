@@ -65,6 +65,22 @@
             'order.product.table.edit.count.hint' : 'Количество товара',
             'order.product.table.edit.count.required' : 'Необходимо указать количество товара',
             'order.product.table.edit.stitching' : 'Строчка',
+
+            /*order.cloth.table*/
+            'order.cloth.table.column.cloth.name' : 'Ткань',
+            'order.cloth.table.column.count' : 'Кол-во',
+            'order.cloth.table.column.cost' : 'Цена',
+            'order.cloth.table.edit.cloth' : 'Ткань',
+            'order.cloth.table.edit.cloth.required' : 'Необходимо указать ткань',
+            'order.cloth.table.edit.count' : 'Количество',
+            'order.cloth.table.edit.count.hint' : 'Количество ткани',
+            'order.cloth.table.edit.count.required' : 'Необходимо указать количество',
+            'order.cloth.table.edit.title.new' : 'Добавление ткани в заявку',
+            'order.cloth.table.edit.title.edit' : 'Изменение ткани в заявке',
+            'order.cloth.table.append.button' : 'Добавить ткань',
+            'order.cloth.table.remove.button' : 'Убрать ткань из заявки',
+
+            /*orders.table*/
             'stitching.STANDARD' : 'Стандарт',
             'stitching.LIGHT' : 'Светлая',
             'stitching.DARK' : 'Темная',
@@ -78,8 +94,6 @@
             'order.table.order.status.sent' : 'отправлена',
             'order.table.order.status.not.sent' : 'не отправлена',
             'order.table.order.top.title.status' : 'Статус:',
-
-            /*orders.table*/
             'order.type.PRODUCT' : 'Мебель',
             'order.type.CLOTH' : 'Ткань',
             'orders.table.column.id' : '№',
