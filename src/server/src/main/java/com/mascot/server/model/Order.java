@@ -33,10 +33,12 @@ public class Order extends Identified {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(targetEntity = OrderProductLine.class, fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = OrderProductLine.class, fetch = FetchType.LAZY, mappedBy = "order",
+            cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OrderProductLine> productLines;
 
-    @OneToMany(targetEntity = OrderClothLine.class, fetch = FetchType.LAZY, mappedBy = "order")
+    @OneToMany(targetEntity = OrderClothLine.class, fetch = FetchType.LAZY, mappedBy = "order",
+            cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OrderClothLine> clothLines;
 
     public OrderType getType() {
