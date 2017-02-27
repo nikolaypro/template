@@ -10,47 +10,26 @@
         var vm = this;
         vm.isNew = $location.search().id == undefined;
         var params = {};
+
+        var rowsProvider = {
+            getRows: function() {
+                if (vm.order == undefined) {
+                    return undefined;
+                }
+                return vm.order.lines;
+            },
+            setRows: function(rows) {
+                vm.order.lines = rows;
+            }
+        };
+
+        TableUtils.initInMemoryTablePage(vm, $scope, params, rowsProvider);
+
+/*
         params.loadFromServerForEdit = false;
         params.getIdsForDelete = function(rows) {
             return rows;
         };
-
-        vm.testOrderLines = [
-            {
-                product: {
-                    name: "Product T 1"
-                },
-                mainCloth: {
-                    name: "Main cloth T 1"
-                },
-                compCloth1: {
-                    name: "Comp 1 cloth T 1"
-                },
-                compCloth2: {
-                    name: "Comp 2 cloth T 1"
-                },
-                stitchingType: "STANDARD",
-                count: 2,
-                cost: 20.45
-            },
-            {
-                product: {
-                    name: "Product T 2"
-                },
-                mainCloth: {
-                    name: "Main cloth T 2"
-                },
-                compCloth1: {
-                    name: "Comp 1 cloth T 2"
-                },
-                compCloth2: {
-                    name: "Comp 2 cloth T 2"
-                },
-                stitchingType: "LIGHT",
-                count: 3,
-                cost: 30.85
-            }
-        ];
 
         var orderLineService = {
             getAll: function(params, handleSuccess) {
@@ -83,19 +62,13 @@
         };
 
         TableUtils.initTablePage(vm, orderLineService, $scope, params);
+*/
 
         if (vm.isNew) {
             vm.order = {
                 lines: []
             };
         } else {
-/*
-            vm.order = {
-                id: $location.search().id,
-                lines: vm.testOrderLines
-            };
-*/
-//show long
             OrderProductService.getById($location.search().id, function(data) {
                 vm.order = data;
                 vm.tableParams.reload();

@@ -51,9 +51,49 @@
     function TableUtils($log, Utils, NgTableParams, ngTableEventsChannel, LocMsg) {
         var service = {};
         service.initTablePage = initTablePage;
+        service.initInMemoryTablePage = initInMemoryTablePage;
         service.asTableDataSource = asTableDataSource;
         service.unCheckTableRows = unCheckTableRows;
         return service;
+
+        function initInMemoryTablePage(vm, $scope, params, rowsProvider) {
+            params.loadFromServerForEdit = false;
+            params.getIdsForDelete = function(rows) {
+                return rows;
+            };
+
+            var rowsService = {
+                getAll: function(params, handleSuccess) {
+                    var rows = rowsProvider.getRows();
+                    if (rows == undefined) {
+                        return;
+                    }
+                    unCheckTableRows(rows);
+                    handleSuccess(asTableDataSource(rows));
+                },
+                getById: function(id, handleSuccess) {},
+                update: function(entity, handleSuccess) {
+                    rowsProvider.getRows().push(entity)
+                },
+                delete: function(ids, handleSuccess) {
+                    var result = [];
+
+                    angular.forEach(rowsProvider.getRows(), function(e) {
+                        var contains = false;
+                        angular.forEach(ids, function(id) {
+                            contains = contains || e == id;
+                        });
+                        if (!contains) {
+                            result.push(e);
+                        }
+                    });
+                    rowsProvider.setRows(result);
+                    handleSuccess({success: true})
+
+                }
+            };
+            initTablePage(vm, rowsService, $scope, params);
+        }
 
         function initTablePage(vm, Service, $scope, params) {
             params = params || {};
