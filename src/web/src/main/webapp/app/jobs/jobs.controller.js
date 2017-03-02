@@ -5,8 +5,8 @@
         .module('app')
         .controller('JobController', JobController);
 
-    JobController.$inject = ['JobService', '$log', 'TableUtils', '$scope', 'Utils'];
-    function JobController(JobService, $log, TableUtils, $scope, Utils) {
+    JobController.$inject = ['JobService', '$log', 'TableUtils', '$scope', 'Utils', 'SiteService'];
+    function JobController(JobService, $log, TableUtils, $scope, Utils, SiteService) {
         var vm = this;
         var params = {};
         params.deleteConfirmManyMsg = 'job.table.delete.confirm.many';
@@ -85,6 +85,10 @@
             });
             $log.info("End test");
 
+        };
+
+        vm.synch = function () {
+            SiteService.synch();
         }
 
     }
