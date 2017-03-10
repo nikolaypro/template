@@ -4,8 +4,10 @@ import com.mascot.common.ErrorLogger;
 import com.mascot.common.MailSender;
 import com.mascot.common.MascotUtils;
 import com.mascot.server.beans.UserService;
+import com.mascot.server.beans.setting.SettingService;
 import com.mascot.server.common.BeanTableResult;
 import com.mascot.server.common.ServerUtils;
+import com.mascot.server.common.SettingType;
 import com.mascot.server.model.Role;
 import com.mascot.server.model.User;
 import com.mascot.service.common.CommonUtils;
@@ -40,6 +42,9 @@ public class AuthenticationController extends AbstractController {
     @Inject
     private UserService userService;
 
+    @Inject
+    private SettingService settingService;
+
     @Value("${autoLogin.login}")
     private String autoLogin;
 
@@ -61,6 +66,11 @@ public class AuthenticationController extends AbstractController {
     @RequestMapping(path = "/authenticate", method = RequestMethod.POST)
     @ResponseBody
     public LoginUserRecord authenticate(@RequestBody User user) {
+
+        logger.info("URL: " + settingService.getValue(SettingType.SITE_URL));
+        logger.info("TOKEN: " + settingService.getValue(SettingType.SITE_TOKEN));
+        logger.info("SECRET: " + settingService.getValue(SettingType.SITE_SECRET));
+
         CommonUtils.checkRegistered();
         if (MascotUtils.isEmpty(user.getPassword())) {
             throw createInvalidPasswordException(user);
