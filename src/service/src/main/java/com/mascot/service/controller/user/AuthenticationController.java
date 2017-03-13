@@ -67,10 +67,6 @@ public class AuthenticationController extends AbstractController {
     @ResponseBody
     public LoginUserRecord authenticate(@RequestBody User user) {
 
-        logger.info("URL: " + settingService.getValue(SettingType.SITE_URL));
-        logger.info("TOKEN: " + settingService.getValue(SettingType.SITE_TOKEN));
-        logger.info("SECRET: " + settingService.getValue(SettingType.SITE_SECRET));
-
         CommonUtils.checkRegistered();
         if (MascotUtils.isEmpty(user.getPassword())) {
             throw createInvalidPasswordException(user);

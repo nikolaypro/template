@@ -129,4 +129,8 @@ public class MascotUtils {
         //        return o2.equals(o1);
     }
 
+    public static String localeAsString(Locale locale) {
+        return locale.getLanguage() + "_" + locale.getCountry();
+    }
+
 }

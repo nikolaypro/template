@@ -1,5 +1,7 @@
 package com.mascot.service.controller.user;
 
+import com.mascot.common.MascotUtils;
+
 import java.io.Serializable;
 import java.util.Locale;
 
@@ -19,7 +21,7 @@ public class LocaleRecord {
     }
 
     public LocaleRecord(Locale locale) {
-        this.id = locale.getLanguage() + "_" + locale.getCountry();
+        this.id = MascotUtils.localeAsString(locale);
     }
 
     public String getId() {

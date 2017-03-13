@@ -12,4 +12,7 @@ public interface SettingService {
     <A> A getValue(SettingType settingType);
 
     <A extends Settings> A get(Class<A> aClass);
+
+    Settings getSettings();
+
 }

@@ -47,6 +47,16 @@ public class SettingServiceImpl extends AbstractMascotService implements Setting
         return setting;
     }
 
+    public Settings getSettings() {
+        final List<SettingEntity> resultList = em.createQuery("select s from SettingEntity s").getResultList();
+        final SettingsLoader<Settings> settingsLoader = new SettingsLoader<Settings>(Settings.class);
+        final Settings setting = settingsLoader.getDefaultSettings();
+        for (SettingEntity entity : resultList) {
+            settingsLoader.setValue(setting, entity.getName(), entity.getValue());
+        }
+        return setting;
+    }
+
     @Override
     public void save(Map<SettingType, Object> settings) {
         for (Map.Entry<SettingType, Object> entry : settings.entrySet()) {

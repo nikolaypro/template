@@ -97,6 +97,9 @@ configure([serverProject]) {
         compile commonProject
         compile group: 'net.sf.jasperreports', name: 'jasperreports', version: '6.3.0'
         compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.2.1'
+        compile 'commons-httpclient:commons-httpclient:3.1'
+        compile 'org.apache.httpcomponents:httpclient:4.2.1'
+        compile 'org.codehaus.jackson:jackson-mapper-lgpl:1.9.9'
         testCompile 'org.springframework:spring-test:' + spring_version
         testCompile 'org.liquibase:liquibase-core:' + liquibase_version
 //        testCompile 'org.springframework:spring-orm:' + spring_version
