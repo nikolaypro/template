@@ -16,10 +16,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.*;
 import java.io.File;
@@ -35,8 +34,8 @@ public class SiteHttp <RequestClass, ResponseClass> {
     public static boolean DEBUG = false;
     private final ObjectMapper mapper = new ObjectMapper();
     private static int unique_id = 0;
-    private static final Logger httpLogger = LoggerFactory.getLogger("SiteHttpRequests");
-    private static final Logger logger = LoggerFactory.getLogger(SiteHttp.class);
+    private static final Logger httpLogger = Logger.getLogger("SiteHttpRequests");
+    private static final Logger logger = Logger.getLogger(SiteHttp.class);
 
     private final SiteSettings settings;
 
@@ -69,10 +68,10 @@ public class SiteHttp <RequestClass, ResponseClass> {
             final HttpRequestBase request;
             if (post) {
                 request = createHttpPost(url, requestBody);
-                httpLogger.info("ID: {}\nURL: {}\n Request: \n{}\n", new Object[]{counter, url, requestBody});
+                httpLogger.info(String.format("ID: %s\nURL: %s\n Request: \n%s\n", counter, url, requestBody));
             } else {
                 request = createHttpGet(url);
-                httpLogger.info("ID: {}\nURL: {}\n", new Object[]{counter, url});
+                httpLogger.info(String.format("ID: %s\nURL: %s\n", counter, url));
             }
             responseBody = sendRequest(httpClient, request, counter);
             return parseJson(responseBody, valueType);
@@ -148,7 +147,8 @@ public class SiteHttp <RequestClass, ResponseClass> {
             final HttpResponse response = httpClient.execute(postRequest);
             responseBody = EntityUtils.toString(response.getEntity());
             statusCode = response.getStatusLine().getStatusCode();
-            httpLogger.info("ID: {}, Status: {} \n Response: \n{}\n Not formatted response: '{}'\n", new Object[]{counter, statusCode, formatJson(responseBody), responseBody});
+            httpLogger.info(String.format("ID: %s, Status: %s \n Response: \n%s\n Not formatted response: '%s'\n",
+                    counter, statusCode, formatJson(responseBody), responseBody));
         } catch (IOException e) {
             throw createException(e, "Error in send request");
         } finally {
@@ -239,9 +239,6 @@ public class SiteHttp <RequestClass, ResponseClass> {
         try {
             final Object object = parseJson(json, Object.class);
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
-        } catch (IOException e) {
-            logger.warn("Unable format json: '" + json + "'", e);
-            return json;
         } catch (Exception e) {
             logger.warn("Unable format json: '" + json + "'", e);
             return "UNABLE FORMAT JSON";

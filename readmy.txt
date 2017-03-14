@@ -27,6 +27,6 @@ psw: prokopov200713
 -------------------------------------------------------------------------------
 Integration
 insert into settings (name, value) values
-('SITE_URL', 'http://localhost:8180/furniture-site-web/integration/'),
+('SITE_URL', 'http://localhost:8180/furniture-site/integration/'),
 ('SITE_TOKEN', 'int-2+Jsy7?_'),
 ('SITE_SECRET', '_pasS+^lks$#2k8Lsdf?_er')

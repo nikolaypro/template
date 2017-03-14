@@ -97,6 +97,32 @@
         </layout>
     </appender>
 
+    <appender name="SITE-INTEGRATION" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="../logs/site-integration.log"/>
+        <param name="Append" value="false"/>
+        <param name="Threshold" value="INFO"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxFilesCount" value="500"/>
+
+        <!-- Rollover at midnight each day -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+
+        <!-- Rollover at the top of each hour
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+        -->
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>
+
+            <!-- The default pattern: Date Priority [Category] (Thread) Message\n -->
+            <!--<param name="ConversionPattern" value="%d %-5p [%c] (%t) %m%n"/>-->
+
+            <!-- The full pattern: Date MS Priority [Category] (Thread:NDC) Message\n
+           <param name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/>
+            -->
+        </layout>
+    </appender>
+
     <!-- ============================== -->
     <!-- Append messages to the console -->
     <!-- ============================== -->
@@ -172,6 +198,11 @@
     <category name="email" additivity="false">
         <priority value="DEBUG"/>
         <appender-ref ref="EMAIL-FILE"/>
+    </category>
+
+    <category name="SiteHttpRequests" additivity="false">
+        <priority value="DEBUG"/>
+        <appender-ref ref="SITE-INTEGRATION"/>
     </category>
 
 
