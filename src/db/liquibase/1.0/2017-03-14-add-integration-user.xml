@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Nikolay" id="add integration user">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                select count(*) from users where login = 'int-2!Jsy7?_'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            insert into users (login, full_name, locale, password) values('int-2!Jsy7?_', 'integration user', 'ru_RU', 'b0t+WVJwQzc0JTdE')
+        </sql>
+        <!--oK~YRpC74}-->
+    </changeSet>
+    <changeSet author="Nikolay" id="link default roles and integration users">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                select count(*) from users_roles ur
+                inner join users u ON u.id = ur.user_id
+                inner join roles r ON r.id = ur.role_id
+                where u.login = 'int-2!Jsy7?_' and r.name = 'ROLE_ADMIN'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            insert into users_roles (user_id, role_id)
+            (select u.id, r.id from users u, roles r where u.login = 'int-2!Jsy7?_' and r.name = 'ROLE_ADMIN')
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
