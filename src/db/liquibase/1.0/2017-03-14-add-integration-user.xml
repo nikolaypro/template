@@ -9,7 +9,7 @@
             </sqlCheck>
         </preConditions>
         <sql>
-            insert into users (login, full_name, locale, password) values('int-2!Jsy7?_', 'integration user', 'ru_RU', 'b0t+WVJwQzc0JTdE')
+            insert into users (login, full_name, locale, password) values('int-2!Jsy7?_', 'integration user', 'ru_RU', 'b0s3a3BZUnBDNzRmX0o=')
         </sql>
         <!--oK~YRpC74}-->
     </changeSet>
