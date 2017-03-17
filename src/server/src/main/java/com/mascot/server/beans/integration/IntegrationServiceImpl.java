@@ -9,6 +9,7 @@ import com.mascot.server.common.site.SiteHttp;
 import com.mascot.server.common.site.SiteHttpException;
 import com.mascot.server.common.site.SiteSettings;
 import com.mascot.server.model.User;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +46,7 @@ public class IntegrationServiceImpl extends AbstractMascotService implements Int
         try {
             final SiteResponse siteResponse = http.doPost(USER_URL, users, SiteResponse.class);
             if (siteResponse == null || !SiteResultType.SUCCESS.equals(siteResponse.status)) {
-                logger.error("Unable synch users: response status: '" + siteResponse.status + "'");
+                logger.error("Unable synch users: response status: '" + (siteResponse != null ? siteResponse.status : null) + "'");
             }
         } catch (SiteHttpException e) {
             logger.error("Unable synch users", e);

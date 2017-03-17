@@ -98,7 +98,7 @@
     </appender>
 
     <appender name="SITE-INTEGRATION" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="../logs/site-integration.log"/>
+        <param name="File" value="../logs/site/http.log"/>
         <param name="Append" value="false"/>
         <param name="Threshold" value="INFO"/>
         <param name="MaxFileSize" value="10MB"/>
@@ -200,7 +200,7 @@
         <appender-ref ref="EMAIL-FILE"/>
     </category>
 
-    <category name="SiteHttpRequests" additivity="false">
+    <category name="site-http-trace" additivity="false">
         <priority value="DEBUG"/>
         <appender-ref ref="SITE-INTEGRATION"/>
     </category>

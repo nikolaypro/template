@@ -34,8 +34,8 @@ public class SiteHttp <RequestClass, ResponseClass> {
     public static boolean DEBUG = false;
     private final ObjectMapper mapper = new ObjectMapper();
     private static int unique_id = 0;
-    private static final Logger httpLogger = Logger.getLogger("SiteHttpRequests");
-    private static final Logger logger = Logger.getLogger(SiteHttp.class);
+    private final Logger httpLogger = Logger.getLogger("site-http-trace");
+    private final Logger logger = Logger.getLogger(SiteHttp.class);
 
     private final SiteSettings settings;
 
@@ -68,6 +68,7 @@ public class SiteHttp <RequestClass, ResponseClass> {
             final HttpRequestBase request;
             if (post) {
                 request = createHttpPost(url, requestBody);
+//                httpLogger.info("AAAAAAAAAAAAAAAAAAAAAAAAAA");
                 httpLogger.info(String.format("ID: %s\nURL: %s\n Request: \n%s\n", counter, url, requestBody));
             } else {
                 request = createHttpGet(url);
