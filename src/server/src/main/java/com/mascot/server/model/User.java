@@ -13,7 +13,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-public class User extends Identified {
+public class User extends Identified implements Versioned {
     @Column
     private String login;
 
@@ -31,9 +31,13 @@ public class User extends Identified {
     )
     private Set<Role> roles = new HashSet<Role>();
 
-    @Column()
+    @Column
     @Type(type = "org.hibernate.type.LocaleType" )
     private Locale locale;
+
+    @Version
+    @Column(name = "version")
+    private Long version = 0L;
 
     public String getLogin() {
         return login;
@@ -78,5 +82,14 @@ public class User extends Identified {
 
     public void setLocale(Locale locale) {
         this.locale = locale;
+    }
+
+    @Override
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }
