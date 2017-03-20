@@ -4,12 +4,10 @@ import com.mascot.server.beans.integration.IntegrationService;
 import com.mascot.server.model.Role;
 import com.mascot.service.controller.AbstractController;
 import com.mascot.service.controller.common.ResultRecord;
-import com.mascot.service.controller.job.JobRecord;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.util.stream.IntStream;
 
 /**
  * Created by Николай on 02.03.2017.
@@ -24,7 +22,7 @@ public class IntegrationController extends AbstractController {
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
     public ResultRecord synchSite() {
-        integrationService.synchSite();
+        integrationService.synchronizeSiteUsers();
         return ResultRecord.success();
     }
 

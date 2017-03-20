@@ -19,4 +19,5 @@
     <include file="1.0/2017-01-29-add-report_group.xml" relativeToChangelogFile="true"/>
     <include file="1.0/2017-03-10-create-settings.xml" relativeToChangelogFile="true"/>
     <include file="1.0/2017-03-20-add-version.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2017-03-20-create-sent-entity.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

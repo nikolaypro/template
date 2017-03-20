@@ -12,6 +12,7 @@
         <class>com.mascot.server.model.Job</class>
         <class>com.mascot.server.model.Progress</class>
         <class>com.mascot.server.model.SettingEntity</class>
+        <class>com.mascot.server.model.SentEntity</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="validate"/>

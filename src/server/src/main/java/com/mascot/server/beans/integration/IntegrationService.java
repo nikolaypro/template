@@ -5,5 +5,5 @@ package com.mascot.server.beans.integration;
  */
 public interface IntegrationService {
     String NAME = "IntegrationService";
-    void synchSite();
+    void synchronizeSiteUsers();
 }
