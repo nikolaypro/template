@@ -12,4 +12,6 @@ public interface SiteIntegrationService {
     String NAME = "SiteIntegrationService";
 
     void synchronizeNewUsers(SiteSettings settings);
+
+    void synchronizeModifiedUsers(SiteSettings settings);
 }

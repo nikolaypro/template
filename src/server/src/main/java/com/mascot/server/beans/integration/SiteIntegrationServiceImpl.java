@@ -29,6 +29,11 @@ public class SiteIntegrationServiceImpl extends AbstractMascotService implements
         synchronize(settings, EntityType.USER, EntityActionType.INSERT, USER_URL, SiteUser::build);
     }
 
+    @Override
+    public void synchronizeModifiedUsers(SiteSettings settings) {
+        synchronize(settings, EntityType.USER, EntityActionType.UPDATE, USER_URL, SiteUser::build);
+    }
+
     private <EntityClass extends Identified & Versioned, SiteClass> void synchronize(SiteSettings settings,
                                                                                      EntityType entityType,
                                                                                      EntityActionType actionType,
@@ -36,6 +41,7 @@ public class SiteIntegrationServiceImpl extends AbstractMascotService implements
                                                                                      Function<EntityClass, SiteClass> convert) {
         final ChangesFacade<EntityClass> changesFacade = new ChangesFacade<>(em, entityType);
         final List<EntityClass> entities = changesFacade.find(actionType);
+        logger.info("Found " + entities.size() + " for send. Entity: " + entityType + ", action: " + actionType);
         final List<SiteClass> converted = entities.stream().map(convert).collect(Collectors.toList());
 
         if (!converted.isEmpty()) {
