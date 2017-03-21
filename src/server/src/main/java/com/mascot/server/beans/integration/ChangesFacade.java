@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Created by Nikolay on 20.03.2017.
  */
-public class ChangesFacade<A extends Identified & Versioned> {
+public class ChangesFacade<A> {
     private final EntityManager em;
     private final EntityType entityType;
     protected final Logger logger = Logger.getLogger(getClass());
@@ -55,11 +55,12 @@ public class ChangesFacade<A extends Identified & Versioned> {
     private List<A> findUpdated() {
         final String selectEntity = type2Select.get(entityType);
         return em.createQuery(selectEntity +
-                " where exists(" +
+                " exists(" +
                 "   select _se_.id " +
                 "   from SentEntity _se_ " +
                 "   where _se_.entityId = e.id and _se_.entityType = :entityType and _se_.sentVersion <> e.version)")
                 .setParameter("entityType", this.entityType)
+                .setParameter("web", true)
                 .getResultList();
 
     }
@@ -69,8 +70,9 @@ public class ChangesFacade<A extends Identified & Versioned> {
         return em.createQuery("select _se_.entityId " +
                 "   from SentEntity _se_ " +
                 "   where _se_.entityType = :entityType" +
-                "   and not exists(" + selectEntity + " where e.id = _se_.entityId)")
+                "   and not exists(" + selectEntity + " e.id = _se_.entityId)")
                 .setParameter("entityType", this.entityType)
+                .setParameter("web", true)
                 .getResultList();
     }
 
@@ -90,14 +92,14 @@ public class ChangesFacade<A extends Identified & Versioned> {
                     try {
                         sentEntity =
                                 (SentEntity) em.createQuery("select distinct _se_ from SentEntity _se_ where _se_.entityId = :id and _se_.entityType = :type")
-                                        .setParameter("id", e.getId())
+                                        .setParameter("id", getAsIdentified(e).getId())
                                         .setParameter("type", entityType)
                                 .getSingleResult();
                     } catch (NoResultException e1) {
-                        logger.warn("Not found SentEntity for entityId = " + e.getId() + " and type = " + entityType);
+                        logger.warn("Not found SentEntity for entityId = " + getAsIdentified(e).getId() + " and type = " + entityType);
                         return;
                     } catch (NonUniqueResultException e1) {
-                        logger.warn("Found more then one SentEntity for entityId = " + e.getId() + " and type = " + entityType);
+                        logger.warn("Found more then one SentEntity for entityId = " + getAsIdentified(e).getId() + " and type = " + entityType);
                         return;
                     }
                     fillSentEntity(actionType, e, sentEntity);
@@ -108,18 +110,18 @@ public class ChangesFacade<A extends Identified & Versioned> {
             case REMOVE: {
                 entities.forEach(e -> {
                     try {
-                        final int update = em.createQuery("delete from SentEntity where _se_.entityId = :id and _se_.entityType = :type")
-                                .setParameter("id", e.getId())
+                        final int update = em.createQuery("delete from SentEntity _se_ where _se_.entityId = :id and _se_.entityType = :type")
+                                .setParameter("id", e)
                                 .setParameter("type", entityType)
                                 .executeUpdate();
                         if (update < 1) {
-                            logger.warn("Not removed SentEntity for entityId = " + e.getId() + " and type = " + entityType);
+                            logger.warn("Not removed SentEntity for entityId = " + e + " and type = " + entityType);
                         }
                         if (update > 1) {
-                            logger.warn("Removed more then one SentEntity for entityId = " + e.getId() + " and type = " + entityType);
+                            logger.warn("Removed more then one SentEntity for entityId = " + e + " and type = " + entityType);
                         }
                     } catch (Exception e1) {
-                        logger.error("Unable delete from SentEntity for entityId = " + e.getId() + " and type = " + entityType, e1);
+                        logger.error("Unable delete from SentEntity for entityId = " + e + " and type = " + entityType, e1);
                     }
                 });
                 return;
@@ -130,9 +132,17 @@ public class ChangesFacade<A extends Identified & Versioned> {
 
     private void fillSentEntity(EntityActionType actionType, A e, SentEntity sentEntity) {
         sentEntity.setActionType(actionType);
-        sentEntity.setEntityId(e.getId());
+        sentEntity.setEntityId(getAsIdentified(e).getId());
         sentEntity.setEntityType(entityType);
         sentEntity.setSendDate(new Date());
-        sentEntity.setSentVersion(e.getVersion());
+        sentEntity.setSentVersion(getAsVersioned(e).getVersion());
+    }
+
+    private Identified getAsIdentified(A e) {
+        return (Identified) e;
+    }
+
+    private Versioned getAsVersioned(A e) {
+        return (Versioned) e;
     }
 }

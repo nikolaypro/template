@@ -33,6 +33,7 @@ public class TestDataBaseConfig {
     public static final String PROP_DATABASE_PASSWORD = "db.password";
     public static final String PROP_DATABASE_URL = "db.url";
     public static final String PROP_DATABASE_NAME = "db.database";
+    public static final String PROP_SERVER_URL = "db.server.url";
 
     @Resource
     private Environment env;
@@ -105,7 +106,9 @@ public class TestDataBaseConfig {
 
     public void createDatabaseAndTables() {
         try {
-            new TestDatabase().createDb(env);
+            final TestDatabase testDatabase = new TestDatabase();
+            testDatabase.createDb(env);
+            testDatabase.applyDump(env, resourceLoader);
 
             final DataSource dataSource = dataSource();
             SpringLiquibase liquibase = new SpringLiquibase();

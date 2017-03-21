@@ -11,9 +11,16 @@ import liquibase.integration.spring.SpringLiquibase;
 import liquibase.resource.FileSystemResourceAccessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ResourceLoader;
 
 import javax.persistence.EntityManager;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.sql.*;
+import java.util.Arrays;
+import java.util.StringJoiner;
 
 /**
  * Created by Nikolay on 11.01.2017.
@@ -27,6 +34,7 @@ public class TestDatabase {
 
     private void createTables() {
         final EntityManager em = MascotAppContext.createEm();
+
 /*
         final SpringLiquibase bean = MascotAppContext.getBean(SpringLiquibase.class);
         Liquibase
@@ -119,4 +127,47 @@ public class TestDatabase {
         }
     }
 
+    public void applyDump(Environment env, ResourceLoader resourceLoader) {
+        final String user = env.getProperty(TestDataBaseConfig.PROP_DATABASE_USERNAME);
+        final String password = env.getProperty(TestDataBaseConfig.PROP_DATABASE_PASSWORD);
+        final String dbName = env.getProperty(TestDataBaseConfig.PROP_DATABASE_NAME);
+        final String serverUrl = env.getProperty(TestDataBaseConfig.PROP_SERVER_URL);
+        try {
+            final String dumpFile = resourceLoader.getResource("test_dump.sql").getFile().getAbsolutePath();
+//            String executeCmd = "mysql -u" + user + " -p" + password + " --database " + dbName + " -h " + serverUrl + " -e source " + dumpFile;
+            String[] executeCmd = new String[]{"mysql", dbName, "-u" + user, "-p" + password,  "-e", " source " + dumpFile};
+            final StringJoiner stringJoiner = new StringJoiner(" ");
+            Arrays.stream(executeCmd).forEach(stringJoiner::add);
+
+            System.out.println("Exec command: \n\n" + stringJoiner.toString() + "\n\n");
+            final Process exec = Runtime.getRuntime().exec(executeCmd);
+            BufferedReader stdInput = new BufferedReader(new
+                    InputStreamReader(exec.getInputStream()));
+
+            BufferedReader stdError = new BufferedReader(new
+                    InputStreamReader(exec.getErrorStream()));// read the output from the command
+
+            System.out.println("Here is the standard output of the command:\n");
+            String s = null;
+            while ((s = stdInput.readLine()) != null) {
+                System.out.println(s);
+            }
+
+// read any errors from the attempted command
+            System.out.println("Here is the standard error of the command (if any):\n");
+            while ((s = stdError.readLine()) != null) {
+                System.out.println(s);
+            }
+            int processComplete = exec.waitFor();
+
+        /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
+            if (processComplete == 0) {
+                System.out.println("Restore Complete");
+            } else {
+                System.out.println("Restore Failure");
+            }
+        } catch (IOException | InterruptedException ex) {
+            ex.printStackTrace();
+        }
+    }
 }
