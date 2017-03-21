@@ -19,11 +19,13 @@ public class ChangesFacade<A extends Identified & Versioned> {
     private final EntityType entityType;
     protected final Logger logger = Logger.getLogger(getClass());
     private static final Map<EntityType, String> type2Select = new HashMap<>();
+    private static final Map<EntityType, String> type2SelectForRemove = new HashMap<>();
     static {
-        type2Select.put(EntityType.USER, "select distinct e from User e left join fetch e.roles");
+        type2Select.put(EntityType.USER, "select distinct e from User e left join fetch e.roles where e.web = :web and");
+        type2SelectForRemove.put(EntityType.USER, "select e from User e where e.web = :web and");
     }
 
-    public ChangesFacade(EntityManager em, EntityType entityType) {
+    ChangesFacade(EntityManager em, EntityType entityType) {
         this.em = em;
         this.entityType = entityType;
     }
@@ -32,6 +34,7 @@ public class ChangesFacade<A extends Identified & Versioned> {
         switch (type) {
             case INSERT: return findNew();
             case UPDATE: return findUpdated();
+            case REMOVE: return findRemoved();
         }
         throw new IllegalStateException("Unknown EntityActionType");
     }
@@ -39,11 +42,12 @@ public class ChangesFacade<A extends Identified & Versioned> {
     private List<A> findNew() {
         final String selectEntity = type2Select.get(entityType);
         return em.createQuery(selectEntity +
-                " where not exists(" +
+                " not exists(" +
                 "   select _se_.id " +
                 "   from SentEntity _se_ " +
                 "   where _se_.entityId = e.id and _se_.entityType = :entityType)")
                 .setParameter("entityType", this.entityType)
+                .setParameter("web", true)
                 .getResultList();
 
     }
@@ -60,16 +64,22 @@ public class ChangesFacade<A extends Identified & Versioned> {
 
     }
 
-    public void done(List<A> entities, EntityActionType actionType) {
+    private List<A> findRemoved() {
+        final String selectEntity = type2SelectForRemove.get(entityType);
+        return em.createQuery("select _se_.entityId " +
+                "   from SentEntity _se_ " +
+                "   where _se_.entityType = :entityType" +
+                "   and not exists(" + selectEntity + " where e.id = _se_.entityId)")
+                .setParameter("entityType", this.entityType)
+                .getResultList();
+    }
+
+    void done(List<A> entities, EntityActionType actionType) {
         switch (actionType) {
             case INSERT: {
                 entities.forEach(e -> {
                     final SentEntity sentEntity = new SentEntity();
-                    sentEntity.setActionType(actionType);
-                    sentEntity.setEntityId(e.getId());
-                    sentEntity.setEntityType(entityType);
-                    sentEntity.setSendDate(new Date());
-                    sentEntity.setSentVersion(e.getVersion());
+                    fillSentEntity(actionType, e, sentEntity);
                     em.persist(sentEntity);
                 });
                 return;
@@ -90,16 +100,39 @@ public class ChangesFacade<A extends Identified & Versioned> {
                         logger.warn("Found more then one SentEntity for entityId = " + e.getId() + " and type = " + entityType);
                         return;
                     }
-                    sentEntity.setActionType(actionType);
-                    sentEntity.setEntityId(e.getId());
-                    sentEntity.setEntityType(entityType);
-                    sentEntity.setSendDate(new Date());
-                    sentEntity.setSentVersion(e.getVersion());
+                    fillSentEntity(actionType, e, sentEntity);
                     em.merge(sentEntity);
+                });
+                return;
+            }
+            case REMOVE: {
+                entities.forEach(e -> {
+                    try {
+                        final int update = em.createQuery("delete from SentEntity where _se_.entityId = :id and _se_.entityType = :type")
+                                .setParameter("id", e.getId())
+                                .setParameter("type", entityType)
+                                .executeUpdate();
+                        if (update < 1) {
+                            logger.warn("Not removed SentEntity for entityId = " + e.getId() + " and type = " + entityType);
+                        }
+                        if (update > 1) {
+                            logger.warn("Removed more then one SentEntity for entityId = " + e.getId() + " and type = " + entityType);
+                        }
+                    } catch (Exception e1) {
+                        logger.error("Unable delete from SentEntity for entityId = " + e.getId() + " and type = " + entityType, e1);
+                    }
                 });
                 return;
             }
         }
         throw new IllegalStateException("Unknown action type: '" + actionType + "'");
+    }
+
+    private void fillSentEntity(EntityActionType actionType, A e, SentEntity sentEntity) {
+        sentEntity.setActionType(actionType);
+        sentEntity.setEntityId(e.getId());
+        sentEntity.setEntityType(entityType);
+        sentEntity.setSendDate(new Date());
+        sentEntity.setSentVersion(e.getVersion());
     }
 }

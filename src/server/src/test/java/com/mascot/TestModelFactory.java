@@ -2,8 +2,10 @@ package com.mascot;
 
 import com.mascot.server.model.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 
 /**
  * Created by Николай on 15.11.2016.
@@ -45,6 +47,16 @@ public class TestModelFactory {
         result.setCost(cost);
         result.setJobSubType(jobSubType);
         result.setProduct(product);
+        return result;
+    }
+
+    public static User createUser(String nameLogin) {
+        User result = new User();
+        result.setFullName(nameLogin);
+        result.setLogin(nameLogin);
+        result.setLocale(Locale.ENGLISH);
+        result.setPassword("1");
+        result.setVersion(0L);
         return result;
     }
 

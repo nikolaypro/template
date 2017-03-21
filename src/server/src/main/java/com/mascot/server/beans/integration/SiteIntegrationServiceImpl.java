@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 public class SiteIntegrationServiceImpl extends AbstractMascotService implements SiteIntegrationService {
     private static String USER_URL = "users";
+    private static String USER_REMOVE_URL = "users/remove";
 
     @Override
     public void synchronizeNewUsers(SiteSettings settings) {
@@ -32,6 +33,11 @@ public class SiteIntegrationServiceImpl extends AbstractMascotService implements
     @Override
     public void synchronizeModifiedUsers(SiteSettings settings) {
         synchronize(settings, EntityType.USER, EntityActionType.UPDATE, USER_URL, SiteUser::build);
+    }
+
+    @Override
+    public void synchronizeRemovedUsers(SiteSettings settings) {
+        synchronize(settings, EntityType.USER, EntityActionType.REMOVE, USER_REMOVE_URL, e -> e);
     }
 
     private <EntityClass extends Identified & Versioned, SiteClass> void synchronize(SiteSettings settings,

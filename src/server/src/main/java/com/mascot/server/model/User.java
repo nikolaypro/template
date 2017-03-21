@@ -39,6 +39,9 @@ public class User extends Identified implements Versioned {
     @Column(name = "version")
     private Long version = 0L;
 
+    @Column(name = "web")
+    private Boolean web;
+
     public String getLogin() {
         return login;
     }
@@ -91,5 +94,13 @@ public class User extends Identified implements Versioned {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    public Boolean getWeb() {
+        return web;
+    }
+
+    public void setWeb(Boolean web) {
+        this.web = web;
     }
 }

@@ -14,4 +14,6 @@ public interface SiteIntegrationService {
     void synchronizeNewUsers(SiteSettings settings);
 
     void synchronizeModifiedUsers(SiteSettings settings);
+
+    void synchronizeRemovedUsers(SiteSettings settings);
 }
