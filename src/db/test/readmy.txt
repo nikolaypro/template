@@ -1,0 +1,3 @@
+Steps:
+1. run create_test_database.bat (existing database was dropped, created empty database and apply all liquibase scripts)
+2. run create_test_dump.bat (correct liquibase table and create sql dump in test resources folder)
