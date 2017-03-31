@@ -24,6 +24,8 @@ public class UserRecord {
 
     public Set<String> roles = new HashSet<String>();
 
+    public Boolean web;
+
     public static UserRecord build(User user) {
         if (user == null) {
             return null;
@@ -36,6 +38,7 @@ public class UserRecord {
             result.roles = user.getRoles().stream().map(Role::getName).collect(Collectors.toSet());
         }
         result.locale = new LocaleRecord(user.getLocale() != null ? user.getLocale() : Locale.getDefault());
+        result.web = Boolean.TRUE.equals(user.getWeb());
         return result;
     }
 }

@@ -153,6 +153,7 @@ public class AuthenticationController extends AbstractController {
         }
         user.setLogin(record.login);
         user.setFullName(record.fullName);
+        user.setWeb(record.web);
         user.getRoles().clear();
         try {
             user.setRoles(record.roles.stream().

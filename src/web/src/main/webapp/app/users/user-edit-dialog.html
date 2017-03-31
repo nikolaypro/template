@@ -55,6 +55,14 @@
                     <option ng-repeat="row in vm.localeData" value="{{row.id}}">{{'language.' + row.id | i18n}}</option>
                 </select>
             </div>
+            <div class="form-group checkbox">
+                <label>
+                    <input type="checkbox" id="web" name="useInSalaryReport"
+                           placeholder="{{'user.table.edit.web.hint' | i18n}}"
+                           ng-model="vm.user.web">
+                    {{'user.table.edit.web' | i18n}}
+                </label>
+            </div>
         </modal>
     </form>
 </fieldset>

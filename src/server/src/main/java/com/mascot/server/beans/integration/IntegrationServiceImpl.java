@@ -37,7 +37,7 @@ public class IntegrationServiceImpl extends AbstractMascotService implements Int
         final SiteSettings settings = SiteSettings.build(settingService.getSettings());
         siteIntegrationService.synchronizeNewUsers(settings);
         siteIntegrationService.synchronizeModifiedUsers(settings);
-//        siteIntegrationService.synchronizeRemoveUsers(settings);
+        siteIntegrationService.synchronizeRemovedUsers(settings);
     }
 
 }

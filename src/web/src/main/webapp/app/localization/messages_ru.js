@@ -73,6 +73,10 @@
             'user.table.edit.roles.not.defined' : 'Не задана ни одна роль',
 
             'user.table.edit.locale' : 'Язык',
+
+            'user.table.edit.web' : 'Доступен для портала',
+            'user.table.edit.web.hint' : 'Доступен для портала',
+
             'language.ru_RU' : 'Русский',
             'language.en_UK' : 'Английский',
 

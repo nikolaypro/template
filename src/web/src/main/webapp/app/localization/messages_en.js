@@ -72,6 +72,10 @@
             'user.table.edit.roles.not.defined' : 'Not defined any role',
 
             'user.table.edit.locale' : 'Language',
+
+            'user.table.edit.web' : 'Allowed for portal',
+            'user.table.edit.web.hint' : 'Allowed for portal',
+
             'language.ru_RU' : 'Russian',
             'language.en_UK' : 'English',
 

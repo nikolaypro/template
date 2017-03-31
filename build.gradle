@@ -158,6 +158,7 @@ task copyReports(type: Copy, dependsOn: [cleanTomcatReportsDir]) {
 }
 
 task createAndCopyWar(type: Copy, dependsOn: [serviceProject.build, webProject.build, cleanTomcatDeployDir, copyReports]) {
+    group = "Mascot"
     from 'src/service/build/libs/' + warFileName + '.war', 'src/web/build/libs/' + webWarFileName + '.war'
     into tomcatWebApp
 }
@@ -239,7 +240,7 @@ dependencies {
 }
 
 task liquibase_Update(type: JavaExec) {
-    group = "Liquibase"
+    group = "Mascot"
     classpath configurations.liquibase
     main = "liquibase.integration.commandline.Main"
     workingDir = 'src/db'
