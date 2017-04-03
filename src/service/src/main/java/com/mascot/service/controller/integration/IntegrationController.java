@@ -29,4 +29,12 @@ public class IntegrationController extends AbstractController {
         return IntegrationResponse.SUCCESS;
     }
 
+    @RequestMapping(value = "/users/remove", method = RequestMethod.POST)
+    @ResponseBody
+    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    public IntegrationResponse processUsersRemove(@RequestBody List<Long> extUsers) {
+        logger.info("integration/users/remove!! Size: " + extUsers.size());
+        return IntegrationResponse.SUCCESS;
+    }
+
 }
