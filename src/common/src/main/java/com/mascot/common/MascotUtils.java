@@ -1,6 +1,7 @@
 package com.mascot.common;
 
 
+import javax.persistence.Table;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
