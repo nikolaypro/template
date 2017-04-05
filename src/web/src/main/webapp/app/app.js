@@ -34,7 +34,7 @@
                     if (isLong(rejection.config.url)) {
                         LongRunService.endLong();
                     }
-                    if (rejection.status == 403) {
+                    if (rejection.status == 403 || rejection.status == 401) {
                         $location.path('/login');
                     } else {
                         FlashService.Error(rejection.data.error);
