@@ -86,11 +86,6 @@
             $log.info("End test");
 
         };
-
-        vm.synch = function () {
-            SiteService.synch();
-        }
-
     }
 })();
 

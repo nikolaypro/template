@@ -46,16 +46,19 @@
                         <a href="#/job-types">{{'top.menu.job.type' | i18n}}</a>
                     </li>
                     <li ng-class="isActive('job-subtypes') ? 'active' : ''" ng-show="$.inArray('job-subtypes', enabledMenu) != -1">
-                        <a href="#job-subtypes">{{'top.menu.job.sub.type' | i18n}}</a>
+                        <a href="#/job-subtypes">{{'top.menu.job.sub.type' | i18n}}</a>
                     </li>
                     <li ng-class="isActive('job-subtype-costs') ? 'active' : ''" ng-show="$.inArray('job-subtype-costs', enabledMenu) != -1">
-                        <a href="#job-subtype-costs">{{'top.menu.job.price' | i18n}}</a>
+                        <a href="#/job-subtype-costs">{{'top.menu.job.price' | i18n}}</a>
                     </li>
                 </ul>
             </li>
 
             <li ng-class="isActive('reports') ? 'active' : ''" ng-show="$.inArray('reports', enabledMenu) > -1">
                 <a href="#/reports">{{'top.menu.reports' | i18n}}</a>
+            </li>
+            <li ng-class="isActive('synchronization') ? 'active' : ''" ng-show="$.inArray('synchronization', enabledMenu) > -1">
+                <a href="#/synchronization">{{'top.menu.synchronization' | i18n}}</a>
             </li>
 
             <li ng-class="isActive('home') ? 'active' : ''" ng-show="$.inArray('home', enabledMenu) > -1">

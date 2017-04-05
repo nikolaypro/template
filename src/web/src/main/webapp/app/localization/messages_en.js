@@ -216,7 +216,12 @@
             'job.table.edit.count.hint': 'Job count',
             'job.table.edit.count.required': 'Job count required',
 
-            'typeahead.fixed.element.hint' : 'Use last selected element'
+            'typeahead.fixed.element.hint' : 'Use last selected element',
+
+            /*synchronization*/
+            'top.menu.synchronization' : 'Synchronization',
+            'synchronize.page.button' : 'Synchronize'
+
         });
 
 })();

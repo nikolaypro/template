@@ -125,6 +125,14 @@
                 controllerAs: 'vm'
             })
 
+            .when('/synchronization', {
+                controller: 'SynchronizationController',
+                templateUrl: 'app/synchronization/synch.view.html',
+                controllerAs: 'vm'
+            })
+
+
+
             .otherwise({ redirectTo: '/login' });
 
         $httpProvider.interceptors.push('httpInterceptor');

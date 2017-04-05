@@ -216,7 +216,11 @@
             'job.table.edit.count.hint': 'Количество',
             'job.table.edit.count.required': 'Не задано количество',
 
-            'typeahead.fixed.element.hint' : 'Последний выбранный элемент'
+            'typeahead.fixed.element.hint' : 'Последний выбранный элемент',
+
+            /*synchronization*/
+            'top.menu.synchronization' : 'Синхронизация',
+            'synchronize.page.button' : 'Синхронизировать'
         });
 
 })();

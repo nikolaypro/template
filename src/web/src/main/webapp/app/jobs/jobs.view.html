@@ -19,7 +19,6 @@
                 uib-popover="{{'job.table.hide.tail.hint' | i18n}}" popover-trigger="'mouseenter'">
             {{vm.tableParams.filter().showTail ? ('job.table.hide.tail' | i18n) : ('job.table.show.tail' | i18n)}}
         </button>
-        <button class="btn btn-primary btn-sm" ng-click="vm.synch()">Синхронизировать</button>
         <!--<button class="btn btn-primary btn-sm" ng-click="vm.test()">TEST</button>-->
     </div>
     <table ng-table="vm.tableParams" show-filter="vm.showFilter" class="table table-condensed table-bordered table-hover"

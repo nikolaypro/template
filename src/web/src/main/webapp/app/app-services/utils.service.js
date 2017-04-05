@@ -150,7 +150,8 @@
                         'products',
                         'job-types',
                         'job-subtypes',
-                        'job-subtype-costs'
+                        'job-subtype-costs',
+                        'synchronization'
                     ];
                 case ALL_APP_ROLES.regular:
                     return [
@@ -160,7 +161,8 @@
                         'products',
                         'job-types',
                         'job-subtypes',
-                        'job-subtype-costs'
+                        'job-subtype-costs',
+                        'synchronization'
                     ];
                 default:
                     alert('Unknown role: "' + role + '"');
