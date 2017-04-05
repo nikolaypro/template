@@ -28,7 +28,7 @@ public class SiteIntegrationServiceImpl extends AbstractMascotService implements
     private static String USER_URL = "users";
     private static String USER_REMOVE_URL = "users/remove";
 
-    private static final String LOAD_USERS = "select e from User e join fetch e.roles where e.id in (:ids)";
+    private static final String LOAD_USERS = "select distinct e from User e join fetch e.roles where e.id in (:ids)";
 
     @Override
     public void synchronizeNewUsers(SiteSettings settings) {
