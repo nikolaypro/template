@@ -24,6 +24,7 @@ import javax.net.ssl.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 
@@ -205,12 +206,12 @@ public class SiteHttp <RequestClass, ResponseClass> {
         HttpPost postRequest = fillHeaders(new HttpPost(url));
 
         final StringEntity input;
-        try {
-            input = new StringEntity(requestBody);
-        } catch (UnsupportedEncodingException e) {
-            throw createException(e, "Unable encode a request (" + requestBody + ")");
-
-        }
+//        try {
+            input = new StringEntity(requestBody, Charset.forName("UTF-8"));
+//        } catch (UnsupportedEncodingException e) {
+//            throw createException(e, "Unable encode a request (" + requestBody + ")");
+//
+//        }
         input.setContentType("application/json");
         postRequest.setEntity(input);
         return postRequest;
