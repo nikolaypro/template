@@ -156,7 +156,7 @@ public class Import1cServiceImpl extends AbstractMascotService implements Import
             }
             final JobSubType jobSubType = jobSubTypesMap.get(jobSubTypeId);
             if (jobSubType == null) {
-                logger.error("Skip cost for product id = '" + productId + "' because not found job sub type with id = '" + jobSubTypeId + "'. It is sql queries error.");
+                logger.error("Skip cost for product id = '" + productId + "' because not found job sub type with id = '" + jobSubTypeId + "'. It is sql queries message.");
                 continue;
             }
 

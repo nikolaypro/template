@@ -61,7 +61,9 @@ public class SiteIntegrationServiceImpl extends AbstractMascotService implements
                 final SiteHttp<List<SiteClass>, SiteResponse> http = new SiteHttp<>(settings);
                 final SiteResponse siteResponse = http.doPost(url, converted, SiteResponse.class);
                 if (siteResponse == null || !SiteResultType.SUCCESS.equals(siteResponse.status)) {
-                    logger.error("Unable synch " + entityType + ": response status: '" + (siteResponse != null ? siteResponse.status : null) + "'");
+                    logger.error("Unable synch " + entityType +
+                            ". Response status: '" + (siteResponse != null ? siteResponse.status : null) +
+                            "', error message: '" + siteResponse.message + "'");
                 }
                 changesFacade.done(ids);
             } catch (SiteHttpException e) {

@@ -5,5 +5,5 @@ package com.mascot.server.beans.integration.dto;
  */
 public class SiteResponse {
     public SiteResultType status;
-    public String error;
+    public String message;
 }
