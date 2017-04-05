@@ -23,9 +23,11 @@
         var formatRoles = function(roles) {
             var result = '';
             angular.forEach(roles, function(role) {
+/*
                 if (result.length > 0) {
                     result += ", "
                 }
+*/
                 result += LocMsg.get(role);
                 result += "\n"
             });
