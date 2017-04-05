@@ -41,6 +41,7 @@
                 $scope.$ = $;
                 $scope.enabledMenu = Utils.getEnabledMenu();
                 $scope.userName = $rootScope.globals.currentUser.username;
+                $scope.userFullName = $rootScope.globals.currentUser.fullName;
                 $scope.userRoles = formatRoles($rootScope.globals.currentUser.roles);
                 var vm = $scope;
                 $scope.logout = function() {

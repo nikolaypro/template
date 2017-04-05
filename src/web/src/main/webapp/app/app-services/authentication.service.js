@@ -75,6 +75,7 @@
             $rootScope.globals = {
                 currentUser: {
                     username: username,
+                    fullName: response.fullName,
                     authdata: authdata,
                     roles: roles,
                     locale: locale,
