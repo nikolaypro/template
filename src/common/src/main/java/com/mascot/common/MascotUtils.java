@@ -1,7 +1,6 @@
 package com.mascot.common;
 
 
-import javax.persistence.Table;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -9,7 +8,6 @@ import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.*;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 /**
  * Created by Nikolay on 09.12.2015.
