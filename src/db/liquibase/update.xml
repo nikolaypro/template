@@ -18,7 +18,7 @@
     <include file="1.0/2017-01-18-add-progress.xml" relativeToChangelogFile="true"/>
     <include file="1.0/2017-01-29-add-report_group.xml" relativeToChangelogFile="true"/>
     <include file="1.0/2017-03-10-create-settings.xml" relativeToChangelogFile="true"/>
-    <include file="1.0/2017-03-20-add-version.xml" relativeToChangelogFile="true"/>
-    <include file="1.0/2017-03-20-create-sent-entity.xml" relativeToChangelogFile="true"/>
-    <include file="1.0/2017-03-21-add-web-user-attribute.xml" relativeToChangelogFile="true"/>
+    <include file="2.0/2017-03-20-add-version.xml" relativeToChangelogFile="true"/>
+    <include file="2.0/2017-03-20-create-sent-entity.xml" relativeToChangelogFile="true"/>
+    <include file="2.0/2017-03-21-add-web-user-attribute.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

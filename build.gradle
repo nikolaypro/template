@@ -36,6 +36,7 @@ def spring_security_version = '4.0.3.RELEASE'
 def hibernate_version = '4.3.8.Final'
 def jackson_version = '1.9.13'
 def fasterxml_jackson_version = '2.6.3'
+def subversionFileName = 'build.subversion'
 
 //println 'Common project dir: ' + commonProject.projectDir
 
@@ -45,7 +46,7 @@ allprojects {
     apply plugin: 'idea'
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
-    version = '1.0'
+    version = '2'
     jar {
         manifest {
             attributes 'Implementation-Title': 'Nikolay Product',
@@ -198,6 +199,17 @@ task buildAndRelease(type: Zip, dependsOn: [serviceProject.build, webProject.bui
     destinationDir = new File('releases')
     from releaseTmpDir
     into 'release'
+    doLast {
+        println 'This is executed last during the execution phase.'
+        File file = new File(subversionFileName)
+        Integer subVersion = new File(subversionFileName).getText('UTF-8').toInteger()
+        println 'Read subversion: ' + subVersion
+        subVersion++;
+        println 'New subversion: ' + subVersion
+        file.setText('' + subVersion)
+//        file.write('' + subVersion);
+
+    }
 }
 
 release.shouldRunAfter serviceProject.build
@@ -205,10 +217,15 @@ release.shouldRunAfter webProject.build
 
 gradle.taskGraph.whenReady {taskGraph ->
     if (taskGraph.hasTask(release)) {
-        String fileContents = new File('src/server/src/main/resources/META-INF/build.version').getText('UTF-8')
-        def formattedDate = new Date().format('yyyyMMddHHmmss')
-        version = fileContents + '_' + formattedDate
+        String fileContents = new File(subversionFileName).getText('UTF-8')
+//        def formattedDate = new Date().format('yyyyMMddHHmmss')
+        version = project.version + '.' + fileContents/* + '_' + formattedDate*/
         println 'RELEASE VERSION: "' + version + '"'
+        def createFile = new File('src/server/src/main/resources/META-INF/build.version')
+        createFile.delete();
+        createFile.createNewFile();
+        createFile.write('' + version);
+
     } /*else {
         version = '1.0-SNAPSHOT'
     }*/

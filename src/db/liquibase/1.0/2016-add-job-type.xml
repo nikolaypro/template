@@ -17,7 +17,7 @@
     </changeSet>
 
     <changeSet id="add deleted column to job_type" author="Nikolay">
-        <preConditions>
+        <preConditions onFail="MARK_RAN">
             <not>
                 <columnExists tableName="job_type" columnName="deleted"/>
             </not>

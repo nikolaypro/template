@@ -13,7 +13,7 @@
         </createTable>
     </changeSet>
     <changeSet id="add deleted column to product" author="Nikolay">
-        <preConditions>
+        <preConditions onFail="MARK_RAN">
             <not>
                 <columnExists tableName="products" columnName="deleted"/>
             </not>

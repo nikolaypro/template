@@ -3,6 +3,11 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet author="Nikolay" id="create sent entity table">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="sent_entity"/>
+            </not>
+        </preConditions>
         <createTable tableName="sent_entity">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="product_id_PK"/>

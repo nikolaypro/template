@@ -27,7 +27,7 @@
                                  referencedColumnNames="id"/>
     </changeSet>
     <changeSet id="add deleted column to job_subtype_cost" author="Nikolay">
-        <preConditions>
+        <preConditions onFail="MARK_RAN">
             <not>
                 <columnExists tableName="job_subtype_cost" columnName="deleted"/>
             </not>
