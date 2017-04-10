@@ -21,4 +21,5 @@
     <include file="2.x/2017-03-20-add-version.xml" relativeToChangelogFile="true"/>
     <include file="2.x/2017-03-20-create-sent-entity.xml" relativeToChangelogFile="true"/>
     <include file="2.x/2017-03-21-add-web-user-attribute.xml" relativeToChangelogFile="true"/>
+    <include file="2.x/2017-04-07-integration-log.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

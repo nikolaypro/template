@@ -220,7 +220,9 @@
 
             /*synchronization*/
             'top.menu.synchronization' : 'Синхронизация',
-            'synchronize.page.button' : 'Синхронизировать'
+            'synchronize.page.button' : 'Синхронизировать',
+            'synchronize.page.log.date' : 'Лог на дату',
+            'synchronize.page.change.data.log.hint' : 'Сменить дату лога',
         });
 
 })();

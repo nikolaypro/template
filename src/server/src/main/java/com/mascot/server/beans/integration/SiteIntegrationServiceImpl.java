@@ -1,5 +1,6 @@
 package com.mascot.server.beans.integration;
 
+import com.mascot.common.MascotUtils;
 import com.mascot.server.beans.AbstractMascotService;
 import com.mascot.server.beans.integration.dto.SiteResponse;
 import com.mascot.server.beans.integration.dto.SiteResultType;
@@ -13,10 +14,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -30,27 +35,62 @@ public class SiteIntegrationServiceImpl extends AbstractMascotService implements
 
     private static final String LOAD_USERS = "select distinct e from User e join fetch e.roles where e.id in (:ids)";
 
+    private IntegrationLog createLog(IntegrationActionType type) {
+        final IntegrationLog integrationLog = new IntegrationLog();
+        integrationLog.setStartDate(getCurrentDateTime());
+        integrationLog.setActionType(type);
+        em.persist(integrationLog);
+        return integrationLog;
+    }
+
+    private Date getCurrentDateTime() {
+        return Date.from(Instant.now());
+    }
+
+    @Override
+    public void logStart() {
+        createLog(IntegrationActionType.START);
+    }
+
+    @Override
+    public void logEnd() {
+        createLog(IntegrationActionType.END);
+    }
+
     @Override
     public void synchronizeNewUsers(SiteSettings settings) {
-        synchronize(settings, EntityType.USER, EntityActionType.INSERT, USER_URL, SiteUser::build, LOAD_USERS);
+        loggableExecute(IntegrationActionType.SEND_NEW_USER, intLog ->
+                synchronize(settings, EntityType.USER, EntityActionType.INSERT, USER_URL, SiteUser::build, LOAD_USERS)
+        );
     }
 
     @Override
     public void synchronizeModifiedUsers(SiteSettings settings) {
-        synchronize(settings, EntityType.USER, EntityActionType.UPDATE, USER_URL, SiteUser::build, LOAD_USERS);
+        loggableExecute(IntegrationActionType.SEND_UPDATE_USER, intLog ->
+                synchronize(settings, EntityType.USER, EntityActionType.UPDATE, USER_URL, SiteUser::build, LOAD_USERS)
+        );
     }
 
     @Override
     public void synchronizeRemovedUsers(SiteSettings settings) {
-        synchronize(settings, EntityType.USER, EntityActionType.REMOVE, USER_REMOVE_URL, null, null);
+        loggableExecute(IntegrationActionType.SEND_REMOVE_USER, intLog ->
+                synchronize(settings, EntityType.USER, EntityActionType.REMOVE, USER_REMOVE_URL, null, null)
+        );
     }
 
-    private <EntityClass extends Identified & Versioned, SiteClass> void synchronize(SiteSettings settings,
-                                                                                     EntityType entityType,
-                                                                                     EntityActionType actionType,
-                                                                                     String url,
-                                                                                     Function<EntityClass, SiteClass> convert,
-                                                                                     String loadSql) {
+    private void loggableExecute(IntegrationActionType type, Function<IntegrationLog, Integer> function) {
+        IntegrationLog log = createLog(type);
+        Integer count = function.apply(log);
+        log.setCount(count);
+        log.setEndDate(getCurrentDateTime());
+    }
+
+    private <EntityClass extends Identified & Versioned, SiteClass> int synchronize(SiteSettings settings,
+                                                                                    EntityType entityType,
+                                                                                    EntityActionType actionType,
+                                                                                    String url,
+                                                                                    Function<EntityClass, SiteClass> convert,
+                                                                                    String loadSql) {
         final ChangesFacade changesFacade = new ChangesFacade(em, entityType, actionType);
         final List<Long> ids = changesFacade.find();
         logger.info("Found " + ids.size() + " for send. Entity: " + entityType + ", action: " + actionType);
@@ -70,6 +110,7 @@ public class SiteIntegrationServiceImpl extends AbstractMascotService implements
                 logger.error("Unable synch " + entityType, e);
             }
         }
+        return converted.size();
     }
 
     private <EntityClass extends Identified & Versioned, SiteClass> List<SiteClass> getSiteClasses(Function<EntityClass, SiteClass> convert, String loadSql, List<Long> ids) {

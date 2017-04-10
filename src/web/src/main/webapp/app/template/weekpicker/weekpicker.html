@@ -1,6 +1,6 @@
 <div class="input-group">
     <input type="text" class="form-control input-filter"
-           ng-model="ngModel" is-open="vm.completeDateFilterOpened"
+           ng-model="ngModel" is-open="vm.weekPickerOpened"
            datepicker-options="vm.dateOptions" ng-required="true"
            show-button-bar = "true"
            close-text="{{'common.close' | i18n}}" current-text="{{'calendar.current.day' | i18n}}" clear-text="{{'common.clear' | i18n}}"
@@ -12,7 +12,7 @@
         {{vm.getEndWeek(vm.datePeriodFilter) | date : vm.dateFormat}}
     </label>
     <span class="input-group-btn">
-        <button type="button" class="btn btn-default" ng-click="vm.completeDateFilterOpened = true">
+        <button type="button" class="btn btn-default" ng-click="vm.weekPickerOpened = true">
             <i class="glyphicon glyphicon-calendar"></i>
         </button>
     </span>

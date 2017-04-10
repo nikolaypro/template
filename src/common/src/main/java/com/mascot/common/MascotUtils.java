@@ -4,6 +4,8 @@ package com.mascot.common;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.*;
@@ -80,6 +82,14 @@ public class MascotUtils {
         return result.toString();
     }
 
+    public static ZonedDateTime getStartDay(ZonedDateTime date) {
+        return date.truncatedTo(ChronoUnit.DAYS);
+    }
+
+    public static ZonedDateTime getEndDay(ZonedDateTime date) {
+        return date.plusDays(1).truncatedTo(ChronoUnit.DAYS).minusNanos(1000);
+    }
+
     public static ZonedDateTime getStartWeek(ZonedDateTime date) {
 /*
         date = date.withZoneSameInstant(ZoneId.systemDefault());
@@ -110,6 +120,11 @@ public class MascotUtils {
 
     public static ZonedDateTime toDefaultZonedDateTime(Date date) {
         return ZonedDateTime.ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneId.systemDefault());
+    }
+
+    public static String formatDateTime(Date date) {
+        final ZonedDateTime zonedDateTime = toDefaultZonedDateTime(date);
+        return DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss").format(zonedDateTime);
     }
 
     public static boolean equalsOrBothEmpty(String o1, String o2) {

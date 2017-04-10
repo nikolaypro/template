@@ -220,7 +220,9 @@
 
             /*synchronization*/
             'top.menu.synchronization' : 'Synchronization',
-            'synchronize.page.button' : 'Synchronize'
+            'synchronize.page.button' : 'Synchronize',
+            'synchronize.page.log.date' : 'Log date',
+            'synchronize.page.change.data.log.hint' : 'Change log date',
 
         });
 

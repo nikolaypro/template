@@ -1,7 +1,36 @@
 <main-top-menu></main-top-menu>
 <div class="container">
     <div class="edit-buttons">
-        <button class="btn btn-primary btn-sm" ng-click="vm.synch()" ng-disabled = "!vm.synchEnabled">{{'synchronize.page.button' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-click="vm.synch()" ng-disabled = "vm.synchStarted">{{'synchronize.page.button' | i18n}}</button>
+        <button class="btn btn-default pull-right" ng-click="vm.dayPickerOpened = true" ng-disabled = "vm.synchStarted">
+            <i class="glyphicon glyphicon-calendar">
+            </i>
+            {{'synchronize.page.change.data.log.hint' | i18n}}
+        </button>
+        <div class="datepicker-right-position" ng-disabled = "vm.synchStarted">
+            <input
+                    ng-model="vm.dateFilter"
+                    is-open="vm.dayPickerOpened"
+                    datepicker-options="vm.dateOptions"
+                    ng-required="true"
+                    show-button-bar="true"
+                    close-text="{{'common.close' | i18n}}"
+                    current-text="{{'calendar.current.day' | i18n}}"
+                    clear-text="{{'common.clear' | i18n}}"
+                    uib-datepicker-popup="{{vm.dateFormat}}"
+                    ng-show="false"
+            />
+        </div>
     </div>
-
+    <div class="input-group row">
+        <span class="text-padding">{{'synchronize.page.log.date' | i18n}}:</span>
+        <label style="width: 100px">
+            {{vm.dateFilter | date : vm.dateFormat}}
+        </label>
+    </div>
+    <p class="bg-success text-padding" ng-repeat="group in vm.groups" >
+        <span ng-repeat="line in group.lines">
+            {{line}}<br/>
+        </span>
+    </p>
 </div>

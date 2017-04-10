@@ -13,6 +13,7 @@
         <class>com.mascot.server.model.Progress</class>
         <class>com.mascot.server.model.SettingEntity</class>
         <class>com.mascot.server.model.SentEntity</class>
+        <class>com.mascot.server.model.IntegrationLog</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="validate"/>
