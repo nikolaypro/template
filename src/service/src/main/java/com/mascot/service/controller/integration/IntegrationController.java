@@ -26,8 +26,8 @@ public class IntegrationController extends AbstractController {
     @RequestMapping(value = "/site-synch", method = RequestMethod.POST)
     @ResponseBody
     @PreAuthorize("hasRole('" + Role.ADMIN + "') or hasRole('" + Role.REGULAR + "')")
-    public ResultRecord synchSite() {
-        integrationService.synchronizeSiteUsers();
+    public ResultRecord synchSite(@RequestBody Long progressId) {
+        integrationService.synchronizeSiteUsers(progressId);
         return ResultRecord.success();
     }
 

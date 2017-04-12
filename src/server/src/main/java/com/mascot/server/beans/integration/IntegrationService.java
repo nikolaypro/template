@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface IntegrationService {
     String NAME = "IntegrationService";
-    void synchronizeSiteUsers();
+    void synchronizeSiteUsers(Long progressId);
 
     List<IntegrationLog> getLog(ZonedDateTime dateTime);
 

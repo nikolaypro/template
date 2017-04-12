@@ -15,33 +15,9 @@
             startingDay: 1
         };
         vm.dateFilter = new Date();
-/*
-        vm.groups = [
-            {
-                lines: [
-                    "line 1", "line 2", "line 3", "line 4"
-                ]
-            },
-            {
-                lines: [
-                    "line 21", "line 22", "line 23", "line 24"
-                ]
-            },
-            {
-                lines: [
-                    "line 31", "line 32", "line 33", "line 34"
-                ]
-            }
-        ];
-*/
-/*
-        SynchronizationService.getLog(vm.dateFilter, function(data) {
-            vm.groups = data;
-        });
-*/
-        vm.synch = function () {
-            vm.synchStarted = true;
-            SynchronizationService.synch(function() {
+        vm.progressBarAction = function(progressId, onFinishCallback) {
+            SynchronizationService.synch(progressId, function() {
+                onFinishCallback();
                 reloadLog();
                 vm.synchStarted = false;
             });

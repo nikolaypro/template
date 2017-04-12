@@ -1,7 +1,7 @@
 <main-top-menu></main-top-menu>
 <div class="container">
     <div class="edit-buttons">
-        <button class="btn btn-primary btn-sm" ng-click="vm.synch()" ng-disabled = "vm.synchStarted">{{'synchronize.page.button' | i18n}}</button>
+        <button class="btn btn-primary btn-sm" ng-click="vm.synchStarted = true" ng-disabled = "vm.synchStarted">{{'synchronize.page.button' | i18n}}</button>
         <button class="btn btn-default pull-right" ng-click="vm.dayPickerOpened = true" ng-disabled = "vm.synchStarted">
             <i class="glyphicon glyphicon-calendar">
             </i>
@@ -21,6 +21,7 @@
                     ng-show="false"
             />
         </div>
+        <progress-bar started="vm.synchStarted" action="vm.progressBarAction"></progress-bar>
     </div>
     <div class="input-group row">
         <span class="text-padding">{{'synchronize.page.log.date' | i18n}}:</span>

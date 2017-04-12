@@ -12,8 +12,8 @@
         service.getLog = getLog;
         return service;
 
-        function synch(handler) {
-            return $http.post(UrlService.url('api/integration/site-synch')).then(Utils.handleSuccess(handler), handler);
+        function synch(progressId, handler) {
+            return $http.post(UrlService.url('api/integration/site-synch'), progressId).then(Utils.handleSuccess(handler), handler);
         }
 
         function getLog(date, handler) {
