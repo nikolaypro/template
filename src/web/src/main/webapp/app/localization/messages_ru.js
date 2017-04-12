@@ -218,6 +218,8 @@
 
             'typeahead.fixed.element.hint' : 'Последний выбранный элемент',
 
+            'progress.bat.state.label' : 'Текущее действие',
+
             /*synchronization*/
             'top.menu.synchronization' : 'Синхронизация',
             'synchronize.page.button' : 'Синхронизировать',

@@ -1,4 +1,4 @@
 <div ng-if="started">
-    <div>State: {{state}}</div>
+    <div>{{'progress.bat.state.label' | i18n}}: {{state}}</div>
     <uib-progressbar class="progress-striped" value="percent">{{percent}}%</uib-progressbar>
 </div>

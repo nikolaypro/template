@@ -218,6 +218,8 @@
 
             'typeahead.fixed.element.hint' : 'Use last selected element',
 
+            'progress.bat.state.label' : 'State',
+
             /*synchronization*/
             'top.menu.synchronization' : 'Synchronization',
             'synchronize.page.button' : 'Synchronize',
