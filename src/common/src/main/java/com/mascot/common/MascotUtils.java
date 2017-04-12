@@ -147,4 +147,12 @@ public class MascotUtils {
         return locale.getLanguage() + "_" + locale.getCountry();
     }
 
+    public static void sleep(int seconds) {
+        try {
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

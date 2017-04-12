@@ -57,7 +57,11 @@ public class Localization {
     }
 
     private String getFromBundle(String key, Object[] params) {
-        String result = bundle.getString(key);
+        String result = null;
+        try {
+            result = bundle.getString(key);
+        } catch (Exception e) {
+        }
         return result != null ? String.format(result, params) : key;
     }
 

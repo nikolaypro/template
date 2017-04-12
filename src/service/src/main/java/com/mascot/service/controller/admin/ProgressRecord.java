@@ -2,6 +2,8 @@ package com.mascot.service.controller.admin;
 
 import com.mascot.server.beans.importdata.ImportProgress;
 import com.mascot.server.model.Progress;
+import com.mascot.service.controller.common.Localization;
+import com.mascot.service.security.MascotSession;
 
 /**
  * Created by Николай on 22.12.2016.
@@ -23,7 +25,7 @@ public class ProgressRecord {
         }
         ProgressRecord result = new ProgressRecord();
         result.percent = progress.getValue();
-        result.state = progress.getState();
+        result.state = Localization.get(progress.getState(), MascotSession.getCurrent().getLocale());
         return result;
     }
 }
