@@ -1,24 +1,21 @@
 package com.mascot.server.test;
 
-import liquibase.exception.LiquibaseException;
 import liquibase.integration.spring.SpringLiquibase;
-import org.hibernate.ejb.HibernatePersistence;
-import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.JpaDialect;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.Resource;
 import javax.persistence.ValidationMode;
 import javax.sql.DataSource;
-import java.sql.SQLException;
 
 /**
  * Created by Nikolay on 11.01.2017.
@@ -27,6 +24,7 @@ import java.sql.SQLException;
 @EnableTransactionManagement
 @ComponentScan("com.mascot.server.beans")
 @PropertySource("classpath:test.properties")
+//@TestPropertySource("classpath:test.properties")
 public class TestDataBaseConfig {
     public static final String PROP_DATABASE_DRIVER = "db.driver";
     public static final String PROP_DATABASE_USERNAME = "db.username";
