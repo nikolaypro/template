@@ -21,6 +21,7 @@ def commonProject = project(':common')
 def serverProject = project(':server')
 def serviceProject = project(':service')
 def webProject = project(':web')
+def web2Project = project(':web2')
 def reportProject = project(':report')
 def tomcatPath = 'tomcat'
 def tomcatWebApp = tomcatPath + '/webapps'
@@ -29,6 +30,9 @@ def tomcatConf = tomcatPath + '/conf'
 def tomcatReportsDir = tomcatConf + '/reports'
 def warFileName = 'template'
 def webWarFileName = 'template-web'
+
+def ang2WebappDir = 'src/web2/src/main/webapp/web-project'
+
 // VERSIONS
 def spring_version = '4.3.4.RELEASE'
 def liquibase_version = '3.4.1'
@@ -269,5 +273,36 @@ task liquibase_Update(type: JavaExec) {
     args "update"
 }
 
+processResources {
+    dependsOn "buildAngular"
+}
+
+task buildAngular(type:Exec) {
+    // installAngular should be run prior to this task
+    dependsOn "installAngular"
+    workingDir ang2WebappDir
+    inputs.dir ang2WebappDir
+    // Add task to the standard build group
+    group = "Mascot"
+//    group = BasePlugin.BUILD_GROUP
+    // ng doesn't exist as a file in windows -> ng.cmd
+    if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
+        commandLine "ng.cmd", "build"
+    } else {
+        commandLine "ng", "build"
+    }
+}
+
+task installAngular(type:Exec) {
+    workingDir ang2WebappDir
+    inputs.dir ang2WebappDir
+    group = "Mascot"
+//    group = BasePlugin.BUILD_GROUP
+    if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
+        commandLine "npm.cmd", "install"
+    } else {
+        commandLine "npm", "install"
+    }
+}
 // -------------------------------------------------------
 
