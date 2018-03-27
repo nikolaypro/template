@@ -30,6 +30,7 @@ def tomcatConf = tomcatPath + '/conf'
 def tomcatReportsDir = tomcatConf + '/reports'
 def warFileName = 'template'
 def webWarFileName = 'template-web'
+def web2WarFileName = 'template-web2'
 
 def ang2WebappDir = 'src/web2/src/main/webapp/web-project'
 
@@ -145,12 +146,51 @@ configure([webProject]) {
     }
 }
 
+task buildAngular(type:Exec) {
+    // installAngular should be run prior to this task
+    dependsOn "installAngular"
+    workingDir ang2WebappDir
+    inputs.dir ang2WebappDir
+    // Add task to the standard build group
+    group = "Mascot"
+//    group = BasePlugin.BUILD_GROUP
+    // ng doesn't exist as a file in windows -> ng.cmd
+    if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
+        commandLine "ng.cmd", "build"
+    } else {
+        commandLine "ng", "build"
+    }
+}
+
+task installAngular(type:Exec) {
+    workingDir ang2WebappDir
+    inputs.dir ang2WebappDir
+    group = "Mascot"
+//    group = BasePlugin.BUILD_GROUP
+    if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
+        commandLine "npm.cmd", "install"
+    } else {
+        commandLine "npm", "install"
+    }
+}
+
+configure([web2Project]) {
+    apply plugin: 'war'
+    war {
+        archiveName = web2WarFileName + ".war"
+        exclude('web-project/**')
+    }
+    processResources {
+        dependsOn buildAngular
+    }
+}
 
 task cleanTomcatDeployDir(type: org.gradle.api.tasks.Delete) {
     delete tomcatWebApp + '/' + warFileName
     delete tomcatWebApp + '/' + warFileName + '.war'
     delete tomcatWebApp + '/' + webWarFileName
     delete tomcatWebApp + '/' + webWarFileName + '.war'
+    delete tomcatWebApp + '/' + web2WarFileName + '.war'
 }
 
 task cleanTomcatReportsDir(type: org.gradle.api.tasks.Delete) {
@@ -165,6 +205,12 @@ task copyReports(type: Copy, dependsOn: [cleanTomcatReportsDir]) {
 task createAndCopyWar(type: Copy, dependsOn: [serviceProject.build, webProject.build, cleanTomcatDeployDir, copyReports]) {
     group = "Mascot"
     from 'src/service/build/libs/' + warFileName + '.war', 'src/web/build/libs/' + webWarFileName + '.war'
+    into tomcatWebApp
+}
+
+task createAndCopyWar2(type: Copy, dependsOn: [serviceProject.build, web2Project.build, cleanTomcatDeployDir, copyReports]) {
+    group = "Mascot"
+    from 'src/service/build/libs/' + warFileName + '.war', 'src/web2/build/libs/' + web2WarFileName + '.war'
     into tomcatWebApp
 }
 
@@ -273,36 +319,5 @@ task liquibase_Update(type: JavaExec) {
     args "update"
 }
 
-processResources {
-    dependsOn "buildAngular"
-}
-
-task buildAngular(type:Exec) {
-    // installAngular should be run prior to this task
-    dependsOn "installAngular"
-    workingDir ang2WebappDir
-    inputs.dir ang2WebappDir
-    // Add task to the standard build group
-    group = "Mascot"
-//    group = BasePlugin.BUILD_GROUP
-    // ng doesn't exist as a file in windows -> ng.cmd
-    if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
-        commandLine "ng.cmd", "build"
-    } else {
-        commandLine "ng", "build"
-    }
-}
-
-task installAngular(type:Exec) {
-    workingDir ang2WebappDir
-    inputs.dir ang2WebappDir
-    group = "Mascot"
-//    group = BasePlugin.BUILD_GROUP
-    if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
-        commandLine "npm.cmd", "install"
-    } else {
-        commandLine "npm", "install"
-    }
-}
 // -------------------------------------------------------
 
