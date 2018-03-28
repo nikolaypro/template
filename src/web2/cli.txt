@@ -1,0 +1,11 @@
+----------- CLI Commands -----------
+Run in directory src/main/webapp/web-project
+
+------- Create a new module
+ng generate module app-routing --flat --module=app
+--flat puts the file in src/app instead of its own folder.
+--module=app tells the CLI to register it in the imports array of the AppModule.
+
+-------  Install Bootstrap (was v 4.0.0)
+npm install ngx-bootstrap bootstrap --save
+
