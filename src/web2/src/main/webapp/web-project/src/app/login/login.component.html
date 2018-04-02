@@ -1,20 +1,49 @@
-<nav>
-  <a routerLink="/path1">Login</a>
-  <button type="button" class="btn btn-primary">
-    Single Button
-  </button>
-  <accordion>
-    <accordion-group heading="Static Header, initially expanded">
-      This content is straight in the template.
-    </accordion-group>
-    <accordion-group heading="Another group">
-      <p>Some content</p>
-    </accordion-group>
-    <accordion-group heading="Another group">
-      <p>Some content</p>
-    </accordion-group>
-    <accordion-group heading="Another group">
-      <p>Some content</p>
-    </accordion-group>
-  </accordion>
-</nav>
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <h2>Login</h2>
+    <!--{{diagnostic}}-->
+    <form #loginForm="ngForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" required
+               [ngClass]="{'is-invalid': username.invalid && username.dirty}"
+               [(ngModel)]="model.username" #username="ngModel" placeholder="Login"/>
+        <div class="invalid-feedback">Username is required</div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required
+               [ngClass]="{'is-invalid': password.invalid && password.dirty}"
+               [(ngModel)]="model.password" #password="ngModel" placeholder="Password"/>
+        <span class="invalid-feedback">Password is required</span>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled] = "password.invalid || username.invalid">Login</button>
+    </form>
+
+<!--
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    <form name="form" ng-submit="vm.login()" role="form">
+      <div class="form-group"
+           ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" class="form-control" ng-model="vm.username"
+               required/>
+        <span *ngIf="form.username.$dirty && form.username.$error.required"
+              class="help-block">Username is required</span>
+      </div>
+      <div class="form-group"
+           ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-control" ng-model="vm.password"
+               required/>
+        <span *ngIf="form.password.$dirty && form.password.$error.required"
+              class="help-block">Password is required</span>
+      </div>
+      <div class="form-actions">
+        <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Login
+        </button>
+      </div>
+    </form>
+-->
+  </div>
+</div>
