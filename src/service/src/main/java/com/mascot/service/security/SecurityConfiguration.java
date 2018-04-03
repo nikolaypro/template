@@ -6,6 +6,7 @@ import com.mascot.server.beans.UserService;
 import com.mascot.server.model.Role;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
@@ -26,6 +27,9 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -78,6 +82,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 */
     }
 
+
+/*
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("*").allowedOrigins("*"*/
+/*"http://localhost:9000"*//*
+);
+            }
+        };
+    }
+*/
+
     private String decodeUTF8(String username) {
         try {
             return URLDecoder.decode(username, "UTF-8");
@@ -92,6 +111,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/authenticate1").permitAll()
+//                .antMatchers(HttpMethod.OPTIONS, "/api/authenticate").permitAll()
 //                .antMatchers(HttpMethod.POST, "/api/autoLogin").permitAll()
 //                    .antMatchers(HttpMethod.POST, "/api/users").permitAll()
 //                    .antMatchers(HttpMethod.GET, "/api/users/*").permitAll()

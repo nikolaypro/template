@@ -42,15 +42,15 @@
         }
 
         function update(user, handleSuccess) {
-            return $http.post(UrlService.url('/api/users/update'), user).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+            return $http.post(UrlService.url('api/users/update'), user).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
         function deleteEntity(ids, handleSuccess) {
-            return $http.post(UrlService.url('/api/users/delete'), ids).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+            return $http.post(UrlService.url('api/users/delete'), ids).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
         function loadLocales(handleSuccess) {
-            return $http.post(UrlService.url('/api/users/locales')).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+            return $http.post(UrlService.url('api/users/locales')).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
     }

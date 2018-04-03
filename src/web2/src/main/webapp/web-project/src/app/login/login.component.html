@@ -2,7 +2,7 @@
   <div class="col-md-4 offset-md-4">
     <h2>Login</h2>
     <!--{{diagnostic}}-->
-    <form #loginForm="ngForm">
+    <form #loginForm="ngForm" (ngSubmit) = "onSubmit(loginForm)">
       <div class="form-group">
         <label for="username">Username</label>
         <input type="text" class="form-control" id="username" name="username" required

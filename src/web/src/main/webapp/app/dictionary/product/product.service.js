@@ -31,15 +31,15 @@
         }
 
         function update(user, handleSuccess) {
-            return $http.post(UrlService.url('/api/products/update'), user).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+            return $http.post(UrlService.url('api/products/update'), user).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
         function deleteEntity(ids, handleSuccess) {
-            return $http.post(UrlService.url('/api/products/delete'), ids).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+            return $http.post(UrlService.url('api/products/delete'), ids).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
         function getForFilter(handleSuccess) {
-            return $http.post(UrlService.url('/api/products/all')).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
+            return $http.post(UrlService.url('api/products/all')).then(Utils.handleSuccess(handleSuccess), Utils.handleError);
         }
 
     }

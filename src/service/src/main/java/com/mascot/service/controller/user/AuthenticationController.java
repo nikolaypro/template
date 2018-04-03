@@ -36,6 +36,7 @@ import java.util.stream.Stream;
  * Created by Nikolay on 25.11.2015.
  */
 //@RestController
+//@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping()
 public class AuthenticationController extends AbstractController {

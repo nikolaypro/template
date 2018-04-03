@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { Path2Component } from './path2/path2.component';
 import { TopMenuComponent } from './top-menu/top-menu.component';
 import {AccordionModule} from "ngx-bootstrap";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {AccordionModule} from "ngx-bootstrap";
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    HttpClientModule
 
   ],
   providers: [],

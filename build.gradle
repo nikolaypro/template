@@ -37,7 +37,7 @@ def ang2WebappDir = 'src/web2/src/main/webapp/web-project'
 // VERSIONS
 def spring_version = '4.3.4.RELEASE'
 def liquibase_version = '3.4.1'
-def spring_security_version = '4.0.3.RELEASE'
+def spring_security_version = '4.2.5.RELEASE'
 def hibernate_version = '5.2.10.Final'
 def jackson_version = '1.9.13'
 def fasterxml_jackson_version = '2.6.3'
