@@ -3,7 +3,7 @@ plugins {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.2'
+    gradleVersion = '4.6'
 //    gradleVersion = '1.9'
 }
 
@@ -35,9 +35,8 @@ def web2WarFileName = 'template-web2'
 def ang2WebappDir = 'src/web2/src/main/webapp/web-project'
 
 // VERSIONS
-def spring_version = '4.3.4.RELEASE'
+def spring_version = '2.0.0.RELEASE'
 def liquibase_version = '3.4.1'
-def spring_security_version = '4.2.5.RELEASE'
 def hibernate_version = '5.2.10.Final'
 def jackson_version = '1.9.13'
 def fasterxml_jackson_version = '2.6.3'
@@ -70,7 +69,7 @@ allprojects {
     dependencies {
 //        testCompile 'junit:junit:4.11'
         testCompile 'org.testng:testng:6.8'
-        compile 'javax:javaee-api:7.0'
+        compile 'javax:javaee-api:8.0'
         compile 'log4j:log4j:1.2.17'
         compile group: 'commons-io', name: 'commons-io', version: '2.5'
         compile 'javax.mail:mail:1.4.7'
@@ -80,14 +79,23 @@ allprojects {
 
 configure([commonProject]) {
     dependencies {
+/*
         compile 'org.springframework:spring-web:' + spring_version
         compile 'org.springframework:spring-tx:' + spring_version
         compile 'org.springframework:spring-orm:' + spring_version
         compile 'org.springframework:spring-context-support:' + spring_version
+        compile 'org.springframework.security:spring-security-core:' + spring_security_version
+*/
+        compile 'org.springframework.boot:spring-boot-starter-web:' + spring_version
+        compile 'org.springframework.boot:spring-boot-starter-data-jpa:' + spring_version
+        compile 'org.springframework.boot:spring-boot-starter-security:' + spring_version
+        compile 'org.springframework.boot:spring-boot-starter-quartz:' + spring_version
+
+        compile 'javax.validation:validation-api:2.0.1.GA'
+
         compile 'org.hibernate:hibernate-entitymanager:' + hibernate_version
         compile 'org.hibernate:hibernate-core:' + hibernate_version
         testCompile 'org.hibernate:hibernate-core:' + hibernate_version
-        compile 'org.springframework.security:spring-security-core:' + spring_security_version
         compile 'mysql:mysql-connector-java:5.1.9'
         compile files('lib/sqljdbc4.jar')
 //        compile 'com.microsoft.sqlserver:sqljdbc4:4.0'
@@ -106,7 +114,8 @@ configure([serverProject]) {
         compile 'commons-httpclient:commons-httpclient:3.1'
         compile 'org.apache.httpcomponents:httpclient:4.2.1'
         compile 'org.codehaus.jackson:jackson-mapper-lgpl:1.9.9'
-        testCompile 'org.springframework:spring-test:' + spring_version
+//        testCompile 'org.springframework:spring-test:' + spring_version
+        testCompile 'org.springframework.boot:spring-boot-starter-test:' + spring_version
         testCompile 'org.liquibase:liquibase-core:' + liquibase_version
 //        testCompile 'org.springframework:spring-orm:' + spring_version
     }
@@ -119,10 +128,14 @@ configure([serviceProject]) {
         compile serverProject
         providedCompile "javax.servlet:servlet-api:2.5"
         providedCompile 'log4j:log4j:1.2.17'
+
+/*
         compile 'org.springframework:spring-webmvc:' + spring_version
         compile 'org.springframework:spring-web:' + spring_version
         compile 'org.springframework.security:spring-security-web:' + spring_security_version
         compile 'org.springframework.security:spring-security-config:' + spring_security_version
+*/
+
         compile 'org.codehaus.jackson:jackson-mapper-asl:' + jackson_version
         compile 'com.fasterxml.jackson.core:jackson-core:' + fasterxml_jackson_version
         compile 'com.fasterxml.jackson.core:jackson-databind:' + fasterxml_jackson_version

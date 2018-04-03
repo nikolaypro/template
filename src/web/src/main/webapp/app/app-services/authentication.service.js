@@ -96,7 +96,7 @@
         }
 
         function Logout(callback) {
-            $http.post(UrlService.url('/logout'), {})
+            $http.post(UrlService.url('logout'), {})
                 .success(function (response) {
                     callback(true)
                 })
