@@ -1,3 +1,8 @@
+------- install CLI
+npm install -g @angular/cli
+------- Create a application (выполнять еа уровне webapp)
+ng new web-project
+
 ----------- CLI Commands -----------
 Run in directory src/main/webapp/web-project
 

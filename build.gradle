@@ -222,8 +222,10 @@ task createAndCopyWar(type: Copy, dependsOn: [serviceProject.build, webProject.b
 }
 
 task createAndCopyWar2(type: Copy, dependsOn: [serviceProject.build, web2Project.build, cleanTomcatDeployDir, copyReports]) {
+//task createAndCopyWar2(type: Copy, dependsOn: [web2Project.build, cleanTomcatDeployDir, copyReports]) {
     group = "Mascot"
     from 'src/service/build/libs/' + warFileName + '.war', 'src/web2/build/libs/' + web2WarFileName + '.war'
+//    from 'src/web2/build/libs/' + web2WarFileName + '.war'
     into tomcatWebApp
 }
 
